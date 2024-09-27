@@ -6,7 +6,8 @@ import 'package:onze_cafe/screens/auth/subviews/signup_form_view.dart';
 import 'auth_cubit.dart';
 
 class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key});
+  const AuthScreen({super.key, required this.isSignup});
+  final bool isSignup;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class AuthScreen extends StatelessWidget {
                   Expanded(
                     child: BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) {
+                        if (state is AuthInitial) cubit.isSignup = isSignup;
                         return ListView(
                           children: [
                             cubit.isSignup
