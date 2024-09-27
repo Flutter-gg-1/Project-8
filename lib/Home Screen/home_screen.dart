@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/Home%20Screen/coffe_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -110,12 +111,21 @@ class HomeScreen extends StatelessWidget {
                 Tab(text: 'Desserts'),
               ],
             ),
-            const Expanded(
+            Expanded(
               child: TabBarView(
                 children: [
-                  Center(
-                      child: Text('Coffee Menu',
-                          style: TextStyle(color: Colors.white))),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          CoffeeCard(size: size),
+                        ],
+                      ),
+                    ],
+                  ),
                   Center(
                       child: Text('Dessert Menu',
                           style: TextStyle(color: Colors.white))),
