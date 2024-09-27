@@ -1,6 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
-import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -47,7 +46,7 @@ class OtpScreen extends StatelessWidget {
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     )),
-                    context.addSpacer(multiply: 0.02),
+                context.addSpacer(multiply: 0.02),
                 const Pinput(
                   length: 6,
                 ),
