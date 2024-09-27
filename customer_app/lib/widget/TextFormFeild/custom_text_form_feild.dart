@@ -7,13 +7,14 @@ class CustomTextFormFeild extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final Widget? prefixIcon;
   const CustomTextFormFeild({
     super.key,
     required this.label,
     this.hint,
     this.controller,
     this.validator,
-    this.keyboardType,
+    this.keyboardType, this.prefixIcon,
   });
 
   @override
@@ -40,6 +41,7 @@ class CustomTextFormFeild extends StatelessWidget {
             controller: controller,
             keyboardType: keyboardType,
             decoration: InputDecoration(
+              prefixIcon: prefixIcon,
               hintStyle: const TextStyle(color: Colors.grey),
               hintText: '   $hint',
               enabledBorder: OutlineInputBorder(
