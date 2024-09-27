@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/screens/menu_screen.dart';
+import 'package:onze_cafe/screens/menu/menu_screen.dart';
 
 part 'auth_state.dart';
 
