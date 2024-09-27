@@ -1,4 +1,4 @@
-import 'package:customer_app/screens/home_screen.dart';
+import 'package:employee_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
