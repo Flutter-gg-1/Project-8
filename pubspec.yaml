@@ -13,6 +13,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   flutter_bloc: ^8.1.6
   animated_bottom_navigation_bar: ^1.3.3
+  moyasar: ^2.0.13
 
 dev_dependencies:
   flutter_test:
