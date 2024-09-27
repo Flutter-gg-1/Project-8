@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class CoffeeCard extends StatelessWidget {
@@ -14,22 +15,14 @@ class CoffeeCard extends StatelessWidget {
       width: size.width * 0.35, // Smaller width for the container
       height: size.height * 0.18, // Smaller height for the container
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.transparent, // Transparent at the top
-            const Color(0x3038353a)
-                .withOpacity(0.8), // Semi-transparent at the bottom
-          ],
-        ),
+        color: const Color.fromARGB(255, 192, 186, 179),
         borderRadius: BorderRadius.circular(15), // Rounded corners
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2), // Shadow color
+            color: const Color(0xff74a0b2).withOpacity(0.1), // Shadow color
             spreadRadius: 2, // Spread the shadow
             blurRadius: 5, // Blur the shadow
-            offset: Offset(0, 3), // Shadow position
+            offset: const Offset(0, 3), // Shadow position
           ),
         ],
       ),
@@ -37,7 +30,7 @@ class CoffeeCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            top: -size.height * 0.01,
+            top: -size.height * 0.017,
             left: -size.width * 0.08,
             child: ClipOval(
               clipBehavior: Clip.none,
@@ -90,10 +83,26 @@ class CoffeeCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: size.width * 0.04, // Adjusted font size for price
                     fontWeight: FontWeight.bold,
-                    color: Color(0xffbc793d),
+                    color: Colors.white,
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: 105,
+            right: -9,
+            child: Material(
+              color: Colors.transparent, // Ensure transparency
+              child: IconButton(
+                onPressed: () {
+                  log('hello');
+                },
+                icon: const Icon(
+                  Icons.add_box,
+                  color: Color(0xffC67C4E),
+                ),
+              ),
             ),
           ),
         ],
