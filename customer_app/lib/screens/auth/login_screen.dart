@@ -1,4 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/screens/auth/otp_screen.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
 import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
@@ -85,7 +86,13 @@ class LoginScreen extends StatelessWidget {
               context.addSpacer(multiply: 0.04),
               CustomButton(
                 title: 'Login',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OtpScreen(email: 'example@gmail.com',),
+                      ));
+                },
                 icon: Icons.arrow_forward_ios_rounded,
               )
             ],
