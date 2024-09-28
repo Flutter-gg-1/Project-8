@@ -36,4 +36,8 @@ extension Img on ImageProvider {
   static const americano = AssetImage('assets/menu_items/americano.jpg');
   static const cappuccino = AssetImage('assets/menu_items/cappuccino.jpg');
   static const late = AssetImage('assets/menu_items/late.jpg');
+
+  //Coffee bean
+  static const coffeeBeanR = AssetImage('assets/coffee_bean/coffee_bean.png');
+  static const coffeeBeanB = AssetImage('assets/coffee_bean/coffee_bean_b.png');
 }

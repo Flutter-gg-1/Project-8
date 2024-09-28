@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/screens/drawer/drawer_screen.dart';
 import 'package:onze_cafe/screens/menu/subviews/Item_view.dart';
-import 'package:onze_cafe/screens/menu/subviews/offers_slider.dart';
 import 'package:onze_cafe/screens/menu/subviews/categoryTab.dart';
 import 'package:onze_cafe/screens/menu/menu_cubit.dart';
+import 'package:onze_cafe/screens/menu/subviews/offers_view.dart';
 
 import '../../extensions/img_ext.dart';
 
@@ -87,7 +86,7 @@ class MenuScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CategoryTab(cubit: cubit),
-                          _OffersView(),
+                          OffersView(),
                           ListView.builder(
                             controller: cubit.scrollController,
                             shrinkWrap: true,
@@ -160,43 +159,6 @@ class MenuScreen extends StatelessWidget {
           ]),
         );
       }),
-    );
-  }
-}
-
-class _OffersView extends StatelessWidget {
-  const _OffersView();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: const Text("Offers").styled(weight: FontWeight.bold, size: 18),
-        ),
-        const OffersSlider(),
-      ],
-    );
-  }
-}
-
-class ViewCategory extends StatelessWidget {
-  const ViewCategory({super.key, required this.category, required this.index});
-  final MenuCategory category;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Text(category.name).styled(weight: FontWeight.bold, size: 24),
-          Divider(),
-        ],
-      ),
     );
   }
 }

@@ -10,6 +10,7 @@ extension MenuItemsExt on MockData {
           name: 'espresso',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
       MenuItem(
           id: '2',
@@ -17,6 +18,7 @@ extension MenuItemsExt on MockData {
           name: 'americano',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
       MenuItem(
           id: '3',
@@ -24,6 +26,7 @@ extension MenuItemsExt on MockData {
           name: 'latte',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
       MenuItem(
           id: '4',
@@ -31,6 +34,7 @@ extension MenuItemsExt on MockData {
           name: 'ice latte',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
       MenuItem(
           id: '5',
@@ -38,6 +42,7 @@ extension MenuItemsExt on MockData {
           name: 'ice spanish',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
       MenuItem(
           id: '6',
@@ -45,6 +50,7 @@ extension MenuItemsExt on MockData {
           name: 'ice v60',
           calories: 5,
           imgUrl: '',
+          description: '',
           price: 7),
     ];
   }
