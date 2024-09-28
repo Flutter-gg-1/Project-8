@@ -29,7 +29,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       VerifyEvent event, Emitter<AuthState> emit) async {
     try {
       emit(LoadingState());
-      await verify(email: event.email, otp: event.otp);
+      await verify(
+          email: event.email,
+          otp: event.otp,
+          name: event.name,
+          phone: event.phone);
       await login(email: event.email, password: event.password);
       emit(SuccessfulVerifyState());
     } catch (error) {

@@ -13,12 +13,17 @@ final class RegisterEvent extends AuthEvent {
 final class VerifyEvent extends AuthEvent {
   final String email;
   final String password;
+  final String name;
+  final String phone;
   final String otp;
 
-  VerifyEvent({required this.email,required this.password, required this.otp});
+  VerifyEvent(
+      {required this.name,
+      required this.phone,
+      required this.email,
+      required this.password,
+      required this.otp});
 }
-
-
 
 final class LoginEvent extends AuthEvent {
   final String email;

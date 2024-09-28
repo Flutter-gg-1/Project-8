@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/Auth%20Screens/auth_bloc/auth_bloc.dart';
-import 'package:onze_cafe/Home%20Screen/home_screen.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/auth_bloc/auth_bloc.dart';
+import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sizer/sizer.dart';
 
 class OtpScreen extends StatelessWidget {
   final String email;
   final String password;
-  const OtpScreen({super.key, required this.email, required this.password});
+  final String name;
+  final String phone;
+  const OtpScreen({super.key, required this.email, required this.password, required this.name, required this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,7 @@ class OtpScreen extends StatelessWidget {
                             submittedPinTheme: submittedPinTheme,
                             showCursor: true,
                             onCompleted: (pin) {
-                              bloc.add(VerifyEvent(email: email, password: password,otp: pin));
+                              bloc.add(VerifyEvent(email: email, password: password,otp: pin, name: name, phone: phone));
                             },
                           ),
                         ),

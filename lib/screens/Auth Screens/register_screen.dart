@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/Auth%20Screens/auth_bloc/auth_bloc.dart';
-import 'package:onze_cafe/Home%20Screen/home_screen.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/auth_bloc/auth_bloc.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/login_screen.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/otp_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-
+    TextEditingController phoneController = TextEditingController();
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Builder(builder: (context) {
         final bloc = context.read<AuthBloc>();
-        return BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is SuccessfulLoginState) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
-            }
-            if (state is ErrorState) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.message)));
-            }
-          },
-          child: Scaffold(
-            extendBodyBehindAppBar: true,
-            body: Stack(
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          body: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is SuccessfulRegisterState) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OtpScreen(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                            )));
+              }
+              if (state is ErrorState) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.message)));
+              }
+            },
+            child: Stack(
               children: [
                 Positioned.fill(
                   child: Image.asset(
@@ -42,13 +51,50 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Email',
-                        style: TextStyle(color: Colors.white, fontSize: 14.33),
+                      const Text('Name',
+                          style: TextStyle(
+                              fontSize: 14.33,
+                              color: Color(0xffE6E2E0),
+                              fontWeight: FontWeight.w600)),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xffA4A4A4).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: TextField(
+                          controller: nameController,
+                          cursorColor: const Color(0xffE6E2E0),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Color(0xffE6E2E0),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Color(0xffE6E2E0),
+                                width: 2,
+                              ),
+                            ),
+                            prefixIcon: const Icon(Icons.person_2_outlined,
+                                color: Color(0xffE6E2E0)),
+                            hintText: 'First and last name',
+                            hintStyle:
+                                const TextStyle(color: Color(0xffA4A4A4)),
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                       const SizedBox(
                         height: 12,
                       ),
+                      const Text('email',
+                          style: TextStyle(
+                              fontSize: 14.33,
+                              color: Color(0xffE6E2E0),
+                              fontWeight: FontWeight.w600)),
                       Container(
                         decoration: BoxDecoration(
                           color: const Color(0xffA4A4A4).withOpacity(0.2),
@@ -56,6 +102,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         child: TextField(
                           controller: emailController,
+                          cursorColor: const Color(0xffE6E2E0),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -88,9 +135,6 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 14.33,
                               color: Color(0xffE6E2E0),
                               fontWeight: FontWeight.w600)),
-                      const SizedBox(
-                        height: 12,
-                      ),
                       Container(
                         decoration: BoxDecoration(
                           color: const Color(0xffA4A4A4).withOpacity(0.2),
@@ -128,17 +172,42 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         height: 12,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              // forgot password??
-                            },
-                            child: const Text('Forgot Password',
-                                style: TextStyle(color: Color(0xff87B1C5))),
+                      const Text('Phone',
+                          style: TextStyle(
+                              fontSize: 14.33,
+                              color: Color(0xffE6E2E0),
+                              fontWeight: FontWeight.w600)),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xffA4A4A4).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: TextField(
+                          controller: phoneController,
+                          keyboardType: TextInputType.numberWithOptions(),
+                          cursorColor: const Color(0xffE6E2E0),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Color(0xffE6E2E0),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Color(0xffE6E2E0),
+                                width: 2,
+                              ),
+                            ),
+                            prefixIcon: const Icon(Icons.phone_android,
+                                color: Color(0xffE6E2E0)),
+                            hintText: '05xxxxxxxx',
+                            hintStyle:
+                                const TextStyle(color: Color(0xffA4A4A4)),
                           ),
-                        ],
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                       const SizedBox(
                         height: 24,
@@ -160,7 +229,7 @@ class LoginScreen extends StatelessWidget {
                               child: SizedBox.expand(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    bloc.add(LoginEvent(
+                                    bloc.add(RegisterEvent(
                                         email: emailController.text,
                                         password: passwordController.text));
                                   },
@@ -173,7 +242,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   child: const Text(
-                                    'Sign in',
+                                    'Register',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -183,7 +252,27 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ))
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()));
+                            },
+                            child: RichText(
+                                text: const TextSpan(children: [
+                              TextSpan(text: 'Already have an account? '),
+                              TextSpan(
+                                  text: 'Login',
+                                  style: TextStyle(color: Color(0xff87B1C5))),
+                            ]))),
+                      )
                     ],
                   ),
                 )

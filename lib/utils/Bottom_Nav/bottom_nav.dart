@@ -2,7 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:onze_cafe/Bottom_Nav/bottom_nav_bloc/bottom_nav_bloc.dart';
+import 'package:onze_cafe/utils/Bottom_Nav/bottom_nav_bloc/bottom_nav_bloc.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
