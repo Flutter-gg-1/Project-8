@@ -78,6 +78,7 @@ class HomeScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
+        centerTitle: true,
         title: Image.asset(
           'assets/onze logo.png',
           height: 200,
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
             },
             icon: const Icon(
               Icons.shopping_cart_outlined,
-              color: Colors.white, 
+              color: Colors.white,
             ),
           ),
         ],
@@ -121,19 +122,19 @@ class HomeScreen extends StatelessWidget {
                           autoPlay: true,
                           height: size.height * 0.25,
                           aspectRatio: 16 / 9,
-                          enlargeCenterPage: true,
+                          // enlargeCenterPage: true,
                         ),
                         items: imgList.map((item) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                width: size.width * 0.7,
-                                height: size.height * 0.01,
+                                // width: size.width * 0.65,
+                                // height: size.height * 0.01,
                                 margin: const EdgeInsets.only(top: 35),
                                 // إضافة الحواف الدائرية للصور
                                 child: ClipRRect(
                                   borderRadius:
-                                      BorderRadius.circular(20), // حواف دائرية
+                                      BorderRadius.circular(25), // حواف دائرية
                                   child: Image.asset(
                                     item,
                                     fit: BoxFit.contain,
