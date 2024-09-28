@@ -1,4 +1,6 @@
+import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/inkwell/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -9,30 +11,10 @@ class MenuOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TabBarView(children: [
+    final locator = productLocator.get<ProductLayer>();
+    return TabBarView(children: [
       //cold coffee menu
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-          ],
-        ),
-      ),
+      ItemList(locator: locator,type: '',),
       //Tea menu
       Text('2'),
       //Cold drinks menu
@@ -52,5 +34,33 @@ class MenuOption extends StatelessWidget {
       //dessert menu
       Text('10'),
     ]);
+  }
+}
+
+class ItemList extends StatelessWidget {
+  const ItemList({
+    super.key,
+    required this.locator, required this.type,
+  });
+
+  final ProductLayer locator;
+  final String type;
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+          children: locator.menu
+              .map(
+                (e) =>e.type == ''? ProductItem(
+                    name: e.name!,
+                    price: e.price!,
+                    id: e.productId,
+                    cal: e.cal!,
+                    time: e.preparationTime!,
+                    description: e.des!,
+                    type: e.type!): Text('')
+              )
+              .toList()),
+    );
   }
 }

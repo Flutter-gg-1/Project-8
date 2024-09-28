@@ -1,5 +1,5 @@
 class Product {
-  String? productId;
+  dynamic productId;
   String? name;
   int? cal;
   int? price;
