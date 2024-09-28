@@ -24,15 +24,21 @@ extension C on Colors {
   // Background color 1 based on the current brightness
   static Color bg1(Brightness brightness) {
     return brightness == Brightness.dark
-        ? const Color(0xFF3A3A3A) // Dark theme background
-        : const Color(0xFFD7D1CA); // Light theme background
+        ? const Color(0xFFEDECEB) // Dark theme background
+        : const Color(0xFFEDECEB); // Light theme background
   }
 
   // Background color 2 based on the current brightness
   static Color bg2(Brightness brightness) {
     return brightness == Brightness.dark
-        ? const Color(0xFFEEEDEA) // Dark theme background 2
-        : const Color(0xFFEEEDEA); // Light theme background 2
+        ? const Color(0xFFD7D1CA) // Dark theme background 2
+        : const Color(0xFFD7D1CA); // Light theme background 2
+  }
+  // Background color 3 based on the current brightness
+  static Color bg3(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? const Color(0xFFE7E3E0) // Dark theme background 3
+        : const Color(0xFFE7E3E0); // Light theme background 3
   }
 
   // Text color based on the current brightness
