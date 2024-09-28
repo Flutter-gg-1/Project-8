@@ -1,14 +1,24 @@
-import 'package:flutter/cupertino.dart';
-import 'package:onze_cafe/extensions/img_ext.dart';
+import 'package:onze_cafe/extensions/date_ext.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
+import 'package:onze_cafe/model/offer.dart';
 
-extension MenuItemsExt on MockData {
-  List<AssetImage> fetchOfferce() {
+extension OffersExt on MockData {
+  List<Offer> fetchOffers() {
     return [
-      Img.logo1,
-      Img.logo2,
-      Img.logo3,
-      Img.logo4,
+      Offer(
+        id: '1',
+        menuItemId: '1',
+        price: 5.5,
+        startDate: DateTime.now().toFormattedString(),
+        endDate: DateTime.now().add(Duration(days: 10)).toFormattedString(),
+      ),
+      Offer(
+        id: '2',
+        menuItemId: '3',
+        price: 3.5,
+        startDate: DateTime.now().toFormattedString(),
+        endDate: DateTime.now().add(Duration(days: 14)).toFormattedString(),
+      ),
     ];
   }
 }

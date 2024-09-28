@@ -74,7 +74,7 @@ class AuthScreen extends StatelessWidget {
                             BlocBuilder<AuthCubit, AuthState>(
                               builder: (context, state) {
                                 if (state is AuthInitial) {
-                                  cubit.isSignup = isSignup;
+                                  cubit.initialLoad(isSignup);
                                 }
                                 return cubit.isSignup
                                     ? SignupFormView(cubit: cubit)

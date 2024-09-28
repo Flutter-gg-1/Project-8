@@ -10,17 +10,43 @@ part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
   MenuCubit() : super(MenuInitial()) {}
-  List<MenuItem> menuItems = [];
+  List<MenuItem> allItems = [];
   List<MenuCategory> categories = [];
 
+  final ScrollController scrollController = ScrollController();
+  final Map<String, double> categoryPositions = {};
+  Map<String, List<MenuItem>> categorizedMenuItems = {};
+
   void fetchMenuItems() {
-    menuItems = MockData().menuItems;
+    allItems = MockData().menuItems;
+    categories = MockData().categories;
+    _groupMenuItemsByCategory();
     emit(UpdateUIState());
   }
 
-  void fetchCategories() {
-    categories = MockData().categories;
-    emit(UpdateUIState());
+  // Group items by their categoryId
+  void _groupMenuItemsByCategory() {
+    categorizedMenuItems.clear();
+    for (var category in categories) {
+      categorizedMenuItems[category.id] =
+          allItems.where((item) => item.categoryId == category.id).toList();
+    }
+  }
+
+  void setCategoryPosition(String categoryId, double position) {
+    categoryPositions[categoryId] = position;
+    print('Position Set ');
+  }
+
+  void goToSelectedCategory(String categoryId) {
+    if (categoryPositions.containsKey(categoryId)) {
+      print('Found Key');
+      scrollController.animateTo(
+        categoryPositions[categoryId]!,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   void navigateToCart(BuildContext context) => Navigator.of(context)
