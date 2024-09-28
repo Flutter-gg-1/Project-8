@@ -1,4 +1,7 @@
+import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/services/setup.dart';
+import 'package:customer_app/widget/coulmn/item_list.dart';
 import 'package:customer_app/widget/inkwell/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -9,48 +12,58 @@ class MenuOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TabBarView(children: [
-      //cold coffee menu
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-            ProductItem(
-              name: 'Latte',
-              price: '15',
-            ),
-          ],
-        ),
+    final locator = productLocator.get<ProductLayer>();
+    return TabBarView(children: [
+      //Classic Coffee menu
+      ItemList(
+        locator: locator,
+        type: 'Classic_Coffee',
       ),
       //Tea menu
-      Text('2'),
+      ItemList(
+        locator: locator,
+        type: 'Tea',
+      ),
       //Cold drinks menu
-      Text('3'),
+      ItemList(
+        locator: locator,
+        type: 'Cold_drinks',
+      ),
       //drip coffee menu
-      Text('4'),
+      ItemList(
+        locator: locator,
+        type: 'drip_coffee',
+      ),
       //water menu
-      Text('5'),
+      ItemList(
+        locator: locator,
+        type: 'water',
+      ),
       //Focaccia menu
-      Text('6'),
+      ItemList(
+        locator: locator,
+        type: 'Focaccia',
+      ),
       //croissant menu
-      Text('7'),
+      ItemList(
+        locator: locator,
+        type: 'croissant',
+      ),
       //cookies menu
-      Text('8'),
+      ItemList(
+        locator: locator,
+        type: 'cookies',
+      ),
       //fennel cake menu
-      Text('9'),
+      ItemList(
+        locator: locator,
+        type: 'fennel',
+      ),
       //dessert menu
-      Text('10'),
+      ItemList(
+        locator: locator,
+        type: 'dessert',
+      ),
     ]);
   }
 }
