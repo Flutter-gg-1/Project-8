@@ -14,12 +14,12 @@ class CartScreen extends StatelessWidget {
       backgroundColor: const Color(0xffD7D1CA),
       appBar: AppBar(
         backgroundColor: const Color(0xffD7D1CA),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            //Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     //Navigator.pop(context);
+        //   },
+        // ),
         centerTitle: true,
         title: const Text('My Order'),
       ),

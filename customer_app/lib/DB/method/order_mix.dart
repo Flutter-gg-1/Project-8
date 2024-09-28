@@ -11,7 +11,7 @@ mixin OrderMix on Super {
     try {
       final x = await supabase.from('product').select('*');
       for (var product in x) {
-        locator.menu.add(Product.fromJson(product));
+        locator.menu.add(ProductModel.fromJson(product));
       }
     } catch (e) {
       log('$e');
