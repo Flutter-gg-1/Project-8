@@ -12,9 +12,8 @@ class BottomNav extends StatelessWidget {
     final List<IconData> iconList = [
       FontAwesomeIcons.house,
       FontAwesomeIcons.rectangleList,
-      Icons.calendar_month,
       Icons.person,
-      // Icons.qr_code,  // لن نستخدم هذه الأيقونة في الـ Bottom Nav الآن
+      Icons.person,
     ];
 
     return BlocProvider(
@@ -37,13 +36,8 @@ class BottomNav extends StatelessWidget {
               );
             },
           ),
-
-          // تعديل الـ Floating Action Button
-        
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked, // لضبط موقع الفاب
-
-          // شريط التنقل السفلي
+              FloatingActionButtonLocation.centerDocked, // Center FAB
           bottomNavigationBar: BlocBuilder<BottomNavBloc, BottomNavState>(
             builder: (context, state) {
               final bloc = BlocProvider.of<BottomNavBloc>(context);
@@ -56,8 +50,8 @@ class BottomNav extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(32),
-                    topRight: Radius.circular(32),
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0), // Set rightCornerRadius to 0
                   ),
                 ),
                 child: AnimatedBottomNavigationBar.builder(
@@ -89,11 +83,11 @@ class BottomNav extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   height: 50,
                   activeIndex: currentPageIndex,
-                  gapLocation: GapLocation.center,
-                  gapWidth: 40,
-                  leftCornerRadius: 32,
-                  rightCornerRadius: 32,
-                  splashRadius: 30,
+                  gapLocation: GapLocation.end, // Keep gapLocation at end
+                  gapWidth: 0,
+                  leftCornerRadius: 0,
+                  rightCornerRadius: 0, // Set to 0 to avoid exception
+                  splashRadius: 15,
                   notchSmoothness: NotchSmoothness.softEdge,
                   onTap: (index) {
                     BlocProvider.of<BottomNavBloc>(context)

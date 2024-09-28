@@ -3,6 +3,7 @@ import 'package:onze_cafe/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/Auth%20Screens/login_screen.dart';
 import 'package:onze_cafe/Auth%20Screens/otp_screen.dart';
 import 'package:onze_cafe/Auth%20Screens/register_screen.dart';
+import 'package:onze_cafe/Bottom_Nav/bottom_nav.dart';
 import 'package:onze_cafe/Home%20Screen/home_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:sizer/sizer.dart';
@@ -20,10 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: OtpScreen(
-            email: 'test@gmail.com',
-          ));
+          debugShowCheckedModeBanner: false, home: HomeScreen());
     });
   }
 }

@@ -2,14 +2,20 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
+import 'package:onze_cafe/Coffee%20Screen/coffee_screen.dart';
+import 'package:onze_cafe/Home%20Screen/home_screen.dart';
+import 'package:onze_cafe/cart_screen/cart_screen.dart';
+import 'package:onze_cafe/profile/profile.dart';
 
 part 'bottom_nav_event.dart';
 part 'bottom_nav_state.dart';
 
 class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
   List<Widget> views = [
-   
+    HomeScreen(),
+    ProfileScreen(),
+    CartScreen(),
+    CoffeeScreen()
   ];
 
   int currentIndex = 0;
