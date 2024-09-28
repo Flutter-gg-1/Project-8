@@ -15,8 +15,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
-  await supabase.auth.signUp(
-        email: 'aazizalamri2@gmail.com', password: '123123');
+  // await supabase.auth.signUp(
+  //       email: 'aazizalamri2@gmail.com', password: '123123');
   // await supabase.auth
   //     .verifyOTP(
   //       type: OtpType.signup,
@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false, home: HomeScreen());
+          debugShowCheckedModeBanner: false, home: RegisterScreen());
     });
   }
 }

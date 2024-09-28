@@ -8,6 +8,7 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const OtpScreen(
       email: 'test@gmail.com',
+      password: '',
     );
   }
 }

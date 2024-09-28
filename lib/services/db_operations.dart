@@ -12,9 +12,9 @@ Future createAccount({required String email, required String password}) async {
   }
 }
 
-Future login({required String email}) async {
+Future login({required String email, required String password}) async {
   try {
-    final authRes = await supabase.auth.signInWithOtp(email: email);
+    final authRes = await supabase.auth.signInWithPassword(email: email, password: password);
     return authRes;
   } catch (error) {
     return Future.error(error);
