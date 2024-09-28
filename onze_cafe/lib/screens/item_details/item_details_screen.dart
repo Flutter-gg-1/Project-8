@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
+import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/reusable_components/views/coffee_strength_view.dart';
 import 'package:onze_cafe/reusable_components/views/count_view.dart';
 import 'package:onze_cafe/reusable_components/views/size_view.dart';
 import 'package:onze_cafe/reusable_components/views/slider_view.dart';
+import 'package:onze_cafe/screens/cart/cart_cubit.dart';
 import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
@@ -149,7 +151,29 @@ class ItemDetailsScreen extends StatelessWidget {
                   );
                 },
               ),
-              TextButton(onPressed: () => (), child: const Text('Add to Cart'))
+              //Not tested 
+             TextButton(
+                onPressed: () {
+                  final itemCount = cubit.itemCount;
+                  final selectedSize = sizes[cubit.selectedIndex].toString();
+                  final selectedCoffeeStrength = coffeeStrength[cubit.selectStrengthIndex];
+                  final selectedMilkOption = milkOptions[cubit.sliderValue];
+
+                  final cartItem = CartItem(
+                    name: item.name,
+                    count: itemCount,
+                    price: item.price * itemCount, 
+                    image: item.imgUrl, 
+                    size: selectedSize,
+                    coffeeStrength: selectedCoffeeStrength,
+                    milkOption: selectedMilkOption,
+                  );
+
+                  context.read<CartCubit>().addItem(cartItem); 
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('${item.name} added to cart!')),
+                  );
+                }, child: const Text('Add to Cart'))
             ],
           ),
         );

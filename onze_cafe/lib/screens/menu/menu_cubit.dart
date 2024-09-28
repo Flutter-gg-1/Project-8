@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/screens/cart_screen.dart';
+import 'package:onze_cafe/screens/cart/cart_screen.dart';
 import 'package:onze_cafe/screens/item_details/item_details_screen.dart';
 
 part 'menu_state.dart';
