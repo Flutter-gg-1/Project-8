@@ -4,6 +4,7 @@ class MenuItem {
   String name;
   int calories;
   String imgUrl;
+  String description;
   double price;
 
   MenuItem(
@@ -12,5 +13,6 @@ class MenuItem {
       required this.name,
       required this.calories,
       required this.imgUrl,
+      required this.description,
       required this.price});
 }
