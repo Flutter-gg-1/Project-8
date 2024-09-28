@@ -32,7 +32,7 @@ class MenuOption extends StatelessWidget {
       //drip coffee menu
       ItemList(
         locator: locator,
-        type: 'drip_coffee',
+        type: 'hot_coffee',
       ),
       //water menu
       ItemList(
