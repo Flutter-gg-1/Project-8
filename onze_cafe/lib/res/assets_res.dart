@@ -8,4 +8,6 @@ class AssetsRes {
 
   static const String PLUGIN_NAME = 'onze_cafe';
   static const String PLUGIN_VERSION = '0.1.0';
+  static const String ILLUSTRATION_8 =
+      'assets/illustrations/illustration_8.png';
 }

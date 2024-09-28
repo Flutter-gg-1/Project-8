@@ -7,19 +7,17 @@ environment:
   sdk: ^3.5.3
 
 dependencies:
+  moyasar: ^2.0.13
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
   flutter_dotenv: ^5.1.0
-  flutter_launcher_icons: ^0.14.1
-  flutter_native_splash: ^2.4.1
   get_it: ^8.0.0
   get_storage: ^2.1.1
   image_picker: ^1.1.2
   intl: ^0.19.0
-  moyasar: ^2.0.13
   supabase_flutter: ^2.6.0
 
 dev_dependencies:
@@ -32,6 +30,7 @@ flutter:
   assets:
     - assets/
     - assets/illustrations/
+    - assets/illustrations/illustration_8.png
     - assets/logo/
     - assets/menu_categories/
     - assets/menu_items/

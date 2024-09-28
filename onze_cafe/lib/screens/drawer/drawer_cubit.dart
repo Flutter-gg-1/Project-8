@@ -4,7 +4,7 @@ import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/profile.dart';
 import 'package:onze_cafe/screens/orders_screen.dart';
 
-import '../profile_screen.dart';
+import '../profile/profile_screen.dart';
 
 part 'drawer_state.dart';
 

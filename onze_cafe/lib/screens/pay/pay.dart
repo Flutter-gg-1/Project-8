@@ -3,7 +3,6 @@ import 'package:moyasar/moyasar.dart';
 // pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H
 // merchant.moyasarflutter.onzecafe
 
-
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
 
@@ -25,13 +24,13 @@ class PaymentMethods extends StatelessWidget {
   PaymentMethods({super.key});
 
   final paymentConfig = PaymentConfig(
-    publishableApiKey: 'pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H', // استخدم مفتاح API الخاص بك هنا
+    publishableApiKey: 'pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H',
     amount: 25758, // SAR 257.58
     description: 'Order #1324',
     metadata: {'size': '250g'},
     creditCard: CreditCardConfig(saveCard: true, manual: false),
     applePay: ApplePayConfig(
-      merchantId: 'merchant.moyasarflutter.onzecafe', // استخدم معرف التاجر الخاص بك هنا
+      merchantId: 'merchant.moyasarflutter.onzecafe',
       label: 'ABU_Mukhlef',
       manual: false,
     ),
@@ -60,8 +59,7 @@ class PaymentMethods extends StatelessWidget {
   }
 
   void showMessage(String message) {
-    // يمكنك استخدام Dialog أو SnackBar لعرض الرسائل
-    print(message); // هنا نستخدم الطباعة لأغراض التصحيح
+    print(message);
   }
 
   @override
@@ -81,4 +79,3 @@ class PaymentMethods extends StatelessWidget {
     );
   }
 }
-
