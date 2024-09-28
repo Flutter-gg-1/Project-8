@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/custom_text_field.dart';
+import 'package:onze_cafe/reusable_components/primary_btn_view.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
@@ -10,13 +13,17 @@ class SignupFormView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 24.0),
-            child: Text('Sign Up'),
+            child: Text('Sign Up').styled(
+                size: 20,
+                color: C.secondary(brightness),
+                weight: FontWeight.bold),
           ),
           CustomTextField(
               hintText: 'Full Name',
@@ -39,24 +46,31 @@ class SignupFormView extends StatelessWidget {
                   validation: Validations.none),
               IconButton(
                   onPressed: () => cubit.navigateToMenu(context),
-                  icon: const Icon(CupertinoIcons.eye))
+                  icon:
+                      Icon(CupertinoIcons.eye, color: C.secondary(brightness)))
             ],
           ),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => (),
-                  child: const Text('Navigate to Menu'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: PrimaryBtnView(
+                    title: 'Sign Up',
+                    callback: () => cubit.navigateToMenu(context),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
-              const Text('Already have an account?'),
+              const Text("Already have an account")
+                  .styled(weight: FontWeight.w500),
               TextButton(
-                  onPressed: cubit.toggleIsSignUp, child: const Text('Sign In'))
+                  onPressed: cubit.toggleIsSignUp,
+                  child: const Text('Sign In').styled(
+                      weight: FontWeight.w500, color: C.secondary(brightness)))
             ],
           )
         ],

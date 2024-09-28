@@ -18,8 +18,9 @@ class PrimaryBtnView extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       onPressed: callback,
       child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text(title).styled(size: 16, color: Colors.white),
+        padding: const EdgeInsets.all(12),
+        child: Text(title)
+            .styled(size: 16, color: Colors.white, weight: FontWeight.w500),
       ),
     );
   }

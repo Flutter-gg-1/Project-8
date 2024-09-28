@@ -21,7 +21,8 @@ class SecondaryBtnView extends StatelessWidget {
       onPressed: callback,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text(title).styled(size: 16, color: C.text(brightness)),
+        child: Text(title).styled(
+            size: 16, color: C.primary(brightness), weight: FontWeight.w500),
       ),
     );
   }

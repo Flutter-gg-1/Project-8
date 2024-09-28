@@ -37,7 +37,7 @@ class CustomTextField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
-                  color: C.primary(brightness).withOpacity(0.3), width: 1),
+                  color: C.primary(brightness).withOpacity(0.8), width: 1),
             ),
             border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
             fillColor: C.secondary(brightness).withOpacity(0.0),
             hintText: hintText,
             hintStyle: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: C.primary(brightness),
             )),
         validator: (value) => validation(value ?? ''),
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/custom_text_field.dart';
+import 'package:onze_cafe/reusable_components/primary_btn_view.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
@@ -10,13 +13,17 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 24.0),
-            child: Text('Sign In'),
+            child: Text('Sign In').styled(
+                size: 22,
+                color: C.secondary(brightness),
+                weight: FontWeight.bold),
           ),
           CustomTextField(
               hintText: 'Email',
@@ -30,24 +37,32 @@ class SignInForm extends StatelessWidget {
                   controller: TextEditingController(),
                   validation: Validations.none),
               IconButton(
-                  onPressed: () => (), icon: const Icon(CupertinoIcons.eye))
+                  onPressed: () => (),
+                  icon:
+                      Icon(CupertinoIcons.eye, color: C.secondary(brightness)))
             ],
           ),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => cubit.navigateToMenu(context),
-                  child: const Text('Navigate to Menu'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: PrimaryBtnView(
+                    title: 'Log In',
+                    callback: () => cubit.navigateToMenu(context),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
-              const Text("Don't have an account"),
+              const Text("Don't have an account")
+                  .styled(weight: FontWeight.w500),
               TextButton(
-                  onPressed: cubit.toggleIsSignUp, child: const Text('Sign Up'))
+                  onPressed: cubit.toggleIsSignUp,
+                  child: const Text('Sign Up').styled(
+                      weight: FontWeight.w500, color: C.secondary(brightness)))
             ],
           )
         ],
