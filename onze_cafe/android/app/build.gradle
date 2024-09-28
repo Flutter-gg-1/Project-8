@@ -8,7 +8,11 @@ plugins {
 android {
     namespace = "com.example.onze_cafe"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "26.1.10909125"
+
+    defaultConfig {
+        minSdkVersion 21
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
