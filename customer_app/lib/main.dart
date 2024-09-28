@@ -1,3 +1,4 @@
+import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
 import 'package:customer_app/screens/home_screen.dart';
@@ -11,7 +12,10 @@ Future main() async {
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+     
   );
+  final test = SuperMain();
+  await test.getMenu();
   runApp(const MyApp());
 }
 
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0xffD7D1CA),
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }
