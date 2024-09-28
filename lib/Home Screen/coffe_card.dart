@@ -15,11 +15,11 @@ class CoffeeCard extends StatelessWidget {
       width: size.width * 0.35, // Smaller width for the container
       height: size.height * 0.18, // Smaller height for the container
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 192, 186, 179),
+        color: const Color(0xff546E7A), // Slightly lighter dark grey
         borderRadius: BorderRadius.circular(15), // Rounded corners
         boxShadow: [
           BoxShadow(
-            color: const Color(0xff74a0b2).withOpacity(0.1), // Shadow color
+            color: Colors.black.withOpacity(0.1), // Subtle shadow color
             spreadRadius: 2, // Spread the shadow
             blurRadius: 5, // Blur the shadow
             offset: const Offset(0, 3), // Shadow position
@@ -56,7 +56,7 @@ class CoffeeCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: size.width * 0.035, // Adjusted font size
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: const Color(0xffECEFF1), // Lighter creamy text color
                   ),
                 ),
                 SizedBox(height: size.height * 0.005),
@@ -64,15 +64,21 @@ class CoffeeCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.star,
-                        color: Colors.yellow, size: size.width * 0.04),
+                        color: const Color(0xffFFD700), // Gold color for stars
+                        size: size.width * 0.04),
                     Icon(Icons.star,
-                        color: Colors.yellow, size: size.width * 0.04),
+                        color: const Color(0xffFFD700), // Gold color for stars
+                        size: size.width * 0.04),
                     Icon(Icons.star,
-                        color: Colors.yellow, size: size.width * 0.04),
+                        color: const Color(0xffFFD700), // Gold color for stars
+                        size: size.width * 0.04),
                     Icon(Icons.star,
-                        color: Colors.yellow, size: size.width * 0.04),
+                        color: const Color(0xffFFD700), // Gold color for stars
+                        size: size.width * 0.04),
                     Icon(Icons.star_half,
-                        color: Colors.yellow, size: size.width * 0.04),
+                        color:
+                            const Color(0xffFFD700), // Gold color for half star
+                        size: size.width * 0.04),
                   ],
                 ),
                 SizedBox(
@@ -83,7 +89,7 @@ class CoffeeCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: size.width * 0.04, // Adjusted font size for price
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: const Color(0xffECEFF1), // Lighter creamy text color
                   ),
                 ),
               ],
@@ -93,14 +99,14 @@ class CoffeeCard extends StatelessWidget {
             top: 105,
             right: -9,
             child: Material(
-              color: Colors.transparent, 
+              color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
                   log('hello');
                 },
                 icon: const Icon(
                   Icons.add_box,
-                  color: Color(0xffC67C4E),
+                  color: Colors.white, // Warm light brown color for icon
                 ),
               ),
             ),

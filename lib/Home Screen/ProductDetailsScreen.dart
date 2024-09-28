@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
+  final String heroTag; // Hero tag passed from the HomeScreen
+
+  const ProductDetailsScreen({required this.heroTag});
+
   @override
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  String selectedSize = 'Medium'; // Default selected size
+  String selectedSize = '8 oz'; // Default selected size
   int quantity = 1; // Default quantity
 
   @override
@@ -17,151 +21,155 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       extendBodyBehindAppBar: true,
-      body: Stack(
+      body: Column(
         children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/Group 3155.png', // Replace with your background image
-              fit: BoxFit.cover,
+          // Top part with background color
+          Container(
+            width: double.infinity,
+            color: const Color(
+                0xff74a0b2), // Use the blue-grey color as background
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: size.height * 0.1,
+                bottom: 20,
+                left: size.width * 0.05,
+                right: size.width * 0.05,
+              ),
+              child: Column(
+                children: [
+                  // Product Image with Hero animation
+                  Center(
+                    child: Hero(
+                      tag: widget
+                          .heroTag, // Use unique heroTag for the animation
+                      child: Image.asset(
+                        'assets/coffe_of_thday.png',
+                        width: size.width * 0.6,
+                        height: size.height * 0.3,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          // Foreground content
-          SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: size.height, // Ensure full screen height
-              ),
-              child: IntrinsicHeight(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.05,
-                      vertical: size.height * 0.1),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Product Image
-                      Center(
-                        child: Image.asset(
-                          'assets/coffe_of_thday.png', // Replace with your product image
-                          width: size.width * 0.6,
-                          height: size.height * 0.3,
-                          fit: BoxFit.contain,
-                        ),
+          // Rest of the content
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.05,
+                  vertical: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Cappuccino', // Product name
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width * 0.07,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 20),
-                      // Product Name
-                      Text(
-                        'Cappuccino', // Replace with dynamic product name
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width * 0.07,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'A delicious hot cappuccino with steamed milk and a rich espresso base.',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: size.width * 0.045,
                       ),
-                      SizedBox(height: 10),
-                      // Product Description
-                      Text(
-                        'A delicious hot cappuccino with steamed milk and a rich espresso base.',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: size.width * 0.045,
-                        ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Select Size',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width * 0.05,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 20),
-                      // Size Selection
-                      Text(
-                        'Select Size',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildSizeOption('8 oz'),
+                        _buildSizeOption('10 oz'),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Quantity',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width * 0.05,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _buildSizeOption('Small'),
-                          _buildSizeOption('Medium'),
-                          _buildSizeOption('Large'),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      // Quantity Selector
-                      Text(
-                        'Quantity',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                if (quantity > 1) quantity--;
-                              });
-                            },
-                            icon: Icon(Icons.remove, color: Colors.white),
-                          ),
-                          Text(
-                            '$quantity',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.width * 0.06,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                quantity++;
-                              });
-                            },
-                            icon: Icon(Icons.add, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      // Add to Cart Button
-                      Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xffbc793d), // Button color
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.3, vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
                           onPressed: () {
-                            // Add to cart functionality
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Added to cart!'),
-                              ),
-                            );
+                            setState(() {
+                              if (quantity > 1) quantity--;
+                            });
                           },
-                          child: Text(
-                            'Add to Cart',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.width * 0.05,
-                              fontWeight: FontWeight.bold,
+                          icon: const Icon(Icons.remove, color: Colors.black),
+                        ),
+                        Text(
+                          '$quantity',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: size.width * 0.06,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              quantity++;
+                            });
+                          },
+                          icon: const Icon(Icons.add, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff74a0b2),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.3, vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        onPressed: () {
+                          // Add to cart functionality
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Added to cart!'),
                             ),
+                          );
+                        },
+                        child: Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: size.width * 0.05,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -171,7 +179,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  // Build size option button
   Widget _buildSizeOption(String size) {
     final isSelected = selectedSize == size;
 
@@ -182,14 +189,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xffbc793d) : Colors.black.withOpacity(0.5),
+          color: isSelected
+              ? const Color(0xff74a0b2)
+              : Colors.black.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           size,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,
