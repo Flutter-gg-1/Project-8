@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onze_cafe/screens/splash_screen.dart';
+import 'package:onze_cafe/screens/landing_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,6 +13,6 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen());
+        home: const LandingScreen());
   }
 }
