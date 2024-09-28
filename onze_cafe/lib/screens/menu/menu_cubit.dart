@@ -35,12 +35,10 @@ class MenuCubit extends Cubit<MenuState> {
 
   void setCategoryPosition(String categoryId, double position) {
     categoryPositions[categoryId] = position;
-    print('Position Set ');
   }
 
   void goToSelectedCategory(String categoryId) {
     if (categoryPositions.containsKey(categoryId)) {
-      print('Found Key');
       scrollController.animateTo(
         categoryPositions[categoryId]!,
         duration: const Duration(milliseconds: 300),

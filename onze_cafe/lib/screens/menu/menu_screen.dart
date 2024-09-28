@@ -52,8 +52,8 @@ class MenuScreen extends StatelessWidget {
             ],
           ),
           drawer: DrawerScreen(),
-          body: SingleChildScrollView(
-            child: Column(
+          body: ListView(controller: cubit.scrollController, children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -100,14 +100,15 @@ class MenuScreen extends StatelessWidget {
 
                               return LayoutBuilder(
                                 builder: (context, constraints) {
-                                  // Call this to capture the position once layout is complete
+                                  // Capture position once layout is complete
                                   WidgetsBinding.instance
                                       .addPostFrameCallback((_) {
                                     final box = context.findRenderObject()
                                         as RenderBox?;
                                     if (box != null) {
                                       final position =
-                                          box.localToGlobal(Offset.zero).dy;
+                                          box.localToGlobal(Offset.zero).dy -
+                                              100;
                                       cubit.setCategoryPosition(
                                           category.id, position);
                                     }
@@ -117,7 +118,6 @@ class MenuScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Category header
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
@@ -127,7 +127,6 @@ class MenuScreen extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      // Grid of menu items under the category
                                       GridView.count(
                                         crossAxisCount: 2,
                                         shrinkWrap: true,
@@ -136,11 +135,12 @@ class MenuScreen extends StatelessWidget {
                                         children: menuItems.isNotEmpty
                                             ? menuItems
                                                 .map((item) => InkWell(
-                                                    onTap: () => cubit
-                                                        .navigateToItemDetails(
-                                                            context, item),
-                                                    child:
-                                                        ItemView(item: item)))
+                                                      onTap: () => cubit
+                                                          .navigateToItemDetails(
+                                                              context, item),
+                                                      child:
+                                                          ItemView(item: item),
+                                                    ))
                                                 .toList()
                                             : [Text('No Items')],
                                       ),
@@ -148,9 +148,8 @@ class MenuScreen extends StatelessWidget {
                                   );
                                 },
                               );
-                              ;
                             },
-                          )
+                          ),
                         ],
                       ),
                     );
@@ -158,7 +157,7 @@ class MenuScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ]),
         );
       }),
     );
