@@ -1,3 +1,4 @@
+import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
 import 'package:customer_app/screens/home_screen.dart';
@@ -12,6 +13,8 @@ Future main() async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
+  
   runApp(const MyApp());
 }
 
