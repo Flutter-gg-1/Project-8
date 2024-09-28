@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
+import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_card_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_list_item_view.dart';
 
@@ -25,9 +26,9 @@ class ProfileScreen extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Opacity(
-                opacity: 0.3,
-                child: Image(image: Img.illustration8, fit: BoxFit.contain)),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Image(image: Img.illustration4, fit: BoxFit.contain)),
             ListView(
               children: [
                 ProfileCardView(),
