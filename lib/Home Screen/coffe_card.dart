@@ -93,7 +93,7 @@ class CoffeeCard extends StatelessWidget {
             top: 105,
             right: -9,
             child: Material(
-              color: Colors.transparent, // Ensure transparency
+              color: Colors.transparent, 
               child: IconButton(
                 onPressed: () {
                   log('hello');
