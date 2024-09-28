@@ -17,6 +17,7 @@ dependencies:
   get_storage: ^2.1.1
   image_picker: ^1.1.2
   intl: ^0.19.0
+  moyasar: ^2.0.13
   supabase_flutter: ^2.6.0
 
 dev_dependencies:
