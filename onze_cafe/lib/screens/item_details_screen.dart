@@ -9,10 +9,6 @@ class ItemDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Item Details Screen'),
-        centerTitle: true,
-      ),
       body: SafeArea(
           child: Column(
         children: [

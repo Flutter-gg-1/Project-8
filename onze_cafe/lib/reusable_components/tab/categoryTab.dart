@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/mockData/categories_ext.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
+import 'package:onze_cafe/model/menu_category.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key});
+  const CategoryTab({super.key, required this.categories});
+  final List<MenuCategory> categories;
 
   @override
   Widget build(BuildContext context) {
-    final categories = MockData().fetchCategories();
     final brightness = Theme.of(context).brightness;
 
     return DefaultTabController(

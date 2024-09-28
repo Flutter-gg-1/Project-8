@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
-import 'package:onze_cafe/model/menu_item.dart';
 
 extension MenuItemsExt on MockData {
   List<AssetImage> fetchOfferce() {
