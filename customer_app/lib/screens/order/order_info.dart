@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
+import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/models/product_model.dart';
 import 'package:customer_app/screens/order/bloc/order_bloc.dart';
+import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:customer_app/widget/coulmn/order_details.dart';
 import 'package:customer_app/widget/row/quantity_row.dart';
@@ -19,6 +24,7 @@ class OrderInfo extends StatelessWidget {
       create: (context) => OrderBloc(),
       child: Builder(builder: (context) {
         final bloc = context.read<OrderBloc>();
+        final locator = productLocator.get<ProductLayer>();
         String size = 'S';
         return Scaffold(
           appBar: AppBar(
@@ -99,7 +105,48 @@ class OrderInfo extends StatelessWidget {
                           context.addSpacer(multiply: 0.04),
                           CustomButton(
                             title: 'Add to Cart',
-                            onPressed: () {},
+                            onPressed: () async {
+                              locator.cartItem.add(OrderModel(
+                                productId: product.productId,
+                                quantity: bloc.quantity,
+                                size: size,
+                              ));
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => AlertDialog(
+                                  contentPadding: EdgeInsets.zero,
+                                  content: Container(
+                                    width: context.getHeight(multiply: 0.4),
+                                    height: context.getHeight(multiply: 0.3),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffEFE3C8),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    child: const Center(
+                                      child: Text(
+                                        'Thank You\nItem have been add to cart',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Rosarivo',
+                                            color: Color(0xffA8483D)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                              await Future.delayed(
+                                const Duration(seconds: 2),
+                                () {
+                                  if (context.mounted) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    log('${locator.cartItem.first.toJson()}');
+                                  }
+                                },
+                              );
+                            },
                             icon: Iconsax.shop_add_bold,
                           )
                         ],
