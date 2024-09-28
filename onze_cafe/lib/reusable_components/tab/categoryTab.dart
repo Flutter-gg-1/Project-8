@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
-import 'package:onze_cafe/mockData/categories_ext.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 
 import '../../extensions/img_ext.dart';

@@ -32,6 +32,7 @@ flutter:
     - assets/logo/
     - assets/menu_categories/
     - assets/menu_items/
+    - assets/coffee_bean/
 
 fonts:
   - family: Poppins
