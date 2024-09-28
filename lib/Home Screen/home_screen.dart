@@ -122,19 +122,14 @@ class HomeScreen extends StatelessWidget {
                           autoPlay: true,
                           height: size.height * 0.25,
                           aspectRatio: 16 / 9,
-                          // enlargeCenterPage: true,
                         ),
                         items: imgList.map((item) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                // width: size.width * 0.65,
-                                // height: size.height * 0.01,
                                 margin: const EdgeInsets.only(top: 35),
-                                // إضافة الحواف الدائرية للصور
                                 child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(25), // حواف دائرية
+                                  borderRadius: BorderRadius.circular(25),
                                   child: Image.asset(
                                     item,
                                     fit: BoxFit.contain,
@@ -195,28 +190,45 @@ class HomeScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05,
-                    vertical: 20,
-                  ),
-                  child: SizedBox(
-                    height: size.height * 0.06,
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white.withOpacity(0.5),
-                        hintText: 'What would you like to drink today...',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        prefixIcon:
-                            const Icon(Icons.coffee, color: Colors.black),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                // Stack for image and search bar
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    // صورة خلف مربع البحث
+                    Positioned(
+                      left: 64,
+                      top: 68,
+                      child: Image.asset(
+                        'assets/Artboard 1 1.png',
+                        height: 70,
+                        width: 100,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.05,
+                        vertical: 20,
+                      ),
+                      child: SizedBox(
+                        height: size.height * 0.06,
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.5),
+                            hintText: 'What would you like to drink today...',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            prefixIcon:
+                                const Icon(Icons.coffee, color: Colors.black),
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
