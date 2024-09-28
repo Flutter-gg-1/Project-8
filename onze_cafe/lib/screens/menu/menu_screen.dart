@@ -10,6 +10,8 @@ import 'package:onze_cafe/reusable_components/slider/offers_slider.dart';
 import 'package:onze_cafe/reusable_components/tab/categoryTab.dart';
 import 'package:onze_cafe/screens/menu/menu_cubit.dart';
 
+import '../../extensions/img_ext.dart';
+
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
@@ -25,8 +27,7 @@ class MenuScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: C.primary(brightness),
             // automaticallyImplyLeading: false,
-            title: AspectRatio(
-                aspectRatio: 7, child: Image.asset("assets/logo1.png")),
+            title: AspectRatio(aspectRatio: 7, child: Image(image: Img.logo1)),
             centerTitle: true,
             actions: [
               Padding(

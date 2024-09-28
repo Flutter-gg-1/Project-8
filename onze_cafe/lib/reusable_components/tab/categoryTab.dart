@@ -4,6 +4,8 @@ import 'package:onze_cafe/mockData/categories_ext.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 
+import '../../extensions/img_ext.dart';
+
 class CategoryTab extends StatelessWidget {
   const CategoryTab({super.key, required this.categories});
   final List<MenuCategory> categories;
@@ -36,11 +38,10 @@ class CategoryTab extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  "assets/coffee1.png",
-                                  width: 20,
-                                  height: 30,
-                                  fit: BoxFit.cover,
+                                Image(
+                                  image: Img.cold,
+                                  width: 40,
+                                  fit: BoxFit.contain,
                                 ),
                                 AspectRatio(
                                   aspectRatio: 2,

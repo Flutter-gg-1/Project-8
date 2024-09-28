@@ -25,8 +25,13 @@ extension Img on ImageProvider {
       AssetImage('assets/illustrations/illustration_7.png');
 
   // Categories
-  static const cold = AssetImage('cold.png');
-  static const filtered = AssetImage('filtered.png');
-  static const hot = AssetImage('hot.png');
-  static const tea = AssetImage('tea.png');
+  static const cold = AssetImage('assets/menu_categories/cold.png');
+  static const filtered = AssetImage('assets/menu_categories/filtered.png');
+  static const hot = AssetImage('assets/menu_categories/hot.png');
+  static const tea = AssetImage('assets/menu_categories/tea.png');
+
+  // Menu Items
+  static const americano = AssetImage('assets/menu_items/americano.jpg');
+  static const cappuccino = AssetImage('assets/menu_items/cappuccino.jpg');
+  static const late = AssetImage('assets/menu_items/late.jpg');
 }

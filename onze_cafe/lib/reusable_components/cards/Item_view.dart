@@ -33,8 +33,8 @@ class ItemView extends StatelessWidget {
           AspectRatio(
             aspectRatio: 2,
             child: Image(
-              image: Img.hot,
-              fit: BoxFit.contain,
+              image: Img.americano,
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
