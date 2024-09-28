@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:onze_cafe/Home%20Screen/ProductDetailsScreen.dart';
-import 'package:onze_cafe/Home%20Screen/coffe_card.dart';
-import 'package:onze_cafe/cart_screen/cart_screen.dart';
-import 'package:onze_cafe/profile/profile.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
+import 'package:onze_cafe/screens/Home%20Screen/ProductDetailsScreen.dart';
+import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
+import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/screens/profile/profile.dart';
+import 'package:onze_cafe/services/setup.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -66,7 +69,12 @@ class HomeScreen extends StatelessWidget {
               title:
                   const Text('Log Out', style: TextStyle(color: Colors.black)),
               onTap: () {
-                Navigator.pop(context);
+                locator.get<DataLayer>().logout();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FirstScreen()),
+                  (route) => false,
+                );
               },
             ),
           ],
