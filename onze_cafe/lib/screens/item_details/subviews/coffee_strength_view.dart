@@ -69,10 +69,10 @@ class _StrengthCardView extends StatelessWidget {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      width: 2,
+                      width: 3,
                       color: cubit.selectedStrength == strength
-                          ? C.bg1(brightness)
-                          : C.accent(brightness),
+                          ? C.secondary(brightness)
+                          : C.bg1(brightness),
                     )),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

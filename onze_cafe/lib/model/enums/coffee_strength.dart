@@ -4,11 +4,11 @@ extension TextValue on CoffeeStrength {
   String name() {
     switch (this) {
       case CoffeeStrength.light:
-        return 'Small';
+        return 'Light';
       case CoffeeStrength.medium:
         return 'Medium';
       case CoffeeStrength.dark:
-        return 'Large';
+        return 'Dark';
     }
   }
 }
