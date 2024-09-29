@@ -1,15 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onze_cafe/extensions/color_ext.dart';
-import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
 class CountView extends StatelessWidget {
   const CountView({
     super.key,
-    required this.cubit,
+    required this.color,
+    required this.size,
+    required this.count,
+    this.onIncrement,
+    this.onDecrement, 
+    required this.fSize,
   });
 
-  final ItemDetailsCubit cubit;
+  final Color color;
+  final double size;
+  final double fSize;
+  final int count;
+  final Function()? onIncrement;
+  final Function()? onDecrement;
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +27,20 @@ class CountView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () => cubit.decrementCount(),
+          onPressed: onDecrement,
           icon: Icon(
             CupertinoIcons.minus_rectangle,
-            size: 40,
-            color: C.bg1(brightness),
+            size: size,
+            color: color,
           ),
         ),
-        SizedBox(
-          width: 10,
-        ),
-        Text("${cubit.itemCount}",
-            style: TextStyle(fontSize: 30, color: C.bg1(brightness))),
-        SizedBox(
-          width: 10,
-        ),
+        Text("$count", style: TextStyle(fontSize: fSize, color: color)),
         IconButton(
-            onPressed: () => cubit.incrementCount(),
+            onPressed: onIncrement,
             icon: Icon(
               CupertinoIcons.plus_rectangle,
-              size: 39,
-              color: C.bg1(brightness),
+              size: size,
+              color: color,
             )),
       ],
     );

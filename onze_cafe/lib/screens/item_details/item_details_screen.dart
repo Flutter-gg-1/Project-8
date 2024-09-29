@@ -140,7 +140,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  CountView(cubit: cubit)
+                                  CountView(onDecrement: cubit.decrementCount, onIncrement: cubit.incrementCount, color: C.bg1(brightness), size: 40, count: cubit.itemCount,fSize: 30,)
                                 ],
                               ),
                             ),

@@ -1,6 +1,6 @@
 class CartItem {
   final String name;
-  final int count;
+  late final int count;
   final double price;
   final String image;
   final String? size;

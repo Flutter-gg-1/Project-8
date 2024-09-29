@@ -21,7 +21,7 @@ class MockData {
   List<Offer> offers = [];
   List<Profile> profiles = [];
   List<AssetImage> offerce = [];
-  List<CartItem>? cart = [];
+  List<CartItem> cart = [];
 
   MockData._internal() {
     _fetchData();
