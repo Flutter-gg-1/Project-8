@@ -8,18 +8,39 @@ import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
 import 'package:onze_cafe/services/setup.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _selectedTabIndex = 0; // Track the selected tab index
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 6, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedTabIndex =
+            _tabController.index; // Update the index on tab change
+      });
+    });
+  }
+
+  final List<String> imgList = [
+    'assets/Group 3174.png',
+    'assets/7859785 1.png',
+    'assets/ss 1 (1).png',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    final List<String> imgList = [
-      'assets/11.jpg',
-      'assets/11.jpg',
-      'assets/11.jpg',
-    ];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -27,7 +48,7 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-             UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               accountName: const Text(
                 'John Doe',
                 style: TextStyle(color: Colors.white),
@@ -37,10 +58,10 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white70),
               ),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage(locator.get<DataLayer>().user!.imageUrl),
+                backgroundImage: AssetImage('assets/11.jpg'),
               ),
               decoration: const BoxDecoration(
-                color: Color(0xff74a0b2),
+                color: Color(0xff3d6b7d),
               ),
             ),
             ListTile(
@@ -80,7 +101,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: const Color(0xff74a0b2),
+        backgroundColor: const Color(0xff3D6B7D),
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.white,
@@ -105,276 +126,212 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: size.height * 0.3,
-            floating: false,
-            pinned: false,
-            automaticallyImplyLeading: false,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    ),
-                    child: Container(
+      body: Column(
+        children: [
+          // Sliver AppBar equivalent
+          Expanded(
+            flex: 2,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  child: Container(
                       width: double.infinity,
                       height: size.height * 0.32,
-                      color: const Color(0xff74a0b2),
+                      color: const Color(0xff87b1c5),
                       child: CarouselSlider(
                         options: CarouselOptions(
                           autoPlay: true,
                           height: size.height * 0.25,
                           aspectRatio: 16 / 9,
+                          viewportFraction:
+                              0.9, // Set to 0.9 for small space between items
                         ),
                         items: imgList.map((item) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                margin: const EdgeInsets.only(top: 35),
+                                margin: const EdgeInsets.only(
+                                    top: 35), // Original top margin
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                    item,
-                                    fit: BoxFit.contain,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black
+                                              .withOpacity(0.2), // Light shadow
+                                          spreadRadius: 0, // No extra spread
+                                          blurRadius:
+                                              10, // Slightly larger blur
+                                          offset: const Offset(0,
+                                              5), // Shadow is moved 5 pixels down
+                                        ),
+                                      ],
+                                    ),
+                                    child: Image.asset(
+                                      item,
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
                                 ),
                               );
                             },
                           );
                         }).toList(),
-                      ),
-                    ),
-                  ),
-                  // النص والصورة فوق السلايدر
-                  Positioned(
-                    top: -size.height * 0.003,
-                    left: size.width * 0.02,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Good morning ☀️',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size.width * 0.03,
-                          ),
+                      )),
+                ),
+                Positioned(
+                  top: size.height * 0.003,
+                  left: size.width * 0.25,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Good morning ☀️',
+                        style: TextStyle(
+                          color: const Color(0xff3D6B7D),
+                          fontSize: size.width * 0.04,
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.01),
-                          child: Text(
-                            'Coffee for you ☕️',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.width * 0.06,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: size.height * 0.12,
-                    right: -size.width * 0.06,
-                    child: Hero(
-                      tag: 'coffeeHero_mainImage',
-                      child: Image.asset(
-                        'assets/a.png',
-                        fit: BoxFit.contain,
-                        width: size.width * 0.25,
-                        height: size.height * 0.2,
                       ),
+                      Text(
+                        'Coffee for you ☕️',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: size.width * 0.06,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: size.height * 0.1950,
+                  left: -size.width * 0.05,
+                  child: Hero(
+                    tag: 'coffeeHero_mainImage',
+                    child: Image.asset(
+                      'assets/Artboard 1 copy 10 1.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                // Stack for image and search bar
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    // صورة خلف مربع البحث
-                    Positioned(
-                      left: 64,
-                      top: 68,
-                      child: Image.asset(
-                        'assets/Artboard 1 1.png',
-                        height: 70,
-                        width: 100,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: size.width * 0.05,
-                        vertical: 20,
-                      ),
-                      child: SizedBox(
-                        height: size.height * 0.06,
-                        child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white.withOpacity(0.5),
-                            hintText: 'What would you like to drink today...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            prefixIcon:
-                                const Icon(Icons.coffee, color: Colors.black),
-                            border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05,
-                  ),
-                  child: const Text(
-                    'Coffee',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 84, 83, 83),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: size.height * 0.2,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    clipBehavior: Clip.none,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      final String heroTag = 'coffeeHero_$index';
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailsScreen(
-                                heroTag: heroTag,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: heroTag,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: CoffeeCard(size: size),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                // const SizedBox(height: 20),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //     horizontal: size.width * 0.05,
-                //   ),
-                //   child: const Text(
-                //     'Desserts',
-                //     style: TextStyle(
-                //       color: Color.fromARGB(255, 84, 83, 83),
-                //       fontSize: 22,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 20),
-                // SizedBox(
-                //   height: size.height * 0.2,
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     clipBehavior: Clip.none,
-                //     itemCount: 3,
-                //     itemBuilder: (context, index) {
-                //       final String heroTag = 'dessertHero_$index';
-                //       return GestureDetector(
-                //         onTap: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //               builder: (context) => ProductDetailsScreen(
-                //                 heroTag: heroTag,
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         child: Hero(
-                //           tag: heroTag,
-                //           child: Padding(
-                //             padding: const EdgeInsets.only(left: 10),
-                //             child: CoffeeCard(size: size),
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-                // const SizedBox(height: 20),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //     horizontal: size.width * 0.05,
-                //   ),
-                //   child: const Text(
-                //     'Most Ordered',
-                //     style: TextStyle(
-                //       color: Color.fromARGB(255, 84, 83, 83),
-                //       fontSize: 22,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 20),
-                // SizedBox(
-                //   height: size.height * 0.2,
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     clipBehavior: Clip.none,
-                //     itemCount: 3,
-                //     itemBuilder: (context, index) {
-                //       final String heroTag = 'mostOrdered_$index';
-                //       return GestureDetector(
-                //         onTap: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //               builder: (context) => ProductDetailsScreen(
-                //                 heroTag: heroTag,
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         child: Hero(
-                //           tag: heroTag,
-                //           child: Padding(
-                //             padding: const EdgeInsets.only(left: 10),
-                //             child: CoffeeCard(size: size),
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
+
+          // Tab Bar with Custom Design
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10), // Add padding here
+            child: TabBar(
+              isScrollable: true,
+              // Enable scrolling for the tabs
+              indicatorSize: TabBarIndicatorSize.tab,
+              controller: _tabController,
+              dividerColor: Colors.transparent,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color(0xffa8483d),
+              ),
+              labelColor: Colors.white,
+              unselectedLabelColor:
+                  Colors.black, // Text color for unselected tabs
+              labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+              tabs: const [
+                Tab(text: 'Classic Coffee Drinks'),
+                Tab(text: 'Cold Drinks'),
+                Tab(text: 'Drip Coffee'),
+                Tab(text: 'Tea Drinks'),
+                Tab(text: 'Water'),
+                Tab(text: 'Dessert'),
+              ],
+            ),
+          ),
+
+          // Tab Bar View
+          Expanded(
+            flex: 3,
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildGrid(size, 'classicCoffee'),
+                _buildGrid(size, 'coldDrinks'),
+                _buildGrid(size, 'dripCoffee'),
+                _buildGrid(size, 'teaDrinks'),
+                _buildGrid(size, 'water'),
+                _buildGrid(size, 'dessert'),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildGrid(Size size, String category) {
+    // Simulate different items for each category
+    List<String> items = [];
+    if (category == 'classicCoffee') {
+      items = ['Espresso', 'Latte', 'Cappuccino'];
+    } else if (category == 'coldDrinks') {
+      items = ['Iced Latte', 'Iced Americano', 'Iced Spanish Latte'];
+    } else if (category == 'dripCoffee') {
+      items = ['Hot Chemex', 'Hot V60'];
+    } else if (category == 'teaDrinks') {
+      items = ['Red Tea', 'Iced Hibiscus', 'Iced Tea'];
+    } else if (category == 'water') {
+      items = ['Water', 'Sparkling Water'];
+    } else if (category == 'dessert') {
+      items = ['Pastel de Nata', 'Large Cinnamon Roll', 'Pecan Tart'];
+    }
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+      child: GridView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Display two items in a row
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 25,
+          childAspectRatio: 3 / 2,
+        ),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final String heroTag = '$category-$index';
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsScreen(
+                    heroTag: heroTag,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: _selectedTabIndex == _tabController.index
+                    ? Colors.black.withOpacity(0.05)
+                    : Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Hero(
+                tag: heroTag,
+                child:
+                    CoffeeCard(size: size), // Replace with actual coffee data
+              ),
+            ),
+          );
+        },
       ),
     );
   }

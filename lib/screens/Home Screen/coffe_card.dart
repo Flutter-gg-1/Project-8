@@ -12,17 +12,18 @@ class CoffeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width * 0.35, // Smaller width for the container
-      height: size.height * 0.18, // Smaller height for the container
+      width: size.width * 0.28, // Smaller width for the container
+      height: size.height * 0.13, // Smaller height for the container
       decoration: BoxDecoration(
-        color: const Color(0xff546E7A), // Slightly lighter dark grey
-        borderRadius: BorderRadius.circular(15), // Rounded corners
+        color: const Color(0xffFFFFFF), // Slightly lighter dark grey
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Color(0xff87B1C5)), // Rounded corners
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1), // Subtle shadow color
-            spreadRadius: 2, // Spread the shadow
-            blurRadius: 5, // Blur the shadow
-            offset: const Offset(0, 3), // Shadow position
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(3, 3),
           ),
         ],
       ),
@@ -30,22 +31,22 @@ class CoffeeCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            top: -size.height * 0.017,
-            left: -size.width * 0.08,
+            top: -size.height * 0.015,
+            left: -size.width * 0.06,
             child: ClipOval(
               clipBehavior: Clip.none,
               child: Image.asset(
                 'assets/coffe_of_thday.png',
-                width: size.width * 0.5, // Adjust the image width
-                height: size.height * 0.12, // Adjust the image height
+                width: size.width * 0.55,
+                height: size.height * 0.09,
                 fit: BoxFit.contain,
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: size.height * 0.08, // Adjust padding for text
-              bottom: size.height * 0.01, // Add padding to avoid overflow
+              top: size.height * 0.05,
+              bottom: size.height * 0.01,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -54,50 +55,49 @@ class CoffeeCard extends StatelessWidget {
                 Text(
                   'Cappuccino', // Item name
                   style: TextStyle(
-                    fontSize: size.width * 0.035, // Adjusted font size
+                    fontSize: size.width * 0.03, // Adjusted font size
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xffECEFF1), // Lighter creamy text color
+                    color: Colors.black, // Lighter creamy text color
                   ),
                 ),
-                SizedBox(height: size.height * 0.005),
+                SizedBox(height: size.height * 0.004), // Reduced spacing
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.star,
                         color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.04),
+                        size: size.width * 0.03), // Smaller icon size
                     Icon(Icons.star,
                         color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.04),
+                        size: size.width * 0.03), // Smaller icon size
                     Icon(Icons.star,
                         color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.04),
+                        size: size.width * 0.03), // Smaller icon size
                     Icon(Icons.star,
                         color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.04),
+                        size: size.width * 0.03), // Smaller icon size
                     Icon(Icons.star_half,
                         color:
                             const Color(0xffFFD700), // Gold color for half star
-                        size: size.width * 0.04),
+                        size: size.width * 0.03), // Smaller icon size
                   ],
                 ),
-                SizedBox(
-                    height: size.height *
-                        0.005), // Adjust space between stars and price
+                SizedBox(height: size.height * 0.004), // Reduced spacing
                 Text(
                   '\$4.99', // Price
                   style: TextStyle(
-                    fontSize: size.width * 0.04, // Adjusted font size for price
+                    fontSize:
+                        size.width * 0.032, // Adjusted font size for price
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xffECEFF1), // Lighter creamy text color
+                    color: Colors.black, // Lighter creamy text color
                   ),
                 ),
               ],
             ),
           ),
           Positioned(
-            top: 105,
-            right: -9,
+            top: size.height * 0.08, // Adjusted position for the button
+            right: -size.width * 0.02, // Adjusted position for the button
             child: Material(
               color: Colors.transparent,
               child: IconButton(
@@ -106,7 +106,7 @@ class CoffeeCard extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.add_box,
-                  color: Colors.white, // Warm light brown color for icon
+                  color: Color(0xffA8483D), // Warm light brown color for icon
                 ),
               ),
             ),
