@@ -9,5 +9,11 @@ final class CartUpdatedState extends CartState {
   final List<CartItem> cartItems;
 
   CartUpdatedState(this.cartItems);
+  
+}
+final class UpdatedCountState extends CartInitial {
+  final int selectedCountIndex;
+
+  UpdatedCountState(this.selectedCountIndex);
 }
 

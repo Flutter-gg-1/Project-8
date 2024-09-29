@@ -7,7 +7,7 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/screens/item_details/subviews/coffee_strength_view.dart';
-import 'package:onze_cafe/screens/item_details/subviews/count_view.dart';
+import 'package:onze_cafe/reusable_components/count_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/size_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/slider_view.dart';
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
@@ -130,7 +130,14 @@ class ItemDetailsScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                CountView(cubit: cubit)
+                                CountView(
+                                  onDecrement: cubit.decrementCount,
+                                  onIncrement: cubit.incrementCount,
+                                  color: C.bg1(brightness),
+                                  size: 40,
+                                  count: cubit.itemCount,
+                                  fSize: 30,
+                                ),
                               ],
                             ),
                           ),

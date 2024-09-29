@@ -96,7 +96,6 @@ class MenuScreen extends StatelessWidget {
                               var category = cubit.categories[index];
                               var menuItems =
                                   cubit.categorizedMenuItems[category.id] ?? [];
-
                               return LayoutBuilder(
                                 builder: (context, constraints) {
                                   // Capture position once layout is complete
