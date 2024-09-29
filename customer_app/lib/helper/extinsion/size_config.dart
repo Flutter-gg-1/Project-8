@@ -19,5 +19,6 @@ extension SizeConfig on BuildContext {
     return context.getWidth(multiply: 1) > comperedNumber!
         ? context.getWidth(multiply: largeDivider)
         : context.getWidth(multiply: smallDivider);
+        
   }
 }
