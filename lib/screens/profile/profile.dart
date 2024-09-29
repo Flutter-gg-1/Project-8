@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/screens/profile/profile_item.dart';
+import 'package:onze_cafe/services/setup.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -27,15 +30,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size; 
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      extendBodyBehindAppBar: true, // Allow content to appear behind the AppBar
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // Transparent AppBar
-        elevation: 0, // Remove shadow
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         iconTheme: const IconThemeData(
-          color: Colors.white, // Keep icons white
+          color: Colors.white,
         ),
         title: const Text(
           'Profile',
@@ -47,11 +50,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/Group 3155.png', // Replace with your image path
-              fit: BoxFit.cover, // Make the image cover the entire background
+              'assets/Group 3155.png',
+              fit: BoxFit.cover,
             ),
           ),
-          // Foreground content
           ListView(
             children: [
               Column(
@@ -59,13 +61,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Center(
                     child: GestureDetector(
-                      onTap: _pickImage, 
+                      onTap: _pickImage,
                       child: CircleAvatar(
-                        radius: size.width * 0.2, 
+                        radius: size.width * 0.2,
                         backgroundImage:
                             _image != null ? FileImage(_image!) : null,
-                        backgroundColor:
-                            Colors.grey[300],
+                        backgroundColor: Colors.grey[300],
                         child: _image == null
                             ? Icon(
                                 Icons.camera_alt,
@@ -79,8 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: size.height * 0.05),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal:
-                          size.width * 0.05, 
+                      horizontal: size.width * 0.05,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,59 +88,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // Name
                         ProfileItem(
                           label: 'Name',
-                          initialValue: 'John Doe',
+                          initialValue: locator.get<DataLayer>().user!.name,
                           size: size,
                         ),
                         const SizedBox(height: 20),
                         // Email
-                        ProfileItem(
-                          label: 'Email',
-                          initialValue: 'john.doe@example.com',
-                          size: size,
-                        ),
+                        // ProfileItem(
+                        //   label: 'Email',
+                        //   initialValue: locator.get<DataLayer>().user!.email,
+                        //   size: size,
+                        // ),
                         const SizedBox(height: 20),
                         // Phone Number
                         ProfileItem(
                           label: 'Phone Number',
-                          initialValue: '+1 234 567 890',
+                          initialValue: locator.get<DataLayer>().user!.phone,
                           size: size,
                         ),
                         const SizedBox(height: 30),
                         // Password Field and Save Button
-                        const Text(
-                          'Reset Password',
-                          style: TextStyle(color: Colors.white70, fontSize: 16),
-                        ),
-                        const SizedBox(height: 10),
-                        // Password Input Field
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff141415).withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: TextFormField(
-                            controller: _passwordController,
-                            obscureText: true, // Hide password input
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.width * 0.045,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: 'Enter new password',
-                              hintStyle: TextStyle(color: Colors.white70),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
+                        // const Text(
+                        //   'Reset Password',
+                        //   style: TextStyle(color: Colors.white70, fontSize: 16),
+                        // ),
+                        // const SizedBox(height: 10),
+                        // // Password Input Field
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: const Color(0xff141415).withOpacity(0.7),
+                        //     borderRadius: BorderRadius.circular(10),
+                        //   ),
+                        //   child: TextFormField(
+                        //     controller: _passwordController,
+                        //     obscureText: true,
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: size.width * 0.045,
+                        //     ),
+                        //     decoration: const InputDecoration(
+                        //       hintText: 'Enter new password',
+                        //       hintStyle: TextStyle(color: Colors.white70),
+                        //       contentPadding: EdgeInsets.symmetric(
+                        //           horizontal: 15, vertical: 15),
+                        //       border: InputBorder.none,
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(height: 20),
                         // Save Button
                         Center(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color(0xffbc793d), // Button color
+                              backgroundColor: const Color(0xffbc793d),
                               padding: EdgeInsets.symmetric(
                                   horizontal: size.width * 0.3, vertical: 14),
                               shape: RoundedRectangleBorder(
@@ -148,19 +147,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                             onPressed: () {
+
+
+                              
                               // Save password functionality
-                              final password = _passwordController.text;
-                              if (password.isNotEmpty) {
-                                // Implement your password save logic here
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Password saved!')),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('Enter a valid password!')),
-                                );
-                              }
+                              // final password = _passwordController.text;
+                              // if (password.isNotEmpty) {
+                              //   // Implement your password save logic here
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     const SnackBar(
+                              //         content: Text('Password saved!')),
+                              //   );
+                              // } else {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     const SnackBar(
+                              //         content: Text('Enter a valid password!')),
+                              //   );
+                              // }
                             },
                             child: Text(
                               'Save',
@@ -185,50 +188,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class ProfileItem extends StatelessWidget {
-  const ProfileItem({
-    Key? key,
-    required this.label,
-    required this.initialValue,
-    required this.size,
-  }) : super(key: key);
 
-  final String label;
-  final String initialValue;
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: size.width * 0.04,
-          ),
-        ),
-        const SizedBox(height: 5),
-        Container(
-          decoration: BoxDecoration(
-            color: const Color(0xff141415).withOpacity(0.7),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: TextFormField(
-            initialValue: initialValue,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: size.width * 0.045,
-            ),
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              border: InputBorder.none, // Remove the underline
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

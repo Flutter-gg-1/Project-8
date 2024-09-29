@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final String heroTag; // Hero tag passed from the HomeScreen
@@ -22,6 +23,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            },
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Column(

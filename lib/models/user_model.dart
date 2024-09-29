@@ -4,14 +4,15 @@ class UserModel {
   final String email;
   final String phone;
   final String role;
+  final String imageUrl;
 
-  UserModel({
-    required this.userId,
-    required this.name,
-    required this.email,
-    required this.phone,
-    this.role = 'customer',
-  });
+  UserModel(
+      {required this.userId,
+      required this.name,
+      required this.email,
+      required this.phone,
+      required this.role,
+      required this.imageUrl});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -19,7 +20,8 @@ class UserModel {
         name: json['name'],
         email: json['email'],
         phone: json['phone'],
-        role: json['role'] ?? 'customer');
+        role: json['role'] ?? 'customer',
+        imageUrl: json['image_url'] ?? 'assets/pfp.png');
   }
 
   toJson() {
@@ -29,6 +31,7 @@ class UserModel {
       'email': email,
       'phone': phone,
       'role': role,
+      'image_url': imageUrl
     };
   }
 }

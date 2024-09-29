@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -21,7 +23,7 @@ Future login({required String email, required String password}) async {
         .signInWithPassword(email: email, password: password);
     Map<String, dynamic> user =
         await locator.get<DataLayer>().getUserById(email: email);
-    locator
+    await locator
         .get<DataLayer>()
         .saveAuth(token: authRes.session!.accessToken, user: user);
     return authRes;
@@ -46,6 +48,41 @@ Future verify(
       'phone': phone,
     });
     return authRes;
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
+Future createOrder(
+    {required String status,
+    required String placedAt,
+    required String readyAt,
+    required double totalPrice}) async {
+  try {
+    await supabase.from('orders').insert({
+      'user_id': supabase.auth.currentUser?.id,
+      'status': status,
+      'placed_at': DateTime.parse(placedAt),
+      'ready_at': DateTime.parse(readyAt),
+      'total_price': totalPrice,
+    });
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
+Future addItem(
+    {required int itemId,
+    required int orderId,
+    required int quantity,
+    required double price}) async {
+  try {
+    await supabase.from('order_item').insert({
+      'item_id': itemId,
+      'order_id': orderId,
+      'quantity': quantity,
+      'price': price,
+    });
   } catch (error) {
     return Future.error(error);
   }

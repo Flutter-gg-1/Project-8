@@ -15,9 +15,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    // قائمة الصور للسلايدر
     final List<String> imgList = [
-      'assets/11.jpg', // ضع مسار الصور هنا
+      'assets/11.jpg',
       'assets/11.jpg',
       'assets/11.jpg',
     ];
@@ -28,19 +27,19 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text(
+             UserAccountsDrawerHeader(
+              accountName: const Text(
                 'John Doe',
                 style: TextStyle(color: Colors.white),
               ),
-              accountEmail: Text(
+              accountEmail: const Text(
                 'john.doe@example.com',
                 style: TextStyle(color: Colors.white70),
               ),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/profile_image.png'),
+                backgroundImage: AssetImage(locator.get<DataLayer>().user!.imageUrl),
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff74a0b2),
               ),
             ),
@@ -282,96 +281,96 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05,
-                  ),
-                  child: const Text(
-                    'Desserts',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 84, 83, 83),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: size.height * 0.2,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    clipBehavior: Clip.none,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      final String heroTag = 'dessertHero_$index';
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailsScreen(
-                                heroTag: heroTag,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: heroTag,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: CoffeeCard(size: size),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05,
-                  ),
-                  child: const Text(
-                    'Most Ordered',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 84, 83, 83),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: size.height * 0.2,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    clipBehavior: Clip.none,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      final String heroTag = 'mostOrdered_$index';
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailsScreen(
-                                heroTag: heroTag,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: heroTag,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: CoffeeCard(size: size),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                // const SizedBox(height: 20),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: size.width * 0.05,
+                //   ),
+                //   child: const Text(
+                //     'Desserts',
+                //     style: TextStyle(
+                //       color: Color.fromARGB(255, 84, 83, 83),
+                //       fontSize: 22,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 20),
+                // SizedBox(
+                //   height: size.height * 0.2,
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     clipBehavior: Clip.none,
+                //     itemCount: 3,
+                //     itemBuilder: (context, index) {
+                //       final String heroTag = 'dessertHero_$index';
+                //       return GestureDetector(
+                //         onTap: () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //               builder: (context) => ProductDetailsScreen(
+                //                 heroTag: heroTag,
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Hero(
+                //           tag: heroTag,
+                //           child: Padding(
+                //             padding: const EdgeInsets.only(left: 10),
+                //             child: CoffeeCard(size: size),
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
+                // const SizedBox(height: 20),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: size.width * 0.05,
+                //   ),
+                //   child: const Text(
+                //     'Most Ordered',
+                //     style: TextStyle(
+                //       color: Color.fromARGB(255, 84, 83, 83),
+                //       fontSize: 22,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 20),
+                // SizedBox(
+                //   height: size.height * 0.2,
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     clipBehavior: Clip.none,
+                //     itemCount: 3,
+                //     itemBuilder: (context, index) {
+                //       final String heroTag = 'mostOrdered_$index';
+                //       return GestureDetector(
+                //         onTap: () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //               builder: (context) => ProductDetailsScreen(
+                //                 heroTag: heroTag,
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Hero(
+                //           tag: heroTag,
+                //           child: Padding(
+                //             padding: const EdgeInsets.only(left: 10),
+                //             child: CoffeeCard(size: size),
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

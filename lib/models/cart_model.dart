@@ -7,7 +7,7 @@ class CartModel {
   double get totalPrice =>
       items.fold(0, (sum, item) => sum + (item.price * item.quantity));
 
-  void addItem(ItemModel item, int quantity) {
+  void addItem(ItemModel item, int quantity) { // pass orderId
     items.add(OrderItemModel(
       itemId: item.id,
       orderId: 0,
