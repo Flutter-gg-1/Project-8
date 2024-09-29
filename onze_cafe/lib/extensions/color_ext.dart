@@ -25,15 +25,16 @@ extension C on Colors {
   static Color bg1(Brightness brightness) {
     return brightness == Brightness.dark
         ? const Color(0xFFEDECEB) // Dark theme background
-        : const Color(0xFFEDECEB); // Light theme background
+        : const Color(0xFFD7D1CA); // Light theme background
   }
 
   // Background color 2 based on the current brightness
   static Color bg2(Brightness brightness) {
     return brightness == Brightness.dark
         ? const Color(0xFFD7D1CA) // Dark theme background 2
-        : const Color(0xFFD7D1CA); // Light theme background 2
+        : const Color(0xFFDEDECEB); // Light theme background 2
   }
+
   // Background color 3 based on the current brightness
   static Color bg3(Brightness brightness) {
     return brightness == Brightness.dark
