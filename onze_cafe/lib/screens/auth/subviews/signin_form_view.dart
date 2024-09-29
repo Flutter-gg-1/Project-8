@@ -8,11 +8,10 @@ import 'package:onze_cafe/screens/auth/auth_cubit.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
 class SignInForm extends StatelessWidget {
-  SignInForm({super.key, required this.cubit});
+  const SignInForm({super.key, required this.cubit});
   final AuthCubit cubit;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +29,14 @@ class SignInForm extends StatelessWidget {
           ),
           CustomTextField(
               hintText: 'Email',
-              controller: emailController,
+              controller: cubit.emailSignInController,
               validation: Validations.none),
           Stack(
             alignment: Alignment.centerRight,
             children: [
               CustomTextField(
                   hintText: 'Password',
-                  controller: passwordController,
+                  controller: cubit.passwordSignInController,
                   validation: Validations.none),
               IconButton(
                   onPressed: () => (),
@@ -52,7 +51,7 @@ class SignInForm extends StatelessWidget {
                 Expanded(
                   child: PrimaryBtnView(
                     title: 'Log In',
-                    callback: () => cubit.navigateToMenu(context),
+                    callback: () => cubit.logWithOtp(),
                   ),
                 ),
               ],
