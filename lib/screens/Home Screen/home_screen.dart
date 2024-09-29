@@ -3,10 +3,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/ProductDetailsScreen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
+import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
 import 'package:onze_cafe/services/setup.dart';
+import 'package:onze_cafe/utils/launch_url.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,20 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
     'assets/ab.png',
     'assets/ss 1 (1).png',
   ];
-  final List<String> urls = [
-    'https://www.google.com',
-    'https://www.facebook.com',
-    'https://www.twitter.com',
-    'https://www.instagram.com',
-    'https://onze.cafe/'
-  ];
-  Future<void> _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -58,62 +47,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: const Text(
-                'John Doe',
-                style: TextStyle(color: Colors.white),
-              ),
-              accountEmail: const Text(
-                'john.doe@example.com',
-                style: TextStyle(color: Colors.white70),
-              ),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/11.jpg'),
-              ),
-              decoration: const BoxDecoration(
-                color: Color(0xff3d6b7d),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.person, color: Colors.black),
-              title:
-                  const Text('Profile', style: TextStyle(color: Colors.black)),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.info, color: Colors.black),
-              title:
-                  const Text('About Us', style: TextStyle(color: Colors.black)),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.black),
-              title:
-                  const Text('Log Out', style: TextStyle(color: Colors.black)),
-              onTap: () {
-                locator.get<DataLayer>().logout();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                  (route) => false,
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: const Color(0xff3D6B7D),
         elevation: 0,
@@ -290,25 +224,25 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 IconButton(
                   icon: const Icon(Icons.home, color: Colors.white),
-                  onPressed: () => _launchURL(urls[0]),
+                  onPressed: () => launchURL(urls[0]),
                 ),
                 IconButton(
                   icon: const Icon(Icons.facebook, color: Colors.white),
-                  onPressed: () => _launchURL(urls[1]),
+                  onPressed: () => launchURL(urls[1]),
                 ),
                 IconButton(
                   icon: const Icon(Icons.shape_line, color: Colors.white),
-                  onPressed: () => _launchURL(urls[2]),
+                  onPressed: () => launchURL(urls[2]),
                 ),
                 IconButton(
                   icon: const Icon(Icons.camera_alt, color: Colors.white),
-                  onPressed: () => _launchURL(urls[3]),
+                  onPressed: () => launchURL(urls[3]),
                 ),
               ],
             ),
             InkWell(
-                onTap: () => _launchURL(urls[4]),
-                child: Text(
+                onTap: () => launchURL(urls[4]),
+                child: const Text(
                   'For more information visit our website',
                   style: TextStyle(color: Colors.white),
                 ))
@@ -377,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: Hero(
                 tag: heroTag,
                 child:
-                    CoffeeCard(size: size), // Replace with actual coffee data
+                    CoffeeCard(size: size),
               ),
             ),
           );
