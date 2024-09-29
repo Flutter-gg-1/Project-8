@@ -43,7 +43,7 @@ class _CarouselItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Card(
-        color: C.bg1(brightness),
+        color: C.bg3(brightness),
         elevation: 4,
         child: Stack(
           alignment: Alignment.topRight,

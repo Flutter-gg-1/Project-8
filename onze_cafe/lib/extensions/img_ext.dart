@@ -25,6 +25,7 @@ extension Img on ImageProvider {
       AssetImage('assets/illustrations/illustration_7.png');
   static const illustration8 =
       AssetImage('assets/illustrations/illustration_8.png');
+  static const box = AssetImage('assets/illustrations/box.png');
 
   // Categories
   static const cold = AssetImage('assets/menu_categories/cold.png');

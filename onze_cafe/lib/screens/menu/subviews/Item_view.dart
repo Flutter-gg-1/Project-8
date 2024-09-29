@@ -48,7 +48,7 @@ class ItemView extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Text("${item.price.toString()} RS")
+                child: Text("${item.price.toString()} SAR")
                     .styled(size: 18, weight: FontWeight.bold),
               ),
               Container(

@@ -43,7 +43,7 @@ class MenuScreen extends StatelessWidget {
                   onPressed: () => cubit.navigateToCart(context),
                   icon: Icon(
                     Icons.shopping_basket,
-                    color: C.bg2(brightness),
+                    color: C.bg1(brightness),
                     size: 30,
                   ),
                 ),
@@ -61,12 +61,12 @@ class MenuScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text("Hi User").styled(
-                          color: C.bg2(brightness),
+                          color: C.bg1(brightness),
                           size: 24,
                           weight: FontWeight.bold),
                       const Text("It is a great day to grab a cup of coffee")
                           .styled(
-                        color: C.bg2(brightness),
+                        color: C.bg1(brightness),
                         size: 14,
                       ),
                     ],
