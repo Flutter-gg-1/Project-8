@@ -30,6 +30,7 @@ flutter:
   assets:
     - assets/
     - assets/coffee_bean/
+    - assets/coffee_cup.png
     - assets/illustrations/
     - assets/illustrations/box.png
     - assets/illustrations/illustration_8.png

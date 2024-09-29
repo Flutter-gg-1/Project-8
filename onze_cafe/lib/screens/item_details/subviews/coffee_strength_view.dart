@@ -4,19 +4,48 @@ import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
+import '../../../model/enums/coffee_strength.dart';
+
 class CoffeeStrengthView extends StatelessWidget {
   const CoffeeStrengthView({
     super.key,
     required this.cubit,
-    required this.index,
-    required this.size,
-    required this.title,
   });
 
   final ItemDetailsCubit cubit;
-  final int index;
-  final double size;
-  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text("Coffee Strength").styled(
+                color: C.bg1(brightness), weight: FontWeight.w600, size: 18),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+            child: Row(
+              children: CoffeeStrength.values
+                  .map((strength) =>
+                      _StrengthCardView(cubit: cubit, strength: strength))
+                  .toList(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StrengthCardView extends StatelessWidget {
+  const _StrengthCardView({required this.cubit, required this.strength});
+  final ItemDetailsCubit cubit;
+  final CoffeeStrength strength;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +56,7 @@ class CoffeeStrengthView extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () => cubit.selectStrength(index),
+            onTap: () => cubit.selectStrength(strength),
             child: Container(
                 decoration: BoxDecoration(
                     boxShadow: const [
@@ -41,7 +70,7 @@ class CoffeeStrengthView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       width: 2,
-                      color: cubit.selectStrengthIndex == index
+                      color: cubit.selectedStrength == strength
                           ? C.bg1(brightness)
                           : C.accent(brightness),
                     )),
@@ -49,15 +78,17 @@ class CoffeeStrengthView extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
-                      Text("$title Roast").styled(
+                      Text("${strength.name()} Roast").styled(
                         weight: FontWeight.bold,
-                        color: cubit.selectStrengthIndex == index
+                        color: cubit.selectedStrength == strength
                             ? C.bg1(brightness)
                             : C.accent(brightness),
                       ),
-                      SizedBox(width: 8,),
+                      SizedBox(
+                        width: 8,
+                      ),
                       Image(
-                        image: cubit.selectStrengthIndex == index
+                        image: cubit.selectedStrength == strength
                             ? Img.coffeeBeanR
                             : Img.coffeeBeanB,
                         fit: BoxFit.cover,

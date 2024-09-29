@@ -3,6 +3,7 @@ class MenuItem {
   String categoryId;
   String name;
   int calories;
+  double oz;
   String imgUrl;
   String description;
   double price;
@@ -14,5 +15,6 @@ class MenuItem {
       required this.calories,
       required this.imgUrl,
       required this.description,
-      required this.price});
+      required this.price,
+      required this.oz});
 }

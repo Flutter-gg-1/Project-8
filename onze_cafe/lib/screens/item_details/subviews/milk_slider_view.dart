@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
-class SliderView extends StatelessWidget {
-  const SliderView({
+class MilkSliderView extends StatelessWidget {
+  const MilkSliderView({
     super.key,
     required this.cubit,
     required this.title,
@@ -19,6 +20,12 @@ class SliderView extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Row(
+          children: [
+            Text("Milk").styled(
+                color: C.bg1(brightness), weight: FontWeight.w600, size: 18),
+          ],
+        ),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
           transitionBuilder: (Widget child, Animation<double> animation) {
@@ -50,7 +57,7 @@ class SliderView extends StatelessWidget {
           },
           child: Text(
             title,
-            key: ValueKey<int>(cubit.sliderValue),
+            key: ValueKey<int>(cubit.milkSlider),
             style: TextStyle(
               color: C.bg1(brightness),
               fontSize: 20,
@@ -58,17 +65,24 @@ class SliderView extends StatelessWidget {
             ),
           ),
         ),
-        Slider(
-            value: cubit.sliderValue.toDouble(),
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackHeight: 10.0, // Adjust the height of the slider track
+            thumbShape: RoundSliderThumbShape(
+                enabledThumbRadius: 16.0), // Adjust the size of the thumb
+          ),
+          child: Slider(
+            value: cubit.milkSlider.toDouble(),
             min: 0,
             max: 3,
             divisions: 3,
-            onChanged: (value) {
-              cubit.updateSliderValue(value.toInt());
-            },
+            onChanged: (value) => cubit.updateSliderValue(value.toInt()),
             thumbColor: C.secondary(brightness),
-            activeColor: C.bg1(brightness),
-            inactiveColor: C.accent(brightness)),
+            activeColor: C.accent(brightness),
+            inactiveColor: C.bg1(brightness),
+          ),
+        ),
+        Text('slide to Adjust').styled(color: C.bg1(brightness))
       ],
     );
   }

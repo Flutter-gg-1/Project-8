@@ -5,6 +5,8 @@ sealed class ItemDetailsState {}
 
 final class ItemDetailsInitial extends ItemDetailsState {}
 
+final class UpdateUIState extends ItemDetailsState {}
+
 final class UpdatedItemDetailsState extends ItemDetailsState {}
 
 final class SuccessItemDetailsState extends ItemDetailsState {}

@@ -5,6 +5,7 @@ extension Img on ImageProvider {
   static const logo2 = AssetImage('assets/logo/logo2.png');
   static const logo3 = AssetImage('assets/logo/logo3.png');
   static const logo4 = AssetImage('assets/logo/logo4.png');
+  static const coffeeCup = AssetImage('assets/coffee_cup.png');
 
   // Illustrations
   static const animatedOnze =
