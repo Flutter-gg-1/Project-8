@@ -5,23 +5,23 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size; // Get screen size
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      extendBodyBehindAppBar: true, // Allow content to appear behind the AppBar
       appBar: AppBar(
+        backgroundColor:
+            const Color(0xff74a0b2), // Use the same color as HomeScreen
+        elevation: 0,
         title: Text(
           'Your Cart',
           style: TextStyle(
             color: Colors.white,
-            fontSize: size.width * 0.07, // Dynamic font size
+            fontSize: size.width * 0.07,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.transparent, // Transparent AppBar
-        elevation: 0, // Remove shadow
         iconTheme: const IconThemeData(
-          color: Colors.white, // Keep icons white
+          color: Colors.white, // Icon color white to match the theme
         ),
         actions: [
           IconButton(
@@ -33,88 +33,70 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          // Background image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/Group 3155.png',
-              fit: BoxFit.cover,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
+              child: ListView.builder(
+                itemCount: 5, // Example number of cart items
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: CartItemCard(size: size),
+                  );
+                },
+              ),
             ),
           ),
-          // Foreground content
+          // Total and Proceed to Checkout
           Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: size.height * 0.09),
-              // Scrollable list of cart items
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05,
-                  ),
-                  child: ListView(
-                    padding: EdgeInsets.only(
-                      top: size.height * 0.08,
-                    ),
-                    children: List.generate(
-                      5, // Example number of cart items
-                      (index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: CartItemCard(size: size),
+              Container(
+                color: const Color(0xff74a0b2), // Similar color as home screen
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * 0.05, vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: size.width * 0.05,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    Text(
+                      '\$14.99',
+                      style: TextStyle(
+                        color: Colors.white, // Matching price color
+                        fontSize: size.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                color: const Color(0xffbc793d), // Button color for consistency
+                child: TextButton(
+                  onPressed: () {
+                    _showPaymentBottomSheet(context, size);
+                  },
+                  child: Text(
+                    'Proceed to Checkout',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: size.width * 0.05,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ),
-              // Total and Proceed to Checkout
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    color: Colors.black.withOpacity(0.8),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: size.width * 0.05, vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total:',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size.width * 0.05,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '\$14.99', // Total price
-                          style: TextStyle(
-                            color: Color(0xffbc793d), // Price color
-                            fontSize: size.width * 0.05,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    color: Color(0xffbc793d), // Button color
-                    child: TextButton(
-                      onPressed: () {
-                        _showPaymentBottomSheet(context, size);
-                      },
-                      child: Text(
-                        'Proceed to Checkout',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ],
           ),
@@ -175,7 +157,6 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Process the payment
                     Navigator.pop(context);
                   },
                   child: Text(
@@ -197,10 +178,10 @@ class CartScreen extends StatelessWidget {
 
   Widget _buildTextField(String hint, IconData icon, Size size) {
     return TextField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.white54),
+        hintStyle: const TextStyle(color: Colors.white54),
         filled: true,
         fillColor: Colors.grey[800],
         prefixIcon: Icon(icon, color: Colors.white),
@@ -224,63 +205,60 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 192, 186, 179),
+        color: const Color(0xfff0e5d8), // Same background color as HomeScreen
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Row(
         children: [
-          // Image of the coffee
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/coffe_of_thday.png', // Coffee image
+              'assets/coffe_of_thday.png',
               width: size.width * 0.25,
               height: size.width * 0.25,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
-          SizedBox(width: 10),
-          // Item details
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Cappuccino', // Item name
+                'Cappuccino',
                 style: TextStyle(
                   fontSize: size.width * 0.045,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
-                '\$4.99', // Price
+                '\$4.99',
                 style: TextStyle(
                   fontSize: size.width * 0.04,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xffbc793d),
+                  color: const Color(0xffbc793d),
                 ),
               ),
-              SizedBox(height: 10),
-              // Quantity row
+              const SizedBox(height: 10),
               Row(
                 children: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.remove, color: Colors.black),
+                    icon: const Icon(Icons.remove, color: Colors.black),
                   ),
                   Text(
-                    '1', // Quantity
+                    '1',
                     style: TextStyle(
                       fontSize: size.width * 0.04,
                       fontWeight: FontWeight.bold,
@@ -288,19 +266,16 @@ class CartItemCard extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.add, color: Colors.black),
+                    icon: const Icon(Icons.add, color: Colors.black),
                   ),
                 ],
               ),
             ],
           ),
-          Spacer(),
-          // Delete Button
+          const Spacer(),
           IconButton(
-            onPressed: () {
-              // Handle delete action
-            },
-            icon: Icon(
+            onPressed: () {},
+            icon: const Icon(
               Icons.delete_outline,
               color: Colors.red,
             ),
