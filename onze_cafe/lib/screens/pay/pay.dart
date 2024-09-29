@@ -67,10 +67,10 @@ class PaymentMethods extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ApplePay(
-          config: paymentConfig,
-          onPaymentResult: onPaymentResult,
-        ),
+        // ApplePay(
+        //   config: paymentConfig,
+        //   onPaymentResult: onPaymentResult,
+        // ),
         const Text("or"),
         CreditCard(
           config: paymentConfig,
