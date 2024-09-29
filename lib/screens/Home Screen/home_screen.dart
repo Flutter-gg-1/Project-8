@@ -7,6 +7,7 @@ import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
 import 'package:onze_cafe/services/setup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,17 +27,30 @@ class _HomeScreenState extends State<HomeScreen>
     _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(() {
       setState(() {
-        _selectedTabIndex =
-            _tabController.index; // Update the index on tab change
+        _selectedTabIndex = _tabController.index;
       });
     });
   }
 
   final List<String> imgList = [
     'assets/Group 3174.png',
-    'assets/7859785 1.png',
+    'assets/ab.png',
     'assets/ss 1 (1).png',
   ];
+  final List<String> urls = [
+    'https://www.google.com',
+    'https://www.facebook.com',
+    'https://www.twitter.com',
+    'https://www.instagram.com',
+    'https://onze.cafe/'
+  ];
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +278,42 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ],
+      ),
+      bottomSheet: Container(
+        height: 80,
+        width: double.infinity,
+        color: const Color(0xff3D6B7D),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.home, color: Colors.white),
+                  onPressed: () => _launchURL(urls[0]),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.facebook, color: Colors.white),
+                  onPressed: () => _launchURL(urls[1]),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.shape_line, color: Colors.white),
+                  onPressed: () => _launchURL(urls[2]),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.camera_alt, color: Colors.white),
+                  onPressed: () => _launchURL(urls[3]),
+                ),
+              ],
+            ),
+            InkWell(
+                onTap: () => _launchURL(urls[4]),
+                child: Text(
+                  'For more information visit our website',
+                  style: TextStyle(color: Colors.white),
+                ))
+          ],
+        ),
       ),
     );
   }
