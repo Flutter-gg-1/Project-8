@@ -24,7 +24,7 @@ class PaymentMethods extends StatelessWidget {
   PaymentMethods({super.key});
 
   final paymentConfig = PaymentConfig(
-    publishableApiKey: dotenv.env['Moyasar_API']!,
+    publishableApiKey: dotenv.env['Moyasar_API']!, // test publishable api key  
     amount: 25758, // SAR 257.58
     description: 'Order #1324',
     metadata: {'size': '250g'},
