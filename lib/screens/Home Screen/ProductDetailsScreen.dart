@@ -91,7 +91,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'A delicious hot cappuccino with steamed milk and a rich espresso base.',
                       style: TextStyle(
@@ -99,7 +99,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontSize: size.width * 0.045,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       'Select Size',
                       style: TextStyle(
@@ -108,7 +108,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -116,7 +116,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         _buildSizeOption('10 oz'),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       'Quantity',
                       style: TextStyle(
@@ -125,7 +125,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -155,7 +155,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Center(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(

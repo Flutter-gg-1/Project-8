@@ -22,7 +22,7 @@ Future login({required String email, required String password}) async {
     final authRes = await supabase.auth
         .signInWithPassword(email: email, password: password);
     Map<String, dynamic> user =
-        await locator.get<DataLayer>().getUserById(email: email);
+        await locator.get<DataLayer>().getUserByEmail(email: email);
     await locator
         .get<DataLayer>()
         .saveAuth(token: authRes.session!.accessToken, user: user);
