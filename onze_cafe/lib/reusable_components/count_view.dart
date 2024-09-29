@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 class CountView extends StatelessWidget {
   const CountView({
     super.key,
-    required this.color,
-    required this.size,
     required this.count,
     this.onIncrement,
     this.onDecrement,
+    required this.iconSize,
+    required this.iconColor,
     required this.fSize,
+    required this.fColor,
   });
 
-  final Color color;
-  final double size;
-  final double fSize;
   final int count;
   final Function()? onIncrement;
   final Function()? onDecrement;
+  final Color iconColor;
+  final double iconSize;
+  final Color fColor;
+  final double fSize;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +29,18 @@ class CountView extends StatelessWidget {
         IconButton(
           onPressed: onDecrement,
           icon: Icon(
-            CupertinoIcons.minus_rectangle,
-            size: size,
-            color: color,
+            CupertinoIcons.minus_square,
+            size: iconSize,
+            color: iconColor,
           ),
         ),
-        Text("$count", style: TextStyle(fontSize: fSize, color: color)),
+        Text("$count", style: TextStyle(fontSize: fSize, color: fColor)),
         IconButton(
             onPressed: onIncrement,
             icon: Icon(
-              CupertinoIcons.plus_rectangle,
-              size: size,
-              color: color,
+              CupertinoIcons.plus_square,
+              size: iconSize,
+              color: iconColor,
             )),
       ],
     );

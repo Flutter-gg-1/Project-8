@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
-import 'package:onze_cafe/reusable_components/primary_btn_view.dart';
-import 'package:onze_cafe/reusable_components/secondary_btn_view.dart';
+import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
+import 'package:onze_cafe/reusable_components/buttons/secondary_btn_view.dart';
 
 import 'auth/auth_screen.dart';
 

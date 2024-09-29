@@ -57,9 +57,10 @@ class CartItemView extends StatelessWidget {
                     Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: CountView(
-                          color: C.primary(brightness),
+                          fColor: C.primary(brightness),
                           fSize: 20,
-                          size: 20,
+                          iconSize: 20,
+                          iconColor: C.primary(brightness),
                           count: 1,
                           onDecrement: () => cubit.decrementCount(item),
                           onIncrement: () => cubit.incrementCount(item),

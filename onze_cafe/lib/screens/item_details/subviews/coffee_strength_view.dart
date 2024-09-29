@@ -71,7 +71,7 @@ class _StrengthCardView extends StatelessWidget {
                     border: Border.all(
                       width: 3,
                       color: cubit.selectedStrength == strength
-                          ? C.secondary(brightness)
+                          ? C.accent(brightness)
                           : C.bg1(brightness),
                     )),
                 child: Padding(
@@ -81,8 +81,8 @@ class _StrengthCardView extends StatelessWidget {
                       Text("${strength.name()} Roast").styled(
                         weight: FontWeight.bold,
                         color: cubit.selectedStrength == strength
-                            ? C.bg1(brightness)
-                            : C.accent(brightness),
+                            ? C.accent(brightness)
+                            : C.bg1(brightness),
                       ),
                       SizedBox(
                         width: 8,

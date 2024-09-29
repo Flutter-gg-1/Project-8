@@ -5,9 +5,8 @@ import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_item.dart';
+import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
 import 'package:onze_cafe/reusable_components/count_view.dart';
-import 'package:onze_cafe/reusable_components/primary_btn_view.dart';
-import 'package:onze_cafe/reusable_components/secondary_btn_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/coffee_strength_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/size_selection_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/milk_slider_view.dart';
@@ -34,7 +33,7 @@ class ItemDetailsScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = context.read<ItemDetailsCubit>();
         return Scaffold(
-          backgroundColor: C.bg1(brightness),
+          backgroundColor: C.primary(brightness),
           body: Column(
             children: [
               BlocBuilder<ItemDetailsCubit, ItemDetailsState>(
@@ -84,37 +83,44 @@ class ItemDetailsScreen extends StatelessWidget {
                                         ),
                                         MilkSliderView(
                                           cubit: cubit,
-                                          title:
-                                              '${milkOptions[cubit.milkSlider]}',
+                                          title: milkOptions[cubit.milkSlider],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 24.0, vertical: 16),
-                                          child: Divider(
-                                            color: C.bg2(brightness),
-                                          ),
-                                        ),
+                                        SizedBox(height: 8),
                                         CoffeeStrengthView(cubit: cubit),
                                         CountView(
+                                          count: cubit.quantity,
                                           onDecrement: cubit.decrementCount,
                                           onIncrement: cubit.incrementCount,
-                                          color: C.bg1(brightness),
-                                          size: 40,
-                                          count: cubit.quantity,
-                                          fSize: 30,
+                                          iconColor: C.accent(brightness),
+                                          iconSize: 40,
+                                          fSize: 24,
+                                          fColor: C.bg1(brightness),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: SecondaryBtnView(
-                                          title: 'Add To Cart',
-                                          callback: () => ()),
-                                    ),
-                                  ],
+                                InkWell(
+                                  onTap: () => (),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: CustomPaint(
+                                                size: Size(0,
+                                                    90), // Specify the size for your custom painting
+                                                painter: CircleBtn()),
+                                          ),
+                                        ],
+                                      ),
+                                      Text('Add To Cart').styled(
+                                          size: 16,
+                                          color: C.bg1(brightness),
+                                          weight: FontWeight.bold)
+                                    ],
+                                  ),
                                 )
                               ],
                             )

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/custom_text_field.dart';
-import 'package:onze_cafe/reusable_components/primary_btn_view.dart';
+import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
