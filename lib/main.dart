@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
-import 'package:onze_cafe/screens/Employee%20Screen/employee_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,7 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false, home: EmployeeScreen());
+          debugShowCheckedModeBanner: false, home: FirstScreen());
     });
   }
 }
