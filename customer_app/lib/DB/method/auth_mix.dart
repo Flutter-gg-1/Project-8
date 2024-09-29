@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:customer_app/DB/super.dart';
+import 'package:customer_app/data_layer/auth_layer.dart';
+import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/models/user_model.dart';
+import 'package:customer_app/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 mixin AuthMix on Super {
-
   createLogin({required String email}) async {
     try {
       await superbase.auth.signInWithOtp(email: email);
@@ -44,6 +46,8 @@ mixin AuthMix on Super {
 
         log("userModel forn login user");
 
+        productLocator.get<AuthLayer>().userGiveVal(userModel: user);
+
         log("${user.toJson()}");
       } else {
         log("in the user login");
@@ -62,6 +66,8 @@ mixin AuthMix on Super {
 
         log("userModel forn new user");
 
+        productLocator.get<AuthLayer>().userGiveVal(userModel: user);
+
         log("${user.toJson()}");
       }
 
@@ -72,6 +78,5 @@ mixin AuthMix on Super {
       log("$er");
       throw "$er";
     }
-
   }
 }

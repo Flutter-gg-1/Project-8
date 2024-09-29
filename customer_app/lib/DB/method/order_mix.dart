@@ -9,7 +9,7 @@ mixin OrderMix on Super {
   final locator = productLocator.get<ProductLayer>();
   Future<void> getMenu() async {
     try {
-      final x = await supabase.from('product').select('*');
+      final x = await superbase.from('product').select('*');
       for (var product in x) {
         locator.menu.add(Product.fromJson(product));
       }
