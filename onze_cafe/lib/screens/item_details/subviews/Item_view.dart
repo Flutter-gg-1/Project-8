@@ -4,7 +4,7 @@ import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 
-import '../../../extensions/color_ext.dart';
+import '../../../../extensions/color_ext.dart';
 
 class ItemView extends StatelessWidget {
   const ItemView({super.key, required this.item});
