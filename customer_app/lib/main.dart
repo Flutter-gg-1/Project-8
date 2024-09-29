@@ -15,9 +15,11 @@ Future main() async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
   await setup();
   final test = SuperMain();
   await test.getMenu();
+
 
   runApp(const MyApp());
 }
