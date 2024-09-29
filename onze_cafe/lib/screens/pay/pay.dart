@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
-// pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H
-// merchant.moyasarflutter.onzecafe
 
 
 class PaymentPage extends StatelessWidget {
@@ -25,13 +24,13 @@ class PaymentMethods extends StatelessWidget {
   PaymentMethods({super.key});
 
   final paymentConfig = PaymentConfig(
-    publishableApiKey: 'pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H', // استخدم مفتاح API الخاص بك هنا
+    publishableApiKey: dotenv.env['Moyasar_API']!,
     amount: 25758, // SAR 257.58
     description: 'Order #1324',
     metadata: {'size': '250g'},
     creditCard: CreditCardConfig(saveCard: true, manual: false),
     // applePay: ApplePayConfig(
-    //   merchantId: 'merchant.moyasarflutter.onzecafe', // استخدم معرف التاجر الخاص بك هنا
+    //   merchantId: dotenv.env['MERCHANT_ID']!,
     //   label: 'ABU_Mukhlef',
     //   manual: false,
     // ),
