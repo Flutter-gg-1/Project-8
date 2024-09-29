@@ -5,6 +5,7 @@ import 'package:customer_app/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 mixin AuthMix on Super {
+
   createLogin({required String email}) async {
     try {
       await superbase.auth.signInWithOtp(email: email);
@@ -71,5 +72,6 @@ mixin AuthMix on Super {
       log("$er");
       throw "$er";
     }
+
   }
 }
