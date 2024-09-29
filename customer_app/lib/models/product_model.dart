@@ -1,4 +1,4 @@
-class Product {
+class ProductModel {
   dynamic productId;
   String? name;
   int? cal;
@@ -7,7 +7,7 @@ class Product {
   int? preparationTime;
   String? des;
 
-  Product(
+  ProductModel(
       {this.productId,
       this.name,
       this.cal,
@@ -16,7 +16,7 @@ class Product {
       this.preparationTime,
       this.des});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     productId = json["product_id"];
     name = json["name"];
     cal = json["cal"];

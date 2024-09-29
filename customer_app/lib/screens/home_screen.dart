@@ -1,5 +1,6 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/screens/cart_screen.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
 import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
@@ -23,7 +24,13 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ));
+                },
                 icon: const Icon(
                   Iconsax.shop_add_bold,
                   color: Color(0xffA8483D),

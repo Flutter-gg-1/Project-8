@@ -1,5 +1,6 @@
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
+import 'package:customer_app/screens/auth/signup_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
 import 'package:customer_app/screens/home_screen.dart';
 import 'package:customer_app/services/setup.dart';
