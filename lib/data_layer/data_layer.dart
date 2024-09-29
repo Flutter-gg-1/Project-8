@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get_storage/get_storage.dart';
 import 'package:onze_cafe/models/user_model.dart';
 import 'package:onze_cafe/services/db_operations.dart';
@@ -16,6 +14,7 @@ class DataLayer {
   saveAuth({required String token, required Map<String, dynamic> user}) async {
     await box.write('auth', token);
     await box.write('user', user);
+    await loadData();
   }
 
   loggedIn() {
