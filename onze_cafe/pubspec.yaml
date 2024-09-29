@@ -29,12 +29,13 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/coffee_bean/
     - assets/illustrations/
+    - assets/illustrations/box.png
     - assets/illustrations/illustration_8.png
     - assets/logo/
     - assets/menu_categories/
     - assets/menu_items/
-    - assets/coffee_bean/
 
 fonts:
   - family: Poppins

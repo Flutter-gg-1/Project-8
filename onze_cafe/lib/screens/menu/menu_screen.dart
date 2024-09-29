@@ -134,12 +134,11 @@ class MenuScreen extends StatelessWidget {
                                         children: menuItems.isNotEmpty
                                             ? menuItems
                                                 .map((item) => InkWell(
-                                                      onTap: () => cubit
-                                                          .navigateToItemDetails(
-                                                              context, item),
-                                                      child:
-                                                          ItemView(item: item),
-                                                    ))
+                                                    onTap: () => cubit
+                                                        .navigateToItemDetails(
+                                                            context, item),
+                                                    child:
+                                                        ItemView(item: item)))
                                                 .toList()
                                             : [Text('No Items')],
                                       ),

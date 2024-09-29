@@ -13,61 +13,82 @@ class ItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    return Container(
-      margin: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: C.bg3(brightness),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black45,
-            offset: Offset(3, 3),
-            blurRadius: 6,
-          )
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 2,
-            child: Image(
-              image: Img.americano,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              item.name,
-            ).styled(size: 18, weight: FontWeight.w600),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text("${item.price.toString()} SAR")
-                    .styled(size: 18, weight: FontWeight.bold),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                decoration: BoxDecoration(
-                    color: C.accent(brightness),
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
-                child: Icon(
-                  CupertinoIcons.add,
-                  size: 25,
-                  color: C.bg1(brightness),
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Container(
+        margin: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: C.bg3(brightness),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black45,
+              offset: Offset(3, 3),
+              blurRadius: 6,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+              child: AspectRatio(
+                aspectRatio: 2,
+                child: Image(
+                  image: Img.americano,
+                  fit: BoxFit.cover,
                 ),
-              )
-            ],
-          )
-        ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.name).styled(
+                              size: 14, weight: FontWeight.w600, lineLimit: 1),
+                          const SizedBox(height: 4),
+                          Text("${item.price.toString()} SAR")
+                              .styled(size: 12, weight: FontWeight.bold),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
+                            decoration: BoxDecoration(
+                                color: C.accent(brightness),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(16),
+                                    bottomRight: Radius.circular(16))),
+                            child: Icon(CupertinoIcons.add,
+                                size: 20,
+                                color: C.primary(brightness),
+                                weight: 24)),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

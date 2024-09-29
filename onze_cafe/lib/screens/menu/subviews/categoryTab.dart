@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/mockData/categories_ext.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
@@ -20,14 +21,16 @@ class CategoryTab extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TabBar(
+          padding: EdgeInsets.zero,
+          labelPadding: EdgeInsets.zero,
           onTap: (idx) => cubit.goToSelectedCategory(cubit.categories[idx].id),
           labelColor: C.primary(brightness),
           labelStyle: TextStyle(fontWeight: FontWeight.w800),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
-          tabAlignment: TabAlignment.start,
+          // tabAlignment: TabAlignment.start,
           indicatorColor: Colors.transparent,
           dividerColor: Colors.transparent,
-          isScrollable: true,
+          isScrollable: false,
           tabs: cubit.categories
               .map((ctg) => _CategoryCardView(category: ctg))
               .toList(),
@@ -43,25 +46,30 @@ class _CategoryCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      child: Row(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Image(
-              //   image: Img.cold,
-              //   fit: BoxFit.contain,
-              // ),
-              Text(
-                category.name,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              )
-            ],
-          ),
-        ],
+    return AspectRatio(
+      aspectRatio: 1,
+      child: Tab(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Image(
+                image: Img.cold,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(height: 8),
+            Expanded(
+              child: Text(category.name).styled(
+                  size: 10,
+                  weight: FontWeight.w300,
+                  align: TextAlign.center,
+                  lineLimit: 2),
+            )
+          ],
+        ),
       ),
     );
   }

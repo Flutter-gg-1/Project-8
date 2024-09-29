@@ -29,11 +29,11 @@ class PaymentMethods extends StatelessWidget {
     description: 'Order #1324',
     metadata: {'size': '250g'},
     creditCard: CreditCardConfig(saveCard: true, manual: false),
-    applePay: ApplePayConfig(
-      merchantId: 'merchant.moyasarflutter.onzecafe',
-      label: 'ABU_Mukhlef',
-      manual: false,
-    ),
+    // applePay: ApplePayConfig(
+    //   merchantId: 'merchant.moyasarflutter.onzecafe',
+    //   label: 'ABU_Mukhlef',
+    //   manual: false,
+    // ),
   );
 
   void onPaymentResult(result) {
