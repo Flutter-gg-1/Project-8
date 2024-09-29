@@ -44,30 +44,24 @@ class _CategoryCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: SizedBox(
-        height: 100,
-        child: Row(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // AspectRatio(
-                //   aspectRatio: 1,
-                //   child: Image(
-                //     image: Img.cold,
-                //     fit: BoxFit.contain,
-                //   ),
-                // ),
-                Text(
-                  category.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                )
-              ],
-            ),
-          ],
-        ),
+      child: Row(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Image(
+              //   image: Img.cold,
+              //   fit: BoxFit.contain,
+              // ),
+              Text(
+                category.name,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

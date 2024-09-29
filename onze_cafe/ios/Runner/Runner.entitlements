@@ -6,5 +6,9 @@
 	<array>
 		<string>merchant.moyasarflutter.onzecafe</string>
 	</array>
+	<key>com.apple.developer.pay-later-merchandising</key>
+	<array>
+		<string>payinfour-merchandising</string>
+	</array>
 </dict>
 </plist>
