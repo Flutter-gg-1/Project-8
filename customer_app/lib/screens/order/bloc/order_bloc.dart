@@ -6,8 +6,13 @@ part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
   int quantity = 1;
+  int statusIndex = 2;
   OrderBloc() : super(OrderInitial()) {
     on<OrderEvent>((event, emit) {});
+    on<StatusEvent>((event, emit) {
+      statusIndex = event.index;
+      emit(ChangeStatusState());
+    });
     on<AddEvent>((event, emit) {
       quantity++;
       emit(ChangeQuantityState());
