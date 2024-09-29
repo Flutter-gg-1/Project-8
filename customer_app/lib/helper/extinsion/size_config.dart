@@ -9,4 +9,15 @@ extension SizeConfig on BuildContext {
       height: multiply == null
           ? MediaQuery.of(this).size.height * 0.06
           : MediaQuery.of(this).size.height * multiply);
+
+  double getSize({
+    double? comperedNumber = 500,
+    required double smallDivider,
+    required double largeDivider,
+    required BuildContext context,
+  }) {
+    return context.getWidth(multiply: 1) > comperedNumber!
+        ? context.getWidth(multiply: largeDivider)
+        : context.getWidth(multiply: smallDivider);
+  }
 }
