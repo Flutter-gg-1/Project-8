@@ -13,17 +13,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   Timer? _timer;
   int _tickCount = 0;
   String orderStatus = 'Pending';
-  String orderId = '062a8cfc-deb9-4cd6-9c00-e7af246cfce3';
+  String? orderId = '062a8cfc-deb9-4cd6-9c00-e7af246cfce3';
   final db = SuperMain().superbase;
 
   OrderBloc() : super(OrderInitial()) {
     on<OrderEvent>((event, emit) {});
     on<StartTimerEvent>(_onStartTimer);
     on<TrackStatusChangeEvent>(_onTick);
-    on<StatusEvent>((event, emit) {
-      statusIndex = event.index;
-      emit(ChangeStatusState());
-    });
     on<AddEvent>((event, emit) {
       quantity++;
       emit(ChangeQuantityState());
@@ -45,7 +41,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   void _onTick(TrackStatusChangeEvent event, Emitter<OrderState> emit) async {
     try {
-      var status = await db.from('orders').select('status').eq('order_id', orderId);
+      var status = await db.from('orders').select('status').eq('order_id', orderId ?? '');
       if (status[0]['status'] == 'Pending') {
         statusIndex = 0;
       }

@@ -7,11 +7,7 @@ class AddEvent extends OrderEvent {}
 
 class MinusEvent extends OrderEvent {}
 
-class StatusEvent extends OrderEvent {
-  final int index;
 
-  StatusEvent({required this.index});
-}
 
 class StartTimerEvent extends OrderEvent {}
 

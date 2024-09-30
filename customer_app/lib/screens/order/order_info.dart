@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
-import 'package:customer_app/models/order_model.dart';
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/product_model.dart';
 import 'package:customer_app/screens/order/bloc/order_bloc.dart';
 import 'package:customer_app/services/setup.dart';
@@ -106,7 +106,7 @@ class OrderInfo extends StatelessWidget {
                           CustomButton(
                             title: 'Add to Cart',
                             onPressed: () async {
-                              locator.cartItem.add(OrderDetailesModel(
+                              locator.cartItem.add(OrderDetailsModel(
                                 productId: product.productId,
                                 quantity: bloc.quantity,
                                 size: size,

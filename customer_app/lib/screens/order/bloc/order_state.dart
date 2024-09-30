@@ -7,8 +7,6 @@ final class OrderInitial extends OrderState {}
 
 final class ChangeQuantityState extends OrderState {}
 
-final class ChangeStatusState extends OrderState {}
-
 class TimerRunInProgress extends OrderState {
   final int tickCount;
 

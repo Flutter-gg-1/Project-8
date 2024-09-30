@@ -1,4 +1,5 @@
 import 'package:customer_app/DB/super_main.dart';
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
@@ -37,8 +38,11 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0xffD7D1CA),
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
       debugShowCheckedModeBanner: false,
-      home:  OrderStatus(order: OrderDetailesModel(
+      home:  OrderStatus(order: OrderModel(
         orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
+        time: DateTime.now(),
+        totalPreparationTime: 12,
+        totalPrice: 120
 
       ),),
     );
