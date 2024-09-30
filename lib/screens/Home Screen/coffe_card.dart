@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CoffeeCard extends StatelessWidget {
@@ -9,6 +10,7 @@ class CoffeeCard extends StatelessWidget {
   final String name;
   final double price;
   final int rating;
+  final int itemId;
 
   const CoffeeCard({
     super.key,
@@ -16,7 +18,8 @@ class CoffeeCard extends StatelessWidget {
     required this.name,
     required this.price,
     this.imageUrl,
-    required this.rating, // Required rating field
+    required this.rating,
+    required this.itemId, // Pass itemId to use for adding to cart
   });
 
   // Function to build stars based on the rating value
@@ -75,16 +78,13 @@ class CoffeeCard extends StatelessWidget {
             ),
           ),
           Center(
-            // Center the text horizontally
             child: Padding(
               padding: EdgeInsets.only(
                 top: size.height * 0.07, // Adjust the top padding
               ),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, // Center vertically
-                crossAxisAlignment:
-                    CrossAxisAlignment.center, // Center horizontally
+                mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+                crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
                 children: [
                   Text(
                     name,
@@ -120,6 +120,20 @@ class CoffeeCard extends StatelessWidget {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
+                  // Add the item to the cart using DataLayer
+                  locator.get<DataLayer>().addItem(
+                    item: OrderItemModel(
+                      itemId: itemId,
+                      quantity: 1,
+                      price: price, orderId: locator.get<DataLayer>().order!.orderId,
+                    ),
+                  );
+                  log('Added item to cart: $name');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('$name added to cart'),
+                    ),
+                  );
                 },
                 icon: const Icon(
                   Icons.add_box,
