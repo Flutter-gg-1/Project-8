@@ -74,16 +74,4 @@ class SupabaseAuth {
       rethrow;
     }
   }
-
-  // static Future signInWithOtp(String email) async {
-  //   try {
-  //     await supabase.auth.signInWithOtp(email: email);
-  //   } on AuthException catch (_) {
-  //     rethrow;
-  //   } on PostgrestException catch (_) {
-  //     rethrow;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
 }
