@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:onze_cafe/models/cart_model.dart';
 import 'package:onze_cafe/models/item_model.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/models/order_model.dart';
@@ -10,8 +11,8 @@ class DataLayer {
   String? token;
   UserModel? user;
   OrderModel? order;
-  List<OrderItemModel> itemSelected = [];
   List<ItemModel> items = [];
+  CartModel? cart;
 
   final box = GetStorage();
 
@@ -74,12 +75,14 @@ class DataLayer {
     return response;
   }
 
-  selectItem({required OrderItemModel item}) {
-    itemSelected.add(item);
-  }
-
-  addItem({required ItemModel item}) async {
-    items.add(item);
+   addItem({required OrderItemModel item}) async {
+    for (var e in cart!.items) {
+      if (e.itemId == item.itemId) {
+        e.quantity++;
+        return;
+      }
+    }
+    cart?.addItem(item: item);
   }
 
   // createCart(List<ItemModel> order){
