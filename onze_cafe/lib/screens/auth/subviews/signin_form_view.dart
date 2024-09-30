@@ -11,8 +11,6 @@ class SignInForm extends StatelessWidget {
   const SignInForm({super.key, required this.cubit});
   final AuthCubit cubit;
 
-  
-
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -62,11 +60,13 @@ class SignInForm extends StatelessWidget {
               const Text("Don't have an account")
                   .styled(weight: FontWeight.w500),
               TextButton(
-                  onPressed: cubit.toggleIsSignUp,
+                  onPressed: () => cubit.verifyOtp(
+                      email: cubit.emailSignInController.text,
+                      otp: cubit.passwordSignInController.text),
                   child: const Text('Sign Up').styled(
                       weight: FontWeight.w500, color: C.secondary(brightness)))
             ],
-          )
+          ),
         ],
       ),
     );
