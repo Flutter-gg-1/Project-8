@@ -12,3 +12,7 @@ class StatusEvent extends OrderEvent {
 
   StatusEvent({required this.index});
 }
+
+class StartTimerEvent extends OrderEvent {}
+
+class TrackStatusChangeEvent extends OrderEvent {}

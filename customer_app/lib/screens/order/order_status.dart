@@ -14,7 +14,7 @@ class OrderStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OrderBloc(),
+      create: (context) => OrderBloc()..add(StartTimerEvent()),
       child: Builder(builder: (context) {
         final bloc = context.read<OrderBloc>();
         List<Widget> test = [
@@ -31,8 +31,10 @@ class OrderStatus extends StatelessWidget {
             color: Color(0xffA8483D),
           ),
           Lottie.network(
-            'https://lottie.host/974f8698-fc20-4586-9636-1276a155e3fb/opaLH3arqC.json',fit: BoxFit.fill,width: 200,height: 200
-          ),
+              'https://lottie.host/974f8698-fc20-4586-9636-1276a155e3fb/opaLH3arqC.json',
+              fit: BoxFit.fill,
+              width: 200,
+              height: 200),
         ];
         int? index;
         return Scaffold(
@@ -130,29 +132,30 @@ class OrderStatus extends StatelessWidget {
                         ),
                       ),
                       context.addSpacer(multiply: 0.03),
-                      FlutterStepIndicator(
-                        height: 20,
-                        disableAutoScroll: false,
-                        list: const [
-                          Text('1'),
-                          Text('2'),
-                          Text('3'),
-                          Text('4'),
-                        ],
-                        onChange: (i) {
-                          //streamer here
-                         
-                          bloc.add(StatusEvent(index: i));
-                          log('$index');
+                      BlocBuilder<OrderBloc, OrderState>(
+                        builder: (context, state) {
+                          return FlutterStepIndicator(
+                            height: 20,
+                            disableAutoScroll: false,
+                            list: const [
+                              Text('1'),
+                              Text('2'),
+                              Text('3'),
+                              Text('4'),
+                            ],
+                            onChange: (i) {
+                              log('=======0000===========');
+                            },
+                            page: bloc.statusIndex,
+                          );
                         },
-                        page: bloc.statusIndex,
                       ),
                       //context.addSpacer(multiply: 0.04),
                       BlocBuilder<OrderBloc, OrderState>(
                         builder: (context, state) {
                           if (state is ChangeStatusState) {
                             return SingleChildScrollView(
-                              child: Center(child: test[bloc.statusIndex]));
+                                child: Center(child: test[bloc.statusIndex]));
                           }
                           return const Text('');
                         },
