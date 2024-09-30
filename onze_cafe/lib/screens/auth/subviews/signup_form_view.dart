@@ -5,6 +5,7 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/custom_text_field.dart';
 import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
+import 'package:onze_cafe/screens/auth/network_functions.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
 class SignupFormView extends StatelessWidget {
@@ -28,22 +29,22 @@ class SignupFormView extends StatelessWidget {
           CustomTextField(
               hintText: 'Full Name',
               controller: cubit.nameController,
-              validation: Validations.none),
+              validation: Validations.name),
           CustomTextField(
               hintText: 'Email',
               controller: cubit.emailController,
-              validation: Validations.none),
+              validation: Validations.email),
           CustomTextField(
               hintText: 'Phone Number',
               controller: cubit.phoneController,
-              validation: Validations.none),
+              validation: Validations.phoneNumber),
           Stack(
             alignment: Alignment.centerRight,
             children: [
               CustomTextField(
                   hintText: 'Password',
                   controller: cubit.passwordController,
-                  validation: Validations.none),
+                  validation: Validations.password),
               IconButton(
                   onPressed: () => cubit.navigateToMenu(context),
                   icon:
@@ -57,7 +58,7 @@ class SignupFormView extends StatelessWidget {
                 Expanded(
                   child: PrimaryBtnView(
                     title: 'Sign Up',
-                    callback: () => cubit.navigateToMenu(context),
+                    callback: () => cubit.signUp(context),
                   ),
                 ),
               ],

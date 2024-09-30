@@ -50,7 +50,7 @@ class SignInForm extends StatelessWidget {
                 Expanded(
                   child: PrimaryBtnView(
                     title: 'Log In',
-                    callback: () => cubit.signIn(),
+                    callback: () => cubit.signIn(context),
                   ),
                 ),
               ],
@@ -70,7 +70,7 @@ class SignInForm extends StatelessWidget {
             children: [
               TextButton(
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: cubit.anonymousSignIn,
+                onPressed: () => cubit.anonymousSignIn(context),
                 child: const Text('Continue as guest').styled(
                   weight: FontWeight.w500,
                   color: C.secondary(brightness),

@@ -19,6 +19,7 @@ class SupabaseAuth {
   }
 
   static Future verifyOtp({required String email, required String otp}) async {
+    print(otp.toString());
     try {
       final user = await supabase.auth
           .verifyOTP(email: email, type: OtpType.signup, token: otp);
