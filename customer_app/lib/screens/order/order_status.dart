@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/screens/order/bloc/order_bloc.dart';
 import 'package:customer_app/shape/container_shape.dart';
 import 'package:flutter/material.dart';
@@ -9,34 +10,43 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 
 class OrderStatus extends StatelessWidget {
-  const OrderStatus({super.key});
-
+  const OrderStatus({super.key, required this.order});
+  final OrderModel order;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OrderBloc()..add(StartTimerEvent()),
       child: Builder(builder: (context) {
         final bloc = context.read<OrderBloc>();
+        bloc.orderId = order.orderId;
+        List<Color> color = const [
+          Colors.orange,
+          Colors.blue,
+          Colors.green,
+          Colors.red
+        ];
         List<Widget> test = [
-          Icon(
-            Iconsax.timer_1_bold,
-            color: Color(0xffA8483D),
-          ),
-          Icon(
-            Iconsax.timer_1_bold,
-            color: Color(0xffA8483D),
-          ),
-          Icon(
-            Iconsax.timer_1_bold,
-            color: Color(0xffA8483D),
-          ),
+          Lottie.network(
+              'https://lottie.host/62e756a8-c2a6-491c-9243-75bac153c403/O6lI273ehV.json',
+              fit: BoxFit.fill,
+              width: 200,
+              height: 200),
           Lottie.network(
               'https://lottie.host/974f8698-fc20-4586-9636-1276a155e3fb/opaLH3arqC.json',
               fit: BoxFit.fill,
               width: 200,
               height: 200),
+          Lottie.network(
+              'https://lottie.host/6724961a-5d22-4aa3-8780-4b1e760b8843/8u7eipDiqv.json',
+              fit: BoxFit.fill,
+              width: 200,
+              height: 200),
+          Lottie.network(
+              'https://lottie.host/dfec9960-84ff-47fa-a324-4e6599e1422a/x1dSOsiAVa.json',
+              fit: BoxFit.fill,
+              width: 200,
+              height: 200),
         ];
-        int? index;
         return Scaffold(
           appBar: AppBar(),
           body: Center(
@@ -79,7 +89,36 @@ class OrderStatus extends StatelessWidget {
                             context: context),
                         child: ListTile(
                           onTap: () {
-                            log('Review from here');
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Container(
+                                height: context.getHeight(multiply: 0.35),
+                                width: context.getWidth(multiply: 1),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: context.getWidth(multiply: 0.05),
+                                  vertical: context.getHeight(multiply: 0.05)
+                                ),
+                                decoration: const BoxDecoration(
+                                    color: Color(0xffeeedea),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    )),
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Order Summary',
+                                      style: TextStyle(
+                                          color: Color(0xffA8483D),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Rosarivo'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                           title: const Text(
                             'Review Your Order',
@@ -121,43 +160,46 @@ class OrderStatus extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: const Color(0xff6F5860),
                             borderRadius: BorderRadius.circular(16)),
-                        child: const Center(
-                          child: Text(
-                            'Preparing',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xffFC820A)),
+                        child: Center(
+                          child: BlocBuilder<OrderBloc, OrderState>(
+                            builder: (context, state) {
+                              return Text(
+                                bloc.orderStatus,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: color[bloc.statusIndex]),
+                              );
+                            },
                           ),
                         ),
                       ),
                       context.addSpacer(multiply: 0.03),
                       BlocBuilder<OrderBloc, OrderState>(
                         builder: (context, state) {
-                          return FlutterStepIndicator(
+                          return SizedBox(
                             height: 20,
-                            disableAutoScroll: false,
-                            list: const [
-                              Text('1'),
-                              Text('2'),
-                              Text('3'),
-                              Text('4'),
-                            ],
-                            onChange: (i) {
-                              log('=======0000===========');
-                            },
-                            page: bloc.statusIndex,
+                            width: context.getWidth(multiply: 0.7),
+                            child: FlutterStepIndicator(
+                              height: 20,
+                              disableAutoScroll: false,
+                              list: const [
+                                Text('1'),
+                                Text('2'),
+                                Text('3'),
+                                Text('4'),
+                              ],
+                              onChange: (i) {},
+                              page: bloc.statusIndex,
+                            ),
                           );
                         },
                       ),
                       //context.addSpacer(multiply: 0.04),
                       BlocBuilder<OrderBloc, OrderState>(
                         builder: (context, state) {
-                          if (state is ChangeStatusState) {
-                            return SingleChildScrollView(
-                                child: Center(child: test[bloc.statusIndex]));
-                          }
-                          return const Text('');
+                          return SingleChildScrollView(
+                              child: Center(child: test[bloc.statusIndex]));
                         },
                       )
                     ],
