@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
@@ -19,14 +20,6 @@ class ItemDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-
-    final List<String> coffeeStrength = ["Light", "Medium", "Dark"];
-    final List<String> milkOptions = [
-      "Full Cream",
-      "Creamy",
-      "Skimmed Milk",
-      "Low-Fat Milk"
-    ];
 
     return BlocProvider(
       create: (context) => ItemDetailsCubit(),
@@ -50,6 +43,16 @@ class ItemDetailsScreen extends StatelessWidget {
                                   image: Img.americano,
                                   fit: BoxFit.cover,
                                 )),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 40.0, horizontal: 8),
+                              child: IconButton(
+                                  onPressed: () => cubit.navigateBack(context),
+                                  icon: Icon(
+                                      CupertinoIcons.chevron_left_square_fill),
+                                  iconSize: 40,
+                                  color: C.bg1(brightness)),
+                            ),
                             Column(
                               children: [
                                 AspectRatio(
@@ -83,7 +86,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                         ),
                                         MilkSliderView(
                                           cubit: cubit,
-                                          title: milkOptions[cubit.milkSlider],
+                                          title: cubit
+                                              .milkOptions[cubit.milkSlider],
                                         ),
                                         SizedBox(height: 8),
                                         CoffeeStrengthView(cubit: cubit),

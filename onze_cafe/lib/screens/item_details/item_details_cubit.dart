@@ -11,6 +11,14 @@ class ItemDetailsCubit extends Cubit<ItemDetailsState> {
   CoffeeStrength selectedStrength = CoffeeStrength.light;
   int quantity = 1;
   int milkSlider = 0;
+  final List<String> milkOptions = [
+    "Full Cream",
+    "Creamy",
+    "Skimmed Milk",
+    "Low-Fat Milk"
+  ];
+
+  void navigateBack(BuildContext context) => Navigator.of(context).pop();
 
   void selectSize(CupSize cupSize) {
     selectedSize = cupSize;
