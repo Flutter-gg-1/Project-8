@@ -5,6 +5,6 @@ import 'package:customer_app/models/user_model.dart';
 class ProductLayer {
 
   List<ProductModel> menu = [];
-  List<OrderModel> cartItem = [];
+  List<OrderDetailesModel> cartItem = [];
 }
 

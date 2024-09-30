@@ -11,7 +11,7 @@ import 'package:lottie/lottie.dart';
 
 class OrderStatus extends StatelessWidget {
   const OrderStatus({super.key, required this.order});
-  final OrderModel order;
+  final OrderDetailesModel order;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

@@ -106,7 +106,7 @@ class OrderInfo extends StatelessWidget {
                           CustomButton(
                             title: 'Add to Cart',
                             onPressed: () async {
-                              locator.cartItem.add(OrderModel(
+                              locator.cartItem.add(OrderDetailesModel(
                                 productId: product.productId,
                                 quantity: bloc.quantity,
                                 size: size,
