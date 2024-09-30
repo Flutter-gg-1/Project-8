@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
-// pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H
-// merchant.moyasarflutter.onzecafe
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -24,13 +23,13 @@ class PaymentMethods extends StatelessWidget {
   PaymentMethods({super.key});
 
   final paymentConfig = PaymentConfig(
-    publishableApiKey: 'pk_test_tL7HBWubu85rbQZqksgqYkbNH1XVLLtPr5BGVA2H',
+    publishableApiKey: dotenv.env['Moyasar_API']!, // test publishable api key
     amount: 25758, // SAR 257.58
     description: 'Order #1324',
     metadata: {'size': '250g'},
     creditCard: CreditCardConfig(saveCard: true, manual: false),
     // applePay: ApplePayConfig(
-    //   merchantId: 'merchant.moyasarflutter.onzecafe',
+    // merchantId: dotenv.env['MERCHANT_ID']!,
     //   label: 'ABU_Mukhlef',
     //   manual: false,
     // ),
@@ -66,10 +65,6 @@ class PaymentMethods extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ApplePay(
-          config: paymentConfig,
-          onPaymentResult: onPaymentResult,
-        ),
         const Text("or"),
         CreditCard(
           config: paymentConfig,

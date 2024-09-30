@@ -11,6 +11,8 @@ class SignInForm extends StatelessWidget {
   const SignInForm({super.key, required this.cubit});
   final AuthCubit cubit;
 
+  
+
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -27,14 +29,14 @@ class SignInForm extends StatelessWidget {
           ),
           CustomTextField(
               hintText: 'Email',
-              controller: TextEditingController(),
+              controller: cubit.emailSignInController,
               validation: Validations.none),
           Stack(
             alignment: Alignment.centerRight,
             children: [
               CustomTextField(
                   hintText: 'Password',
-                  controller: TextEditingController(),
+                  controller: cubit.passwordSignInController,
                   validation: Validations.none),
               IconButton(
                   onPressed: () => (),
@@ -49,7 +51,7 @@ class SignInForm extends StatelessWidget {
                 Expanded(
                   child: PrimaryBtnView(
                     title: 'Log In',
-                    callback: () => cubit.navigateToMenu(context),
+                    callback: () => cubit.logWithOtp(),
                   ),
                 ),
               ],

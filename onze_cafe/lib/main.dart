@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/screens/landing_screen.dart';
-import 'package:onze_cafe/screens/menu/menu_screen.dart';
+import 'package:onze_cafe/servers/setup.dart';
 
-
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setup();
   runApp(const MainApp());
 }
 
@@ -15,6 +16,6 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
-        home: const MenuScreen());
+        home: const LandingScreen());
   }
 }

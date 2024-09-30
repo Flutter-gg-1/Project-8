@@ -27,22 +27,22 @@ class SignupFormView extends StatelessWidget {
           ),
           CustomTextField(
               hintText: 'Full Name',
-              controller: TextEditingController(),
+              controller: cubit.nameController,
               validation: Validations.none),
           CustomTextField(
               hintText: 'Email',
-              controller: TextEditingController(),
+              controller: cubit.emailController,
               validation: Validations.none),
           CustomTextField(
               hintText: 'Phone Number',
-              controller: TextEditingController(),
+              controller: cubit.phoneController,
               validation: Validations.none),
           Stack(
             alignment: Alignment.centerRight,
             children: [
               CustomTextField(
                   hintText: 'Password',
-                  controller: TextEditingController(),
+                  controller: cubit.passwordController,
                   validation: Validations.none),
               IconButton(
                   onPressed: () => cubit.navigateToMenu(context),
