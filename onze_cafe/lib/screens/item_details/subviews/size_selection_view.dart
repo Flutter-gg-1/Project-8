@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
@@ -73,7 +74,14 @@ class _SizeCardView extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Image(image: Img.americano, fit: BoxFit.contain),
+                      child: SvgPicture.asset(
+                        'assets/SVG/outlined_cup.svg',
+                        colorFilter: ColorFilter.mode(
+                            cubit.selectedSize == cupSize
+                                ? C.secondary(brightness)
+                                : C.accent(brightness),
+                            BlendMode.srcIn),
+                      ),
                     )),
               ),
             ),

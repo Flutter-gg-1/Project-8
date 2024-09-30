@@ -135,29 +135,6 @@ class ItemDetailsScreen extends StatelessWidget {
                   );
                 },
               ),
-              //Not tested
-              // TextButton(
-              //    onPressed: () {
-              //      final itemCount = cubit.itemCount;
-              //      final selectedSize = sizes[cubit.selectedIndex].toString();
-              //      final selectedCoffeeStrength = coffeeStrength[cubit.selectStrengthIndex];
-              //      final selectedMilkOption = milkOptions[cubit.sliderValue];
-              //
-              //      final cartItem = CartItem(
-              //        name: item.name,
-              //        count: itemCount,
-              //        price: item.price * itemCount,
-              //        image: item.imgUrl,
-              //        size: selectedSize,
-              //        coffeeStrength: selectedCoffeeStrength,
-              //        milkOption: selectedMilkOption,
-              //      );
-              //
-              //      context.read<CartCubit>().addItem(cartItem);
-              //      ScaffoldMessenger.of(context).showSnackBar(
-              //        SnackBar(content: Text('${item.name} added to cart!')),
-              //      );
-              //    }, child: const Text('Add to Cart'))
             ],
           ),
         );

@@ -1,6 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:onze_cafe/reusable_components/animated_snackbar.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
 
 import '../../supabase/supabase_auth.dart';
@@ -62,6 +61,8 @@ extension NetworkFunctions on AuthCubit {
       }
     }
   }
+
+  // OTP
 
   Future verifyOtp(context) async {
     var stringOtp = '$otp'.padLeft(6, '0');

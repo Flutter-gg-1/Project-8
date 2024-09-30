@@ -42,4 +42,7 @@ extension Img on ImageProvider {
   //Coffee bean
   static const coffeeBeanR = AssetImage('assets/coffee_bean/coffee_bean.png');
   static const coffeeBeanB = AssetImage('assets/coffee_bean/coffee_bean_b.png');
+
+  //SVG
+  static const outlinedCup = 'outlined_cup.svg';
 }
