@@ -5,7 +5,7 @@ class OrderModel {
   final String userId;
   final String status;
   final DateTime placedAt;
-  final DateTime readyAt;
+  final DateTime? readyAt;
   final double totalPrice;
 
   OrderModel({
@@ -23,8 +23,8 @@ class OrderModel {
       userId: json['user_id'],
       status: json['status'],
       placedAt: DateTime.parse(json['placed_at']),
-      readyAt: DateTime.parse(json['ready_at']),
-      totalPrice: json['total_price'],
+      readyAt: json['ready_at'] != null ? DateTime.parse(json['ready_at']) : null,
+      totalPrice: (json['total_price'] as num).toDouble(),
     );
   }
 

@@ -1,20 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
+import 'package:onze_cafe/services/setup.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final String heroTag;
-  final String name;
-  final double price;
-  final String description;
-  final String imageUrl;
+  final ItemModel item;
+  // final String name;
+  // final double price;
+  // final String description;
+  // final String imageUrl;
 
-  const ProductDetailsScreen({
-    required this.heroTag,
-    required this.name,
-    required this.price,
-    required this.description,
-    required this.imageUrl,
-  });
+  const ProductDetailsScreen({required this.heroTag, required this.item
+      // required this.name,
+      // required this.price,
+      // required this.description,
+      // required this.imageUrl,
+      });
 
   @override
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
@@ -38,7 +44,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
+                MaterialPageRoute(builder: (context) =>  CartScreen()),
               );
             },
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
@@ -64,7 +70,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Hero(
                       tag: widget.heroTag, // Ensure the same heroTag is passed
                       child: Image.network(
-                        widget.imageUrl,
+                        widget.item.imageUrl,
                         width: size.width * 0.6,
                         height: size.height * 0.3,
                         fit: BoxFit.contain,
@@ -86,7 +92,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.name,
+                      widget.item.name,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: size.width * 0.07,
@@ -95,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      widget.description,
+                      widget.item.description,
                       style: TextStyle(
                         color: Colors.black87,
                         fontSize: size.width * 0.045,
@@ -167,7 +173,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          await locator.get<DataLayer>().addItem(
+                                  item: OrderItemModel.fromJson({
+                                'item_id': widget.item.id,
+                                'order_id':
+                                    locator.get<DataLayer>().order?.orderId,
+                                'quantity': quantity,
+                                'price': widget.item.price,
+                              }));
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Added to cart!'),

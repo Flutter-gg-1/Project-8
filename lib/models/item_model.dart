@@ -8,6 +8,7 @@ class ItemModel {
   final String itemType;
   final String imageUrl;
   final int rating;
+  final int cal;
 
   ItemModel(
       {required this.id,
@@ -18,7 +19,9 @@ class ItemModel {
       required this.preparationTime,
       required this.itemType,
       required this.imageUrl,
-      required this.rating});
+      required this.rating,
+      required this.cal
+      });
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
@@ -33,7 +36,9 @@ class ItemModel {
         preparationTime: json['preparation_time'],
         itemType: json['item_type'],
         imageUrl: json['image_url'] ?? 'assets/coffe_of_thday.png',
-        rating: json['rating'] ?? 0);
+        rating: json['rating'] ?? 0,
+        cal: json['cal']
+        );
   }
 
   Map<String, dynamic> toJson() {
@@ -46,7 +51,8 @@ class ItemModel {
       'preparation_time': preparationTime,
       'item_type': itemType,
       'image_url': imageUrl,
-      'rating': rating
+      'rating': rating,
+      'cal':cal
     };
   }
 }

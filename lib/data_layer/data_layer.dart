@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:onze_cafe/models/cart_model.dart';
 import 'package:onze_cafe/models/item_model.dart';
@@ -12,12 +14,14 @@ class DataLayer {
   UserModel? user;
   OrderModel? order;
   List<ItemModel> items = [];
-  CartModel? cart;
+  List<ItemModel> allItems = [];
+  CartModel cart = CartModel();
 
   final box = GetStorage();
 
   DataLayer() {
     loadData();
+    fetchOrder();
   }
 
   saveAuth({required String token, required Map<String, dynamic> user}) async {
@@ -47,25 +51,44 @@ class DataLayer {
     if (box.hasData('user')) {
       user = UserModel.fromJson(Map<String, dynamic>.from(box.read('user')));
     }
+  }
 
-    // if (user != null) {
-    //   final response = await supabase
-    //       .from('orders')
-    //       .select()
-    //       .eq('user_id', user!.userId)
-    //       .single();
-    //   if (response.isEmpty) {
-    //     await supabase.from('orders').insert({
-    //       'user_id': user?.userId,
-    //       'status': 'incomplete',
-    //       'placed_at': '',
-    //       'ready_at': '',
-    //       'total_price': 7
-    //     });
+  fetchOrder() async {
+    if (user != null) {
+      final response = await supabase
+          .from('orders')
+          .select()
+          .eq('user_id', user!.userId)
+          .maybeSingle();
 
-    //     order = OrderModel.fromJson(response);
-    //   }
-    // }
+      log('${response}');
+
+      if (response == null) {
+        final insertResponse = await supabase
+            .from('orders')
+            .insert({
+              'user_id': user?.userId,
+              'status': 'incomplete',
+              'total_price': 0
+            })
+            .select()
+            .single();
+        if (!box.hasData('order')) {
+          await box.write('order', insertResponse);
+        }
+        order = OrderModel.fromJson(insertResponse);
+      } else {
+        if (!box.hasData('order')) {
+          await box.write('order', response);
+        }
+        order = OrderModel.fromJson(response);
+      }
+    }
+
+    final allItemsList = await supabase.from("item").select("*");
+    for (var item in allItemsList) {
+      allItems.add(ItemModel.fromJson(item));
+    }
   }
 
   Future<Map<String, dynamic>> getUserByEmail({required String email}) async {
@@ -75,7 +98,7 @@ class DataLayer {
     return response;
   }
 
-   addItem({required OrderItemModel item}) async {
+  addItem({required OrderItemModel item}) async {
     for (var e in cart!.items) {
       if (e.itemId == item.itemId) {
         e.quantity++;
@@ -84,10 +107,6 @@ class DataLayer {
     }
     cart?.addItem(item: item);
   }
-
-  // createCart(List<ItemModel> order){
-  //   order
-  // }
 
   Future<List<ItemModel>> getItemsByType(String itemType) async {
     // Map of valid item types that match your database enum values

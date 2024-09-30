@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -71,19 +73,24 @@ Future createOrder(
   }
 }
 
-Future addItem(// pass OrderItemModel
-    {required int itemId,
-    required int orderId,
-    required int quantity,
-    required double price}) async {
+Future addItem(
+    // pass OrderItemModel
+    {required OrderItemModel item}) async {
   try {
     await supabase.from('order_item').insert({
-      'item_id': itemId,
-      'order_id': orderId,
-      'quantity': quantity,
-      'price': price,
+      'item_id': item.itemId,
+      'order_id': item.orderId,
+      'quantity': item.quantity,
+      'price': item.price,
     });
   } catch (error) {
     return Future.error(error);
   }
+}
+
+saveOrder() async {
+  for (var item in locator.get<DataLayer>().cart.items) {
+    addItem(item: item);
+  }
+  
 }

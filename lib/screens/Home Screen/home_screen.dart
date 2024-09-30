@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
@@ -59,11 +61,8 @@ class _HomeScreenState extends State<HomeScreen>
                     MaterialPageRoute(
                       builder: (context) => ProductDetailsScreen(
                         heroTag: product.id
-                            .toString(), // Ensure heroTag is unique and passed correctly
-                        name: product.name,
-                        price: product.price,
-                        description: product.description,
-                        imageUrl: product.imageUrl,
+                            .toString(),
+                       item: ItemModel.fromJson(products[index].toJson()),
                       ),
                     ),
                   );
@@ -103,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen>
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
         title: Image.asset('assets/onze logo.png', height: 200),
-         actions: [
+        actions: [
           Column(
             children: [
               // if cart empty, sizedbox 20
@@ -134,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen>
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CartScreen()),
+                    MaterialPageRoute(builder: (context) => CartScreen()),
                   );
                 },
                 child: const Icon(

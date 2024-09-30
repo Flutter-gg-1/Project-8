@@ -1,7 +1,63 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:moyasar/moyasar.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/services/setup.dart';
+
+class CartScreen extends StatefulWidget {
+  CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  final paymentConfig = PaymentConfig(
+    publishableApiKey: 'pk_test_xWUPFwQABVUruCau7j64Cvm7tyrqFBHkeB4he8RY',
+    amount: 100, // SAR 1
+    description: 'Order #1324',
+    metadata: {'orderId': '1324', 'customer': 'John Doe'},
+    creditCard: CreditCardConfig(saveCard: true, manual: false),
+    applePay: ApplePayConfig(merchantId: '????', label: 'Cafe', manual: false),
+  );
+
+  void onPaymentResult(result, BuildContext context) {
+    if (result is PaymentResponse) {
+      switch (result.status) {
+        case PaymentStatus.paid:
+          // saveOrder();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Payment successful!'),
+          ));
+          Navigator.pop(context, 'Payment successful');
+          break;
+        case PaymentStatus.failed:
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Payment failed. Try again.'),
+          ));
+          break;
+        case PaymentStatus.initiated:
+        case PaymentStatus.authorized:
+        case PaymentStatus.captured:
+      }
+    }
+  }
+
+  double totalPrice = 0;
+
+  getTotalPrice() async {
+    for (var item in locator.get<DataLayer>().cart.items) {
+      totalPrice += item.price * item.quantity;
+    }
+  }
+
+  @override
+  void initState() {
+    getTotalPrice();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +95,25 @@ class CartScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
               child: ListView.builder(
-                itemCount: 5, // Example number of cart items
+                itemCount: locator.get<DataLayer>().cart.items.length,
                 itemBuilder: (context, index) {
+                  ItemModel? item;
+                  for (var element in locator.get<DataLayer>().allItems) {
+                    if (element.id ==
+                        locator.get<DataLayer>().cart.items[index].itemId) {
+                      item = element;
+                    }
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: CartItemCard(size: size),
+                    child: CartItemCard(
+                        size: size,
+                        item: item!,
+                        quantity: locator
+                            .get<DataLayer>()
+                            .cart
+                            .items[index]
+                            .quantity),
                   );
                 },
               ),
@@ -54,7 +124,7 @@ class CartScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                color: const Color(0xff74a0b2), // Similar color as home screen
+                color: const Color(0xff74a0b2),
                 padding: EdgeInsets.symmetric(
                     horizontal: size.width * 0.05, vertical: 20),
                 child: Row(
@@ -69,9 +139,9 @@ class CartScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$14.99',
+                      '$totalPrice SAR',
                       style: TextStyle(
-                        color: Colors.white, // Matching price color
+                        color: Colors.white,
                         fontSize: size.width * 0.05,
                         fontWeight: FontWeight.bold,
                       ),
@@ -83,7 +153,7 @@ class CartScreen extends StatelessWidget {
                 width: double.infinity,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                color: const Color(0xffbc793d), // Button color for consistency
+                color: const Color(0xffbc793d),
                 child: TextButton(
                   onPressed: () {
                     _showPaymentBottomSheet(context, size);
@@ -108,7 +178,7 @@ class CartScreen extends StatelessWidget {
   void _showPaymentBottomSheet(BuildContext context, Size size) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.black.withOpacity(0.8),
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(25.0),
@@ -116,62 +186,69 @@ class CartScreen extends StatelessWidget {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Payment Details',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: size.width * 0.06,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              _buildTextField('Cardholder Name', Icons.person, size),
-              const SizedBox(height: 10),
-              _buildTextField('Card Number', Icons.credit_card, size),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                      child: _buildTextField(
-                          'Expiry Date', Icons.date_range, size)),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildTextField('CVC', Icons.lock, size)),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffbc793d),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.3,
-                      vertical: 14,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'Pay',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: size.width * 0.05,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.all(12),
+          child: CreditCard(
+            config: paymentConfig,
+            onPaymentResult: (result) => onPaymentResult(result, context),
           ),
         );
+        // return Padding(
+        //   padding: const EdgeInsets.all(20.0),
+        //   child: Column(
+        //     mainAxisSize: MainAxisSize.min,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Text(
+        //         'Payment Details',
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontSize: size.width * 0.06,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //       const SizedBox(height: 20),
+        //       _buildTextField('Cardholder Name', Icons.person, size),
+        //       const SizedBox(height: 10),
+        //       _buildTextField('Card Number', Icons.credit_card, size),
+        //       const SizedBox(height: 10),
+        //       Row(
+        //         children: [
+        //           Expanded(
+        //               child: _buildTextField(
+        //                   'Expiry Date', Icons.date_range, size)),
+        //           const SizedBox(width: 10),
+        //           Expanded(child: _buildTextField('CVC', Icons.lock, size)),
+        //         ],
+        //       ),
+        //       const SizedBox(height: 20),
+        //       Center(
+        //         child: ElevatedButton(
+        //           style: ElevatedButton.styleFrom(
+        //             backgroundColor: const Color(0xffbc793d),
+        //             padding: EdgeInsets.symmetric(
+        //               horizontal: size.width * 0.3,
+        //               vertical: 14,
+        //             ),
+        //             shape: RoundedRectangleBorder(
+        //               borderRadius: BorderRadius.circular(15),
+        //             ),
+        //           ),
+        //           onPressed: () {
+        //             Navigator.pop(context);
+        //           },
+        //           child: Text(
+        //             'Pay',
+        //             style: TextStyle(
+        //               color: Colors.white,
+        //               fontSize: size.width * 0.05,
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // );
       },
     );
   }
@@ -195,19 +272,21 @@ class CartScreen extends StatelessWidget {
 }
 
 class CartItemCard extends StatelessWidget {
-  const CartItemCard({
-    super.key,
-    required this.size,
-  });
-
   final Size size;
+  final ItemModel item;
+  final int quantity;
+  const CartItemCard(
+      {super.key,
+      required this.size,
+      required this.item,
+      required this.quantity});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color(0xfff0e5d8), // Same background color as HomeScreen
+        color: const Color(0xfff0e5d8),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -222,8 +301,8 @@ class CartItemCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              'assets/coffe_of_thday.png',
+            child: Image.network(
+              item.imageUrl,
               width: size.width * 0.25,
               height: size.width * 0.25,
               fit: BoxFit.contain,
@@ -234,7 +313,7 @@ class CartItemCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Cappuccino',
+                item.name,
                 style: TextStyle(
                   fontSize: size.width * 0.045,
                   fontWeight: FontWeight.bold,
@@ -243,7 +322,7 @@ class CartItemCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '\$4.99',
+                'SAR ${item.price}',
                 style: TextStyle(
                   fontSize: size.width * 0.04,
                   fontWeight: FontWeight.bold,
@@ -258,7 +337,7 @@ class CartItemCard extends StatelessWidget {
                     icon: const Icon(Icons.remove, color: Colors.black),
                   ),
                   Text(
-                    '1',
+                    '$quantity',
                     style: TextStyle(
                       fontSize: size.width * 0.04,
                       fontWeight: FontWeight.bold,
