@@ -73,9 +73,7 @@ Future createOrder(
   }
 }
 
-Future addItem(
-    // pass OrderItemModel
-    {required OrderItemModel item}) async {
+Future addItem({required OrderItemModel item}) async {
   try {
     await supabase.from('order_item').insert({
       'item_id': item.itemId,
@@ -92,5 +90,4 @@ saveOrder() async {
   for (var item in locator.get<DataLayer>().cart.items) {
     addItem(item: item);
   }
-  
 }

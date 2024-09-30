@@ -8,7 +8,7 @@ class CoffeeCard extends StatelessWidget {
   final String? imageUrl;
   final String name;
   final double price;
-  final int rating; // New field for rating
+  final int rating;
 
   const CoffeeCard({
     super.key,
@@ -120,11 +120,6 @@ class CoffeeCard extends StatelessWidget {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  // add item to datalayer list
-                  // add to cart
-
-                  //  locator.get<DataLayer>().addItem(item: item);
-                  
                 },
                 icon: const Icon(
                   Icons.add_box,

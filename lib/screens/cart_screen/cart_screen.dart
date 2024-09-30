@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/services/db_operations.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CartScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
     if (result is PaymentResponse) {
       switch (result.status) {
         case PaymentStatus.paid:
-          // saveOrder();
+          saveOrder();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Payment successful!'),
           ));
