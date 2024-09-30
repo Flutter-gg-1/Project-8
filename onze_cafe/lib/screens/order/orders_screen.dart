@@ -29,12 +29,20 @@ class OrdersScreen extends StatelessWidget {
           body: SafeArea(
               child: Column(
             children: [
-              Expanded(
-                child: ListView(
-                  children: [
-                    OrderCardView(cubit: cubit, brightness: brightness)
-                  ],
-                ),
+              BlocBuilder<OrderCubit, OrderState>(
+                builder: (context, state) {
+                  if (state is OrderInitial) cubit.fetchOrders();
+                  return Expanded(
+                    child: ListView(
+                      children: cubit.orders
+                          .map((order) => OrderCardView(
+                              cubit: cubit,
+                              placedOrder: order,
+                              brightness: brightness))
+                          .toList(),
+                    ),
+                  );
+                },
               )
             ],
           )),
