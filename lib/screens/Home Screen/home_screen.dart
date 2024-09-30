@@ -117,7 +117,6 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: Column(
         children: [
-          // Carousel and other UI elements
           Expanded(
             flex: 2,
             child: Stack(
@@ -130,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen>
                       child: CarouselSlider(
                         options: CarouselOptions(
                           autoPlay: true,
-                          height: size.height * 0.25,
+                          height: size.height * 0.23,
                           aspectRatio: 16 / 9,
                           viewportFraction: 0.9,
                         ),
@@ -181,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 Positioned(
-                  bottom: size.height * 0.1950,
+                  bottom: size.height * 0.18,
                   left: -size.width * 0.05,
                   child: Hero(
                     tag: 'coffeeHero_mainImage',
