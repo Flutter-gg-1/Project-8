@@ -122,6 +122,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
               ),
             ),
             ...List.generate(locator.get<DataLayer>().orders.length, (index) {
+              final order = locator.get<DataLayer>().orders[index];
               return Column(
                 children: [
                   Padding(
@@ -198,7 +199,10 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // set Order ready
+                                   markItemAsReady(
+                                      orderId: order['order_id'],
+                                      itemId: order['item']['id']);
+                                  
                                 },
                                 child: const Text(
                                   'Ready',

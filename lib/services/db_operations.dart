@@ -85,17 +85,21 @@ Future addItem({required OrderItemModel item}) async {
   }
 }
 
-saveOrder() async {
+saveOrder({required double totalPrice}) async {
   for (var item in locator.get<DataLayer>().cart.items) {
     addItem(item: item);
   }
+  await supabase.from('orders').update({
+    'total_price' : totalPrice
+  });
 }
 
 Future<List<Map<String, dynamic>>> fetchAllOrders() async {
-  final response =
-      await supabase.from('order_item').select('*, orders(*), item(*)');
-  log('$response');
-  log('${response.length}');
+  final response = await supabase
+    .from('order_item')
+    .select('*, orders(*), item(*)')
+    .eq('item_status', 'incomplete');
+    
 
   return response;
 }
@@ -105,3 +109,33 @@ getCustomerName({required String userId}) async {
       await supabase.from('app_user').select('name').eq('user_id', userId);
   return name;
 }
+
+Future<void> markItemAsReady({required int orderId, required int itemId}) async {
+  try {
+    // Update the item status to "ready"
+    await supabase
+        .from('order_item')
+        .update({'item_status': 'complete'})
+        .eq('order_id', orderId)
+        .eq('item_id', itemId);
+
+    // Check if all items in the order are ready
+    final items = await supabase
+        .from('order_item')
+        .select('item_status')
+        .eq('order_id', orderId);
+
+    // If all items are marked as 'ready', update the order status to 'complete'
+    bool allItemsReady = items.every((item) => item['item_status'] == 'complete');
+    if (allItemsReady) {
+      await supabase
+          .from('orders')
+          .update({'status': 'complete'})
+          .eq('order_id', orderId);
+    }
+  } catch (error) {
+    log('Error marking item as ready: $error');
+    return Future.error(error);
+  }
+}
+

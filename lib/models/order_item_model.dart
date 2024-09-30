@@ -3,12 +3,14 @@ class OrderItemModel {
   final int orderId;
   int quantity;
   final double price;
+  String status;
 
   OrderItemModel({
     required this.itemId,
     required this.orderId,
     required this.quantity,
     required this.price,
+    this.status = 'incomplete'
   });
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class OrderItemModel {
       orderId: json['order_id'],
       quantity: json['quantity'],
       price: json['price'],
+      status: json['item_status']
     );
   }
 
@@ -26,6 +29,7 @@ class OrderItemModel {
       'order_id': orderId,
       'quantity': quantity,
       'price': price,
+      'item_status':status
     };
   }
 }
