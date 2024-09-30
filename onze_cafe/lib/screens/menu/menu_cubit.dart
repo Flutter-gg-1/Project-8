@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/model/menu_item.dart';
+import 'package:onze_cafe/model/offer.dart';
 import 'package:onze_cafe/screens/cart/cart_screen.dart';
 import 'package:onze_cafe/screens/item_details/item_details_screen.dart';
 
@@ -12,6 +13,7 @@ class MenuCubit extends Cubit<MenuState> {
   MenuCubit() : super(MenuInitial()) {}
   List<MenuItem> allItems = [];
   List<MenuCategory> categories = [];
+  List<Offer> offers = [];
 
   final ScrollController scrollController = ScrollController();
   final Map<String, double> categoryPositions = {};
@@ -20,6 +22,7 @@ class MenuCubit extends Cubit<MenuState> {
   void fetchMenuItems() {
     allItems = MockData().menuItems;
     categories = MockData().categories;
+    offers = MockData().offers;
     _groupMenuItemsByCategory();
     emit(UpdateUIState());
   }

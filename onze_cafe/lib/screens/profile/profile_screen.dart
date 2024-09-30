@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_card_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_list_item_view.dart';
 
@@ -17,8 +18,12 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: C.bg1(brightness),
       appBar: AppBar(
         backgroundColor: C.bg1(brightness),
-        title: const Text('Profile'),
-        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(CupertinoIcons.chevron_left_square_fill),
+          iconSize: 40,
+          color: C.primary(brightness),
+        ),
       ),
       body: SafeArea(
           child: Padding(

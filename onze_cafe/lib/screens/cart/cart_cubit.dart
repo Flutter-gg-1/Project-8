@@ -7,11 +7,18 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
-   List<CartItem> cartItems = [];
+  List<CartItem> cartItems = [];
   int count = 1;
 
-  void fetchMenuItems() {
+  void fetchCartItems() {
+    var menuItems = MockData().menuItems;
     cartItems = MockData().cart;
+    for (var item in cartItems) {
+      item.menuItem = menuItems
+          .where((menuItem) => menuItem.id == item.menuItemId)
+          .toList()
+          .firstOrNull;
+    }
     emit(CartUpdatedState(cartItems));
   }
 
@@ -25,18 +32,16 @@ class CartCubit extends Cubit<CartState> {
     emit(CartUpdatedState(cartItems));
   }
 
-   void incrementCount(CartItem item) {
-    final index = cartItems.indexOf(item);
-    if (index != -1) {
-      cartItems[index].count++;
+  void incrementCount(CartItem item) {
+    if (item.quantity < 10) {
+      item.quantity++;
       emit(CartUpdatedState(cartItems));
     }
   }
 
   void decrementCount(CartItem item) {
-    final index = cartItems.indexOf(item);
-    if (index != -1 && cartItems[index].count > 1) {
-      cartItems[index].count--;
+    if (item.quantity > 1) {
+      item.quantity--;
       emit(CartUpdatedState(cartItems));
     }
   }

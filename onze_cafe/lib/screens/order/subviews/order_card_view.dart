@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
@@ -6,8 +5,8 @@ import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/order/order_cubit.dart';
 
-class OrderView extends StatelessWidget {
-  const OrderView({
+class OrderCardView extends StatelessWidget {
+  const OrderCardView({
     super.key,
     required this.cubit,
     required this.brightness,

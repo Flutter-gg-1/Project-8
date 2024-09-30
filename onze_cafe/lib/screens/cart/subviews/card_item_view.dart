@@ -46,9 +46,9 @@ class CartItemView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.name)
+                            Text(item.menuItem?.name ?? '')
                                 .styled(weight: FontWeight.bold, size: 18),
-                            Text("${item.price} SAR")
+                            Text("${item.menuItem?.price ?? 0} SAR")
                                 .styled(weight: FontWeight.bold, size: 16),
                           ],
                         ),
@@ -59,9 +59,9 @@ class CartItemView extends StatelessWidget {
                         child: CountView(
                           fColor: C.primary(brightness),
                           fSize: 20,
-                          iconSize: 20,
+                          iconSize: 30,
                           iconColor: C.primary(brightness),
-                          count: 1,
+                          count: item.quantity,
                           onDecrement: () => cubit.decrementCount(item),
                           onIncrement: () => cubit.incrementCount(item),
                         )),

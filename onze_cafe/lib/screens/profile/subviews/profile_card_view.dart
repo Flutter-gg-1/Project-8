@@ -13,8 +13,8 @@ class ProfileCardView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Card(
-        elevation: 8,
-        shadowColor: C.secondary(brightness),
+        elevation: 2,
+        shadowColor: C.secondary(brightness).withOpacity(0.7),
         color: C.bg1(brightness),
         child: Row(
           children: [

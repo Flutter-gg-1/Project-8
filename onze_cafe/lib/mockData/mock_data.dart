@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onze_cafe/mockData/cart_items.dart';
+import 'package:onze_cafe/mockData/cart_items_ext.dart';
 import 'package:onze_cafe/mockData/categories_ext.dart';
 import 'package:onze_cafe/mockData/menu_items_ext.dart';
 import 'package:onze_cafe/mockData/offers_ext.dart';
@@ -20,7 +20,6 @@ class MockData {
   List<MenuItem> menuItems = [];
   List<Offer> offers = [];
   List<Profile> profiles = [];
-  List<AssetImage> offerce = [];
   List<CartItem> cart = [];
 
   MockData._internal() {

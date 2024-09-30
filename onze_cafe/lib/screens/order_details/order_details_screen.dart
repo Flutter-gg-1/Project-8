@@ -15,6 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     return Scaffold(
       backgroundColor: C.bg2(brightness),
+      appBar: AppBar(backgroundColor: C.bg2(brightness)),
       body: SafeArea(
           child: Center(
         child: Padding(
@@ -31,7 +32,7 @@ class OrderDetailsScreen extends StatelessWidget {
           ),
         ),
       )),
-    ); 
+    );
   }
 }
 

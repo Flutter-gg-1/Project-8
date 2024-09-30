@@ -5,8 +5,8 @@ class CountView extends StatelessWidget {
   const CountView({
     super.key,
     required this.count,
-    this.onIncrement,
-    this.onDecrement,
+    required this.onIncrement,
+    required this.onDecrement,
     required this.iconSize,
     required this.iconColor,
     required this.fSize,
@@ -14,8 +14,8 @@ class CountView extends StatelessWidget {
   });
 
   final int count;
-  final Function()? onIncrement;
-  final Function()? onDecrement;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
   final Color iconColor;
   final double iconSize;
   final Color fColor;

@@ -1,19 +1,22 @@
-class CartItem {
-  final String name;
-  late final int count;
-  final double price;
-  final String image;
-  final String? size;
-  final String? coffeeStrength;
-  final String? milkOption;
+import 'package:onze_cafe/model/menu_item.dart';
 
-  CartItem({
-    required this.name,
-    required this.count,
-    required this.price,
-    required this.image,
-    this.size,
-    this.coffeeStrength,
-    this.milkOption,
-  });
+class CartItem {
+  String id;
+  String userId;
+  String menuItemId;
+  int quantity = 1;
+  String? size;
+  String? coffeeStrength;
+  String? milkOption;
+  MenuItem? menuItem;
+
+  CartItem(
+      {required this.id,
+      required this.userId,
+      required this.menuItemId,
+      required this.quantity,
+      this.size,
+      this.coffeeStrength,
+      this.milkOption,
+      this.menuItem});
 }

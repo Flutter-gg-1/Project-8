@@ -2,12 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
-import 'package:onze_cafe/model/cart_Item.dart';
-import 'package:onze_cafe/reusable_components/count_view.dart';
-import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
 import 'package:onze_cafe/screens/cart/subviews/card_item_view.dart';
-import 'package:onze_cafe/screens/payment/payment_screen.dart';
+import 'package:onze_cafe/screens/checkout/checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({
@@ -15,7 +12,7 @@ class CartScreen extends StatelessWidget {
   });
 
   void navigateToPayment(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => const PaymentScreen()));
+      .push(MaterialPageRoute(builder: (context) => const CheckoutScreen()));
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class CartScreen extends StatelessWidget {
           body: SafeArea(
             child: BlocBuilder<CartCubit, CartState>(builder: (context, state) {
               if (state is CartInitial) {
-                cubit.fetchMenuItems();
+                cubit.fetchCartItems();
               }
               return Column(
                 children: [

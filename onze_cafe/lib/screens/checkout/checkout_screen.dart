@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/screens/payment_confirm_screen.dart';
 
-class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+class CheckoutScreen extends StatelessWidget {
+  const CheckoutScreen({super.key});
 
   void navigateToConfirmPayment(BuildContext context) =>
       Navigator.of(context).push(MaterialPageRoute(

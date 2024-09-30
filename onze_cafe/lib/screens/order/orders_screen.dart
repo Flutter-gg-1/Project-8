@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/order/order_cubit.dart';
-import 'package:onze_cafe/screens/order/subviews/order_view.dart';
+import 'package:onze_cafe/screens/order/subviews/order_card_view.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
@@ -31,7 +31,9 @@ class OrdersScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView(
-                  children: [OrderView(cubit: cubit, brightness: brightness)],
+                  children: [
+                    OrderCardView(cubit: cubit, brightness: brightness)
+                  ],
                 ),
               )
             ],
