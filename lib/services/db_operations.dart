@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:onze_cafe/data_layer/data_layer.dart';
-import 'package:onze_cafe/models/item_model.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -90,4 +89,19 @@ saveOrder() async {
   for (var item in locator.get<DataLayer>().cart.items) {
     addItem(item: item);
   }
+}
+
+Future<List<Map<String, dynamic>>> fetchAllOrders() async {
+  final response =
+      await supabase.from('order_item').select('*, orders(*), item(*)');
+  log('$response');
+  log('${response.length}');
+
+  return response;
+}
+
+getCustomerName({required String userId}) async {
+  final name =
+      await supabase.from('app_user').select('name').eq('user_id', userId);
+  return name;
 }

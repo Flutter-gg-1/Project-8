@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen>
                 },
                 child: Hero(
                   tag: product.id
-                      .toString(), // Same heroTag used in ProductDetailsScreen
+                      .toString(),
                   child: Padding(
                     padding: EdgeInsets.only(top: 20),
                     child: CoffeeCard(
