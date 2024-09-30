@@ -54,6 +54,8 @@ extension NetworkFunctions on AuthCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
+      await Future.delayed(Duration(seconds: 1));
+      if (context.mounted) navigateToMenu(context);
     } catch (e) {
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
