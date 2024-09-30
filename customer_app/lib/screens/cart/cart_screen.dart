@@ -1,5 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
-import 'package:customer_app/screens/auth/cubit/auth_cubit/auth_cubit.dart';
+
 import 'package:customer_app/screens/cart/cubit/cart_cubit.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:customer_app/widget/cart_widget/custome_order_list_container.dart';
@@ -20,9 +20,15 @@ class CartScreen extends StatelessWidget {
         cubit.showCart();
         return BlocListener<CartCubit, CartState>(
           listener: (context, state) {
-            if(state is EorrState){
-
-              
+            if (state is ErorrState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  state.msg,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.red,
+              ));
             }
           },
           child: Scaffold(
@@ -209,7 +215,9 @@ class CartScreen extends StatelessWidget {
                         ),
                         CustomButton(
                           title: 'CheckOut',
-                          onPressed: () {},
+                          onPressed: () {
+                            cubit.checkOut();
+                          },
                           icon: Icons.arrow_forward_ios_rounded,
                         )
                       ],
