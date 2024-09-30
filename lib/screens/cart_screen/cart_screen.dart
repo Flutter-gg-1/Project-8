@@ -28,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
     if (result is PaymentResponse) {
       switch (result.status) {
         case PaymentStatus.paid:
-          saveOrder();
+          saveOrder(totalPrice: totalPrice);
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Payment successful!'),
           ));
