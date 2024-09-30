@@ -18,8 +18,7 @@ class ItemModel {
       required this.preparationTime,
       required this.itemType,
       required this.imageUrl,
-      required this.rating
-      });
+      required this.rating});
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
@@ -27,13 +26,14 @@ class ItemModel {
         name: json['name'],
         description: json['description'],
         size: json['size'] ?? 'small',
-        price: json['price'],
+        price: (json['price'] is int)
+            ? (json['price'] as int)
+                .toDouble() // تحويل السعر إذا كان من نوع int إلى double
+            : json['price'] ?? 0.0,
         preparationTime: json['preparation_time'],
         itemType: json['item_type'],
-        imageUrl: json['image_url'] ??
-            'assets/woman-drinking-coffee-reusable-pot-character.png',
-            rating: json['rating'] ?? 0
-            );
+        imageUrl: json['image_url'] ?? 'assets/coffe_of_thday.png',
+        rating: json['rating'] ?? 0);
   }
 
   Map<String, dynamic> toJson() {

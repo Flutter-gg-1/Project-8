@@ -4,6 +4,7 @@ import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/models/order_model.dart';
 import 'package:onze_cafe/models/user_model.dart';
 import 'package:onze_cafe/services/db_operations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DataLayer {
   String? token;
@@ -84,4 +85,42 @@ class DataLayer {
   // createCart(List<ItemModel> order){
   //   order
   // }
+
+  Future<List<ItemModel>> getItemsByType(String itemType) async {
+    // Map of valid item types that match your database enum values
+    const itemTypeMap = {
+      "classicCoffee": "Classic Coffee Drinks",
+      "coldDrinks": "Cold Drinks",
+      "dripCoffee": "Drip Coffee",
+      "teaDrinks": "Tea Drinks",
+      "water": "Water",
+      "dessert": "Dessert"
+    };
+
+    // Check if the passed itemType is valid
+    if (!itemTypeMap.containsKey(itemType)) {
+      throw Exception('Invalid item_type: $itemType');
+    }
+
+    // Get the actual enum value from the map
+    final dbItemType = itemTypeMap[itemType];
+
+    // Fetch the products from Supabase using the correct enum value
+    final response = await Supabase.instance.client
+        .from("item")
+        .select("*")
+        .eq("item_type", dbItemType!);
+
+    if (response == null || response.isEmpty) {
+      throw Exception('No products found');
+    }
+
+    // Convert the response data to List<ItemModel>
+    List<ItemModel> itemsList = (response as List)
+        .map((itemData) => ItemModel.fromJson(itemData))
+        .toList();
+
+    items = itemsList;
+    return itemsList;
+  }
 }
