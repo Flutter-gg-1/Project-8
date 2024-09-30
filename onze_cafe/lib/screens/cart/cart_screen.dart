@@ -7,7 +7,7 @@ import 'package:onze_cafe/reusable_components/count_view.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
 import 'package:onze_cafe/screens/cart/subviews/card_item_view.dart';
-import 'package:onze_cafe/screens/payment_screen.dart';
+import 'package:onze_cafe/screens/payment/payment_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({
