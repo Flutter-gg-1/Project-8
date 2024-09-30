@@ -45,7 +45,7 @@ extension C on Colors {
   // Text color based on the current brightness
   static Color text(Brightness brightness) {
     return brightness == Brightness.dark
-        ? const Color(0xFFF5F5F7) // Dark theme text color
+        ? const Color(0xFF3A3A3A) // Dark theme text color
         : const Color(0xFF3A3A3A); // Light theme text color
   }
 }

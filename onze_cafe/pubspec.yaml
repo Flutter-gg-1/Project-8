@@ -21,6 +21,8 @@ dependencies:
   supabase_flutter: ^2.6.0
   circular_countdown_timer: ^0.2.3
   onesignal_flutter: ^5.2.5
+  pinput: ^5.0.0
+  animated_snack_bar: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -35,8 +37,6 @@ flutter:
     - assets/coffee_bean/
     - assets/coffee_cup.png
     - assets/illustrations/
-    - assets/illustrations/box.png
-    - assets/illustrations/illustration_8.png
     - assets/logo/
     - assets/menu_categories/
     - assets/menu_items/

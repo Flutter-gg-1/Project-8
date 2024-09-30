@@ -5,6 +5,7 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/custom_text_field.dart';
 import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
+import 'package:onze_cafe/screens/auth/network_functions.dart';
 import 'package:onze_cafe/utils/validations.dart';
 
 class SignInForm extends StatelessWidget {
@@ -27,14 +28,14 @@ class SignInForm extends StatelessWidget {
           ),
           CustomTextField(
               hintText: 'Email',
-              controller: cubit.emailSignInController,
+              controller: cubit.emailController,
               validation: Validations.none),
           Stack(
             alignment: Alignment.centerRight,
             children: [
               CustomTextField(
                   hintText: 'Password',
-                  controller: cubit.passwordSignInController,
+                  controller: cubit.passwordController,
                   validation: Validations.none),
               IconButton(
                   onPressed: () => (),
@@ -49,7 +50,7 @@ class SignInForm extends StatelessWidget {
                 Expanded(
                   child: PrimaryBtnView(
                     title: 'Log In',
-                    callback: () => cubit.logWithOtp(),
+                    callback: () => cubit.signIn(),
                   ),
                 ),
               ],
@@ -60,13 +61,23 @@ class SignInForm extends StatelessWidget {
               const Text("Don't have an account")
                   .styled(weight: FontWeight.w500),
               TextButton(
-                  onPressed: () => cubit.verifyOtp(
-                      email: cubit.emailSignInController.text,
-                      otp: cubit.passwordSignInController.text),
+                  onPressed: cubit.toggleIsSignUp,
                   child: const Text('Sign Up').styled(
                       weight: FontWeight.w500, color: C.secondary(brightness)))
             ],
           ),
+          Row(
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: cubit.anonymousSignIn,
+                child: const Text('Continue as guest').styled(
+                  weight: FontWeight.w500,
+                  color: C.secondary(brightness),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
