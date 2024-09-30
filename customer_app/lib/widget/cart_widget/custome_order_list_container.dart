@@ -23,7 +23,7 @@ class OrderListContainer extends StatelessWidget {
     required this.quantityTextSize,
     this.onPressedDeleteOrder,
     required this.colorDeleteIcon,
-    required this.textPrice,
+    
     required this.orderModel,
   });
 
@@ -55,7 +55,7 @@ class OrderListContainer extends StatelessWidget {
   final void Function()? onPressedDeleteOrder;
   final Color colorDeleteIcon;
   //text Price
-  final String textPrice;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
