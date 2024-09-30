@@ -2,12 +2,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class CoffeeCard extends StatelessWidget {
+  final Size size;
+  final String? imageUrl;
+  final String name;
+  final double price;
+
   const CoffeeCard({
     super.key,
     required this.size,
+    required this.name,
+    required this.price,
+    this.imageUrl,
   });
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +41,18 @@ class CoffeeCard extends StatelessWidget {
             left: -size.width * 0.06,
             child: ClipOval(
               clipBehavior: Clip.none,
-              child: Image.asset(
-                'assets/coffe_of_thday.png',
-                width: size.width * 0.55,
-                height: size.height * 0.09,
-                fit: BoxFit.contain,
-              ),
+              child: imageUrl != null
+                  ? Image.network(
+                      imageUrl!,
+                      width: size.width * 0.55,
+                      height: size.height * 0.09,
+                      fit: BoxFit.contain,
+                    )
+                  : const Icon(
+                      Icons.image_not_supported,
+                      size: 80,
+                      color: Colors.grey,
+                    ),
             ),
           ),
           Padding(
@@ -53,43 +65,20 @@ class CoffeeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center, // Center content
               children: [
                 Text(
-                  'Cappuccino', // Item name
+                  name, // Display the product name
                   style: TextStyle(
                     fontSize: size.width * 0.03, // Adjusted font size
                     fontWeight: FontWeight.bold,
-                    color: Colors.black, // Lighter creamy text color
+                    color: Colors.black, // Text color
                   ),
                 ),
                 SizedBox(height: size.height * 0.004), // Reduced spacing
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.star,
-                        color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.03), // Smaller icon size
-                    Icon(Icons.star,
-                        color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.03), // Smaller icon size
-                    Icon(Icons.star,
-                        color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.03), // Smaller icon size
-                    Icon(Icons.star,
-                        color: const Color(0xffFFD700), // Gold color for stars
-                        size: size.width * 0.03), // Smaller icon size
-                    Icon(Icons.star_half,
-                        color:
-                            const Color(0xffFFD700), // Gold color for half star
-                        size: size.width * 0.03), // Smaller icon size
-                  ],
-                ),
-                SizedBox(height: size.height * 0.004), // Reduced spacing
                 Text(
-                  '\$4.99', // Price
+                  '$price SAR', // Display the product price
                   style: TextStyle(
-                    fontSize:
-                        size.width * 0.032, // Adjusted font size for price
+                    fontSize: size.width * 0.032, // Adjusted font size for price
                     fontWeight: FontWeight.bold,
-                    color: Colors.black, // Lighter creamy text color
+                    color: Colors.black, // Text color
                   ),
                 ),
               ],
@@ -102,11 +91,11 @@ class CoffeeCard extends StatelessWidget {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  log('hello');
+                  log('Add to cart');
                 },
                 icon: const Icon(
                   Icons.add_box,
-                  color: Color(0xffA8483D), // Warm light brown color for icon
+                  color: Color(0xffA8483D), // Icon color
                 ),
               ),
             ),

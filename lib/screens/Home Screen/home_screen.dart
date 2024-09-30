@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:onze_cafe/screens/Home%20Screen/ProductDetailsScreen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
 import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
-import 'package:onze_cafe/data_layer/data_layer.dart';
-import 'package:onze_cafe/screens/profile/profile.dart';
-import 'package:onze_cafe/services/setup.dart';
 import 'package:onze_cafe/utils/launch_url.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedTabIndex = 0; // Track the selected tab index
+  int _selectedTabIndex = 0;
 
   @override
   void initState() {
@@ -39,7 +35,40 @@ class _HomeScreenState extends State<HomeScreen>
     'assets/ab.png',
     'assets/ss 1 (1).png',
   ];
-  
+
+  // Fetch products from Supabase based on item_type
+  Future<List<Map<String, dynamic>>> _getProductsFromDatabase(
+      String itemType) async {
+    const itemTypeMap = {
+      "classicCoffee": "Classic Coffee Drinks",
+      "coldDrinks": "Cold Drinks",
+      "dripCoffee": "Drip Coffee",
+      "teaDrinks": "Tea Drinks",
+      "water": "Water",
+      "dessert": "Dessert"
+    };
+
+    if (!itemTypeMap.containsKey(itemType)) {
+      throw Exception('Invalid item_type: $itemType');
+    }
+
+    final dbItemType = itemTypeMap[itemType];
+
+    try {
+      final response = await Supabase.instance.client
+          .from("item")
+          .select("*")
+          .eq("item_type", dbItemType!);
+
+      if (response == null || response.isEmpty) {
+        throw Exception('Error fetching products or no data available');
+      }
+
+      return List<Map<String, dynamic>>.from(response as List);
+    } catch (e) {
+      throw Exception('Error fetching products: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,28 +120,23 @@ class _HomeScreenState extends State<HomeScreen>
                           autoPlay: true,
                           height: size.height * 0.25,
                           aspectRatio: 16 / 9,
-                          viewportFraction:
-                              0.9, // Set to 0.9 for small space between items
+                          viewportFraction: 0.9,
                         ),
                         items: imgList.map((item) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                margin: const EdgeInsets.only(
-                                    top: 35), // Original top margin
+                                margin: const EdgeInsets.only(top: 35),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black
-                                              .withOpacity(0.2), // Light shadow
-                                          spreadRadius: 0, // No extra spread
-                                          blurRadius:
-                                              10, // Slightly larger blur
-                                          offset: const Offset(0,
-                                              5), // Shadow is moved 5 pixels down
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 0,
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 5),
                                         ),
                                       ],
                                     ),
@@ -169,11 +193,9 @@ class _HomeScreenState extends State<HomeScreen>
 
           // Tab Bar with Custom Design
           Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10), // Add padding here
+            padding: const EdgeInsets.symmetric(vertical: 5),
             child: TabBar(
               isScrollable: true,
-              // Enable scrolling for the tabs
               indicatorSize: TabBarIndicatorSize.tab,
               controller: _tabController,
               dividerColor: Colors.transparent,
@@ -182,8 +204,7 @@ class _HomeScreenState extends State<HomeScreen>
                 color: const Color(0xffa8483d),
               ),
               labelColor: Colors.white,
-              unselectedLabelColor:
-                  Colors.black, // Text color for unselected tabs
+              unselectedLabelColor: Colors.black,
               labelPadding: const EdgeInsets.symmetric(horizontal: 20),
               tabs: const [
                 Tab(text: 'Classic Coffee Drinks'),
@@ -202,15 +223,18 @@ class _HomeScreenState extends State<HomeScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                _buildGrid(size, 'classicCoffee'),
-                _buildGrid(size, 'coldDrinks'),
-                _buildGrid(size, 'dripCoffee'),
-                _buildGrid(size, 'teaDrinks'),
-                _buildGrid(size, 'water'),
-                _buildGrid(size, 'dessert'),
+                _buildProductsGrid('classicCoffee', size),
+                _buildProductsGrid('coldDrinks', size),
+                _buildProductsGrid('dripCoffee', size),
+                _buildProductsGrid('teaDrinks', size),
+                _buildProductsGrid('water', size),
+                _buildProductsGrid('dessert', size),
               ],
             ),
           ),
+
+          // Add space below to avoid overlapping with bottom sheet
+          const SizedBox(height: 40),
         ],
       ),
       bottomSheet: Container(
@@ -252,71 +276,56 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildGrid(Size size, String category) {
-    // Simulate different items for each category
-    List<String> items = [];
-    if (category == 'classicCoffee') {
-      items = ['Espresso', 'Latte', 'Cappuccino'];
-    } else if (category == 'coldDrinks') {
-      items = ['Iced Latte', 'Iced Americano', 'Iced Spanish Latte'];
-    } else if (category == 'dripCoffee') {
-      items = ['Hot Chemex', 'Hot V60'];
-    } else if (category == 'teaDrinks') {
-      items = ['Red Tea', 'Iced Hibiscus', 'Iced Tea'];
-    } else if (category == 'water') {
-      items = ['Water', 'Sparkling Water'];
-    } else if (category == 'dessert') {
-      items = ['Pastel de Nata', 'Large Cinnamon Roll', 'Pecan Tart'];
-    }
+  Widget _buildProductsGrid(String itemType, Size size) {
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _getProductsFromDatabase(itemType),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No products available'));
+        }
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-      child: GridView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Display two items in a row
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 25,
-          childAspectRatio: 3 / 2,
-        ),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final String heroTag = '$category-$index';
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailsScreen(
-                    heroTag: heroTag,
-                  ),
+        final products = snapshot.data!;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 25,
+              childAspectRatio: 3 / 2,
+            ),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsScreen(
+                        heroTag: product['id'].toString(),
+                      ),
+                    ),
+                  );
+                },
+                child: CoffeeCard(
+                  size: size,
+                  name: product['name'] ?? 'Unknown Product',
+                  price: product['price'] != null
+                      ? product['price'].toDouble()
+                      : 0.0,
+                  imageUrl: product['image_url'],
                 ),
               );
             },
-            child: Container(
-              decoration: BoxDecoration(
-                color: _selectedTabIndex == _tabController.index
-                    ? Colors.black.withOpacity(0.05)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Hero(
-                tag: heroTag,
-                child:
-                    CoffeeCard(size: size),
-              ),
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
