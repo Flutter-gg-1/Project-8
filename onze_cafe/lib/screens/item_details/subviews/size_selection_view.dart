@@ -73,7 +73,7 @@ class _SizeCardView extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Image(image: Img.coffeeCup, fit: BoxFit.contain),
+                      child: Image(image: Img.americano, fit: BoxFit.contain),
                     )),
               ),
             ),

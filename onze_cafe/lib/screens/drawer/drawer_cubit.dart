@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/profile.dart';
-import 'package:onze_cafe/screens/orders_screen.dart';
+import 'package:onze_cafe/screens/order/orders_screen.dart';
 
 import '../profile/profile_screen.dart';
 
