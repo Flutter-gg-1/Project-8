@@ -89,17 +89,48 @@ class _HomeScreenState extends State<HomeScreen>
           height: 200,
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
-              );
-            },
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.white,
-            ),
+          Column(
+            children: [
+              // if cart empty, sizedbox 20
+              // SizedBox(
+              //   height: 20,
+              // ),
+              // if cart not empty, show column
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: 15,
+                    width: 15,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Color(0xffa8483d)),
+                    child: const Center(
+                        child: Text(
+                      '2',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 8),
+                    )),
+                  ),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CartScreen()),
+                  );
+                },
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 20,
           ),
         ],
       ),
@@ -233,8 +264,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
 
-          // Add space below to avoid overlapping with bottom sheet
-          const SizedBox(height: 40),
+          const SizedBox(height: 100),
         ],
       ),
       bottomSheet: Container(
@@ -269,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: const Text(
                   'For more information visit our website',
                   style: TextStyle(color: Colors.white),
-                ))
+                )),
           ],
         ),
       ),

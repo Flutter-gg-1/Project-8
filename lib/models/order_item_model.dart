@@ -1,7 +1,7 @@
 class OrderItemModel {
   final int itemId;
   final int orderId;
-  final int quantity;
+  int quantity;
   final double price;
 
   OrderItemModel({

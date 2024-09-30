@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/services/setup.dart';
 
 class CoffeeCard extends StatelessWidget {
   final Size size;
@@ -76,7 +78,8 @@ class CoffeeCard extends StatelessWidget {
                 Text(
                   '$price SAR', // Display the product price
                   style: TextStyle(
-                    fontSize: size.width * 0.032, // Adjusted font size for price
+                    fontSize:
+                        size.width * 0.032, // Adjusted font size for price
                     fontWeight: FontWeight.bold,
                     color: Colors.black, // Text color
                   ),
@@ -91,7 +94,11 @@ class CoffeeCard extends StatelessWidget {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  log('Add to cart');
+                  // add item to datalayer list
+                  // add to cart
+
+                  //  locator.get<DataLayer>().addItem(item: item);
+                  
                 },
                 icon: const Icon(
                   Icons.add_box,

@@ -28,7 +28,7 @@ class EmployeeScreen extends StatelessWidget {
                   locator.get<DataLayer>().user?.email ?? '',
                   style: const TextStyle(color: Colors.white70),
                 ),
-                currentAccountPicture: CircleAvatar(
+                currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.transparent,
                   backgroundImage: AssetImage('assets/sticker3.png'),
                 ),
@@ -112,8 +112,9 @@ class EmployeeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
-              height: 144,
+              height: 124,
               width: 340,
+              padding: const EdgeInsets.only(right: 12, top: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
@@ -139,17 +140,19 @@ class EmployeeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Cappuccino',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Cappuccino',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           SizedBox(height: 5),
@@ -166,7 +169,7 @@ class EmployeeScreen extends StatelessWidget {
                     ),
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
