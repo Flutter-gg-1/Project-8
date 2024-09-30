@@ -99,15 +99,20 @@ class DataLayer {
   }
 
   addItem({required OrderItemModel item}) async {
-    for (var e in cart!.items) {
+    bool itemExists = false;
+    
+    for (var e in cart.items) {
       if (e.itemId == item.itemId) {
-        e.quantity++;
-        return;
+        e.quantity++; // Increase quantity if item exists
+        itemExists = true;
+        break;
       }
     }
-    cart?.addItem(item: item);
+    
+    if (!itemExists) {
+      cart.addItem(item: item); // Add new item if it doesn't exist
+    }
   }
-
   Future<List<ItemModel>> getItemsByType(String itemType) async {
     // Map of valid item types that match your database enum values
     const itemTypeMap = {

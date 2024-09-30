@@ -60,9 +60,8 @@ class _HomeScreenState extends State<HomeScreen>
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProductDetailsScreen(
-                        heroTag: product.id
-                            .toString(),
-                       item: ItemModel.fromJson(products[index].toJson()),
+                        heroTag: product.id.toString(),
+                        item: ItemModel.fromJson(products[index].toJson()),
                       ),
                     ),
                   );
@@ -78,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen>
                       price: product.price,
                       imageUrl: product.imageUrl,
                       rating: product.rating,
+                      itemId: product.id,
                     ),
                   ),
                 ),
