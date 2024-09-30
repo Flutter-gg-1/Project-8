@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
+import 'package:onze_cafe/screens/Dessert%20Screen/Order_Tracking/order_trcking.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
 import 'package:onze_cafe/services/setup.dart';
 
@@ -56,6 +57,17 @@ class CustomDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => const FirstScreen()),
                 (route) => false,
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.track_changes, color: Colors.black),
+            title: const Text('Tracking order',
+                style: TextStyle(color: Colors.black)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const OrderTracking()),
               );
             },
           ),
