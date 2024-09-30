@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
-import 'package:customer_app/screens/cart_screen.dart';
+import 'package:customer_app/screens/cart/cart_screen.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
+import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -25,6 +29,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
+                  log("${productLocator.get<ProductLayer>().cartItem}");
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -59,16 +64,16 @@ class HomeScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                CustomTextFormFeild(
+                const CustomTextFormFeild(
                   label: '',
                   hint: 'Find your coffee',
                   prefixIcon: Icon(Bootstrap.search_heart),
                 ),
                 context.addSpacer(),
-                MenuTypes(),
+                const MenuTypes(),
                 SizedBox(
                   height: context.getHeight(multiply: 0.6),
-                  child: MenuOption(),
+                  child: const MenuOption(),
                 )
               ],
             ),

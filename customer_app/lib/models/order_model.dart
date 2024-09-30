@@ -1,11 +1,14 @@
+import 'package:customer_app/models/product_model.dart';
+
 class OrderModel {
   dynamic id;
   int? quantity;
   dynamic orderId;
   dynamic productId;
   String? size;
+  ProductModel? productModel;
 
-  OrderModel({this.id, this.quantity, this.orderId, this.productId, this.size});
+  OrderModel({this.id, this.quantity, this.orderId, this.productId, this.size,this.productModel});
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
