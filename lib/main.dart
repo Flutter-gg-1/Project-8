@@ -10,7 +10,8 @@ import 'package:sizer/sizer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
-  login(email: 'aazizalamri2@gmail.com', password: '123123');
+  await login(email: 'aazizalamri2@gmail.com', password: '123123');
+  await fetchAllOrders();
   // locator.get<DataLayer>().getUserById(email: 'aazizalamri2@gmail.com');
   // await supabase.auth.signUp(
   //       email: 'aazizalamri2@gmail.com', password: '123123');
@@ -29,7 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false, home: HomeScreen());
+          debugShowCheckedModeBanner: false, home: EmployeeScreen());
     });
   }
 }

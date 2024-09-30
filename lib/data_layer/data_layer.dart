@@ -16,6 +16,7 @@ class DataLayer {
   List<ItemModel> items = [];
   List<ItemModel> allItems = [];
   CartModel cart = CartModel();
+  List<Map<String, dynamic>> orders = [];
 
   final box = GetStorage();
 
@@ -89,6 +90,8 @@ class DataLayer {
     for (var item in allItemsList) {
       allItems.add(ItemModel.fromJson(item));
     }
+
+    orders = await fetchAllOrders();
   }
 
   Future<Map<String, dynamic>> getUserByEmail({required String email}) async {
@@ -100,7 +103,7 @@ class DataLayer {
 
   addItem({required OrderItemModel item}) async {
     bool itemExists = false;
-    
+
     for (var e in cart.items) {
       if (e.itemId == item.itemId) {
         e.quantity++; // Increase quantity if item exists
@@ -108,11 +111,12 @@ class DataLayer {
         break;
       }
     }
-    
+
     if (!itemExists) {
       cart.addItem(item: item); // Add new item if it doesn't exist
     }
   }
+
   Future<List<ItemModel>> getItemsByType(String itemType) async {
     // Map of valid item types that match your database enum values
     const itemTypeMap = {
