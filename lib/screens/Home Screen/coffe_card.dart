@@ -8,6 +8,7 @@ class CoffeeCard extends StatelessWidget {
   final String? imageUrl;
   final String name;
   final double price;
+  final int rating; // New field for rating
 
   const CoffeeCard({
     super.key,
@@ -15,23 +16,40 @@ class CoffeeCard extends StatelessWidget {
     required this.name,
     required this.price,
     this.imageUrl,
+    required this.rating, // Required rating field
   });
+
+  // Function to build stars based on the rating value
+  Widget buildRatingStars(int rating) {
+    List<Widget> stars = [];
+    for (int i = 1; i <= 5; i++) {
+      stars.add(Icon(
+        i <= rating ? Icons.star : Icons.star_border, // Filled or empty star
+        color: Colors.yellow,
+        size: size.width * 0.04, // Adjust star size
+      ));
+    }
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: stars,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: size.width * 0.28, // Smaller width for the container
-      height: size.height * 0.13, // Smaller height for the container
+      height: size.height * 0.18, // Adjusted height for the container
       decoration: BoxDecoration(
         color: const Color(0xffFFFFFF), // Slightly lighter dark grey
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Color(0xff87B1C5)), // Rounded corners
+        border: Border.all(color: const Color(0xff87B1C5)), // Rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(3, 3),
+            offset: const Offset(3, 3),
           ),
         ],
       ),
@@ -39,7 +57,7 @@ class CoffeeCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            top: -size.height * 0.015,
+            top: -size.height * 0.07,
             left: -size.width * 0.06,
             child: ClipOval(
               clipBehavior: Clip.none,
@@ -47,44 +65,52 @@ class CoffeeCard extends StatelessWidget {
                   ? Image.network(
                       imageUrl!,
                       width: size.width * 0.55,
-                      height: size.height * 0.09,
+                      height: size.height * 0.2,
                       fit: BoxFit.contain,
                     )
-                  : const Icon(
-                      Icons.image_not_supported,
-                      size: 80,
+                  : Image.asset(
+                      'assets/coffe_of_thday.png',
                       color: Colors.grey,
                     ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: size.height * 0.05,
-              bottom: size.height * 0.01,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center, // Center content
-              children: [
-                Text(
-                  name, // Display the product name
-                  style: TextStyle(
-                    fontSize: size.width * 0.03, // Adjusted font size
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black, // Text color
+          Center(
+            // Center the text horizontally
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: size.height * 0.07, // Adjust the top padding
+              ),
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Center vertically
+                crossAxisAlignment:
+                    CrossAxisAlignment.center, // Center horizontally
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: size.width * 0.03,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center, // Center text
                   ),
-                ),
-                SizedBox(height: size.height * 0.004), // Reduced spacing
-                Text(
-                  '$price SAR', // Display the product price
-                  style: TextStyle(
-                    fontSize:
-                        size.width * 0.032, // Adjusted font size for price
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black, // Text color
+                  SizedBox(height: size.height * 0.01),
+                  Text(
+                    '$price SAR', // Display the product price
+                    style: TextStyle(
+                      fontSize:
+                          size.width * 0.032, // Adjusted font size for price
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // Text color
+                    ),
+                    textAlign: TextAlign.center, // Center text
                   ),
-                ),
-              ],
+                  const SizedBox(height: 5),
+                  // Display rating stars
+                  buildRatingStars(rating),
+                ],
+              ),
             ),
           ),
           Positioned(

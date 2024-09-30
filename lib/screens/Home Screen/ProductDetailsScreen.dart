@@ -2,21 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final String heroTag; // Hero tag passed from the HomeScreen
+  final String heroTag;
+  final String name;
+  final double price;
+  final String description;
+  final String imageUrl;
 
-  const ProductDetailsScreen({required this.heroTag});
+  const ProductDetailsScreen({
+    required this.heroTag,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.imageUrl,
+  });
 
   @override
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  String selectedSize = '8 oz'; // Default selected size
-  int quantity = 1; // Default quantity
+  String selectedSize = '8 oz';
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size; // Get screen size
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,21 +41,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 MaterialPageRoute(builder: (context) => const CartScreen()),
               );
             },
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
           ),
         ],
       ),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
-          // Top part with background color
           Container(
             width: double.infinity,
-            color: const Color(
-                0xff74a0b2), // Use the blue-grey color as background
+            color: const Color(0xff74a0b2),
             child: Padding(
               padding: EdgeInsets.only(
                 top: size.height * 0.1,
@@ -55,13 +60,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               child: Column(
                 children: [
-                  // Product Image with Hero animation
                   Center(
                     child: Hero(
-                      tag: widget
-                          .heroTag, // Use unique heroTag for the animation
-                      child: Image.asset(
-                        'assets/coffe_of_thday.png',
+                      tag: widget.heroTag, // Ensure the same heroTag is passed
+                      child: Image.network(
+                        widget.imageUrl,
                         width: size.width * 0.6,
                         height: size.height * 0.3,
                         fit: BoxFit.contain,
@@ -72,7 +75,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
           ),
-          // Rest of the content
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -84,7 +86,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Cappuccino', // Product name
+                      widget.name,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: size.width * 0.07,
@@ -93,7 +95,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'A delicious hot cappuccino with steamed milk and a rich espresso base.',
+                      widget.description,
                       style: TextStyle(
                         color: Colors.black87,
                         fontSize: size.width * 0.045,
@@ -108,7 +110,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -167,7 +168,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // Add to cart functionality
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Added to cart!'),

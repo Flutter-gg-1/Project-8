@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/models/item_model.dart';
 import 'package:onze_cafe/screens/Home%20Screen/ProductDetailsScreen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
 import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
+import 'package:get_it/get_it.dart';
+import 'package:onze_cafe/services/setup.dart';
 import 'package:onze_cafe/utils/launch_url.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,57 +20,74 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedTabIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        _selectedTabIndex = _tabController.index;
-      });
-    });
   }
 
-  final List<String> imgList = [
-    'assets/Group 3174.png',
-    'assets/ab.png',
-    'assets/ss 1 (1).png',
-  ];
+  Widget _buildProductsGrid(String itemType, Size size) {
+    return FutureBuilder<List<ItemModel>>(
+      future: locator.get<DataLayer>().getItemsByType(itemType),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No products available'));
+        }
 
-  // Fetch products from Supabase based on item_type
-  Future<List<Map<String, dynamic>>> _getProductsFromDatabase(
-      String itemType) async {
-    const itemTypeMap = {
-      "classicCoffee": "Classic Coffee Drinks",
-      "coldDrinks": "Cold Drinks",
-      "dripCoffee": "Drip Coffee",
-      "teaDrinks": "Tea Drinks",
-      "water": "Water",
-      "dessert": "Dessert"
-    };
+        final products = snapshot.data!;
 
-    if (!itemTypeMap.containsKey(itemType)) {
-      throw Exception('Invalid item_type: $itemType');
-    }
-
-    final dbItemType = itemTypeMap[itemType];
-
-    try {
-      final response = await Supabase.instance.client
-          .from("item")
-          .select("*")
-          .eq("item_type", dbItemType!);
-
-      if (response == null || response.isEmpty) {
-        throw Exception('Error fetching products or no data available');
-      }
-
-      return List<Map<String, dynamic>>.from(response as List);
-    } catch (e) {
-      throw Exception('Error fetching products: $e');
-    }
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 25,
+            ),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsScreen(
+                        heroTag: product.id
+                            .toString(), // Ensure heroTag is unique and passed correctly
+                        name: product.name,
+                        price: product.price,
+                        description: product.description,
+                        imageUrl: product.imageUrl,
+                      ),
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: product.id
+                      .toString(), // Same heroTag used in ProductDetailsScreen
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CoffeeCard(
+                      size: size,
+                      name: product.name,
+                      price: product.price,
+                      imageUrl: product.imageUrl,
+                      rating: product.rating,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -80,15 +100,10 @@ class _HomeScreenState extends State<HomeScreen>
       appBar: AppBar(
         backgroundColor: const Color(0xff3D6B7D),
         elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
-        title: Image.asset(
-          'assets/onze logo.png',
-          height: 200,
-        ),
-        actions: [
+        title: Image.asset('assets/onze logo.png', height: 200),
+         actions: [
           Column(
             children: [
               // if cart empty, sizedbox 20
@@ -136,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: Column(
         children: [
-          // Sliver AppBar equivalent
+          // Carousel and other UI elements
           Expanded(
             flex: 2,
             child: Stack(
@@ -153,28 +168,20 @@ class _HomeScreenState extends State<HomeScreen>
                           aspectRatio: 16 / 9,
                           viewportFraction: 0.9,
                         ),
-                        items: imgList.map((item) {
+                        items: [
+                          'assets/Group 3174.png',
+                          'assets/ab.png',
+                          'assets/ss 1 (1).png'
+                        ].map((item) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
                                 margin: const EdgeInsets.only(top: 35),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 0,
-                                          blurRadius: 10,
-                                          offset: const Offset(0, 5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Image.asset(
-                                      item,
-                                      fit: BoxFit.contain,
-                                    ),
+                                  child: Image.asset(
+                                    item,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               );
@@ -221,15 +228,14 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-
-          // Tab Bar with Custom Design
+          // Tab Bar and Product Grid
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: TabBar(
               isScrollable: true,
               indicatorSize: TabBarIndicatorSize.tab,
               controller: _tabController,
-              dividerColor: Colors.transparent,
+              dividerHeight: 0,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: const Color(0xffa8483d),
@@ -247,8 +253,6 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-
-          // Tab Bar View
           Expanded(
             flex: 3,
             child: TabBarView(
@@ -263,8 +267,7 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-
-          const SizedBox(height: 100),
+          const SizedBox(height: 40),
         ],
       ),
       bottomSheet: Container(
@@ -278,84 +281,32 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 IconButton(
                   icon: const Icon(Icons.home, color: Colors.white),
-                  onPressed: () => launchURL(urls[0]),
+                  onPressed: () => launchURL('your_home_url'),
                 ),
                 IconButton(
                   icon: const Icon(Icons.facebook, color: Colors.white),
-                  onPressed: () => launchURL(urls[1]),
+                  onPressed: () => launchURL('your_facebook_url'),
                 ),
                 IconButton(
                   icon: const Icon(Icons.shape_line, color: Colors.white),
-                  onPressed: () => launchURL(urls[2]),
+                  onPressed: () => launchURL('your_instagram_url'),
                 ),
                 IconButton(
                   icon: const Icon(Icons.camera_alt, color: Colors.white),
-                  onPressed: () => launchURL(urls[3]),
+                  onPressed: () => launchURL('your_camera_url'),
                 ),
               ],
             ),
             InkWell(
-                onTap: () => launchURL(urls[4]),
-                child: const Text(
-                  'For more information visit our website',
-                  style: TextStyle(color: Colors.white),
-                )),
+              onTap: () => launchURL(urls[4]),
+              child: const Text(
+                'For more information visit our website',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildProductsGrid(String itemType, Size size) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: _getProductsFromDatabase(itemType),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No products available'));
-        }
-
-        final products = snapshot.data!;
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 25,
-              childAspectRatio: 3 / 2,
-            ),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              final product = products[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailsScreen(
-                        heroTag: product['id'].toString(),
-                      ),
-                    ),
-                  );
-                },
-                child: CoffeeCard(
-                  size: size,
-                  name: product['name'] ?? 'Unknown Product',
-                  price: product['price'] != null
-                      ? product['price'].toDouble()
-                      : 0.0,
-                  imageUrl: product['image_url'],
-                ),
-              );
-            },
-          ),
-        );
-      },
     );
   }
 }
