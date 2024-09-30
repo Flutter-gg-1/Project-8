@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:customer_app/helper/extinsion/size_config.dart';
 
 import 'package:customer_app/screens/cart/cubit/cart_cubit.dart';
+import 'package:customer_app/screens/pay_screen.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:customer_app/widget/cart_widget/custome_order_list_container.dart';
 import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
 import 'package:customer_app/widget/cart_widget/seprate_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moyasar/moyasar.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -20,6 +24,34 @@ class CartScreen extends StatelessWidget {
         cubit.showCart();
         return BlocListener<CartCubit, CartState>(
           listener: (context, state) {
+            if (state is OrderConformState) {
+              
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return PayScreen(
+                    paymentConfig: state.paymentConfig,
+                  );
+                },
+              )).then(
+                (paymentResponse) {
+                  log("in pay return");
+                  if (paymentResponse is PaymentResponse) {
+                    cubit.checkOut(paymentResponse: paymentResponse);
+                  }
+                },
+              );
+            }
+
+            if (state is BuySucssState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  state.msg,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.green,
+              ));
+            }
             if (state is ErorrState) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
@@ -216,7 +248,7 @@ class CartScreen extends StatelessWidget {
                         CustomButton(
                           title: 'CheckOut',
                           onPressed: () {
-                            cubit.checkOut();
+                            cubit.buyCart();
                           },
                           icon: Icons.arrow_forward_ios_rounded,
                         )

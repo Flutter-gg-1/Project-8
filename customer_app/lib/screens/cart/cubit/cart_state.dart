@@ -17,4 +17,14 @@ final class ErorrState extends CartState {
   ErorrState({required this.msg});
 }
 
-final class OrderConformState extends CartState {}
+final class BuySucssState extends CartState {
+  final String msg;
+
+  BuySucssState({required this.msg});
+}
+
+final class OrderConformState extends CartState {
+  final PaymentConfig paymentConfig;
+
+  OrderConformState({required this.paymentConfig});
+}
