@@ -8,15 +8,16 @@ class CartItem {
   String? size;
   String? coffeeStrength;
   String? milkOption;
-  MenuItem? menuItem;
+  String? placedOrderId;
 
-  CartItem(
-      {required this.id,
-      required this.userId,
-      required this.menuItemId,
-      required this.quantity,
-      this.size,
-      this.coffeeStrength,
-      this.milkOption,
-      this.menuItem});
+  CartItem({
+    required this.id,
+    required this.userId,
+    required this.menuItemId,
+    required this.quantity,
+    this.size,
+    this.coffeeStrength,
+    this.milkOption,
+    this.placedOrderId,
+  });
 }

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
+import 'package:onze_cafe/model/menu_item.dart';
 
 part 'cart_state.dart';
 
@@ -11,15 +12,19 @@ class CartCubit extends Cubit<CartState> {
   int count = 1;
 
   void fetchCartItems() {
-    var menuItems = MockData().menuItems;
-    cartItems = MockData().cart;
-    for (var item in cartItems) {
-      item.menuItem = menuItems
-          .where((menuItem) => menuItem.id == item.menuItemId)
-          .toList()
-          .firstOrNull;
-    }
+    var allCartItems = MockData().cart;
+    cartItems =
+        allCartItems.where((item) => item.placedOrderId == null).toList();
+
     emit(CartUpdatedState(cartItems));
+  }
+
+  MenuItem? fetchMenuItem(String menuItemId) {
+    var menuItems = MockData().menuItems;
+    return menuItems
+        .where((menuItem) => menuItem.id == menuItemId)
+        .toList()
+        .firstOrNull;
   }
 
   void addItem(CartItem item) {

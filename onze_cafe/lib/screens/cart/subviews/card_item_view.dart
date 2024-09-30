@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
@@ -20,6 +19,7 @@ class CartItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final menuItem = cubit.fetchMenuItem(item.menuItemId);
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -46,9 +46,9 @@ class CartItemView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.menuItem?.name ?? '')
+                            Text(menuItem?.name ?? '')
                                 .styled(weight: FontWeight.bold, size: 18),
-                            Text("${item.menuItem?.price ?? 0} SAR")
+                            Text("${menuItem?.price ?? 0} SAR")
                                 .styled(weight: FontWeight.bold, size: 16),
                           ],
                         ),
