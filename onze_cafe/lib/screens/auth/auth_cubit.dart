@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/menu/menu_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../servers/setup.dart';
 
@@ -33,6 +34,23 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await supabase.auth.signInWithOtp(email: emailSignInController.text);
       print("OTP sent");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future verifyOtp({required String otp, required String email}) async {
+    try {
+      final user = await supabase.auth
+          .verifyOTP(email: email, type: OtpType.signup, token: otp);
+
+      await supabase
+          .from("profile")
+          .insert({"id": user.user?.id, "email": email});
+    } on AuthException catch (e) {
+      print(e.toString());
+    } on PostgrestException catch (e) {
+      print(e.toString());
     } catch (e) {
       print(e.toString());
     }
