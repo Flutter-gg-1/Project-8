@@ -1,5 +1,6 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class ProductItem extends StatelessWidget {
   final String name;
@@ -25,35 +26,45 @@ class ProductItem extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(
             horizontal: context.getWidth(multiply: 0.05),
-            vertical: context.getHeight(multiply: 0.02)),
+            vertical: context.getHeight(multiply: 0.01)),
         padding: EdgeInsets.symmetric(
             horizontal: context.getWidth(multiply: 0.05),
             vertical: context.getHeight(multiply: 0.01)),
         height: context.getHeight(multiply: 0.08),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: const Color(0xff87B1C5)),
+            boxShadow: kElevationToShadow[4],
+            color: const Color(0xffeeedea)),
         child: Row(
           children: [
-            const CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage(
-                'assets/image/appBarProfile.png',
-              ),
-            ),
+
+            Image.asset('assets/image/appBarProfile (2).png',filterQuality: FilterQuality.high,),
             const VerticalDivider(
               color: Color(0xff3D6B7D),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   name,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w500),
+                      fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'Poppins'),
                 ),
                 Text('$price SR')
               ],
+            ),
+            const Spacer(),
+            Container(
+              width: 32,
+              height: 28,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffA8483D)
+              ),
+              child: const Icon(Icons.add,color: Colors.white,size: 17,),
             )
+        
+            
           ],
         ),
       ),
