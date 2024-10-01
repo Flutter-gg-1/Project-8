@@ -79,4 +79,12 @@ mixin AuthMix on Super {
       throw "$er";
     }
   }
+
+
+
+
+
+  getUser(){
+    
+  }
 }

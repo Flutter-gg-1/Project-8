@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
       debugShowCheckedModeBanner: false,
 
-      home:  const HistoryScreen()
+      home:  const HomeScreen()
       // OrderStatus(order: OrderModel(
       //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
       //   time: DateTime.now(),

@@ -6,6 +6,7 @@ import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/cart/cart_screen.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
+import 'package:customer_app/screens/profile/profile_screen.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,15 @@ class HomeScreen extends StatelessWidget {
                   color: Color(0xffA8483D),
                 )),
             InkWell(
-              onTap: () {},
+              onTap: () {
+
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ));
+
+              },
               child: const CircleAvatar(
                 backgroundColor: Color(0xffd9d9d9),
                 backgroundImage: AssetImage('assets/image/appBarProfile.png'),
