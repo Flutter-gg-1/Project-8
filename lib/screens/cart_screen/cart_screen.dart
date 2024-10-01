@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/item_model.dart';
@@ -15,14 +16,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final paymentConfig = PaymentConfig(
-    publishableApiKey: 'pk_test_xWUPFwQABVUruCau7j64Cvm7tyrqFBHkeB4he8RY',
-    amount: 100, // SAR 1
-    description: 'Order #1324',
-    metadata: {'orderId': '1324', 'customer': 'John Doe'},
-    creditCard: CreditCardConfig(saveCard: true, manual: false),
-    applePay: ApplePayConfig(merchantId: '????', label: 'Cafe', manual: false),
-  );
+  double totalPrice = 0;
+
+  PaymentConfig pay() {
+    final paymentConfig = PaymentConfig(
+      publishableApiKey: '${dotenv.env['moyasar_test_key']}',
+      amount: (totalPrice * 100).toInt(),
+      description: 'Onze Order',
+      metadata: {'orderId': '1', 'customer': 'customer'},
+      creditCard: CreditCardConfig(saveCard: true, manual: false),
+    );
+    return paymentConfig;
+  }
 
   void onPaymentResult(result, BuildContext context) {
     if (result is PaymentResponse) {
@@ -45,8 +50,6 @@ class _CartScreenState extends State<CartScreen> {
       }
     }
   }
-
-  double totalPrice = 0;
 
   getTotalPrice() async {
     for (var item in locator.get<DataLayer>().cart.items) {
@@ -189,7 +192,7 @@ class _CartScreenState extends State<CartScreen> {
         return Padding(
           padding: const EdgeInsets.all(12),
           child: CreditCard(
-            config: paymentConfig,
+            config: pay(),
             onPaymentResult: (result) => onPaymentResult(result, context),
           ),
         );
@@ -275,8 +278,8 @@ class _CartScreenState extends State<CartScreen> {
 class CartItemCard extends StatelessWidget {
   final Size size;
   final ItemModel item;
-  final int quantity;
-  const CartItemCard(
+  int quantity;
+  CartItemCard(
       {super.key,
       required this.size,
       required this.item,
@@ -334,7 +337,9 @@ class CartItemCard extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      quantity++;
+                    },
                     icon: const Icon(Icons.remove, color: Colors.black),
                   ),
                   Text(
@@ -345,7 +350,9 @@ class CartItemCard extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (quantity > 1) quantity--;
+                    },
                     icon: const Icon(Icons.add, color: Colors.black),
                   ),
                 ],
