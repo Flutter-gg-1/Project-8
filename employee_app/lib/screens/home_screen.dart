@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Image.asset('assets/image/onze_logo_bg.png'),
               SizedBox(
-                height: context.getHeight(multiply: 0.02),
+                height: context.getHeight(multiply: 0.05),
               ),
               HomeButtonEmp(
                 onTap: () {},
@@ -48,21 +48,10 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: context.getHeight(multiply: 0.01786),
+            height: context.getHeight(multiply: 0.0241),
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: context.getWidth(multiply: 0.08),
-              ),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Image.asset('assets/image/man_with_star.png')),
-            ],
-          ),
-          // Bottom Image
           Image.asset(
-            'assets/image/background_coffee_bottom (2).png',
+            'assets/image/bottom_bg.png',
             width: double.infinity,
             fit: BoxFit.cover,
           ),
