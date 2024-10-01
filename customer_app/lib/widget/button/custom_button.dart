@@ -5,18 +5,20 @@ class CustomButton extends StatelessWidget {
   final String title;
   final IconData? icon;
   final Function() onPressed;
+  final Size? fixedSize;
+  final Color? titleColor;
   const CustomButton({
     super.key,
     required this.title,
     this.icon,
-    required this.onPressed,
+    required this.onPressed, this.fixedSize, this.titleColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(context.getWidth(multiply: 0.6),
+          fixedSize: fixedSize ?? Size(context.getWidth(multiply: 0.6),
               context.getHeight(multiply: 0.06)),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
           backgroundColor: const Color(0xffA8483D),
@@ -27,7 +29,7 @@ class CustomButton extends StatelessWidget {
             const Spacer(),
             Text(
               title,
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              style:  TextStyle(fontSize: 18, color:titleColor ?? Colors.white),
             ),
             const Spacer(),
             Icon(
