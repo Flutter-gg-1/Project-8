@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../supabase/supabase_mgr.dart';
+import '../../supabase/client/supabase_mgr.dart';
 
 part 'landing_state.dart';
 

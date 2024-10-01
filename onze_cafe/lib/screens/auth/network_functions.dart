@@ -1,6 +1,8 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:onze_cafe/model/profile.dart';
 import 'package:onze_cafe/screens/auth/auth_cubit.dart';
+import 'package:onze_cafe/supabase/supabase_profile.dart';
 
 import '../../supabase/supabase_auth.dart';
 
@@ -72,8 +74,14 @@ extension NetworkFunctions on AuthCubit {
       if (context.mounted) {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
+        showSnackBar(
+            context, 'Creating user profile', AnimatedSnackBarType.info);
       }
-      await Future.delayed(Duration(seconds: 1));
+      // Create Profile
+      await SupabaseProfile.createProfile(Profile(
+          name: nameController.text,
+          email: emailController.text,
+          phone: phoneController.text));
       if (context.mounted) navigateToMenu(context);
     } catch (e) {
       if (context.mounted) {

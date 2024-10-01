@@ -1,5 +1,5 @@
 class Profile {
-  String id;
+  String? id;
   String name;
   String email;
   String phone;
@@ -8,7 +8,7 @@ class Profile {
   String? createdAt;
 
   Profile({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
     required this.phone,

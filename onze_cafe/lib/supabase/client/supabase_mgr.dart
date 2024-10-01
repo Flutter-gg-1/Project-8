@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseMgr {
   late final SupabaseClient supabase;
+  User? currentUser;
 
   SupabaseMgr._privateConstructor();
 
@@ -18,5 +19,8 @@ class SupabaseMgr {
       url: dotenv.env['SUPABASE_URL']!,
       anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
     ).then((value) => value.client);
+
+    // Store the current user after initialization
+    currentUser = supabase.auth.currentUser;
   }
 }

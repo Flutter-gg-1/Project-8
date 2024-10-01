@@ -25,7 +25,7 @@ extension CartItemsExt on MockData {
         id: '3',
         userId: '1',
         menuItemId: '5',
-        quantity: 3,
+        quantity: 1,
         size: CupSize.small.name(),
         placedOrderId: '2',
       ),

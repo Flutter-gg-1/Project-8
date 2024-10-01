@@ -1,5 +1,5 @@
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:onze_cafe/supabase/supabase_mgr.dart';
+import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuth {
@@ -9,10 +9,14 @@ class SupabaseAuth {
     try {
       final AuthResponse response =
           await supabase.auth.signUp(email: email, password: password);
+
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+
       return response;
-    } on AuthException catch (e) {
+    } on AuthException catch (_) {
       rethrow;
-    } on PostgrestException catch (e) {
+    } on PostgrestException catch (_) {
       rethrow;
     } catch (e) {
       rethrow;
@@ -21,7 +25,7 @@ class SupabaseAuth {
 
   static Future verifyOtp({required String email, required String otp}) async {
     try {
-      final user = await supabase.auth
+      await supabase.auth
           .verifyOTP(email: email, type: OtpType.signup, token: otp);
 
       // Subscribe to notifications
@@ -29,10 +33,8 @@ class SupabaseAuth {
       if (userId != null) {
         OneSignal.login(userId);
       }
-      // Add to profile
-      await supabase
-          .from("profile")
-          .insert({"id": user.user?.id, "email": email});
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -52,6 +54,8 @@ class SupabaseAuth {
       if (userId != null) {
         OneSignal.login(userId);
       }
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
       return response;
     } on AuthException catch (_) {
       rethrow;
@@ -65,6 +69,8 @@ class SupabaseAuth {
   static Future anonymousSignIn() async {
     try {
       final AuthResponse response = await supabase.auth.signInAnonymously();
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
       return response;
     } on AuthException catch (_) {
       rethrow;
@@ -80,6 +86,9 @@ class SupabaseAuth {
       var response = await supabase.auth.signOut();
       // Un-Subscribe to notifications
       OneSignal.logout();
+      // Update current user
+      SupabaseMgr.shared.currentUser = null;
+
       return response;
     } on AuthException catch (_) {
       rethrow;
