@@ -15,8 +15,7 @@ class FirstScreen extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Color(0xffD7D1CA),
           image: DecorationImage(
-            image: AssetImage('assets/image/first.png'),
-          )),
+              image: AssetImage('assets/image/first.png'), fit: BoxFit.cover)),
       child: Scaffold(
         floatingActionButton: CustomButton(
           title: 'Get Coffee',

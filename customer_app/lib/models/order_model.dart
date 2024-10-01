@@ -1,30 +1,44 @@
 import 'package:customer_app/models/product_model.dart';
 
 class OrderModel {
-  dynamic id;
-  int? quantity;
-  dynamic orderId;
-  dynamic productId;
-  String? size;
-  ProductModel? productModel;
 
-  OrderModel({this.id, this.quantity, this.orderId, this.productId, this.size,this.productModel});
+  String? orderId;
+  String? customerId;
+  String? employeeId;
+  int? totalPrice;
+  DateTime? time;
+  int? totalPreparationTime;
+  String? status;
+
+  OrderModel(
+      {this.orderId,
+      this.customerId,
+      this.employeeId,
+      this.totalPrice,
+      this.time,
+      this.totalPreparationTime,
+      this.status});
+
 
   OrderModel.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    quantity = json["quantity"];
     orderId = json["order_id"];
-    productId = json["product_id"];
-    size = json["size"];
+    customerId = json["customer_id"];
+    employeeId = json["employee_id"];
+    totalPrice = json["total_price"];
+    time = json["time"];
+    totalPreparationTime = json["total_preparation_time"];
+    status = json["status"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["id"] = id;
-    data["quantity"] = quantity;
     data["order_id"] = orderId;
-    data["product_id"] = productId;
-    data["size"] = size;
+    data["customer_id"] = customerId;
+    data["employee_id"] = employeeId;
+    data["total_price"] = totalPrice;
+    data["time"] = time;
+    data["total_preparation_time"] = totalPreparationTime;
+    data["status"] = status;
     return data;
   }
 }
