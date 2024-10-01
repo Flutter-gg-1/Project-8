@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/profile/profile_cubit.dart';
-import 'package:onze_cafe/screens/profile/subviews/animated_img_view.dart';
+import 'package:onze_cafe/reusable_components/animation/animated_img_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/animated_profile_list.dart';
 
 import '../../extensions/color_ext.dart';
+import '../../extensions/img_ext.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,17 +31,16 @@ class ProfileScreen extends StatelessWidget {
           ),
           body: SafeArea(
               child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(32),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Align(
-                    alignment: Alignment.bottomLeft, child: AnimatedImgView()),
-                BlocBuilder<ProfileCubit, ProfileState>(
-                  builder: (context, state) {
-                    return AnimatedProfileList(cubit: cubit);
-                  },
-                )
+                    alignment: Alignment.bottomLeft,
+                    child: AnimatedImgView(
+                      img: Img.illustration4,
+                    )),
+                AnimatedProfileList(cubit: cubit)
               ],
             ),
           )),

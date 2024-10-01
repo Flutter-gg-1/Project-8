@@ -70,8 +70,7 @@ class SupabaseProfile {
   static Future<String?> uploadAvatar(File imageFile) async {
     try {
       final fileBytes = await ImgConverter.fileImgToBytes(imageFile);
-      final fileName =
-          'avatars/${DateTime.now().millisecondsSinceEpoch}.png'; // Use a unique file name
+      final fileName = 'avatars/${SupabaseMgr.shared.currentUser!.id}.png';
 
       await supabase.storage.from(bucketKey).uploadBinary(fileName, fileBytes);
       final publicUrl = supabase.storage.from(bucketKey).getPublicUrl(fileName);

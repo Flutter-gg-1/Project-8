@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
@@ -11,6 +12,7 @@ import 'package:onze_cafe/screens/edit_profile/network_functions.dart';
 import '../../extensions/color_ext.dart';
 import '../../extensions/img_ext.dart';
 import '../../model/profile.dart';
+import '../../reusable_components/animation/animated_img_view.dart';
 import '../../utils/validations.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -105,6 +107,12 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+              ),
+              AspectRatio(
+                aspectRatio: 2,
+                child: AnimatedImgView(
+                  img: Img.illustration7,
                 ),
               ),
               BlocBuilder<EditProfileCubit, EditProfileState>(

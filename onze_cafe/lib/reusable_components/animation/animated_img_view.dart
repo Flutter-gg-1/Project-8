@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../extensions/img_ext.dart';
-
 class AnimatedImgView extends StatelessWidget {
-  const AnimatedImgView({super.key});
+  const AnimatedImgView({super.key, required this.img});
+  final ImageProvider img;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +14,9 @@ class AnimatedImgView extends StatelessWidget {
         return Transform.translate(
           offset: offset * MediaQuery.of(context).size.width,
           child: Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomRight,
             child: Image(
-              image: Img.illustration4,
+              image: img,
               fit: BoxFit.contain,
             ),
           ),
