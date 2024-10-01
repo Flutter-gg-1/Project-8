@@ -89,17 +89,14 @@ saveOrder({required double totalPrice}) async {
   for (var item in locator.get<DataLayer>().cart.items) {
     addItem(item: item);
   }
-  await supabase.from('orders').update({
-    'total_price' : totalPrice
-  });
+  await supabase.from('orders').update({'total_price': totalPrice});
 }
 
 Future<List<Map<String, dynamic>>> fetchAllOrders() async {
   final response = await supabase
-    .from('order_item')
-    .select('*, orders(*), item(*)')
-    .eq('item_status', 'incomplete');
-    
+      .from('order_item')
+      .select('*, orders(*), item(*)')
+      .eq('item_status', 'incomplete');
 
   return response;
 }
@@ -110,28 +107,30 @@ getCustomerName({required String userId}) async {
   return name;
 }
 
-Future<void> markItemAsReady({required int orderId, required int itemId}) async {
+Future<void> markItemAsComplete(
+    {required int orderId, required int itemId}) async {
   try {
-    // Update the item status to "ready"
+    // make order_item status complete
     await supabase
         .from('order_item')
         .update({'item_status': 'complete'})
         .eq('order_id', orderId)
         .eq('item_id', itemId);
 
-    // Check if all items in the order are ready
+    // make order status complete if all items are complete
     final items = await supabase
         .from('order_item')
         .select('item_status')
         .eq('order_id', orderId);
 
-    // If all items are marked as 'ready', update the order status to 'complete'
-    bool allItemsReady = items.every((item) => item['item_status'] == 'complete');
-    if (allItemsReady) {
+    bool allItemsComplete =
+        items.every((item) => item['item_status'] == 'complete');
+    if (allItemsComplete) {
       await supabase
           .from('orders')
-          .update({'status': 'complete'})
-          .eq('order_id', orderId);
+          .update({'status': 'complete'}).eq('order_id', orderId);
+
+      await supabase.from('order_item').delete().eq('order_id', orderId);
     }
   } catch (error) {
     log('Error marking item as ready: $error');
@@ -139,3 +138,32 @@ Future<void> markItemAsReady({required int orderId, required int itemId}) async 
   }
 }
 
+Future<void> cancelOrderItem(
+    {required int orderId, required int itemId}) async {
+  try {
+    await supabase
+        .from('order_item')
+        .delete()
+        .eq('item_id', itemId)
+        .eq('order_id', orderId);
+    
+    // make order status complete if all items are complete
+    final items = await supabase
+        .from('order_item')
+        .select('item_status')
+        .eq('order_id', orderId);
+
+    bool allItemsComplete =
+        items.every((item) => item['item_status'] == 'complete');
+    if (allItemsComplete) {
+      await supabase
+          .from('orders')
+          .update({'status': 'complete'}).eq('order_id', orderId);
+
+      await supabase.from('order_item').delete().eq('order_id', orderId);
+    }
+  } catch (error) {
+    log('Error Cancelling item: $error');
+    return Future.error(error);
+  }
+}

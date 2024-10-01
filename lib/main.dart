@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
@@ -20,7 +22,6 @@ void main() async {
   //     .verifyOTP(
   //       type: OtpType.signup,
   //       email: 'aazizalamri2@gmail.com', token: '727917');
-
   runApp(const MainApp());
 }
 
