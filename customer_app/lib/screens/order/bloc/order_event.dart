@@ -7,8 +7,6 @@ class AddEvent extends OrderEvent {}
 
 class MinusEvent extends OrderEvent {}
 
-
-
 class StartTimerEvent extends OrderEvent {}
 
 class TrackStatusChangeEvent extends OrderEvent {}
