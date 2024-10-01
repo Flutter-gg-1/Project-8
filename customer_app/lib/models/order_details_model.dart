@@ -8,7 +8,7 @@ class OrderDetailsModel {
   String? size;
   ProductModel? productModel;
 
-  OrderDetailsModel({this.id, this.quantity, this.orderId, this.productId, this.size});
+  OrderDetailsModel({this.id, this.quantity, this.orderId, this.productId, this.size, this.productModel});
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
