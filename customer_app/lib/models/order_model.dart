@@ -1,14 +1,16 @@
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/product_model.dart';
 
 class OrderModel {
-
   String? orderId;
   String? customerId;
   String? employeeId;
   int? totalPrice;
-  DateTime? time;
+  String? time;
   int? totalPreparationTime;
   String? status;
+
+  List<OrderDetailsModel> orderDetailsLis = [];
 
   OrderModel(
       {this.orderId,
@@ -17,8 +19,10 @@ class OrderModel {
       this.totalPrice,
       this.time,
       this.totalPreparationTime,
-      this.status});
-
+      this.status,
+      
+      
+      });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     orderId = json["order_id"];
