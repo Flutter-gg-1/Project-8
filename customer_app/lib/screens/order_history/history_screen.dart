@@ -1,3 +1,4 @@
+import 'package:customer_app/helper/date_format.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/order_history/cubit/order_history_cubit.dart';
 import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
@@ -10,36 +11,6 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> products = [
-      {
-        'image': 'assets/image/menu1.png',
-        'name': 'Latte',
-        'description': 'Medium, Caramel',
-        'quantity': 'x1',
-        'price': '245 RS'
-      },
-      {
-        'image': 'assets/image/menu2.png',
-        'name': 'Cappuccino',
-        'description': 'Large, Vanilla',
-        'quantity': 'x2',
-        'price': '300 RS'
-      },
-      {
-        'image': 'assets/image/menu1.png',
-        'name': 'Latte',
-        'description': 'Medium, Caramel',
-        'quantity': 'x1',
-        'price': '245 RS'
-      },
-      {
-        'image': 'assets/image/menu2.png',
-        'name': 'Cappuccino',
-        'description': 'Large, Vanilla',
-        'quantity': 'x2',
-        'price': '300 RS'
-      },
-    ];
     return Scaffold(
         appBar: AppBar(
           title: const Text('Order History'),
@@ -48,13 +19,11 @@ class HistoryScreen extends StatelessWidget {
         body: BlocProvider(
           create: (context) => OrderHistoryCubit(),
           child: Builder(builder: (context) {
-             final cubit = context.read<OrderHistoryCubit>();
-                  cubit.getAllUserOrder();
+            final cubit = context.read<OrderHistoryCubit>();
+            cubit.getAllUserOrder();
             return SingleChildScrollView(
               child: BlocBuilder<OrderHistoryCubit, OrderHistoryState>(
                 builder: (context, state) {
-                 
-
                   return Column(
                     children: List.generate(
                       cubit.orderList.length,
@@ -70,7 +39,8 @@ class HistoryScreen extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  cubit.orderList[index].time!,
+                                  formatTimestamp(
+                                      timestamp: cubit.orderList[index].time!),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -209,14 +179,14 @@ class HistoryScreen extends StatelessWidget {
                                                 Colors.black.withOpacity(0.60),
                                             height: 2,
                                           ),
-                                          
                                           TextWithTowDirection(
                                             isRightClickable: false,
                                             onPressed: () {},
                                             leftText: 'Total',
                                             leftTextColor: Colors.black,
                                             leftTextSize: 20,
-                                            rightText: 'x',
+                                            rightText:
+                                                '${cubit.getTotalQueAndPrice(index: index)}',
                                             rightTextColor:
                                                 Colors.black.withOpacity(0.40),
                                             rightTextSize: 20,

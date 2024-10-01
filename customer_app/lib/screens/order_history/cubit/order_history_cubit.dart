@@ -47,13 +47,13 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     }
   }
 
-  getTotalPriceAndQue() {
-    int toalQue = 0;
-    double totalPrice = 0;
+  getTotalQueAndPrice({required int index}) {
+    int totallQue = 0;
 
-    for(var val in orderList){
-
-
+    for (var val in orderList[index].orderDetailsLis) {
+      totallQue += val.quantity ?? 0;
     }
+
+    return "X$totallQue ${orderList[index].totalPrice} SAR";
   }
 }
