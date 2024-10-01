@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -10,9 +11,10 @@ class DIContainer {
     GetIt.I.registerSingleton<AuthMgr>(AuthMgr());
   }
 
-  static configureOneSignal() {
-    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-    OneSignal.initialize('9ef08024-c628-4bca-a101-1a15e7ee892c');
+  static configureOneSignal() async {
+    await dotenv.load(fileName: ".env");
+    OneSignal.Debug.setLogLevel(OSLogLevel.error);
+    OneSignal.initialize(dotenv.env['OneSignal_KEY']!);
     OneSignal.Notifications.requestPermission(true);
   }
 }
