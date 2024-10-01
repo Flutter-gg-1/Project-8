@@ -4,6 +4,7 @@ import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
+import 'package:customer_app/screens/order_history/history_screen.dart';
 import 'package:customer_app/screens/home_screen.dart';
 import 'package:customer_app/screens/order/order_status.dart';
 import 'package:customer_app/services/setup.dart';
@@ -39,13 +40,14 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
       debugShowCheckedModeBanner: false,
 
-      home:  OrderStatus(order: OrderModel(
-        orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
-        time: DateTime.now(),
-        totalPreparationTime: 12,
-        totalPrice: 120
+      home:  const HistoryScreen()
+      // OrderStatus(order: OrderModel(
+      //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
+      //   time: DateTime.now(),
+      //   totalPreparationTime: 12,
+      //   totalPrice: 120
 
-      ),),
+      // ),),
 
     );
   }
