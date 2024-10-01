@@ -39,7 +39,8 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color(0xffD7D1CA),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(
+        home: 
+        HomeScreen(
           user: UserModel(
               customerId: '',
               email: 'email',

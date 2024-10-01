@@ -19,10 +19,13 @@ class HomeScreen extends StatelessWidget {
   final UserModel user;
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: 10,
       child: Scaffold(
+        key: _scaffoldKey,
         extendBodyBehindAppBar: true,
+        //separate it later
         drawer: Drawer(
           backgroundColor: const Color(0xffD7D1CA),
           child: SingleChildScrollView(
@@ -122,6 +125,14 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: Image.asset('assets/image/logo_small.png'),
           centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
+              icon: const Icon(
+                FontAwesome.bars_staggered_solid,
+                color: Color(0xffA8483D),
+              )),
           actions: [
             IconButton(
                 onPressed: () {
@@ -136,15 +147,8 @@ class HomeScreen extends StatelessWidget {
                   Iconsax.shop_add_bold,
                   color: Color(0xffA8483D),
                 )),
-            InkWell(
-              onTap: () {},
-              child: const CircleAvatar(
-                backgroundColor: Color(0xffd9d9d9),
-                backgroundImage: AssetImage('assets/image/appBarProfile.png'),
-              ),
-            ),
             SizedBox(
-              width: context.getWidth(multiply: 0.02),
+              width: context.getWidth(multiply: 0.01),
             )
           ],
         ),
@@ -165,10 +169,13 @@ class HomeScreen extends StatelessWidget {
                   hint: 'Find your coffee',
                   prefixIcon: Icon(Bootstrap.search_heart),
                 ),
-                context.addSpacer(),
+                context.addSpacer(multiply: 0.02),
+               Image.asset('assets/image/homegroup.png'),
+                context.addSpacer(multiply: 0.02),
                 const MenuTypes(),
+                context.addSpacer(multiply: 0.01),
                 SizedBox(
-                  height: context.getHeight(multiply: 0.6),
+                  height: context.getHeight(multiply: 0.4),
                   child: const MenuOption(),
                 )
               ],
