@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/screens/auth/cubit/auth_cubit/auth_cubit.dart';
 import 'package:customer_app/services/setup.dart';
@@ -14,7 +15,7 @@ import 'package:moyasar/moyasar.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  List<OrderModel> cartLis = productLocator.get<ProductLayer>().cartItem;
+  List<OrderDetailsModel> cartLis = productLocator.get<ProductLayer>().cartItem;
 
   double priceTotal = 0;
   int totalPreTime = 0;
@@ -26,13 +27,13 @@ class CartCubit extends Cubit<CartState> {
     emit(ShowCartState());
   }
 
-  addQue({required OrderModel orderModel}) {
+  addQue({required OrderDetailsModel orderModel}) {
     orderModel.quantity = orderModel.quantity! + 1;
     getAllTotal();
     emit(QueChangeState());
   }
 
-  minusQue({required OrderModel orderModel}) {
+  minusQue({required OrderDetailsModel orderModel}) {
     if (orderModel.quantity != 1) {
       orderModel.quantity = orderModel.quantity! - 1;
       getAllTotal();

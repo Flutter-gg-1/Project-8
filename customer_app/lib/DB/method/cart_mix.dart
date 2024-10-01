@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:customer_app/DB/super.dart';
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 
 mixin CartMix on Super {
   insetCartData(
-      {required String orderId, required List<OrderModel> cartLis}) async {
+      {required String orderId, required List<OrderDetailsModel> cartLis}) async {
     try {
       for (var val in cartLis) {
         final res = await superbase.from("order_detail").insert({

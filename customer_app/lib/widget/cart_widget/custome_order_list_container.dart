@@ -1,4 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class OrderListContainer extends StatelessWidget {
 
 // the model
 
-  final OrderModel orderModel;
+  final OrderDetailsModel orderModel;
 
   //main Container
   final double widthMainContainer;
