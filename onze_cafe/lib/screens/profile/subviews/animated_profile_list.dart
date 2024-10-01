@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:onze_cafe/screens/profile/network_functions.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_card_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_list_item_view.dart';
 
@@ -12,7 +13,7 @@ class AnimatedProfileList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      ProfileCardView(),
+      ProfileCardView(cubit: cubit),
       ProfileListItemView(
         icon: CupertinoIcons.gear_solid,
         title: 'Edit Profile',

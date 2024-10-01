@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../../../extensions/color_ext.dart';
-import '../../../extensions/img_ext.dart';
+import '../profile_cubit.dart';
 
 class ProfileCardView extends StatelessWidget {
-  const ProfileCardView({super.key});
+  const ProfileCardView({super.key, required this.cubit});
+  final ProfileCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +23,33 @@ class ProfileCardView extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border:
-                            Border.all(color: C.primary(brightness), width: 2)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: ClipOval(child: Image(image: Img.cappuccino)),
-                    )),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: C.primary(brightness), width: 2)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: ClipOval(
+                            child: cubit.profile?.avatarUrl != null
+                                ? Image.network(cubit.profile!.avatarUrl!,
+                                    fit: BoxFit.cover)
+                                : const Icon(CupertinoIcons.person_fill,
+                                    size: 40)),
+                      )),
+                ),
               ),
             ),
             Expanded(
               flex: 2,
               child: ListTile(
-                title: Text('Hello').styled(
+                title: Text('Hello ${cubit.profile?.name ?? ''}').styled(
                     color: C.primary(brightness),
                     size: 18,
                     weight: FontWeight.bold),
-                subtitle: Text('abc@example.com')
+                subtitle: Text(cubit.profile?.email ?? 'anonymous')
                     .styled(color: C.primary(brightness)),
               ),
             )

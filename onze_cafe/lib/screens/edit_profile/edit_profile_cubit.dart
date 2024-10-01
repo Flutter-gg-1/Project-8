@@ -26,9 +26,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     nameController.text = profile?.name ?? '';
     emailController.text = profile?.email ?? '';
     phoneController.text = profile?.phone ?? '';
-    print(SupabaseMgr.shared.currentUser?.email ?? 'None');
-    isAnonymous = (SupabaseMgr.shared.currentUser == null) ? true : false;
-    print('anon? : $isAnonymous');
+
+    isAnonymous =
+        SupabaseMgr.shared.currentUser?.appMetadata['provider'] == 'anon';
+
     Future.delayed(Duration(milliseconds: 50));
     emit(UpdateUIState());
   }

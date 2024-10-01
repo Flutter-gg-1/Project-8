@@ -13,11 +13,27 @@ class SupabaseProfile {
 
   static Future createProfile(Profile profile) async {
     try {
-      await supabase.from(tableKey).insert({
+      var response = await supabase.from(tableKey).insert({
+        'id': SupabaseMgr.shared.currentUser?.id,
         'name': profile.name,
         'email': profile.email,
         'phone': profile.phone,
       });
+      return response;
+    } on AuthException catch (_) {
+      rethrow;
+    } on PostgrestException catch (_) {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<Profile?> fetchProfile() async {
+    try {
+      var response = await supabase.from(tableKey).select().single();
+      print(response);
+      return Profile.fromJson(response);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {

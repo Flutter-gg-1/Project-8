@@ -17,7 +17,7 @@ extension NetworkFunctions on AuthCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
-      await Future.delayed(Duration(seconds: 1));
+      Future.delayed(Duration(milliseconds: 50));
       toggleIsOtp();
     } catch (e) {
       if (context.mounted) {
@@ -37,7 +37,7 @@ extension NetworkFunctions on AuthCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
-      await Future.delayed(Duration(seconds: 1));
+      Future.delayed(Duration(milliseconds: 50));
       if (context.mounted) navigateToMenu(context);
     } catch (e) {
       if (context.mounted) {
@@ -55,7 +55,7 @@ extension NetworkFunctions on AuthCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
-      await Future.delayed(Duration(seconds: 1));
+      Future.delayed(Duration(milliseconds: 50));
       if (context.mounted) navigateToMenu(context);
     } catch (e) {
       if (context.mounted) {

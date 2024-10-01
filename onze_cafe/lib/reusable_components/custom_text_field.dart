@@ -10,13 +10,15 @@ class CustomTextField extends StatelessWidget {
       this.suffixIcon,
       this.max = 1,
       required this.controller,
-      required this.validation});
+      required this.validation,
+      this.readOnly = false});
   final String hintText;
   final Widget? prefixIcon;
   final int? max;
   final Widget? suffixIcon;
   final TextEditingController controller;
   final Function(String value) validation;
+  final bool readOnly;
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -24,6 +26,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
         style: TextStyle(color: C.text(brightness)),
+        readOnly: readOnly,
         maxLines: max,
         minLines: 1,
         autovalidateMode: AutovalidateMode.onUserInteraction,

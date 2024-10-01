@@ -15,8 +15,8 @@ class LandingCubit extends Cubit<LandingState> {
   void checkUserSession() async {
     final session = supabase.auth.currentSession;
     if (session != null) {
-      await Future.delayed(Duration(seconds: 1));
-      emit(UserSessionExists()); // Emit a state if the session exists
+      await Future.delayed(Duration(milliseconds: 50));
+      emit(UserSessionExists());
     }
   }
 }

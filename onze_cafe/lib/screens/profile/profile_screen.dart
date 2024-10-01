@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return BlocProvider(
-      create: (context) => ProfileCubit(),
+      create: (context) => ProfileCubit(context),
       child: Builder(builder: (context) {
         final cubit = context.read<ProfileCubit>();
         return Scaffold(
@@ -36,7 +36,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Align(
                     alignment: Alignment.bottomLeft, child: AnimatedImgView()),
-                AnimatedProfileList(cubit: cubit)
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    return AnimatedProfileList(cubit: cubit);
+                  },
+                )
               ],
             ),
           )),

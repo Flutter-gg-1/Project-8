@@ -33,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void initialLoad(bool isSignUp) async {
     isSignup = isSignUp;
-    await Future.delayed(Duration(seconds: 1));
+    Future.delayed(Duration(milliseconds: 50));
     emit(UpdateUIState());
   }
 

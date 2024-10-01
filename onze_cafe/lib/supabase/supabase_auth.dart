@@ -28,13 +28,14 @@ class SupabaseAuth {
       await supabase.auth
           .verifyOTP(email: email, type: OtpType.signup, token: otp);
 
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+
       // Subscribe to notifications
       var userId = supabase.auth.currentUser?.id;
       if (userId != null) {
         OneSignal.login(userId);
       }
-      // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -49,13 +50,15 @@ class SupabaseAuth {
       final AuthResponse response = await supabase.auth
           .signInWithPassword(email: email, password: password);
 
+      // Update current user
+      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+
       // Subscribe to notifications
       var userId = supabase.auth.currentUser?.id;
       if (userId != null) {
         OneSignal.login(userId);
       }
-      // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+
       return response;
     } on AuthException catch (_) {
       rethrow;
