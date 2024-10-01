@@ -1,14 +1,14 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
+
 import 'package:onze_cafe/models/item_model.dart';
-import 'package:onze_cafe/screens/Home%20Screen/ProductDetailsScreen.dart';
+import 'package:onze_cafe/Proudct_details/ProductDetailsScreen.dart';
+import 'package:onze_cafe/screens/Home%20Screen/bloc/home_bloc.dart';
 import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
 import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
-import 'package:get_it/get_it.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:onze_cafe/utils/launch_url.dart';
 
@@ -30,61 +30,66 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildProductsGrid(String itemType, Size size) {
-    return FutureBuilder<List<ItemModel>>(
-      future: locator.get<DataLayer>().getItemsByType(itemType),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No products available'));
-        }
+    return BlocProvider(
+      create: (context) =>
+          HomeBloc(locator.get<DataLayer>())..add(LoadProductsEvent(itemType)),
+      child: BlocBuilder<HomeBloc, HomeBlocState>(
+        builder: (context, state) {
+          if (state is HomeLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is HomeErrorState) {
+            return Center(child: Text('Error: ${state.error}'));
+          } else if (state is HomeLoadedState) {
+            final products = state.products;
+            if (products.isEmpty) {
+              return const Center(child: Text('No products available'));
+            }
 
-        final products = snapshot.data!;
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 25,
-            ),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              final product = products[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailsScreen(
-                        heroTag: product.id.toString(),
-                        item: ItemModel.fromJson(products[index].toJson()),
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 25,
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetailsScreen(
+                            heroTag: product.id.toString(),
+                            item: ItemModel.fromJson(products[index].toJson()),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: product.id.toString(),
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: CoffeeCard(
+                          size: size,
+                          name: product.name,
+                          price: product.price,
+                          imageUrl: product.imageUrl,
+                          rating: product.rating,
+                          itemId: product.id,
+                        ),
                       ),
                     ),
                   );
                 },
-                child: Hero(
-                  tag: product.id.toString(),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: CoffeeCard(
-                      size: size,
-                      name: product.name,
-                      price: product.price,
-                      imageUrl: product.imageUrl,
-                      rating: product.rating,
-                      itemId: product.id,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        );
-      },
+              ),
+            );
+          }
+          return Container();
+        },
+      ),
     );
   }
 
@@ -104,29 +109,23 @@ class _HomeScreenState extends State<HomeScreen>
         actions: [
           Column(
             children: [
-              // if cart empty, sizedbox 20
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // if cart not empty, show column
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 5,
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 15,
+                width: 15,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xffa8483d),
+                ),
+                child: const Center(
+                  child: Text(
+                    '2',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 8),
                   ),
-                  Container(
-                    height: 15,
-                    width: 15,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xffa8483d)),
-                    child: const Center(
-                        child: Text(
-                      '2',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 8),
-                    )),
-                  ),
-                ],
+                ),
               ),
               InkWell(
                 onTap: () {
@@ -155,37 +154,38 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 ClipRRect(
                   child: Container(
-                      width: double.infinity,
-                      height: size.height * 0.32,
-                      color: const Color(0xff87b1c5),
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          height: size.height * 0.23,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.9,
-                        ),
-                        items: [
-                          'assets/Group 3174.png',
-                          'assets/ab.png',
-                          'assets/ss 1 (1).png'
-                        ].map((item) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                margin: const EdgeInsets.only(top: 35),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                    item,
-                                    fit: BoxFit.contain,
-                                  ),
+                    width: double.infinity,
+                    height: size.height * 0.32,
+                    color: const Color(0xff87b1c5),
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        height: size.height * 0.23,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.9,
+                      ),
+                      items: [
+                        'assets/Group 3174.png',
+                        'assets/ab.png',
+                        'assets/ss 1 (1).png'
+                      ].map((item) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              margin: const EdgeInsets.only(top: 35),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Image.asset(
+                                  item,
+                                  fit: BoxFit.contain,
                                 ),
-                              );
-                            },
-                          );
-                        }).toList(),
-                      )),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: size.height * 0.003,
@@ -225,7 +225,6 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-          // Tab Bar and Product Grid
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: TabBar(
@@ -246,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Tab(text: 'Drip Coffee'),
                 Tab(text: 'Tea Drinks'),
                 Tab(text: 'Water'),
-                Tab(text: 'Bekary'),
+                Tab(text: 'Bakery'),
               ],
             ),
           ),
@@ -295,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
             InkWell(
-              onTap: () => launchURL(urls[4]),
+              onTap: () => launchURL('your_website_url'),
               child: const Text(
                 'For more information visit our website',
                 style: TextStyle(color: Colors.white),
