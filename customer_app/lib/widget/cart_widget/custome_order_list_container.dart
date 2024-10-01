@@ -1,4 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/models/order_model.dart';
 import 'package:flutter/material.dart';
 
 class OrderListContainer extends StatelessWidget {
@@ -11,7 +12,7 @@ class OrderListContainer extends StatelessWidget {
     required this.widthLine,
     required this.heightLine,
     required this.colorLine,
-    required this.orderText,
+    
     required this.orderTextSize,
     required this.widthQuantityContainer,
     required this.heightQuantityContainer,
@@ -22,8 +23,14 @@ class OrderListContainer extends StatelessWidget {
     required this.quantityTextSize,
     this.onPressedDeleteOrder,
     required this.colorDeleteIcon,
-    required this.textPrice,
+    
+    required this.orderModel,
   });
+
+// the model
+
+  final OrderModel orderModel;
+
   //main Container
   final double widthMainContainer;
   final double heightMainContainer;
@@ -34,7 +41,7 @@ class OrderListContainer extends StatelessWidget {
   final double heightLine;
   final Color colorLine;
   //order
-  final String orderText;
+  
   final double orderTextSize;
   //quantity
   final double widthQuantityContainer;
@@ -48,7 +55,7 @@ class OrderListContainer extends StatelessWidget {
   final void Function()? onPressedDeleteOrder;
   final Color colorDeleteIcon;
   //text Price
-  final String textPrice;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,7 +89,7 @@ class OrderListContainer extends StatelessWidget {
                     height: context.getWidth(multiply: 0.02),
                   ),
                   Text(
-                    orderText,
+                    orderModel.productModel!.name!,
                     style: TextStyle(fontSize: orderTextSize),
                   ),
                   SizedBox(
@@ -111,7 +118,7 @@ class OrderListContainer extends StatelessWidget {
                       ),
                       SizedBox(width: context.getWidth(multiply: 0.02)),
                       Text(
-                        '$quantityText',
+                        '${orderModel.quantity}',
                         style: TextStyle(fontSize: quantityTextSize),
                       ),
                       SizedBox(width: context.getWidth(multiply: 0.02)),
@@ -151,7 +158,7 @@ class OrderListContainer extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '$textPrice RS',
+                    '${orderModel.productModel!.price!*orderModel.quantity!} SAR',
                     style: TextStyle(color: Colors.black.withOpacity(0.50)),
                   ),
                   SizedBox(
