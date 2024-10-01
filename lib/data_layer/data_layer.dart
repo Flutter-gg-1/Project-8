@@ -106,7 +106,7 @@ class DataLayer {
 
     for (var e in cart.items) {
       if (e.itemId == item.itemId) {
-        e.quantity++; // Increase quantity if item exists
+        e.quantity++;
         itemExists = true;
         break;
       }

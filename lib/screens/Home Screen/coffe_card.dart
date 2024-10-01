@@ -19,7 +19,7 @@ class CoffeeCard extends StatelessWidget {
     required this.price,
     this.imageUrl,
     required this.rating,
-    required this.itemId, // Pass itemId to use for adding to cart
+    required this.itemId,
   });
 
   // Function to build stars based on the rating value

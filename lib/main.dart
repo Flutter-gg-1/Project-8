@@ -5,6 +5,7 @@ import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/screens/Employee%20Screen/employee_screen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
+import 'package:onze_cafe/screens/Order_Tracking/order_trcking.dart';
 import 'package:onze_cafe/services/db_operations.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:sizer/sizer.dart';
@@ -31,7 +32,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false, home: EmployeeScreen());
+          debugShowCheckedModeBanner: false, home: OrderTracking());
     });
   }
 }
