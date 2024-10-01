@@ -1,15 +1,22 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
 import 'package:onze_cafe/supabase/supabase_auth.dart';
 
 import '../../reusable_components/animated_snackbar.dart';
+import '../edit_profile/edit_profile_screen.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
+
+  navigateToEditProfile(BuildContext context) =>
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              EditProfileScreen(profile: MockData().profiles.first)));
 
   Future signOut(BuildContext context) async {
     try {

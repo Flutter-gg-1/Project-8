@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/screens/profile/profile_cubit.dart';
 import 'package:onze_cafe/screens/profile/subviews/animated_img_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/animated_profile_list.dart';

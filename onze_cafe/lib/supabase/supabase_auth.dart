@@ -1,3 +1,4 @@
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:onze_cafe/supabase/supabase_mgr.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -19,10 +20,16 @@ class SupabaseAuth {
   }
 
   static Future verifyOtp({required String email, required String otp}) async {
-    print(otp.toString());
     try {
       final user = await supabase.auth
           .verifyOTP(email: email, type: OtpType.signup, token: otp);
+
+      // Subscribe to notifications
+      var userId = supabase.auth.currentUser?.id;
+      if (userId != null) {
+        OneSignal.login(userId);
+      }
+      // Add to profile
       await supabase
           .from("profile")
           .insert({"id": user.user?.id, "email": email});
@@ -39,6 +46,12 @@ class SupabaseAuth {
     try {
       final AuthResponse response = await supabase.auth
           .signInWithPassword(email: email, password: password);
+
+      // Subscribe to notifications
+      var userId = supabase.auth.currentUser?.id;
+      if (userId != null) {
+        OneSignal.login(userId);
+      }
       return response;
     } on AuthException catch (_) {
       rethrow;
@@ -65,6 +78,8 @@ class SupabaseAuth {
   static Future signOut() async {
     try {
       var response = await supabase.auth.signOut();
+      // Un-Subscribe to notifications
+      OneSignal.logout();
       return response;
     } on AuthException catch (_) {
       rethrow;

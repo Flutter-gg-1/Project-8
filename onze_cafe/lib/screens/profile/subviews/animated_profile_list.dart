@@ -16,7 +16,7 @@ class AnimatedProfileList extends StatelessWidget {
       ProfileListItemView(
         icon: CupertinoIcons.gear_solid,
         title: 'Edit Profile',
-        callback: () => (),
+        callback: () => cubit.navigateToEditProfile(context),
       ),
       ProfileListItemView(
         icon: CupertinoIcons.bell_fill,
