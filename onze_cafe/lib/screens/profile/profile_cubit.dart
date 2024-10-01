@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/screens/edit_profile/edit_profile_screen.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
 import 'package:onze_cafe/supabase/supabase_auth.dart';
 
@@ -32,4 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       print('Sign-out failed: $e');
     }
   }
+
+  void navigateToEditProfile(BuildContext context) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => const EditProfileScreen()));
 }
