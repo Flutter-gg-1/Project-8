@@ -107,8 +107,8 @@ class OrderInfo extends StatelessWidget {
                             title: 'Add to Cart',
                             onPressed: () async {
 
-  fix this
-                              locator.cartItem.add(OrderModel(
+  
+                              locator.cartItem.add(OrderDetailsModel(
                                 productModel: product,
 
                               locator.cartItem.add(OrderDetailsModel(
