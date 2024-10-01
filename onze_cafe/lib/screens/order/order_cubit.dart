@@ -45,7 +45,16 @@ class OrderCubit extends Cubit<OrderState> {
     return total;
   }
 
-  void navigateToOrderDetails(BuildContext context) =>
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const OrderDetailsScreen()));
+  void navigateToOrderDetails(BuildContext context, PlacedOrder order) {
+    final price =
+        totalPrice(order); 
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => OrderDetailsScreen(
+          orderId: order.id,
+          price: price,
+        ),
+      ),
+    );
+  }
 }

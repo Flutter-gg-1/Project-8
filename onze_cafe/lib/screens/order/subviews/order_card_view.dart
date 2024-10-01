@@ -26,7 +26,7 @@ class OrderCardView extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 3,
         child: InkWell(
-          onTap: () => cubit.navigateToOrderDetails(context),
+          onTap: () => cubit.navigateToOrderDetails(context, placedOrder),
           child: Card(
               color: C.bg3(brightness),
               elevation: 4,
