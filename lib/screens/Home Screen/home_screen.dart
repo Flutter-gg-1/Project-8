@@ -67,8 +67,7 @@ class _HomeScreenState extends State<HomeScreen>
                   );
                 },
                 child: Hero(
-                  tag: product.id
-                      .toString(),
+                  tag: product.id.toString(),
                   child: Padding(
                     padding: EdgeInsets.only(top: 20),
                     child: CoffeeCard(
@@ -247,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Tab(text: 'Drip Coffee'),
                 Tab(text: 'Tea Drinks'),
                 Tab(text: 'Water'),
-                Tab(text: 'Dessert'),
+                Tab(text: 'Bekary'),
               ],
             ),
           ),

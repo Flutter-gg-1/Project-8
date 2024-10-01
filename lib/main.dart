@@ -12,6 +12,7 @@ void main() async {
   await setup();
   await login(email: 'aazizalamri2@gmail.com', password: '123123');
   await fetchAllOrders();
+  
   // locator.get<DataLayer>().getUserById(email: 'aazizalamri2@gmail.com');
   // await supabase.auth.signUp(
   //       email: 'aazizalamri2@gmail.com', password: '123123');
@@ -30,7 +31,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-          debugShowCheckedModeBanner: false, home: EmployeeScreen());
+          debugShowCheckedModeBanner: false, home: HomeScreen());
     });
   }
 }
