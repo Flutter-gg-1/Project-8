@@ -7,12 +7,14 @@ import 'package:flutter_stepindicator/flutter_stepindicator.dart';
 class StatusContainer extends StatelessWidget {
   const StatusContainer({
     super.key,
-    required this.bloc,
     required this.color,
     required this.test,
+    required this.orderStatus,
+    required this.statusIndex,
   });
 
-  final OrderBloc bloc;
+  final String orderStatus;
+  final int statusIndex;
   final List<Color> color;
   final List<Widget> test;
 
@@ -33,9 +35,7 @@ class StatusContainer extends StatelessWidget {
         children: [
           Container(
             width: context.getSize(
-                smallDivider: 0.22,
-                largeDivider: 0.4,
-                context: context),
+                smallDivider: 0.22, largeDivider: 0.4, context: context),
             height: context.getHeight(multiply: 0.035),
             decoration: BoxDecoration(
                 color: const Color(0xff6F5860),
@@ -44,43 +44,34 @@ class StatusContainer extends StatelessWidget {
               child: BlocBuilder<OrderBloc, OrderState>(
                 builder: (context, state) {
                   return Text(
-                    bloc.orderStatus,
+                    orderStatus,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: color[bloc.statusIndex]),
+                        color: color[statusIndex]),
                   );
                 },
               ),
             ),
           ),
           context.addSpacer(multiply: 0.03),
-          BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, state) {
-              return SizedBox(
-                height: 20,
-                width: context.getWidth(multiply: 0.7),
-                child: FlutterStepIndicator(
-                  height: 20,
-                  disableAutoScroll: false,
-                  list: const [
-                    Text('1'),
-                    Text('2'),
-                    Text('3'),
-                    Text('4'),
-                  ],
-                  onChange: (i) {},
-                  page: bloc.statusIndex,
-                ),
-              );
-            },
+          SizedBox(
+            height: 20,
+            width: context.getWidth(multiply: 0.7),
+            child: FlutterStepIndicator(
+              height: 20,
+              disableAutoScroll: false,
+              list: const [
+                Text('1'),
+                Text('2'),
+                Text('3'),
+                Text('4'),
+              ],
+              onChange: (i) {},
+              page: statusIndex,
+            ),
           ),
-          BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                  child: Center(child: test[bloc.statusIndex]));
-            },
-          )
+          SingleChildScrollView(child: Center(child: test[statusIndex]))
         ],
       ),
     );
