@@ -25,7 +25,6 @@ class CartScreen extends StatelessWidget {
         return BlocListener<CartCubit, CartState>(
           listener: (context, state) {
             if (state is OrderConformState) {
-              
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return PayScreen(
@@ -42,7 +41,7 @@ class CartScreen extends StatelessWidget {
               );
             }
 
-            if (state is BuySucssState) {
+            if (state is BuySucssesState) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   state.msg,
@@ -52,7 +51,7 @@ class CartScreen extends StatelessWidget {
                 backgroundColor: Colors.green,
               ));
             }
-            if (state is ErorrState) {
+            if (state is ErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   state.msg,

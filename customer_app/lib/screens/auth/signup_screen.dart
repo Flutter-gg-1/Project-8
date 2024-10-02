@@ -21,7 +21,7 @@ class SignupScreen extends StatelessWidget {
           key: cubit.formKey,
           child: BlocListener<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is NoLodingState) {
+              if (state is NoLoadingState) {
                 Navigator.pop(context);
               }
 
@@ -37,7 +37,7 @@ class SignupScreen extends StatelessWidget {
                 ));
               }
 
-              if (state is LodingState) {
+              if (state is LoadingState) {
                 showDialog(
                     barrierDismissible: false,
                     context: context,
@@ -47,7 +47,7 @@ class SignupScreen extends StatelessWidget {
                         )));
               }
 
-              if (state is SucssState) {
+              if (state is SuccessState) {
                 Navigator.pop(context);
                 Navigator.push(
                     context,
@@ -55,7 +55,7 @@ class SignupScreen extends StatelessWidget {
                       builder: (context) => OtpScreen(
                         email: cubit.emailCon.text,
                         fName: cubit.firstNameCon.text,
-                        lName: cubit.lasttNameCon.text,
+                        lName: cubit.lastNameCon.text,
                       ),
                     ));
               }
@@ -78,7 +78,7 @@ class SignupScreen extends StatelessWidget {
                       context.addSpacer(multiply: 0.02),
                       Column(
                         children: [
-                          CustomTextFormFeild(
+                          CustomTextFormFelid(
                             controller: cubit.emailCon,
                             label: 'E-mail',
                             keyboardType: TextInputType.emailAddress,
@@ -109,15 +109,15 @@ class SignupScreen extends StatelessWidget {
                             },
                           ),
                           context.addSpacer(multiply: 0.02),
-                          CustomTextFormFeild(
+                          CustomTextFormFelid(
                             controller: cubit.firstNameCon,
                             label: 'First Name',
                             keyboardType: TextInputType.name,
                             hint: '',
                           ),
                           context.addSpacer(multiply: 0.02),
-                          CustomTextFormFeild(
-                            controller: cubit.lasttNameCon,
+                          CustomTextFormFelid(
+                            controller: cubit.lastNameCon,
                             label: 'Last Name',
                             keyboardType: TextInputType.name,
                             hint: '',
@@ -129,7 +129,7 @@ class SignupScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'allready have an account?',
+                            'already have an account?',
                             style: TextStyle(
                                 color: Color(0xff87B1C5), fontSize: 15),
                           ),

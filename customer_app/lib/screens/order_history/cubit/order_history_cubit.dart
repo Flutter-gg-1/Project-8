@@ -34,7 +34,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
           OrderDetailsModel temp = OrderDetailsModel.fromJson(orderVal);
 
           temp.productModel = ProductModel.fromJson(
-              await SuperMain().getProducById(producId: temp.productId));
+              await SuperMain().getProductById(productId: temp.productId));
 
           val.orderDetailsLis.add(temp);
         }
@@ -48,12 +48,12 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   }
 
   getTotalQueAndPrice({required int index}) {
-    int totallQue = 0;
+    int totalQue = 0;
 
     for (var val in orderList[index].orderDetailsLis) {
-      totallQue += val.quantity ?? 0;
+      totalQue += val.quantity ?? 0;
     }
 
-    return "X$totallQue ${orderList[index].totalPrice} SAR";
+    return "X$totalQue ${orderList[index].totalPrice} SAR";
   }
 }

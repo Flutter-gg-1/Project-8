@@ -62,7 +62,7 @@ class CartCubit extends Cubit<CartState> {
 
   buyCart() async {
     if (cartLis.isEmpty) {
-      emit(ErorrState(msg: "the Cart is emty"));
+      emit(ErrorState(msg: "the Cart is empty"));
       return;
     }
 
@@ -85,16 +85,16 @@ class CartCubit extends Cubit<CartState> {
 
   checkOut({required PaymentResponse paymentResponse}) async {
     if (paymentResponse.status == PaymentStatus.paid) {
-      final orderId = await SuperMain().palceOrder(
+      final orderId = await SuperMain().placeOrder(
           customerId: productLocator.get<AuthLayer>().user!.customerId,
           totalPrice: priceTotal,
           totalPreTime: totalPreTime);
 
-      await SuperMain().insetCartData(orderId: orderId, cartLis: cartLis);
+      await SuperMain().insetCartData(orderId: orderId, cartList: cartLis);
 
-      emit(BuySucssState(msg: "you buy succs"));
+      emit(BuySussesState(msg: "you buy success"));
     } else if (paymentResponse.status == PaymentStatus.failed) {
-      emit(ErorrState(msg: "buy faild"));
+      emit(ErrorState(msg: "buy failed"));
       return;
     }
   }

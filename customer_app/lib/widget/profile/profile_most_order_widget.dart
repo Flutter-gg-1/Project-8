@@ -25,8 +25,7 @@ class ProfileMostOrderWidget extends StatelessWidget {
           ),
           const Text(
             "Hot Coffee\n10 Menu",
-            style:  TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           )
         ],
       ),

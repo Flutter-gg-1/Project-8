@@ -22,7 +22,7 @@ class OtpScreen extends StatelessWidget {
         final cubit = context.read<AuthCubit>();
         return BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is NoLodingState) {
+            if (state is NoLoadingState) {
               Navigator.pop(context);
             }
 
@@ -38,7 +38,7 @@ class OtpScreen extends StatelessWidget {
               ));
             }
 
-            if (state is LodingState) {
+            if (state is LoadingState) {
               showDialog(
                   barrierDismissible: false,
                   context: context,
@@ -48,7 +48,7 @@ class OtpScreen extends StatelessWidget {
                       )));
             }
 
-            if (state is SucssState) {
+            if (state is SuccessState) {
               Navigator.pop(context);
               // Navigator.push(
               //     context,
@@ -56,11 +56,11 @@ class OtpScreen extends StatelessWidget {
               //       builder: (context) =>  OtpScreen(
               //         email: cubit.email.text,
               //         fName: cubit.firstName.text,
-              //         lName: cubit.lasttName.text,
+              //         lName: cubit.lastName.text,
               //       ),
               //     ));
 
-              log("succ otp");
+              log("success otp");
             }
           },
           child: Scaffold(
@@ -128,7 +128,8 @@ class OtpScreen extends StatelessWidget {
                     CustomButton(
                       title: 'Verify',
                       onPressed: () {
-                        cubit.otpCheck(email: email , fName: fName, lName: lName);
+                        cubit.otpCheck(
+                            email: email, fName: fName, lName: lName);
                       },
                       icon: Icons.arrow_forward_ios_rounded,
                     )

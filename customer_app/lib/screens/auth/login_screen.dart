@@ -12,14 +12,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Builder(builder: (context) {
         final cubit = context.read<AuthCubit>();
         return BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is NoLodingState) {
+            if (state is NoLoadingState) {
               Navigator.pop(context);
             }
 
@@ -35,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               ));
             }
 
-            if (state is LodingState) {
+            if (state is LoadingState) {
               showDialog(
                   barrierDismissible: false,
                   context: context,
@@ -45,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                       )));
             }
 
-            if (state is SucssState) {
+            if (state is SuccessState) {
               Navigator.pop(context);
               Navigator.push(
                   context,
@@ -73,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                           color: Color(0xff3D6B7D)),
                     ),
                     context.addSpacer(multiply: 0.02),
-                    CustomTextFormFeild(
+                    CustomTextFormFelid(
                       controller: cubit.emailCon,
                       label: 'E-mail',
                       keyboardType: TextInputType.emailAddress,
@@ -144,7 +143,6 @@ class LoginScreen extends StatelessWidget {
           ),
         );
       }),
-
     );
   }
 }
