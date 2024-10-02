@@ -101,7 +101,15 @@ class OrderInfo extends StatelessWidget {
                                 color: Color(0xffA8483D)),
                           ),
                           context.addSpacer(multiply: 0.02),
-                          QuantityRow(bloc: bloc),
+                          BlocBuilder<OrderBloc, OrderState>(
+                            builder: (context, state) {
+                              return QuantityRow(
+                                quantity: bloc.quantity,
+                                addAddEvent: () => bloc.add(AddEvent()),
+                                addMinusEvent: () => bloc.add(MinusEvent()),
+                              );
+                            },
+                          ),
                           context.addSpacer(multiply: 0.04),
                           CustomButton(
                             title: 'Add to Cart',
