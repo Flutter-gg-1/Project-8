@@ -24,6 +24,7 @@ dependencies:
   pinput: ^5.0.0
   animated_snack_bar: ^0.4.0
   flutter_svg: ^2.0.10+1
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -43,6 +44,8 @@ flutter:
     - assets/illustrations/an4 1.gif
     - assets/illustrations/an7.gif
     - assets/illustrations/an9.gif
+    - assets/illustrations/illustration_9.png
+    - assets/loading/
     - assets/logo/
     - assets/menu_categories/
     - assets/menu_items/
