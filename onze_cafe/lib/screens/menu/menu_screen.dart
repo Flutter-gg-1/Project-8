@@ -108,7 +108,7 @@ class MenuScreen extends StatelessWidget {
                                           box.localToGlobal(Offset.zero).dy -
                                               100;
                                       cubit.setCategoryPosition(
-                                          category.id, position);
+                                          category.id!, position);
                                     }
                                   });
 

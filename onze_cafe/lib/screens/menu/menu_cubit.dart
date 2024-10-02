@@ -31,7 +31,7 @@ class MenuCubit extends Cubit<MenuState> {
   void _groupMenuItemsByCategory() {
     categorizedMenuItems.clear();
     for (var category in categories) {
-      categorizedMenuItems[category.id] =
+      categorizedMenuItems[category.id??''] =
           allItems.where((item) => item.categoryId == category.id).toList();
     }
   }

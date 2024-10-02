@@ -1,26 +1,22 @@
 import 'dart:io';
 
-import 'package:onze_cafe/model/menu_item.dart';
+import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 import 'package:onze_cafe/utils/img_converter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseMenu {
+class SupabaseCategory {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
-  static final tableKey = "menu_item";
-  static final bucketKey = "menu_items";
+  static final String tableKey = 'menu_category';
+  static final String bucketKey = 'categories';
 
-  static Future createItem(MenuItem item) async {
+  Future createCategory(MenuCategory category) async {
     try {
       await supabase.from(tableKey).insert({
-        "id": item.id,
-        "categoryId": "fdc2e822-3d67-47ca-8ea8-8513ab8e6767",
-        "name": item.name,
-        "calories": item.calories,
-        "imgUrl": item.imgUrl,
-        "description": item.description,
-        "price": item.price,
-        "oz": item.oz,
+        "name": category.name,
+        "description": category.description,
+        "img_url": category.imgUrl,
+        "sort_priority": category.sortPriority,
       });
     } on AuthException catch (_) {
       rethrow;
@@ -30,15 +26,17 @@ class SupabaseMenu {
       rethrow;
     }
   }
-static Future deleteItem(MenuItem item) async {
-    if (item.id == null) {
+
+  static Future deleteCategory(MenuCategory category) async {
+    if (category.id == null) {
+      print("Category ID is null. Cannot delete.");
       throw ();
     }
     try {
       await supabase
           .from(tableKey)
           .delete()
-          .eq('id', item.id);
+          .eq('id', category.id!);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -48,24 +46,21 @@ static Future deleteItem(MenuItem item) async {
     }
   }
 
-  static Future updateItems(MenuItem item, File imageFile) async {
+  static Future updateCategory(MenuCategory category, File imageFile) async {
+    String imageUrl;
     try {
       await supabase.from(tableKey).update({
-        "id": item.id,
-        "categoryId": "fdc2e822-3d67-47ca-8ea8-8513ab8e6767",
-        "name": item.name,
-        "calories": item.calories,
-        "imgUrl": item.imgUrl,
-        "description": item.description,
-        "price": item.price,
-        "oz": item.oz,
+        "name": category.name,
+        "description": category.description,
+        "img_url": category.imgUrl,
+        "sort_priority": category.sortPriority,
       });
     } on AuthException catch (_) {
     } on PostgrestException catch (_) {
     } catch (e) {}
   }
 
-  static Future fetchItems(MenuItem item) async {
+  static Future fetchCategory(MenuCategory category) async {
     try {
       var res = await supabase
           .from(tableKey)
@@ -98,4 +93,3 @@ static Future deleteItem(MenuItem item) async {
     }
   }
 }
-

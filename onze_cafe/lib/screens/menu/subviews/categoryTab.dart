@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/mockData/categories_ext.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/screens/menu/menu_cubit.dart';
 
@@ -23,7 +21,7 @@ class CategoryTab extends StatelessWidget {
         child: TabBar(
           padding: EdgeInsets.zero,
           labelPadding: EdgeInsets.zero,
-          onTap: (idx) => cubit.goToSelectedCategory(cubit.categories[idx].id),
+          onTap: (idx) => cubit.goToSelectedCategory(cubit.categories[idx].id??""),
           labelColor: C.primary(brightness),
           labelStyle: TextStyle(fontWeight: FontWeight.w800),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
