@@ -12,6 +12,7 @@ class SupabaseProfile {
   static final String bucketKey = 'avatar';
 
   static Future createProfile(Profile profile) async {
+    profile.id = SupabaseMgr.shared.currentUser?.id;
     try {
       var response = await supabase.from(tableKey).insert({
         'id': SupabaseMgr.shared.currentUser?.id,
@@ -32,7 +33,6 @@ class SupabaseProfile {
   static Future<Profile?> fetchProfile() async {
     try {
       var response = await supabase.from(tableKey).select().single();
-      print(response);
       return Profile.fromJson(response);
     } on AuthException catch (_) {
       rethrow;

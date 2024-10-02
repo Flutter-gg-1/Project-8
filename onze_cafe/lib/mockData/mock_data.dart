@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:onze_cafe/mockData/cart_items_ext.dart';
 import 'package:onze_cafe/mockData/categories_ext.dart';
 import 'package:onze_cafe/mockData/menu_items_ext.dart';
@@ -8,7 +7,6 @@ import 'package:onze_cafe/mockData/profile_ext.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/model/order_item.dart';
 import 'package:onze_cafe/model/placed_order.dart';
 
 import '../model/offer.dart';
@@ -24,7 +22,6 @@ class MockData {
   List<Offer> offers = [];
   List<Profile> profiles = [];
   List<CartItem> cart = [];
-  List<OrderItem> orderItems = [];
   List<PlacedOrder> placedOrders = [];
 
   MockData._internal() {

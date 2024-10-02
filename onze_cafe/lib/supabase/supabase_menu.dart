@@ -30,15 +30,13 @@ class SupabaseMenu {
       rethrow;
     }
   }
-static Future deleteItem(MenuItem item) async {
+
+  static Future deleteItem(MenuItem item) async {
     if (item.id == null) {
       throw ();
     }
     try {
-      await supabase
-          .from(tableKey)
-          .delete()
-          .eq('id', item.id);
+      await supabase.from(tableKey).delete().eq('id', item.id);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -61,15 +59,18 @@ static Future deleteItem(MenuItem item) async {
         "oz": item.oz,
       });
     } on AuthException catch (_) {
+      rethrow;
     } on PostgrestException catch (_) {
-    } catch (e) {}
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   static Future fetchItems(MenuItem item) async {
     try {
-      var res = await supabase
-          .from(tableKey)
-          .select('id, name , description, img_url,sort_priority');
+      await supabase.from(tableKey).select().single();
+      var res = await supabase.from(tableKey).select();
       print(res);
     } on AuthException catch (_) {
       rethrow;
@@ -98,4 +99,3 @@ static Future deleteItem(MenuItem item) async {
     }
   }
 }
-
