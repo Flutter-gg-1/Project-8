@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
+import 'package:onze_cafe/reusable_components/custom_refresh/refresh.dart';
 import 'package:onze_cafe/screens/order/order_cubit.dart';
 import 'package:onze_cafe/screens/order/subviews/order_card_view.dart';
 
@@ -26,26 +28,31 @@ class OrdersScreen extends StatelessWidget {
                 weight: FontWeight.w800),
             centerTitle: true,
           ),
-          body: SafeArea(
-              child: Column(
+          body: Column(
             children: [
               BlocBuilder<OrderCubit, OrderState>(
                 builder: (context, state) {
                   if (state is OrderInitial) cubit.fetchOrders();
                   return Expanded(
-                    child: ListView(
-                      children: cubit.orders
-                          .map((order) => OrderCardView(
-                              cubit: cubit,
-                              placedOrder: order,
-                              brightness: brightness))
-                          .toList(),
+                    child: Refresh(
+                      refreshController: cubit.refreshController,
+                      onRefresh: cubit.handleRefresh,
+                      bgColor: C.bg1(brightness),
+                      gif: Img.loading,
+                      child: ListView(
+                        children: cubit.orders
+                            .map((order) => OrderCardView(
+                                cubit: cubit,
+                                placedOrder: order,
+                                brightness: brightness))
+                            .toList(),
+                      ),
                     ),
                   );
                 },
-              )
+              ),
             ],
-          )),
+          ),
         );
       }),
     );

@@ -6,6 +6,7 @@ import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/model/offer.dart';
 import 'package:onze_cafe/screens/cart/cart_screen.dart';
 import 'package:onze_cafe/screens/item_details/item_details_screen.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 part 'menu_state.dart';
 
@@ -15,10 +16,14 @@ class MenuCubit extends Cubit<MenuState> {
   List<MenuCategory> categories = [];
   List<Offer> offers = [];
 
+  final RefreshController refreshController = RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
   final Map<String, double> categoryPositions = {};
   Map<String, List<MenuItem>> categorizedMenuItems = {};
 
+Future<void> handleRefresh() async {
+    await Future.delayed(Duration(seconds: 2));
+  }
   void fetchMenuItems() {
     allItems = MockData().menuItems;
     categories = MockData().categories;
