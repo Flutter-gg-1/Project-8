@@ -20,11 +20,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var navKey = GlobalKey<NavigatorState>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      DIContainer.handleNotifications(context, navKey);
+    });
+
     return BlocProvider(
       create: (context) => AppThemeCubit()..changeTheme(ThemeMode.system),
       child: BlocBuilder<AppThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
           return MaterialApp(
+            navigatorKey: navKey, // Assign navigatorKey to the MaterialApp
             debugShowCheckedModeBanner: false,
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
