@@ -1,4 +1,6 @@
+import 'package:employee_app/models/user_model.dart';
 import 'package:employee_app/screens/home_screen.dart';
+import 'package:employee_app/screens/order/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,9 +22,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xffD7D1CA)),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xffD7D1CA),
+        appBarTheme: const AppBarTheme(
+         backgroundColor:   Color(0xffD7D1CA)
+        )),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: OrderScreen(
+          user: UserModel(
+              customerId: '123456',
+              email: 'email@gmail.com',
+              firstName: 'Base',
+              lastName: 'Alalawi')),
     );
   }
 }
