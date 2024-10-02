@@ -1,6 +1,8 @@
+import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/user_model.dart';
 import 'package:employee_app/screens/profile/profile_screen.dart';
+import 'package:employee_app/services/setup.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -11,7 +13,7 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+    final locator = productLocator.get<ProductLayer>();
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
@@ -142,7 +144,22 @@ class MenuScreen extends StatelessWidget {
           )
         ],
       ),
-      
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+            horizontal: context.getWidth(multiply: 0.05),
+            vertical: context.getHeight(multiply: 0.15)),
+        child: Center(
+          child: Column(children: [
+            Image.asset('assets/image/menulogo.png'),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xffEFEDEA),
+              ),
+            )
+          ]),
+        ),
+      ),
     );
   }
 }
