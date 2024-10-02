@@ -30,7 +30,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     isAnonymous =
         SupabaseMgr.shared.currentUser?.appMetadata['provider'] == 'anon';
 
-    Future.delayed(Duration(milliseconds: 50));
+    await Future.delayed(Duration(milliseconds: 50));
     emit(UpdateUIState());
   }
 

@@ -33,7 +33,7 @@ extension NetworkFunctions on ProfileCubit {
         showSnackBar(context, 'Signed out', AnimatedSnackBarType.success);
       }
 
-      Future.delayed(Duration(milliseconds: 50));
+      await Future.delayed(Duration(milliseconds: 50));
 
       if (context.mounted) {
         Navigator.of(context).pushReplacement(

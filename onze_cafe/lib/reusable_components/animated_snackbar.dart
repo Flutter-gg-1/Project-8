@@ -9,6 +9,7 @@ AnimatedSnackBar animatedSnakbar({
   required AnimatedSnackBarType type,
 }) {
   return AnimatedSnackBar(
+    animationDuration: Duration(milliseconds: 100),
     builder: ((context) {
       if (context.mounted) {
         final brightness = Theme.of(context).brightness;

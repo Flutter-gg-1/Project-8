@@ -11,19 +11,17 @@ class Refresh extends StatelessWidget {
     required this.refreshController,
     required this.child,
     required this.onRefresh,
-     required this.bgColor,
-     required this.gif,
+    required this.bgColor,
+    required this.gif,
   });
   final RefreshController refreshController;
   final Widget child;
   final Future<void> Function() onRefresh;
-  final Color bgColor; 
-  final ImageProvider gif; 
-
+  final Color bgColor;
+  final ImageProvider gif;
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => RefreshCubit(),
       child: Builder(builder: (context) {
@@ -43,14 +41,12 @@ class Refresh extends StatelessWidget {
                   builder: (BuildContext context, RefreshStatus? status) {
                     if (status == RefreshStatus.refreshing) {
                       return Center(
-                        child: Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: AspectRatio(
-                              aspectRatio: 6,
-                              child: Image(
-                                image: gif,
-                              ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: AspectRatio(
+                            aspectRatio: 6,
+                            child: Image(
+                              image: gif,
                             ),
                           ),
                         ),

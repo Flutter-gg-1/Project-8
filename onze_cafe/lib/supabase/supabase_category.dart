@@ -10,14 +10,34 @@ class SupabaseCategory {
   static final String tableKey = 'menu_category';
   static final String bucketKey = 'categories';
 
-  Future createCategory(MenuCategory category) async {
+  static Future<List<MenuCategory>>? fetchCategories() async {
     try {
-      await supabase.from(tableKey).insert({
-        "name": category.name,
-        "description": category.description,
-        "img_url": category.imgUrl,
-        "sort_priority": category.sortPriority,
-      });
+      var res = await supabase.from(tableKey).select();
+      List<MenuCategory> categories = (res as List)
+          .map((item) => MenuCategory.fromJson(item as Map<String, dynamic>))
+          .toList();
+      return categories;
+    } on AuthException catch (_) {
+      rethrow;
+    } on PostgrestException catch (_) {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future upsertCategory(
+      {required File? imageFile, required MenuCategory category}) async {
+    try {
+      if (imageFile != null) {
+        category.imgUrl = await uploadImage(imageFile, category.name);
+      }
+      var response = await supabase.from(tableKey).upsert(
+            category.toJson(),
+            onConflict: 'name',
+          );
+
+      return response;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -29,14 +49,10 @@ class SupabaseCategory {
 
   static Future deleteCategory(MenuCategory category) async {
     if (category.id == null) {
-      print("Category ID is null. Cannot delete.");
-      throw ();
+      throw Exception('Could not find records of this category');
     }
     try {
-      await supabase
-          .from(tableKey)
-          .delete()
-          .eq('id', category.id!);
+      await supabase.from(tableKey).delete().eq('id', category.id!);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -46,43 +62,19 @@ class SupabaseCategory {
     }
   }
 
-  static Future updateCategory(MenuCategory category, File imageFile) async {
-    String imageUrl;
-    try {
-      await supabase.from(tableKey).update({
-        "name": category.name,
-        "description": category.description,
-        "img_url": category.imgUrl,
-        "sort_priority": category.sortPriority,
-      });
-    } on AuthException catch (_) {
-    } on PostgrestException catch (_) {
-    } catch (e) {}
-  }
-
-  static Future fetchCategory(MenuCategory category) async {
-    try {
-      var res = await supabase
-          .from(tableKey)
-          .select('id, name , description, img_url,sort_priority');
-      print(res);
-    } on AuthException catch (_) {
-      rethrow;
-    } on PostgrestException catch (_) {
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  static Future<String?> uploadImage(File imageFile) async {
+  static Future<String?> uploadImage(File imageFile, String catName) async {
     try {
       final fileBytes = await ImgConverter.fileImgToBytes(imageFile);
-      final fileName =
-          'menu_categories/${DateTime.now().millisecondsSinceEpoch}.png'; // Use a unique file name
+      final fileName = '$catName.png';
+
+      // Remove existing image if it exists
+      await SupabaseMgr.shared.supabase.storage
+          .from('categories')
+          .remove([fileName]);
 
       await supabase.storage.from(bucketKey).uploadBinary(fileName, fileBytes);
       final publicUrl = supabase.storage.from(bucketKey).getPublicUrl(fileName);
+
       return publicUrl;
     } on AuthException catch (_) {
       rethrow;
