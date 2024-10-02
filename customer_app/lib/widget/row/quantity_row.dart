@@ -6,20 +6,20 @@ import 'package:icons_plus/icons_plus.dart';
 class QuantityRow extends StatelessWidget {
   const QuantityRow({
     super.key,
-    required this.bloc,
+    this.addMinusEvent,
+    this.addAddEvent,
+    required this.quantity,
   });
-
-  final OrderBloc bloc;
-
+  final Function()? addMinusEvent;
+  final Function()? addAddEvent;
+  final int quantity;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
-            onPressed: () {
-              bloc.add(MinusEvent());
-            },
+            onPressed: addMinusEvent,
             icon: const Icon(
               Iconsax.minus_square_bold,
               color: Color(0xffEFE3C8),
@@ -28,7 +28,7 @@ class QuantityRow extends StatelessWidget {
         BlocBuilder<OrderBloc, OrderState>(
           builder: (context, state) {
             return Text(
-              ' ${bloc.quantity} ',
+              ' $quantity ',
               style: const TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -37,9 +37,7 @@ class QuantityRow extends StatelessWidget {
           },
         ),
         IconButton(
-            onPressed: () {
-              bloc.add(AddEvent());
-            },
+            onPressed: addAddEvent,
             icon: const Icon(
               Iconsax.add_square_bold,
               color: Color(0xffEFE3C8),
