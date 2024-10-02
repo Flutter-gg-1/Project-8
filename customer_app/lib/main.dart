@@ -1,6 +1,7 @@
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
+import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
@@ -24,7 +25,6 @@ Future main() async {
   final test = SuperMain();
   await test.getMenu();
 
-
   runApp(const MyApp());
 }
 
@@ -35,20 +35,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xffD7D1CA),
-          appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
-      debugShowCheckedModeBanner: false,
 
-      home:  const HomeScreen()
-      // OrderStatus(order: OrderModel(
-      //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
-      //   time: DateTime.now(),
-      //   totalPreparationTime: 12,
-      //   totalPrice: 120
+        theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xffD7D1CA),
+            appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
+        debugShowCheckedModeBanner: false,
+        home: 
+        HomeScreen(
+          user: UserModel(
+              customerId: '',
+              email: 'email',
+              firstName: 'Basel',
+              lastName: 'Alalawi'),
+        )
+        // OrderStatus(order: OrderModel(
+        //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
+        //   time: DateTime.now(),
+        //   totalPreparationTime: 12,
+        //   totalPrice: 120
 
-      // ),),
+        // ),),
 
-    );
+        );
+
   }
 }
