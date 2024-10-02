@@ -17,10 +17,10 @@ final class ErrorState extends CartState {
   ErrorState({required this.msg});
 }
 
-final class BuySucssesState extends CartState {
+final class BuySussesState extends CartState {
   final String msg;
 
-  BuySucssesState({required this.msg});
+  BuySussesState({required this.msg});
 }
 
 final class OrderConformState extends CartState {

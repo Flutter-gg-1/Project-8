@@ -41,7 +41,7 @@ class CartScreen extends StatelessWidget {
               );
             }
 
-            if (state is BuySucssesState) {
+            if (state is BuySussesState) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   state.msg,

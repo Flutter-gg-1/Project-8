@@ -10,7 +10,7 @@ mixin OrderMix on Super {
   final locator = productLocator.get<ProductLayer>();
   Future<void> getMenu() async {
     try {
-      final x = await superbase.from('product').select('*');
+      final x = await supabase.from('product').select('*');
       for (var product in x) {
         locator.menu.add(ProductModel.fromJson(product));
       }
@@ -23,7 +23,7 @@ mixin OrderMix on Super {
     try {
       final user = authLocator.get<AuthLayer>().user;
 
-      final res = await superbase
+      final res = await supabase
           .from("orders")
           .select()
           .eq("customer_id", user!.customerId);
@@ -38,7 +38,7 @@ mixin OrderMix on Super {
   getAllUserOrder({required String orderId}) async {
     try {
       final res =
-          await superbase.from("order_detail").select().eq("order_id", orderId);
+          await supabase.from("order_detail").select().eq("order_id", orderId);
 
       return res;
     } catch (er) {
