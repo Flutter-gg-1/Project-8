@@ -5,7 +5,7 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-final class SucessState extends AuthState {}
+final class SuccessState extends AuthState {}
 
 final class ErrorState extends AuthState {
   final String msg;
