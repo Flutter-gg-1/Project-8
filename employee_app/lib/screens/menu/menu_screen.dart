@@ -151,12 +151,51 @@ class MenuScreen extends StatelessWidget {
         child: Center(
           child: Column(children: [
             Image.asset('assets/image/menulogo.png'),
+            context.addSpacer(multiply: 0.02),
             Container(
+              width: context.getWidth(multiply: 0.4),
+              padding: EdgeInsets.symmetric(
+                vertical: context.getWidth(multiply: 0.02),
+                horizontal: context.getWidth(multiply: 0.02),
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: const Color(0xffEFEDEA),
               ),
-            )
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Color(0xff3D6B7D),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.highlight_remove_rounded,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Image.asset('assets/image/menuImage.png'),
+                  context.addSpacer(multiply: 0.02),
+                  Text(
+                    'Version: 1.0.0',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontFamily: 'Rosarivo'),
+                  ),
+                ],
+              ),
+            ),
           ]),
         ),
       ),

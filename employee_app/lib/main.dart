@@ -1,3 +1,4 @@
+import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/models/user_model.dart';
 import 'package:employee_app/screens/home_screen.dart';
 import 'package:employee_app/screens/menu/menu_screen.dart';
@@ -15,6 +16,8 @@ Future main() async {
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
   await setup();
+  final test = SuperMain();
+  await test.getMenu();
   runApp(const MyApp());
 }
 
