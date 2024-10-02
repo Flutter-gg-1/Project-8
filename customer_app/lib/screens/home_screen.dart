@@ -151,23 +151,19 @@ class HomeScreen extends StatelessWidget {
                   Iconsax.shop_add_bold,
                   color: Color(0xffA8483D),
                 )),
-
             InkWell(
               onTap: () {
-
                 Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ));
-
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ));
               },
               child: const CircleAvatar(
                 backgroundColor: Color(0xffd9d9d9),
                 backgroundImage: AssetImage('assets/image/appBarProfile.png'),
               ),
             ),
-
             SizedBox(
               width: context.getWidth(multiply: 0.01),
             )
@@ -185,13 +181,13 @@ class HomeScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                const CustomTextFormFeild(
+                const CustomTextFormFelid(
                   label: '',
                   hint: 'Find your coffee',
                   prefixIcon: Icon(Bootstrap.search_heart),
                 ),
                 context.addSpacer(multiply: 0.02),
-               Image.asset('assets/image/homegroup.png'),
+                Image.asset('assets/image/homegroup.png'),
                 context.addSpacer(multiply: 0.02),
                 const MenuTypes(),
                 context.addSpacer(multiply: 0.01),

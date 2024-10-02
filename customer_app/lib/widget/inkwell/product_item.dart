@@ -4,8 +4,8 @@ import 'package:icons_plus/icons_plus.dart';
 
 class ProductItem extends StatelessWidget {
   final String name;
-  final int price,cal,time;
-  final String id,description, type;
+  final int price, cal, time;
+  final String id, description, type;
   final Function()? onTap;
   const ProductItem({
     super.key,
@@ -37,8 +37,10 @@ class ProductItem extends StatelessWidget {
             color: const Color(0xffeeedea)),
         child: Row(
           children: [
-
-            Image.asset('assets/image/appBarProfile (2).png',filterQuality: FilterQuality.high,),
+            Image.asset(
+              'assets/image/appBarProfile (2).png',
+              filterQuality: FilterQuality.high,
+            ),
             const VerticalDivider(
               color: Color(0xff3D6B7D),
             ),
@@ -48,7 +50,9 @@ class ProductItem extends StatelessWidget {
                 Text(
                   name,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'Poppins'),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins'),
                 ),
                 Text('$price SR')
               ],
@@ -58,13 +62,13 @@ class ProductItem extends StatelessWidget {
               width: 32,
               height: 28,
               decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xffA8483D)
+                  shape: BoxShape.circle, color: Color(0xffA8483D)),
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 17,
               ),
-              child: const Icon(Icons.add,color: Colors.white,size: 17,),
             )
-        
-            
           ],
         ),
       ),

@@ -13,7 +13,6 @@ class OrderListContainer extends StatelessWidget {
     required this.widthLine,
     required this.heightLine,
     required this.colorLine,
-    
     required this.orderTextSize,
     required this.widthQuantityContainer,
     required this.heightQuantityContainer,
@@ -24,7 +23,6 @@ class OrderListContainer extends StatelessWidget {
     required this.quantityTextSize,
     this.onPressedDeleteOrder,
     required this.colorDeleteIcon,
-    
     required this.orderModel,
   });
 
@@ -42,7 +40,7 @@ class OrderListContainer extends StatelessWidget {
   final double heightLine;
   final Color colorLine;
   //order
-  
+
   final double orderTextSize;
   //quantity
   final double widthQuantityContainer;
@@ -56,7 +54,7 @@ class OrderListContainer extends StatelessWidget {
   final void Function()? onPressedDeleteOrder;
   final Color colorDeleteIcon;
   //text Price
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,7 +157,7 @@ class OrderListContainer extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${orderModel.productModel!.price!*orderModel.quantity!} SAR',
+                    '${orderModel.productModel!.price! * orderModel.quantity!} SAR',
                     style: TextStyle(color: Colors.black.withOpacity(0.50)),
                   ),
                   SizedBox(

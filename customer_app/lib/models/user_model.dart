@@ -9,8 +9,8 @@ class UserModel {
   late final String email;
   late final String firstName;
   late final String lastName;
-  
-  UserModel.fromJson(Map<String, dynamic> json){
+
+  UserModel.fromJson(Map<String, dynamic> json) {
     customerId = json['customerId'];
     email = json['email'];
     firstName = json['firstName'];
@@ -18,11 +18,11 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['customerId'] = customerId;
-    _data['email'] = email;
-    _data['firstName'] = firstName;
-    _data['lastName'] = lastName;
-    return _data;
+    final data = <String, dynamic>{};
+    data['customerId'] = customerId;
+    data['email'] = email;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    return data;
   }
 }

@@ -11,16 +11,16 @@ final class QueChangeState extends CartState {}
 
 final class DelOrderState extends CartState {}
 
-final class ErorrState extends CartState {
+final class ErrorState extends CartState {
   final String msg;
 
-  ErorrState({required this.msg});
+  ErrorState({required this.msg});
 }
 
-final class BuySucssState extends CartState {
+final class BuySucssesState extends CartState {
   final String msg;
 
-  BuySucssState({required this.msg});
+  BuySucssesState({required this.msg});
 }
 
 final class OrderConformState extends CartState {

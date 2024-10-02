@@ -10,27 +10,27 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 mixin AuthMix on Super {
   createLogin({required String email}) async {
     try {
-      await superbase.auth.signInWithOtp(email: email);
+      await supabase.auth.signInWithOtp(email: email);
     } catch (er) {
-      log("eorr in createLogin");
+      log("error in createLogin");
       log("$er");
 
       throw "$er";
     }
   }
 
-  verfiyOtp(
+  verifyOtp(
       {required String email,
       required String otp,
       required String? fName,
       required String? lName}) async {
     try {
-      final auth = await superbase.auth
+      final auth = await supabase.auth
           .verifyOTP(type: OtpType.email, email: email, token: otp);
 
       if (fName != null && lName != null) {
         log("in new user create");
-        final customer = await superbase.from('customer').insert({
+        final customer = await supabase.from('customer').insert({
           "first_name": fName,
           'last_name': lName,
           'auth_id': auth.user!.id
@@ -44,14 +44,14 @@ mixin AuthMix on Super {
             firstName: customer[0]['first_name'],
             lastName: customer[0]['last_name']);
 
-        log("userModel forn login user");
+        log("userModel from login user");
 
         productLocator.get<AuthLayer>().userGiveVal(userModel: user);
 
         log("${user.toJson()}");
       } else {
         log("in the user login");
-        final customer = await superbase
+        final customer = await supabase
             .from('customer')
             .select()
             .eq('auth_id', auth.user!.id);
@@ -64,7 +64,7 @@ mixin AuthMix on Super {
             firstName: customer[0]['first_name'],
             lastName: customer[0]['last_name']);
 
-        log("userModel forn new user");
+        log("userModel from new user");
 
         productLocator.get<AuthLayer>().userGiveVal(userModel: user);
 
@@ -80,11 +80,5 @@ mixin AuthMix on Super {
     }
   }
 
-
-
-
-
-  getUser(){
-    
-  }
+  getUser() {}
 }

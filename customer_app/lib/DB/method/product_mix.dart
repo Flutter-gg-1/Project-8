@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:customer_app/DB/super.dart';
 
 mixin ProductMix on Super {
-  getProducById({required String producId}) async {
+  getProductById({required String productId}) async {
     try {
-      final res = await superbase
+      final res = await supabase
           .from("product")
           .select()
-          .eq("product_id", producId)
+          .eq("product_id", productId)
           .single();
 
       return res;

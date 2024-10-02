@@ -5,7 +5,7 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-final class SucssState extends AuthState {}
+final class SucessState extends AuthState {}
 
 final class ErrorState extends AuthState {
   final String msg;
@@ -13,6 +13,6 @@ final class ErrorState extends AuthState {
   ErrorState({required this.msg});
 }
 
-final class LodingState extends AuthState {}
+final class LoadingState extends AuthState {}
 
-final class NoLodingState extends AuthState {}
+final class NoLoadingState extends AuthState {}

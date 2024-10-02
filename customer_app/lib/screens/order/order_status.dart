@@ -7,7 +7,6 @@ import 'package:customer_app/shape/container_shape.dart';
 import 'package:customer_app/widget/bottom_sheet/order_review.dart';
 import 'package:customer_app/widget/container/status_container.dart';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stepindicator/flutter_stepindicator.dart';
@@ -99,7 +98,15 @@ class OrderStatus extends StatelessWidget {
                   ],
                 ),
                 context.addSpacer(multiply: 0.02),
-                StatusContainer(bloc: bloc, color: color, test: test)
+                BlocBuilder<OrderBloc, OrderState>(
+                  builder: (context, state) {
+                    return StatusContainer(
+                        orderStatus: bloc.orderStatus,
+                        statusIndex: bloc.statusIndex,
+                        color: color,
+                        test: test);
+                  },
+                )
               ],
             ),
           ),

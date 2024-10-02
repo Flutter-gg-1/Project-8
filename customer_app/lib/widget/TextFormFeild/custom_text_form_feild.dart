@@ -1,20 +1,21 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextFormFeild extends StatelessWidget {
+class CustomTextFormFelid extends StatelessWidget {
   final String label;
   final String? hint;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
-  const CustomTextFormFeild({
+  const CustomTextFormFelid({
     super.key,
     required this.label,
     this.hint,
     this.controller,
     this.validator,
-    this.keyboardType, this.prefixIcon,
+    this.keyboardType,
+    this.prefixIcon,
   });
 
   @override

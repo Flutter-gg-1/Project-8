@@ -6,15 +6,10 @@ class OrderReview extends StatelessWidget {
   const OrderReview({
     super.key,
     required this.order,
-    required this.time,
-    required this.totalPreparationTime,
-    required this.totalPrice,
   });
 
-  final String order;
-  final DateTime time;
-  final int totalPreparationTime;
-  final double totalPrice;
+  final OrderModel order;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -47,7 +42,7 @@ class OrderReview extends StatelessWidget {
                 const Divider(),
                 context.addSpacer(multiply: 0.02),
                 Text(
-                  'Order Time : $time',
+                  'Order Time : ${order.time}',
                   style: const TextStyle(
                       color: Color(0xffA8483D),
                       fontSize: 18,
@@ -56,7 +51,7 @@ class OrderReview extends StatelessWidget {
                 ),
                 context.addSpacer(multiply: 0.01),
                 Text(
-                  'Preparation Time : $totalPreparationTime',
+                  'Preparation Time : ${order.totalPreparationTime}',
                   style: const TextStyle(
                       color: Color(0xffA8483D),
                       fontSize: 18,
@@ -65,7 +60,7 @@ class OrderReview extends StatelessWidget {
                 ),
                 context.addSpacer(multiply: 0.01),
                 Text(
-                  'Total Price : $totalPrice RS',
+                  'Total Price : ${order.totalPrice} RS',
                   style: const TextStyle(
                       color: Color(0xffA8483D),
                       fontSize: 18,
