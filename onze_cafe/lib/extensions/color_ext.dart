@@ -42,6 +42,20 @@ extension C on Colors {
         : const Color(0xFFE7E3E0); // Light theme background 3
   }
 
+  // primary color 2 based on the current brightness
+  static Color primary2(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? const Color(0xFFD8E1E6) // Dark theme background 3
+        : const Color(0xFFD8E1E6); // Light theme background 3
+  }
+
+  // primary color 2 based on the current brightness
+  static Color secondary2(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? const Color(0xFFEDDAD8) // Dark theme background 3
+        : const Color(0xFFEDDAD8); // Light theme background 3
+  }
+
   // Text color based on the current brightness
   static Color text(Brightness brightness) {
     return brightness == Brightness.dark
