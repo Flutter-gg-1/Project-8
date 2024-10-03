@@ -40,11 +40,10 @@ extension NetworkFunctions on AuthCubit {
       }
       await Future.delayed(Duration(milliseconds: 50));
 
-      final profile = await SupabaseProfile.fetchProfile(
-          SupabaseMgr.shared.currentUser?.id ?? '');
+      await SupabaseMgr.shared.setCurrentUser();
 
       if (context.mounted) {
-        if (profile?.role == 'employee') {
+        if (SupabaseMgr.shared.currentProfile?.role == 'employee') {
           navigateToDashboard(context);
         } else {
           navigateToMenu(context);
@@ -67,6 +66,9 @@ extension NetworkFunctions on AuthCubit {
             context, response.toString(), AnimatedSnackBarType.success);
       }
       await Future.delayed(Duration(milliseconds: 50));
+
+      await SupabaseMgr.shared.setCurrentUser();
+
       if (context.mounted) navigateToMenu(context);
     } catch (e) {
       if (context.mounted) {
@@ -80,13 +82,10 @@ extension NetworkFunctions on AuthCubit {
   Future verifyOtp(context) async {
     var stringOtp = '$otp'.padLeft(6, '0');
     try {
-      final response = await SupabaseAuth.verifyOtp(
-          email: emailController.text, otp: stringOtp);
+      await SupabaseAuth.verifyOtp(email: emailController.text, otp: stringOtp);
       if (context.mounted) {
-        showSnackBar(
-            context, response.toString(), AnimatedSnackBarType.success);
-        showSnackBar(
-            context, 'Creating user profile', AnimatedSnackBarType.info);
+        showSnackBar(context, 'Otp verified. Creating user profile',
+            AnimatedSnackBarType.success);
       }
       // Create Profile
       await SupabaseProfile.createProfile(Profile(
@@ -94,7 +93,20 @@ extension NetworkFunctions on AuthCubit {
           email: emailController.text,
           phone: phoneController.text));
 
-      if (context.mounted) navigateToMenu(context);
+      if (context.mounted) {
+        showSnackBar(context, 'Profile Created. Getting things ready...',
+            AnimatedSnackBarType.success);
+      }
+
+      await SupabaseMgr.shared.setCurrentUser();
+
+      if (context.mounted) {
+        if (SupabaseMgr.shared.currentProfile?.role == 'employee') {
+          navigateToDashboard(context);
+        } else {
+          navigateToMenu(context);
+        }
+      }
     } catch (e) {
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);

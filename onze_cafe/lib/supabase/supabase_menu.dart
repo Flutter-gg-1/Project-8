@@ -67,20 +67,25 @@ class SupabaseMenu {
       final fileBytes = await ImgConverter.fileImgToBytes(imageFile);
       final fileName = '$itemName.png';
 
-      // Remove existing image if it exists
-      await SupabaseMgr.shared.supabase.storage
-          .from(bucketKey)
-          .remove([fileName]);
+      // Upload the image, which will automatically overwrite if a file with the same name exists
+      await supabase.storage.from(bucketKey).uploadBinary(
+            fileName,
+            fileBytes,
+            fileOptions:
+                FileOptions(upsert: true), // Ensure upsert option is enabled
+          );
 
-      await supabase.storage.from(bucketKey).uploadBinary(fileName, fileBytes);
+      // Get the public URL for the newly uploaded image
       final publicUrl = supabase.storage.from(bucketKey).getPublicUrl(fileName);
 
       return publicUrl;
     } on AuthException catch (_) {
       rethrow;
-    } on PostgrestException catch (_) {
+    } on PostgrestException catch (e) {
+      print('Postgrest error: ${e.message}');
       rethrow;
     } catch (e) {
+      print('General error: $e');
       rethrow;
     }
   }

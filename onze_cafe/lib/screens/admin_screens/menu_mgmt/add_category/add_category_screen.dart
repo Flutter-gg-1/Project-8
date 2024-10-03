@@ -4,15 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_category.dart';
-import 'package:onze_cafe/screens/admin_screens/add_category/add_category_cubit.dart';
-import 'package:onze_cafe/screens/admin_screens/add_category/network_functions.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/add_category/add_category_cubit.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/add_category/network_functions.dart';
 
-import '../../../extensions/color_ext.dart';
-import '../../../extensions/img_ext.dart';
-import '../../../reusable_components/animation/animated_img_view.dart';
-import '../../../reusable_components/buttons/circle_btn.dart';
-import '../../../reusable_components/custom_text_field.dart';
-import '../../../utils/validations.dart';
+import '../../../../extensions/color_ext.dart';
+import '../../../../reusable_components/buttons/circle_btn.dart';
+import '../../../../reusable_components/custom_text_field.dart';
+import '../../../../utils/validations.dart';
 
 class AddCategoryScreen extends StatelessWidget {
   const AddCategoryScreen({super.key, this.category});
@@ -52,7 +50,8 @@ class AddCategoryScreen extends StatelessWidget {
                               child: Container(
                                 width: context.screenWidth * 0.4,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(16),
                                     border: Border.all(
                                         color: C.primary(brightness),
                                         width: 2)),
@@ -65,10 +64,12 @@ class AddCategoryScreen extends StatelessWidget {
                                       builder: (context, state) {
                                         return InkWell(
                                           onTap: cubit.getImage,
-                                          child: ClipOval(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
                                             child: cubit.imgFile != null
                                                 ? Image.file(cubit.imgFile!,
-                                                    fit: BoxFit.cover)
+                                                    fit: BoxFit.contain)
                                                 : category?.imgUrl == null
                                                     ? const Icon(
                                                         CupertinoIcons
@@ -76,7 +77,7 @@ class AddCategoryScreen extends StatelessWidget {
                                                         size: 40)
                                                     : Image.network(
                                                         category!.imgUrl!,
-                                                        fit: BoxFit.cover),
+                                                        fit: BoxFit.contain),
                                           ),
                                         );
                                       },
@@ -100,12 +101,13 @@ class AddCategoryScreen extends StatelessWidget {
                               shadowColor:
                                   C.secondary(brightness).withOpacity(0.7),
                               color: C.bg1(brightness),
-                              child: Row(
-                                children: [
-                                  Expanded(child: Text('Sort Priority')),
-                                  Expanded(
-                                    flex: 2,
-                                    child: BlocBuilder<AddCategoryCubit,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Text('Sort Priority')),
+                                    BlocBuilder<AddCategoryCubit,
                                         AddCategoryState>(
                                       builder: (context, state) {
                                         return DropdownButton<int>(
@@ -126,8 +128,8 @@ class AddCategoryScreen extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -135,12 +137,6 @@ class AddCategoryScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-              ),
-              AspectRatio(
-                aspectRatio: 2,
-                child: AnimatedImgView(
-                  img: Img.illustration7,
                 ),
               ),
               BlocBuilder<AddCategoryCubit, AddCategoryState>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
 import 'package:onze_cafe/services/di_container.dart';
@@ -12,7 +13,11 @@ Future<void> main() async {
   await DIContainer.storageSetup();
   DIContainer.configureOneSignal();
 
-  runApp(const MainApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(MainApp());
+  });
 }
 
 class MainApp extends StatelessWidget {

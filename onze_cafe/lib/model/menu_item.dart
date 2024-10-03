@@ -5,7 +5,6 @@ class MenuItem {
   int calories;
   double oz;
   String? imgUrl;
-  String description;
   double price;
 
   MenuItem({
@@ -14,7 +13,6 @@ class MenuItem {
     required this.name,
     required this.calories,
     this.imgUrl,
-    required this.description,
     required this.price,
     required this.oz,
   });
@@ -28,7 +26,6 @@ class MenuItem {
       calories: json['calories'],
       oz: (json['oz'] as num).toDouble(),
       imgUrl: json['img_url'] as String?,
-      description: json['description'],
       price: (json['price'] as num).toDouble(),
     );
   }
@@ -41,7 +38,6 @@ class MenuItem {
       'calories': calories,
       'oz': oz,
       'img_url': imgUrl,
-      'description': description,
       'price': price,
     };
   }

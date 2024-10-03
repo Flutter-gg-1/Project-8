@@ -55,7 +55,8 @@ class MenuMgmtScreen extends StatelessWidget {
                   children: [
                     Expanded(child: Text('Menu Items')),
                     IconButton(
-                        onPressed: () => (),
+                        onPressed: () =>
+                            cubit.navigateToAddMenuItem(context, null),
                         icon: Icon(CupertinoIcons.add_circled))
                   ],
                 ),
@@ -63,7 +64,10 @@ class MenuMgmtScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                         children: cubit.items
-                            .map((item) => Text(item.name))
+                            .map((item) => TextButton(
+                                onPressed: () =>
+                                    cubit.navigateToAddMenuItem(context, item),
+                                child: Text(item.name)))
                             .toList());
                   },
                 )

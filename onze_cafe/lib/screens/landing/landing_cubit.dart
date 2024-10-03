@@ -17,14 +17,13 @@ class LandingCubit extends Cubit<LandingState> {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
 
   void checkUserSession() async {
+    await Future.delayed(Duration(milliseconds: 50));
     final session = supabase.auth.currentSession;
     if (session != null) {
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
-      final profile = await SupabaseProfile.fetchProfile(
-          SupabaseMgr.shared.currentUser?.id ?? '');
-
+      // Set Profile from session
+      await SupabaseMgr.shared.setCurrentUser();
       // Check profile role and emit corresponding state
-      if (profile?.role == 'employee') {
+      if (SupabaseMgr.shared.currentProfile?.role == 'employee') {
         emit(EmployeeUserState());
       } else {
         emit(RegularUserState());

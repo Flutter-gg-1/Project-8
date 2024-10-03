@@ -6,15 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 
-import '../../../reusable_components/animated_snackbar.dart';
+import '../../../../reusable_components/animated_snackbar.dart';
 
 part 'add_category_state.dart';
 
 class AddCategoryCubit extends Cubit<AddCategoryState> {
   AddCategoryCubit(MenuCategory? category) : super(AddCategoryInitial()) {
-    {
-      loadInitialValues(category);
-    }
+    loadInitialValues(category);
   }
 
   var nameController = TextEditingController();
@@ -23,23 +21,24 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
   int sortPriority = 1;
 
   loadInitialValues(MenuCategory? category) async {
+    emitLoading();
     nameController.text = category?.name ?? '';
     descriptionController.text = category?.description ?? '';
     sortPriority = category?.sortPriority ?? 1;
 
     await Future.delayed(Duration(milliseconds: 50));
-    emit(UpdateUIState());
+    emitUpdate();
   }
 
   void updateSortPriority(int newValue) {
     sortPriority = newValue;
-    emit(UpdateUIState());
+    emitUpdate();
   }
 
   void getImage() async {
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (img != null) imgFile = File(img.path);
-    emit(UpdateUIState());
+    emitUpdate();
   }
 
   void showSnackBar(
@@ -48,4 +47,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
       animatedSnakbar(msg: msg, type: type).show(context);
     }
   }
+
+  void emitLoading() => emit(LoadingState());
+  void emitUpdate() => emit(UpdateUIState());
 }

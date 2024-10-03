@@ -39,5 +39,23 @@ class Validations {
     }
   }
 
+  static String? validateInt(String value) {
+    final intValue = int.tryParse(value);
+    if (intValue == null) {
+      return 'Please enter a valid integer';
+    }
+
+    return null; // Return null if validation passes
+  }
+
+  static String? validateDouble(String value) {
+    final doubleValue = double.tryParse(value);
+    if (doubleValue == null) {
+      return 'Please enter a valid decimal number';
+    }
+
+    return null; // Return null if validation passes
+  }
+
   static String? none(String value) => null;
 }
