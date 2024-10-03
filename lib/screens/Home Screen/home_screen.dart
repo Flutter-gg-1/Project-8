@@ -116,15 +116,22 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   Container(
                     decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          const Color(0xff3D6B7D),
+                          const Color(0xff87B1C5),
+                        ],
+                      ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withOpacity(0.3),
                           spreadRadius: 5,
-                          blurRadius: 10,
-                          offset: const Offset(0, 3),
+                          blurRadius: 12,
+                          offset: const Offset(0, 1),
                         ),
                       ],
-                      color: const Color(0xff87b1c5),
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(360),
                         bottomRight: Radius.circular(360),
