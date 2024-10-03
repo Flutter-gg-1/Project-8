@@ -161,7 +161,8 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ),
                   Positioned(
-                    left: size.width * 0.25,
+                    top: 0,
+                    left: size.width * 0.24,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -169,16 +170,21 @@ class _HomeScreenState extends State<HomeScreen>
                           'assets/onze logo.png',
                           height: 200,
                           width: 200,
-                          fit: BoxFit.contain,
+                          fit: BoxFit.fitWidth,
                         ),
-                        Positioned(
-                          bottom: 60,
-                          child: Text(
-                            'Good morning ☀️',
-                            style: TextStyle(
-                              color: const Color(0xff3D6B7D),
-                              fontSize: size.width * 0.04,
-                            ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 140,
+                    left: size.width * 0.26,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Good morning ☀️',
+                          style: TextStyle(
+                            color: const Color(0xff3D6B7D),
+                            fontSize: size.width * 0.04,
                           ),
                         ),
                         Text(
