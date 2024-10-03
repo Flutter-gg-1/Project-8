@@ -1,10 +1,9 @@
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 
-import '../../../model/enums/selling_times.dart';
+import '../../../../model/enums/selling_times.dart';
 
 class LineChartView extends StatelessWidget {
   const LineChartView({super.key, required this.sellingTimes});

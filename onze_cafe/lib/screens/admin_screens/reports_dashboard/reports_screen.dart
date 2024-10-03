@@ -5,12 +5,11 @@ import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/enums/days_filter.dart';
 import 'package:onze_cafe/model/enums/selling_times.dart';
-import 'package:onze_cafe/screens/reports_dashboard/reports_cubit.dart';
-import 'package:onze_cafe/screens/reports_dashboard/subviews/donut_chart_view.dart';
-import 'package:onze_cafe/screens/reports_dashboard/subviews/filter_menu_item.dart';
-import 'package:onze_cafe/screens/reports_dashboard/subviews/line_chart_view.dart';
-import 'package:onze_cafe/screens/reports_dashboard/subviews/reports_dashboard_view.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/reports_cubit.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/donut_chart_view.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/filter_menu_item.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/line_chart_view.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/reports_dashboard_view.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});

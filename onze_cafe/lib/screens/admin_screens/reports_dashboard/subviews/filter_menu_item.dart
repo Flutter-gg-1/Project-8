@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/enums/days_filter.dart';
-import 'package:onze_cafe/screens/reports_dashboard/reports_cubit.dart';
+
+import '../reports_cubit.dart';
 
 class FilterMenuView extends StatelessWidget {
   const FilterMenuView({
