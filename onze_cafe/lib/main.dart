@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
+import 'package:onze_cafe/screens/reports_dashboard/reports_screen.dart';
 import 'package:onze_cafe/services/di_container.dart';
 import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 
@@ -36,7 +37,7 @@ class MainApp extends StatelessWidget {
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: themeMode,
-            home: LandingScreen(),
+            home: ReportsScreen(),
           );
         },
       ),
