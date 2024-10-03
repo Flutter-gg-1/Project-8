@@ -1,5 +1,6 @@
 import 'package:customer_app/models/user_model.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class AuthLayer {
   final box = GetStorage();
@@ -13,6 +14,7 @@ class AuthLayer {
   }
 
   Future<void> saveAuth({required UserModel userData}) async {
+    OneSignal.login(userData.customerId);
     user = userData;
     await box.write("user", userData.toJson());
   }
@@ -29,7 +31,5 @@ class AuthLayer {
     user = null;
   }
 
-  userGiveVal({required UserModel userModel}) {
-    user = userModel;
-  }
+  
 }

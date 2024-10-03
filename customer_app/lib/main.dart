@@ -11,6 +11,7 @@ import 'package:customer_app/screens/order/order_status.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future main() async {
@@ -23,7 +24,19 @@ Future main() async {
 
   await setup();
   final test = SuperMain();
+
+
+
   await test.getMenu();
+
+
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+  OneSignal.initialize(dotenv.env["onesignal_app_key"]!);
+
+// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+  OneSignal.Notifications.requestPermission(true);
 
   runApp(const MyApp());
 }
