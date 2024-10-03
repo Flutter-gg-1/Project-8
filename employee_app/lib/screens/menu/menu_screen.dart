@@ -1,3 +1,4 @@
+import 'package:employee_app/data_layer/auth_layer.dart';
 import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/product_model.dart';
@@ -9,11 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key, required this.user});
-  final UserModel user;
+  const MenuScreen({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final UserModel? user = authLocator.get<AuthLayer>().user;
     final locator = productLocator.get<ProductLayer>();
     return Scaffold(
       key: _scaffoldKey,
@@ -31,7 +35,7 @@ class MenuScreen extends StatelessWidget {
               Image.asset('assets/image/logo.png'),
               context.addSpacer(multiply: 0.02),
               Text(
-                'Welcome ${user.firstName}',
+                'Welcome ${user?.firstName ?? 'Emp'}',
                 style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -148,23 +152,24 @@ class MenuScreen extends StatelessWidget {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) => SizedBox(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight * 0.8,
+            width: constraints.maxWidth,
+            //height: constraints.maxHeight * 0.8,
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
-                  horizontal: context.getWidth(multiply: 0.05),
-                  vertical: context.getHeight(multiply: 0.02),
-                  ),
+                horizontal: context.getWidth(multiply: 0.05),
+                vertical: context.getHeight(multiply: 0.02),
+              ),
               child: Center(
                 child: Column(children: [
                   Image.asset('assets/image/menulogo.png'),
                   context.addSpacer(multiply: 0.04),
                   SizedBox(
-                    height: constraints.maxHeight * 0.6,
+                    height: constraints.maxHeight * 0.9,
                     child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 10,
+                        crossAxisSpacing: 20,
                         mainAxisSpacing: 10,
                         childAspectRatio: 0.75,
                       ),
@@ -175,7 +180,7 @@ class MenuScreen extends StatelessWidget {
                         removeFunction: () {},
                       ),
                     ),
-                  )
+                  ),
                 ]),
               ),
             ),

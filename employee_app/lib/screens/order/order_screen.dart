@@ -1,19 +1,21 @@
+import 'package:employee_app/data_layer/auth_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/models/user_model.dart';
 import 'package:employee_app/screens/profile/profile_screen.dart';
+import 'package:employee_app/services/setup.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:employee_app/widget/inkwell/order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key, required this.user});
-  final UserModel user;
+  const OrderScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+    final UserModel? user = authLocator.get<AuthLayer>().user;
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
@@ -30,7 +32,7 @@ class OrderScreen extends StatelessWidget {
               Image.asset('assets/image/logo.png'),
               context.addSpacer(multiply: 0.02),
               Text(
-                'Welcome ${user.firstName}',
+                'Welcome ${user?.firstName ?? 'Emp'}',
                 style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -146,44 +148,43 @@ class OrderScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          horizontal: context.getWidth(multiply: 0.05),
-          vertical: context.getHeight(multiply: 0.15)
-        ),
+            horizontal: context.getWidth(multiply: 0.05),
+            vertical: context.getHeight(multiply: 0.15)),
         child: Column(
           children: [
             Image.asset('assets/image/orderlogo.png'),
             Column(
               children: [
-                OrderItem(order: OrderModel(
-                  orderId: '124444444444446767',
-                  time: '${DateTime.now()}',
-                  totalPreparationTime: 12,
-                  totalPrice: 25
-                )),
-                OrderItem(order: OrderModel(
-                  orderId: '124444444444446767',
-                  time: '${DateTime.now()}',
-                  totalPreparationTime: 12,
-                  totalPrice: 25
-                )),
-                OrderItem(order: OrderModel(
-                  orderId: '124444444444446767',
-                  time: '${DateTime.now()}',
-                  totalPreparationTime: 12,
-                  totalPrice: 25
-                )),
-                OrderItem(order: OrderModel(
-                  orderId: '124444444444446767',
-                  time: '${DateTime.now()}',
-                  totalPreparationTime: 12,
-                  totalPrice: 25
-                )),
-                OrderItem(order: OrderModel(
-                  orderId: '124444444444446767',
-                  time: '${DateTime.now()}',
-                  totalPreparationTime: 12,
-                  totalPrice: 25
-                )),
+                OrderItem(
+                    order: OrderModel(
+                        orderId: '124444444444446767',
+                        time: '${DateTime.now()}',
+                        totalPreparationTime: 12,
+                        totalPrice: 25)),
+                OrderItem(
+                    order: OrderModel(
+                        orderId: '124444444444446767',
+                        time: '${DateTime.now()}',
+                        totalPreparationTime: 12,
+                        totalPrice: 25)),
+                OrderItem(
+                    order: OrderModel(
+                        orderId: '124444444444446767',
+                        time: '${DateTime.now()}',
+                        totalPreparationTime: 12,
+                        totalPrice: 25)),
+                OrderItem(
+                    order: OrderModel(
+                        orderId: '124444444444446767',
+                        time: '${DateTime.now()}',
+                        totalPreparationTime: 12,
+                        totalPrice: 25)),
+                OrderItem(
+                    order: OrderModel(
+                        orderId: '124444444444446767',
+                        time: '${DateTime.now()}',
+                        totalPreparationTime: 12,
+                        totalPrice: 25)),
               ],
             )
           ],

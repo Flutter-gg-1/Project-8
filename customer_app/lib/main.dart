@@ -25,10 +25,7 @@ Future main() async {
   await setup();
   final test = SuperMain();
 
-
-
   await test.getMenu();
-
 
   //Remove this method to stop OneSignal Debugging
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
@@ -52,13 +49,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color(0xffD7D1CA),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(
-          user: UserModel(
-              customerId: '',
-              email: 'email',
-              firstName: 'Basel',
-              lastName: 'Alalawi'),
-        )
+        home: HomeScreen()
         // OrderStatus(order: OrderModel(
         //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
         //   time: DateTime.now(),
