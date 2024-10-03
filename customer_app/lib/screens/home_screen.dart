@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/models/user_model.dart';
@@ -19,11 +20,12 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.user});
-  final UserModel user;
+  const HomeScreen({super.key, });
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final user = authLocator.get<AuthLayer>().user;
     return DefaultTabController(
       length: 10,
       child: Scaffold(
@@ -42,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                 Image.asset('assets/image/logo.png'),
                 context.addSpacer(multiply: 0.02),
                 Text(
-                  'Welcome ${user.firstName}',
+                  'Welcome ${user?.firstName ?? 'User'}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
