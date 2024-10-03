@@ -10,7 +10,6 @@ import 'package:onze_cafe/screens/reports_dashboard/subviews/donut_chart_view.da
 import 'package:onze_cafe/screens/reports_dashboard/subviews/filter_menu_item.dart';
 import 'package:onze_cafe/screens/reports_dashboard/subviews/line_chart_view.dart';
 import 'package:onze_cafe/screens/reports_dashboard/subviews/reports_dashboard_view.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});

@@ -14,4 +14,8 @@ extension G on Gradient {
       colors: [Color(0xFFA8483D), Color(0xFFCB928B)],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter);
+  static const secondary2 = LinearGradient(
+      colors: [Color(0xFFA8483D), Color(0xFFCB928B)],
+      begin: Alignment.topRight,
+      end: Alignment.bottomRight);
 }
