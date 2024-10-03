@@ -1,8 +1,6 @@
 import 'package:employee_app/helper/extinsion/size_config.dart';
-import 'package:employee_app/screens/profile/profile_screen.dart';
 import 'package:employee_app/widget/add_product/custome_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class AddProduct extends StatelessWidget {
   const AddProduct({super.key});
