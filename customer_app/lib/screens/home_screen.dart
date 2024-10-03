@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/screens/cart/cart_screen.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
+import 'package:customer_app/screens/order_history/order_in_wait_screen.dart';
 
 import 'package:customer_app/screens/profile/profile_screen.dart';
 
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const CartScreen(),
+                          builder: (context) => const OrderInWaitScreen(),
                         ));
                   },
                   fixedSize: Size(context.getWidth(multiply: 0.4),
