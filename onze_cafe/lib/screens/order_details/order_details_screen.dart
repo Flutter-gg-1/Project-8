@@ -81,7 +81,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
                         builder: (BuildContext context) {
-                          return DetailsView(
+                          return DetailsViwe(
                             brightness: brightness,
                             cubit: cubit,
                             price: price,
