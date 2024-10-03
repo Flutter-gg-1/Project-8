@@ -22,11 +22,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late CarouselController _carouselController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
+    _carouselController = CarouselController();
   }
 
   Widget _buildProductsGrid(String itemType, Size size) {
@@ -48,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen>
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
@@ -100,208 +104,178 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const CustomDrawer(),
-      appBar: AppBar(
-        backgroundColor: const Color(0xff3D6B7D),
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
-        centerTitle: true,
-        title: Image.asset('assets/onze logo.png', height: 200),
-        actions: [
-          Column(
-            children: [
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: 15,
-                width: 15,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xffa8483d),
-                ),
-                child: const Center(
-                  child: Text(
-                    '2',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 8),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CartScreen()),
-                  );
-                },
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  child: Container(
-                    width: double.infinity,
-                    height: size.height * 0.32,
-                    color: const Color(0xff87b1c5),
-                    child: CarouselSlider(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            expandedHeight: size.height * 0.5,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 5,
+                          blurRadius: 10,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                      color: const Color(0xff87b1c5),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(360),
+                        bottomRight: Radius.circular(360),
+                      ),
+                    ),
+                    width: size.width * 3,
+                    height: size.height * 0.4,
+                    child: CarouselSlider.builder(
+                      itemCount: 3,
+                      itemBuilder: (context, index, realIndex) {
+                        final imagePaths = [
+                          'assets/cup3 2.png',
+                          'assets/WhatsApp Image 2024-10-02 at 1.46.05 PM.png',
+                          'assets/cup1 1.png',
+                        ];
+                        return Transform.translate(
+                          offset: Offset(0, 150),
+                          child: ClipRRect(
+                            child: Image.asset(
+                              imagePaths[index],
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        );
+                      },
                       options: CarouselOptions(
+                        clipBehavior: Clip.none,
                         autoPlay: true,
                         height: size.height * 0.23,
                         aspectRatio: 16 / 9,
                         viewportFraction: 0.9,
+                        onPageChanged: (index, reason) {},
                       ),
-                      items: [
-                        'assets/Group 3174.png',
-                        'assets/ab.png',
-                        'assets/ss 1 (1).png'
-                      ].map((item) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              margin: const EdgeInsets.only(top: 35),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.asset(
-                                  item,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: size.height * 0.003,
-                  left: size.width * 0.25,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Good morning ☀️',
-                        style: TextStyle(
-                          color: const Color(0xff3D6B7D),
-                          fontSize: size.width * 0.04,
+                  Positioned(
+                    left: size.width * 0.25,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/onze logo.png',
+                          height: 200,
+                          width: 200,
+                          fit: BoxFit.contain,
                         ),
-                      ),
-                      Text(
-                        'Coffee for you ☕️',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width * 0.06,
-                          fontWeight: FontWeight.bold,
+                        Positioned(
+                          bottom: 60,
+                          child: Text(
+                            'Good morning ☀️',
+                            style: TextStyle(
+                              color: const Color(0xff3D6B7D),
+                              fontSize: size.width * 0.04,
+                            ),
+                          ),
                         ),
+                        Text(
+                          'Coffee for you ☕️',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: size.width * 0.06,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Column(
+                children: [
+                  const SizedBox(height: 5),
+                  Container(
+                    height: 15,
+                    width: 15,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xffa8483d),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        '2',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 8),
                       ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartScreen()),
+                      );
+                    },
+                    child: const Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 20),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: TabBar(
+                    isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    controller: _tabController,
+                    dividerHeight: 0,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xffa8483d),
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.black,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+                    tabs: const [
+                      Tab(text: 'Classic Coffee Drinks'),
+                      Tab(text: 'Cold Drinks'),
+                      Tab(text: 'Drip Coffee'),
+                      Tab(text: 'Tea Drinks'),
+                      Tab(text: 'Water'),
+                      Tab(text: 'Bakery'),
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: size.height * 0.18,
-                  left: -size.width * 0.05,
-                  child: Hero(
-                    tag: 'coffeeHero_mainImage',
-                    child: Image.asset(
-                      'assets/Artboard 1 copy 10 1.png',
-                      fit: BoxFit.contain,
-                    ),
+                SizedBox(
+                  height: size.height,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildProductsGrid('classicCoffee', size),
+                      _buildProductsGrid('coldDrinks', size),
+                      _buildProductsGrid('dripCoffee', size),
+                      _buildProductsGrid('teaDrinks', size),
+                      _buildProductsGrid('water', size),
+                      _buildProductsGrid('dessert', size),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: TabBar(
-              isScrollable: true,
-              indicatorSize: TabBarIndicatorSize.tab,
-              controller: _tabController,
-              dividerHeight: 0,
-              indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffa8483d),
-              ),
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.black,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 20),
-              tabs: const [
-                Tab(text: 'Classic Coffee Drinks'),
-                Tab(text: 'Cold Drinks'),
-                Tab(text: 'Drip Coffee'),
-                Tab(text: 'Tea Drinks'),
-                Tab(text: 'Water'),
-                Tab(text: 'Bakery'),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildProductsGrid('classicCoffee', size),
-                _buildProductsGrid('coldDrinks', size),
-                _buildProductsGrid('dripCoffee', size),
-                _buildProductsGrid('teaDrinks', size),
-                _buildProductsGrid('water', size),
-                _buildProductsGrid('dessert', size),
-              ],
-            ),
-          ),
-          const SizedBox(height: 40),
         ],
-      ),
-      bottomSheet: Container(
-        height: 80,
-        width: double.infinity,
-        color: const Color(0xff3D6B7D),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home, color: Colors.white),
-                  onPressed: () => launchURL('your_home_url'),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.facebook, color: Colors.white),
-                  onPressed: () => launchURL('your_facebook_url'),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.shape_line, color: Colors.white),
-                  onPressed: () => launchURL('your_instagram_url'),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.camera_alt, color: Colors.white),
-                  onPressed: () => launchURL('your_camera_url'),
-                ),
-              ],
-            ),
-            InkWell(
-              onTap: () => launchURL('your_website_url'),
-              child: const Text(
-                'For more information visit our website',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
