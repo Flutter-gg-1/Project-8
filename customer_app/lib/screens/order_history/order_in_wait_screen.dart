@@ -1,26 +1,29 @@
+import 'dart:developer';
+
 import 'package:customer_app/helper/date_format.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
+import 'package:customer_app/screens/order/order_status.dart';
 import 'package:customer_app/screens/order_history/cubit/order_history_cubit.dart';
 import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
 import 'package:customer_app/widget/cart_widget/seprate_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HistoryScreen extends StatelessWidget {
-  const HistoryScreen({super.key});
+class OrderInWaitScreen extends StatelessWidget {
+  const OrderInWaitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Order History'),
+          title: const Text('Orders'),
           centerTitle: true,
         ),
         body: BlocProvider(
           create: (context) => OrderShowCubit(),
           child: Builder(builder: (context) {
             final cubit = context.read<OrderShowCubit>();
-            cubit.getAllUserOrder(status: "delivered");
+            cubit.getAllUserOrder();
             return SingleChildScrollView(
               child: BlocBuilder<OrderShowCubit, OrderShowState>(
                 builder: (context, state) {
@@ -189,6 +192,34 @@ class HistoryScreen extends StatelessWidget {
                                                 '${cubit.getTotalQueAndPrice(index: index)}',
                                             rightTextColor:
                                                 Colors.black.withOpacity(0.40),
+                                            rightTextSize: 20,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                          ),
+                                          SizedBox(
+                                            height: context.getHeight(
+                                                multiply: 0.01),
+                                          ),
+                                          TextWithTowDirection(
+                                            isRightClickable: true,
+                                            onPressed: () {
+                                              log("click");
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) {
+                                                  return OrderStatus(
+                                                      order: cubit
+                                                          .orderList[index]);
+                                                },
+                                              ));
+                                            },
+                                            leftText:
+                                                cubit.orderList[index].status!,
+                                            leftTextColor: Colors.black,
+                                            leftTextSize: 20,
+                                            rightText: 'show Status',
+                                            rightTextColor:
+                                                const Color(0xffA8483D),
                                             rightTextSize: 20,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,

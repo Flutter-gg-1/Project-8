@@ -9,8 +9,7 @@ import 'package:customer_app/widget/container/status_container.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_stepindicator/flutter_stepindicator.dart';
-import 'package:icons_plus/icons_plus.dart';
+
 import 'package:lottie/lottie.dart';
 
 class OrderStatus extends StatelessWidget {

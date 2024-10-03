@@ -9,14 +9,15 @@ import 'package:meta/meta.dart';
 
 part 'order_history_state.dart';
 
-class OrderHistoryCubit extends Cubit<OrderHistoryState> {
-  OrderHistoryCubit() : super(OrderHistoryInitial());
+class OrderShowCubit extends Cubit<OrderShowState> {
+  OrderShowCubit() : super(OrderHistoryInitial());
 
   List<OrderModel> orderList = [];
 
-  getAllUserOrder() async {
+  getAllUserOrder({String? status}) async {
     try {
-      final res = await SuperMain().getUserOrderHistory();
+      orderList.clear();
+      final res = await SuperMain().getUserOrder(status: status);
 
       log("$res");
 
@@ -26,7 +27,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
 
       for (var val in orderList) {
         final orderRes =
-            await SuperMain().getAllUserOrder(orderId: val.orderId!);
+            await SuperMain().getAllUserOrderDetail(orderId: val.orderId!);
 
         log("$orderRes");
 

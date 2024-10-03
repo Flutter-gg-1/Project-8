@@ -1,8 +1,8 @@
 part of 'order_history_cubit.dart';
 
 @immutable
-sealed class OrderHistoryState {}
+sealed class OrderShowState {}
 
-final class OrderHistoryInitial extends OrderHistoryState {}
+final class OrderHistoryInitial extends OrderShowState {}
 
-final class OrderHistoryShowDataState extends OrderHistoryState {}
+final class OrderHistoryShowDataState extends OrderShowState {}

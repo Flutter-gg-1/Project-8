@@ -54,18 +54,18 @@ class AuthCubit extends Cubit<AuthState> {
 
       await SuperMain()
           .verifyOtp(email: email, otp: otp, fName: fName, lName: lName);
-      final userFromDB = await db
-          .from('customer')
-          .select()
-          .eq('customer_id', db.auth.currentUser!.id)
-          .single();
+      // final userFromDB = await db
+      //     .from('customer')
+      //     .select()
+      //     .eq('customer_id', db.auth.currentUser!.id)
+      //     .single();
 
-      locator.saveAuth(
-          userData: UserModel(
-              customerId: userFromDB['customer_id'],
-              email: db.auth.currentUser!.email!,
-              firstName: userFromDB['first_name'],
-              lastName: userFromDB['last_name']));
+      // locator.saveAuth(
+      //     userData: UserModel(
+      //         customerId: userFromDB['customer_id'],
+      //         email: db.auth.currentUser!.email!,
+      //         firstName: userFromDB['first_name'],
+      //         lastName: userFromDB['last_name']));
       emit(SuccessState());
     } catch (er) {
       log("$er");
