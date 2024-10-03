@@ -30,9 +30,10 @@ class SupabaseProfile {
     }
   }
 
-  static Future<Profile?> fetchProfile() async {
+  static Future<Profile?> fetchProfile(String id) async {
     try {
-      var response = await supabase.from(tableKey).select().single();
+      var response =
+          await supabase.from(tableKey).select().eq('id', id).single();
       return Profile.fromJson(response);
     } on AuthException catch (_) {
       rethrow;

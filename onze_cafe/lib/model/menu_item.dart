@@ -1,20 +1,48 @@
 class MenuItem {
-  String id;
+  String? id;
   String categoryId;
   String name;
   int calories;
   double oz;
-  String imgUrl;
+  String? imgUrl;
   String description;
   double price;
 
-  MenuItem(
-      {required this.id,
-      required this.categoryId,
-      required this.name,
-      required this.calories,
-      required this.imgUrl,
-      required this.description,
-      required this.price,
-      required this.oz});
+  MenuItem({
+    this.id,
+    required this.categoryId,
+    required this.name,
+    required this.calories,
+    this.imgUrl,
+    required this.description,
+    required this.price,
+    required this.oz,
+  });
+
+  // Factory constructor for fromJson
+  factory MenuItem.fromJson(Map<String, dynamic> json) {
+    return MenuItem(
+      id: json['id'],
+      categoryId: json['category_id'],
+      name: json['name'],
+      calories: json['calories'],
+      oz: (json['oz'] as num).toDouble(),
+      imgUrl: json['img_url'] as String?,
+      description: json['description'],
+      price: (json['price'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      'category_id': categoryId,
+      'name': name,
+      'calories': calories,
+      'oz': oz,
+      'img_url': imgUrl,
+      'description': description,
+      'price': price,
+    };
+  }
 }

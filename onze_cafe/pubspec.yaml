@@ -48,6 +48,7 @@ flutter:
     - assets/loading/
     - assets/logo/
     - assets/menu_categories/
+    - assets/menu_categories/water.png
     - assets/menu_items/
 
 fonts:

@@ -24,6 +24,7 @@ class MenuCategory {
 
   Map<String, dynamic> toJson() {
     return {
+      if (id != null) 'id': id,
       "name": name,
       "description": description,
       "img_url": imgUrl,

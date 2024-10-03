@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/screens/profile/profile_cubit.dart';
+import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 import 'package:onze_cafe/supabase/supabase_profile.dart';
 
 import '../../model/profile.dart';
@@ -10,7 +11,8 @@ import '../landing/landing_screen.dart';
 extension NetworkFunctions on ProfileCubit {
   Future<Profile?> fetchProfile(BuildContext context) async {
     try {
-      var profile = await SupabaseProfile.fetchProfile();
+      var profile = await SupabaseProfile.fetchProfile(
+          SupabaseMgr.shared.currentUser?.id ?? '');
       if (context.mounted) {
         showSnackBar(
             context, 'Finished loading profile', AnimatedSnackBarType.success);

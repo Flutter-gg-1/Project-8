@@ -5,4 +5,6 @@ sealed class LandingState {}
 
 final class LandingInitial extends LandingState {}
 
-class UserSessionExists extends LandingState {}
+class RegularUserState extends LandingState {}
+
+class EmployeeUserState extends LandingState {}

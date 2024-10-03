@@ -58,7 +58,7 @@ class OrderCubit extends Cubit<OrderState> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => OrderDetailsScreen(
-          orderId: order.id,
+          orderId: order.id ?? '',
           price: price,
         ),
       ),

@@ -69,7 +69,7 @@ class SupabaseCategory {
 
       // Remove existing image if it exists
       await SupabaseMgr.shared.supabase.storage
-          .from('categories')
+          .from(bucketKey)
           .remove([fileName]);
 
       await supabase.storage.from(bucketKey).uploadBinary(fileName, fileBytes);

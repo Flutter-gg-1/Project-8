@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/menu/menu_screen.dart';
 
 import '../../reusable_components/animated_snackbar.dart';
+import '../admin_screens/admin_dashboard_screen.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -20,6 +21,10 @@ class AuthCubit extends Cubit<AuthState> {
   void navigateToMenu(BuildContext context) =>
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const MenuScreen()));
+
+  void navigateToDashboard(BuildContext context) =>
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => AdminDashboardScreen()));
 
   bool isOtp = false;
   bool isSignup = false;

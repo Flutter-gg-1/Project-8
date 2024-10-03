@@ -10,18 +10,13 @@ class SupabaseMenu {
   static final tableKey = "menu_item";
   static final bucketKey = "menu_items";
 
-  static Future createItem(MenuItem item) async {
+  static Future<List<MenuItem>>? fetchMenuItems() async {
     try {
-      await supabase.from(tableKey).insert({
-        "id": item.id,
-        "categoryId": "fdc2e822-3d67-47ca-8ea8-8513ab8e6767",
-        "name": item.name,
-        "calories": item.calories,
-        "imgUrl": item.imgUrl,
-        "description": item.description,
-        "price": item.price,
-        "oz": item.oz,
-      });
+      var res = await supabase.from(tableKey).select();
+      List<MenuItem> items = (res as List)
+          .map((item) => MenuItem.fromJson(item as Map<String, dynamic>))
+          .toList();
+      return items;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -36,7 +31,7 @@ class SupabaseMenu {
       throw ();
     }
     try {
-      await supabase.from(tableKey).delete().eq('id', item.id);
+      await supabase.from(tableKey).delete().eq('id', item.id!);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -46,18 +41,18 @@ class SupabaseMenu {
     }
   }
 
-  static Future updateItems(MenuItem item, File imageFile) async {
+  static Future upsertItem(
+      {required File? imageFile, required MenuItem item}) async {
     try {
-      await supabase.from(tableKey).update({
-        "id": item.id,
-        "categoryId": "fdc2e822-3d67-47ca-8ea8-8513ab8e6767",
-        "name": item.name,
-        "calories": item.calories,
-        "imgUrl": item.imgUrl,
-        "description": item.description,
-        "price": item.price,
-        "oz": item.oz,
-      });
+      if (imageFile != null) {
+        item.imgUrl = await uploadImage(imageFile, item.name);
+      }
+      var response = await supabase.from(tableKey).upsert(
+            item.toJson(),
+            onConflict: 'name',
+          );
+
+      return response;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -67,28 +62,19 @@ class SupabaseMenu {
     }
   }
 
-  static Future fetchItems(MenuItem item) async {
-    try {
-      await supabase.from(tableKey).select().single();
-      var res = await supabase.from(tableKey).select();
-      print(res);
-    } on AuthException catch (_) {
-      rethrow;
-    } on PostgrestException catch (_) {
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  static Future<String?> uploadImage(File imageFile) async {
+  static Future<String?> uploadImage(File imageFile, String itemName) async {
     try {
       final fileBytes = await ImgConverter.fileImgToBytes(imageFile);
-      final fileName =
-          'menu_categories/${DateTime.now().millisecondsSinceEpoch}.png'; // Use a unique file name
+      final fileName = '$itemName.png';
+
+      // Remove existing image if it exists
+      await SupabaseMgr.shared.supabase.storage
+          .from(bucketKey)
+          .remove([fileName]);
 
       await supabase.storage.from(bucketKey).uploadBinary(fileName, fileBytes);
       final publicUrl = supabase.storage.from(bucketKey).getPublicUrl(fileName);
+
       return publicUrl;
     } on AuthException catch (_) {
       rethrow;
