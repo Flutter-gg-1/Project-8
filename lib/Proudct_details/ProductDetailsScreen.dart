@@ -24,54 +24,41 @@ class ProductDetailsScreen extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: const Color(0xff3D6B7D),
               elevation: 0,
               iconTheme: const IconThemeData(color: Colors.white),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CartScreen()),
-                    );
-                  },
-                  icon: const Icon(Icons.shopping_cart_outlined,
-                      color: Colors.white),
-                ),
-              ],
             ),
             extendBodyBehindAppBar: true,
             body: Column(
               children: [
                 Container(
+                  padding: const EdgeInsets.only(top: 50),
                   width: double.infinity,
-                  color: const Color(0xff74a0b2),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: size.height * 0.1,
-                      bottom: 20,
-                      left: size.width * 0.05,
-                      right: size.width * 0.05,
-                    ),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Hero(
-                            tag: heroTag,
+                  color: Colors.white,
+                  // color: const Color(0xff74a0b2),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Hero(
+                          tag: heroTag,
+                          child: SizedBox(
+                            height: 300,
+                            width: 300,
                             child: Image.network(
                               item.imageUrl,
                               width: size.width * 0.6,
                               height: size.height * 0.3,
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+                const Divider(),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -97,48 +84,93 @@ class ProductDetailsScreen extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                item.name,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      item.name,
+                                      style: const TextStyle(
+                                          color: Color(0xff3D6B7D),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        color: Color(0xffE27D19),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '${item.rating}',
+                                        style: const TextStyle(
+                                            fontSize: 20,
+                                            color: Color(0xff2F2D2C)),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        '(reviews)',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color(0xff808080)),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              const Divider(),
+                              const Text(
+                                'Description',
                                 style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: size.width * 0.07,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: Color(0xff3D6B7D),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 10),
                               Text(
                                 item.description,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black87,
-                                  fontSize: size.width * 0.045,
+                                  fontSize: 16,
                                 ),
                               ),
                               const SizedBox(height: 20),
                               Text(
                                 'Select Size',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: const Color(0xff3D6B7D),
                                   fontSize: size.width * 0.05,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  _buildSizeOption(context, '8 oz'),
-                                  _buildSizeOption(context, '10 oz'),
+                                  _buildSizeOption(context, 'S'),
+                                  _buildSizeOption(context, 'M'),
                                 ],
                               ),
                               const SizedBox(height: 20),
                               Text(
                                 'Quantity',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: const Color(0xff3D6B7D),
                                   fontSize: size.width * 0.05,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -149,8 +181,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                             bloc.quantity - 1));
                                       }
                                     },
-                                    icon: const Icon(Icons.remove,
-                                        color: Colors.black),
+                                    icon: Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Color(0xff3D6B7D),
+                                      ),
+                                      child: const Icon(Icons.remove,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                   BlocBuilder<ProductDetailsBloc,
                                       ProductDetailsState>(
@@ -173,45 +211,18 @@ class ProductDetailsScreen extends StatelessWidget {
                                       bloc.add(ChangeQuantityEvent(
                                           bloc.quantity + 1));
                                     },
-                                    icon: const Icon(Icons.add,
-                                        color: Colors.black),
+                                    icon: Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Color(0xff3D6B7D),
+                                      ),
+                                      child: const Icon(Icons.add,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 30),
-                              Center(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff74a0b2),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.3,
-                                      vertical: 14,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    bloc.add(AddToCartEvent(
-                                      itemId: item.id,
-                                      orderId: locator
-                                          .get<DataLayer>()
-                                          .order!
-                                          .orderId,
-                                      quantity: bloc.quantity,
-                                      price: item.price,
-                                    ));
-                                  },
-                                  child: Text(
-                                    'Add to Cart',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: size.width * 0.05,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
                           );
                         },
@@ -220,6 +231,75 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            bottomSheet: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
+              builder: (context, state) {
+                final bloc = context.read<ProductDetailsBloc>();
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
+                  height: 110,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(color: Color(0xff3D6B7D)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'price',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          Text(
+                            'SAR ${item.price * bloc.quantity}',
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.white),
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: size.width * 0.45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.transparent),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // backgroundColor: const Color(0xff74a0b2),
+                            // padding: EdgeInsets.symmetric(
+                            //   horizontal: size.width * 0.3,
+                            //   vertical: 14,
+                            // ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: () async {
+                            // bloc.add(AddToCartEvent(
+                            //   itemId: item.id,
+                            //   orderId: locator.get<DataLayer>().order!.orderId,
+                            //   quantity: bloc.quantity,
+                            //   price: item.price,
+                            // ));
+                          },
+                          child: Text(
+                            'Buy Now',
+                            style: TextStyle(
+                              color: const Color(0xff3D6B7D),
+                              fontSize: size.width * 0.05,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           );
         },
@@ -242,7 +322,7 @@ class ProductDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               color: isSelected
-                  ? const Color(0xff74a0b2)
+                  ? const Color(0xffA8483D)
                   : Colors.black.withOpacity(0.5),
               borderRadius: BorderRadius.circular(10),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/screens/About%20Screen/about_us.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/screens/Order_Tracking/order_trcking.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
@@ -46,6 +47,8 @@ class CustomDrawer extends StatelessWidget {
                 const Text('About Us', style: TextStyle(color: Colors.black)),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const AboutUs()));
             },
           ),
           ListTile(

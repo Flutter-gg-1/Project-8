@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
+import 'package:onze_cafe/screens/Home%20Screen/home_bloc/home_bloc.dart';
+import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CoffeeCard extends StatelessWidget {
@@ -11,25 +13,25 @@ class CoffeeCard extends StatelessWidget {
   final double price;
   final int rating;
   final int itemId;
+  final HomeBloc bloc;
 
-  const CoffeeCard({
-    super.key,
-    required this.size,
-    required this.name,
-    required this.price,
-    this.imageUrl,
-    required this.rating,
-    required this.itemId,
-  });
+  const CoffeeCard(
+      {super.key,
+      required this.size,
+      required this.name,
+      required this.price,
+      this.imageUrl,
+      required this.rating,
+      required this.itemId,
+      required this.bloc});
 
-  // Function to build stars based on the rating value
   Widget buildRatingStars(int rating) {
     List<Widget> stars = [];
     for (int i = 1; i <= 5; i++) {
       stars.add(Icon(
-        i <= rating ? Icons.star : Icons.star_border, // Filled or empty star
+        i <= rating ? Icons.star : Icons.star_border,
         color: Colors.yellow,
-        size: size.width * 0.04, // Adjust star size
+        size: size.width * 0.04,
       ));
     }
     return Row(
@@ -41,12 +43,12 @@ class CoffeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width * 0.28, // Smaller width for the container
-      height: size.height * 0.18, // Adjusted height for the container
+      width: size.width * 0.28,
+      height: size.height * 0.18,
       decoration: BoxDecoration(
-        color: const Color(0xffFFFFFF), // Slightly lighter dark grey
+        color: const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: const Color(0xff87B1C5)), // Rounded corners
+        border: Border.all(color: const Color(0xff87B1C5)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -80,11 +82,11 @@ class CoffeeCard extends StatelessWidget {
           Center(
             child: Padding(
               padding: EdgeInsets.only(
-                top: size.height * 0.07, // Adjust the top padding
+                top: size.height * 0.07,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-                crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     name,
@@ -93,18 +95,17 @@ class CoffeeCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
-                    textAlign: TextAlign.center, // Center text
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: size.height * 0.01),
                   Text(
-                    '$price SAR', // Display the product price
+                    '$price SAR',
                     style: TextStyle(
-                      fontSize:
-                          size.width * 0.032, // Adjusted font size for price
+                      fontSize: size.width * 0.032,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Text color
+                      color: Colors.black,
                     ),
-                    textAlign: TextAlign.center, // Center text
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 5),
                   // Display rating stars
@@ -114,30 +115,33 @@ class CoffeeCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: size.height * 0.08, // Adjusted position for the button
-            right: -size.width * 0.02, // Adjusted position for the button
+            top: size.height * 0.13,
+            right: -size.width * 0.02,
             child: Material(
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  // Add the item to the cart using DataLayer
                   locator.get<DataLayer>().addItem(
-                    item: OrderItemModel(
-                      itemId: itemId,
-                      quantity: 1,
-                      price: price, orderId: locator.get<DataLayer>().order!.orderId,
-                    ),
-                  );
+                        item: OrderItemModel(
+                          itemId: itemId,
+                          quantity: 1,
+                          price: price,
+                          orderId: locator.get<DataLayer>().order!.orderId,
+                        ),
+                      );
                   log('Added item to cart: $name');
+                  bloc.add(UpdateCartCountEvent(
+                      count: locator.get<DataLayer>().cart.items.length));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$name added to cart'),
+                      duration: const Duration(milliseconds: 650),
                     ),
                   );
                 },
                 icon: const Icon(
                   Icons.add_box,
-                  color: Color(0xffA8483D), // Icon color
+                  color: Color(0xffA8483D),
                 ),
               ),
             ),
