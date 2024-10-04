@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  name.length <= 15 ? name : '${name.substring(0,15)}...',
                   style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,

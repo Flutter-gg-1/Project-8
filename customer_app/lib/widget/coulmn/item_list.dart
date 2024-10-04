@@ -12,28 +12,35 @@ class ItemList extends StatelessWidget {
 
   final ProductLayer locator;
   final String type;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-          children: locator.menu
-              .map((e) => e.type == type
-                  ? ProductItem(
-                      name: e.name!,
-                      price: e.price!,
-                      id: e.productId,
-                      cal: e.cal!,
-                      time: e.preparationTime!,
-                      description: e.des!,
-                      type: e.type!,
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderInfo(product: e),
-                          )),
-                    )
-                  : const Text(''))
-              .toList()),
+    final filteredItems = locator.menu
+        .where((e) =>
+            e.type?.trim() == type.trim() && e.name != null && e.price != null)
+        .toList();
+
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      itemCount: filteredItems.length,
+      itemBuilder: (context, index) {
+        final e = filteredItems[index];
+        return ProductItem(
+          name: e.name!,
+          price: e.price!,
+          id: e.productId,
+          cal: e.cal!,
+          time: e.preparationTime!,
+          description: e.des!,
+          type: e.type!,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrderInfo(product: e),
+            ),
+          ),
+        );
+      },
     );
   }
 }

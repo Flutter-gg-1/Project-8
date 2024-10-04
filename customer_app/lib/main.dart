@@ -10,6 +10,7 @@ import 'package:customer_app/screens/home_screen.dart';
 import 'package:customer_app/screens/order/order_status.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color(0xffD7D1CA),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen()
+        home: LoginScreen()
         // OrderStatus(order: OrderModel(
         //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
         //   time: DateTime.now(),
