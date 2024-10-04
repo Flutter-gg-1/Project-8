@@ -3,6 +3,7 @@ import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/product_model.dart';
 import 'package:employee_app/models/user_model.dart';
+import 'package:employee_app/screens/menu/add_product_screen.dart';
 import 'package:employee_app/screens/profile/profile_screen.dart';
 import 'package:employee_app/services/setup.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
@@ -20,6 +21,15 @@ class MenuScreen extends StatelessWidget {
     final UserModel? user = authLocator.get<AuthLayer>().user;
     final locator = productLocator.get<ProductLayer>();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return const AddProduct();
+            },
+          ));
+        },
+      ),
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       //separate it later
