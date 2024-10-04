@@ -73,6 +73,12 @@ class EmployeeDashboardScreen extends StatelessWidget {
                     EmployeeDashboardView(
                         onTab: () {
                           Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => OrdersDashboardScreen()));
+                        },
+                        title: "Orders"),
+                    EmployeeDashboardView(
+                        onTab: () {
+                          Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ReportsScreen()));
                         },
                         title: "Reports"),
@@ -86,12 +92,6 @@ class EmployeeDashboardScreen extends StatelessWidget {
                         onTab: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => MenuMgmtScreen()));
-                        },
-                        title: "Orders"),
-                    EmployeeDashboardView(
-                        onTab: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => OrdersDashboardScreen()));
                         },
                         title: "Employees"),
                   ],
