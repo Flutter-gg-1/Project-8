@@ -3,9 +3,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'client/supabase_mgr.dart';
 
-class SupabaseCart {
+class SupabasePOrder {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
-  static final String tableKey = 'order';
+  static final String tableKey = 'placed_order';
 
   static Future<List<PlacedOrder>>? fetchPlacedOrder() async {
     try {
@@ -32,7 +32,7 @@ class SupabaseCart {
       {required PlacedOrder placedOrderItem}) async {
     try {
       var response = await supabase.from(tableKey).upsert(
-            PlacedOrder,
+            placedOrderItem.toJson(),
           );
 
       return print(response);
