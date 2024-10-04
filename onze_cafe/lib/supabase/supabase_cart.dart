@@ -27,10 +27,9 @@ class SupabaseCart {
     try {
       var response = await supabase.from(tableKey).upsert(
             cartItem.toJson(),
-            onConflict: 'name',
           );
 
-      return response;
+      return print(response);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
