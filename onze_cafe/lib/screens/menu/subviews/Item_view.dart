@@ -35,10 +35,9 @@ class ItemView extends StatelessWidget {
                   topLeft: Radius.circular(16), topRight: Radius.circular(16)),
               child: AspectRatio(
                 aspectRatio: 2,
-                child: Image(
-                  image: Img.americano,
-                  fit: BoxFit.cover,
-                ),
+                child: item.imgUrl == null
+                    ? Image(image: Img.logo4, fit: BoxFit.fitWidth)
+                    : Image.network(item.imgUrl!, fit: BoxFit.fitWidth),
               ),
             ),
             Expanded(

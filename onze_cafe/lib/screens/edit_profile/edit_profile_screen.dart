@@ -105,14 +105,14 @@ class EditProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      AspectRatio(
+                        aspectRatio: 3,
+                        child: AnimatedImgView(
+                          img: Img.illustration7,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              AspectRatio(
-                aspectRatio: 2,
-                child: AnimatedImgView(
-                  img: Img.illustration7,
                 ),
               ),
               BlocBuilder<EditProfileCubit, EditProfileState>(

@@ -7,6 +7,8 @@ final class MenuInitial extends MenuState {}
 
 final class UpdateUIState extends MenuState {}
 
+final class LoadingState extends MenuState {}
+
 final class SuccessState extends MenuState {}
 
 final class ErrorState extends MenuState {}

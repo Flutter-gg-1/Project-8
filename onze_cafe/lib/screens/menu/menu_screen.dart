@@ -18,7 +18,7 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return BlocProvider(
-      create: (context) => MenuCubit(),
+      create: (context) => MenuCubit(context),
       child: Builder(builder: (context) {
         final cubit = context.read<MenuCubit>();
         return Scaffold(
@@ -90,9 +90,6 @@ class MenuScreen extends StatelessWidget {
                   ),
                   BlocBuilder<MenuCubit, MenuState>(
                     builder: (context, state) {
-                      if (state is MenuInitial) {
-                        cubit.fetchMenuItems();
-                      }
                       return Container(
                         decoration: BoxDecoration(
                             color: C.bg1(brightness),

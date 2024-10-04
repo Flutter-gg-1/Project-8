@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
 import 'package:onze_cafe/reusable_components/buttons/secondary_btn_view.dart';
 import 'package:onze_cafe/screens/admin_screens/menu_mgmt/menu_mgmt_screen.dart';
+import 'package:onze_cafe/screens/admin_screens/orders_dashboard/orders_dashboard_screen.dart';
 import 'package:onze_cafe/screens/admin_screens/reports_dashboard/reports_screen.dart';
 
 class EmployeeDashboardScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class EmployeeDashboardScreen extends StatelessWidget {
                 title: 'Orders',
                 callback: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MenuMgmtScreen()));
+                      builder: (context) => OrdersDashboardScreen()));
                 }),
             SecondaryBtnView(
                 title: 'Employees',

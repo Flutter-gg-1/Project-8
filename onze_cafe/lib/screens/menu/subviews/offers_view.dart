@@ -12,7 +12,7 @@ class OffersView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12.0),
           child: const Text("Offers").styled(weight: FontWeight.bold, size: 18),
         ),
         const OffersSlider(),

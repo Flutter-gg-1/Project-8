@@ -21,7 +21,8 @@ class CategoryTab extends StatelessWidget {
         child: TabBar(
           padding: EdgeInsets.zero,
           labelPadding: EdgeInsets.zero,
-          onTap: (idx) => cubit.goToSelectedCategory(cubit.categories[idx].id??""),
+          onTap: (idx) =>
+              cubit.goToSelectedCategory(cubit.categories[idx].id ?? ""),
           labelColor: C.primary(brightness),
           labelStyle: TextStyle(fontWeight: FontWeight.w800),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
@@ -53,10 +54,9 @@ class _CategoryCardView extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: Image(
-                image: Img.cold,
-                fit: BoxFit.contain,
-              ),
+              child: category.imgUrl == null
+                  ? Image(image: Img.logo4, fit: BoxFit.fitWidth)
+                  : Image.network(category.imgUrl!, fit: BoxFit.contain),
             ),
             SizedBox(height: 8),
             Expanded(

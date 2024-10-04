@@ -11,7 +11,7 @@ class SupabaseAuth {
           await supabase.auth.signUp(email: email, password: password);
 
       // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+      SupabaseMgr.shared.setCurrentUser();
 
       return response;
     } on AuthException catch (_) {
@@ -29,7 +29,7 @@ class SupabaseAuth {
           .verifyOTP(email: email, type: OtpType.signup, token: otp);
 
       // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+      SupabaseMgr.shared.setCurrentUser();
 
       // Subscribe to notifications
       var userId = supabase.auth.currentUser?.id;
@@ -51,7 +51,7 @@ class SupabaseAuth {
           .signInWithPassword(email: email, password: password);
 
       // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+      SupabaseMgr.shared.setCurrentUser();
 
       // Subscribe to notifications
       var userId = supabase.auth.currentUser?.id;
@@ -73,7 +73,7 @@ class SupabaseAuth {
     try {
       final AuthResponse response = await supabase.auth.signInAnonymously();
       // Update current user
-      SupabaseMgr.shared.currentUser = supabase.auth.currentUser;
+      SupabaseMgr.shared.setCurrentUser();
       return response;
     } on AuthException catch (_) {
       rethrow;
@@ -90,7 +90,7 @@ class SupabaseAuth {
       // Un-Subscribe to notifications
       OneSignal.logout();
       // Update current user
-      SupabaseMgr.shared.currentUser = null;
+      SupabaseMgr.shared.setCurrentUser();
 
       return response;
     } on AuthException catch (_) {

@@ -66,8 +66,11 @@ class _CarouselItem extends StatelessWidget {
                           padding: const EdgeInsets.all(4),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: Image.network(menuItem.imgUrl ?? '',
-                                  fit: BoxFit.fill)),
+                              child: menuItem.imgUrl == null ||
+                                      menuItem.imgUrl == ''
+                                  ? Image(image: Img.logo4, fit: BoxFit.contain)
+                                  : Image.network(menuItem.imgUrl ?? '',
+                                      fit: BoxFit.fill)),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(4),

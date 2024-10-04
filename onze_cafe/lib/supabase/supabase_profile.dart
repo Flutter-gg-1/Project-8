@@ -19,6 +19,7 @@ class SupabaseProfile {
         'name': profile.name,
         'email': profile.email,
         'phone': profile.phone,
+        'role': profile.role
       });
       return response;
     } on AuthException catch (_) {
@@ -57,6 +58,7 @@ class SupabaseProfile {
         'name': profile.name,
         'email': profile.email,
         'phone': profile.phone,
+        'role': profile.role,
         if (avatarUrl != null) 'avatar_url': avatarUrl,
       }).eq('id', SupabaseMgr.shared.currentUser!.id);
     } on AuthException catch (_) {
