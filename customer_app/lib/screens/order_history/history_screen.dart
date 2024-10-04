@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:customer_app/helper/date_format.dart';
-import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/order_history/cubit/order_history_cubit.dart';
 import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
@@ -25,25 +22,7 @@ class HistoryScreen extends StatelessWidget {
             final cubit = context.read<OrderShowCubit>();
             cubit.getAllUserOrder(status: "delivered");
             return SingleChildScrollView(
-              child: BlocConsumer<OrderShowCubit, OrderShowState>(
-                listener: (context, state) {
-                  (context, state) {
-                    if (state is ErrorState) {
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(state.msg),
-                        backgroundColor: Colors.red,
-                      ));
-                    }
-                    if (state is LoadingState) {
-                      log('=====00-----');
-                      context.showLoadingDialog();
-                    }
-                    if (state is SuccessState) {
-                      //Navigator.pop(context);
-                    }
-                  };
-                },
+              child: BlocBuilder<OrderShowCubit, OrderShowState>(
                 builder: (context, state) {
                   return Column(
                     children: List.generate(

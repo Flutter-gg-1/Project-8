@@ -24,7 +24,6 @@ class OrderInWaitScreen extends StatelessWidget {
           child: Builder(builder: (context) {
             final cubit = context.read<OrderShowCubit>();
             cubit.getAllUserOrder();
-            cubit.startTimer();
             return SingleChildScrollView(
               child: BlocBuilder<OrderShowCubit, OrderShowState>(
                 builder: (context, state) {
@@ -215,7 +214,7 @@ class OrderInWaitScreen extends StatelessWidget {
                                               ));
                                             },
                                             leftText:
-                                                cubit.orderStatus,
+                                                cubit.orderList[index].status!,
                                             leftTextColor: Colors.black,
                                             leftTextSize: 20,
                                             rightText: 'show Status',
