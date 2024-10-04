@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:employee_app/helper/extinsion/size_config.dart';
-import 'package:employee_app/screens/menu/cubit/add_item_cubit.dart';
+import 'package:employee_app/models/product_model.dart';
+import 'package:employee_app/screens/menu/add_cubit/add_item_cubit.dart';
 import 'package:employee_app/widget/add_product/custom_dropdown_widget.dart';
 import 'package:employee_app/widget/add_product/custome_text_form_field.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
@@ -10,14 +11,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProduct extends StatelessWidget {
-  const AddProduct({super.key});
+  const AddProduct({super.key, this.productModel});
+
+  final ProductModel? productModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddItemCubit(),
+      create: (context) => AddItemCubit()..intiTex(productModel: productModel),
       child: Builder(builder: (context) {
         final cubit = context.read<AddItemCubit>();
+
+       
 
         return Form(
           key: cubit.formKey,
@@ -25,6 +30,7 @@ class AddProduct extends StatelessWidget {
             listener: (context, state) {
               if (state is DoneState) {
                 Navigator.pop(context);
+                Navigator.pop(context, true);
 
                 log("very good");
               }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:employee_app/DB/super_main.dart';
+import 'package:employee_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -18,8 +19,28 @@ class AddItemCubit extends Cubit<AddItemState> {
   TextEditingController typecontroller = TextEditingController();
   TextEditingController deccontroller = TextEditingController();
   TextEditingController imgcontroller = TextEditingController();
+
+  String? productId;
   File? imgfiel;
+
+  bool isEdit = false;
   AddItemCubit() : super(AddItemInitial());
+
+  intiTex({ProductModel? productModel}) {
+    log("in intit");
+    if (productModel != null) {
+      isEdit = true;
+      productId = productModel.productId;
+      namecontroller.text = productModel.name!;
+      calcontroller.text = productModel.cal.toString();
+      pricecontroller.text = productModel.price.toString();
+      timecontroller.text = productModel.preparationTime.toString();
+      typecontroller.text = productModel.type!;
+      deccontroller.text = productModel.des!;
+    } else {
+      isEdit = false;
+    }
+  }
 
   addImg() async {
     final ImagePicker picker = ImagePicker();
@@ -36,14 +57,26 @@ class AddItemCubit extends Cubit<AddItemState> {
     try {
       emit(LodingState());
       if (formKey.currentState!.validate()) {
-        await SuperMain().addItemDb(
-            name: namecontroller.text,
-            cal: calcontroller.text,
-            price: double.parse(pricecontroller.text),
-            time: int.parse(timecontroller.text),
-            type: typecontroller.text,
-            des: deccontroller.text,
-            img: imgfiel);
+        if (isEdit == false) {
+          await SuperMain().addItemDb(
+              name: namecontroller.text,
+              cal: calcontroller.text,
+              price: double.parse(pricecontroller.text),
+              time: int.parse(timecontroller.text),
+              type: typecontroller.text,
+              des: deccontroller.text,
+              img: imgfiel);
+        } else {
+          await SuperMain().updateItemDb(
+              id: productId!,
+              name: namecontroller.text,
+              cal: calcontroller.text,
+              price: double.parse(pricecontroller.text),
+              time: int.parse(timecontroller.text),
+              type: typecontroller.text,
+              des: deccontroller.text,
+              img: imgfiel);
+        }
 
         emit(DoneState());
       } else {
