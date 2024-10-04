@@ -23,6 +23,11 @@ class SupabaseCart {
     }
   }
 
+  static Future<void> readData() async {
+    var response = await supabase.from(tableKey).select().single();
+    print(response);
+  }
+
   static Future upsertCartItem({required CartItem cartItem}) async {
     try {
       var response = await supabase.from(tableKey).upsert(

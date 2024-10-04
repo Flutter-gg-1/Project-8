@@ -10,23 +10,19 @@ class TestView extends StatelessWidget {
   }
 
   Future upsertItem() async {
-    await SupabaseCart.upsertCartItem(
-        cartItem: CartItem(
-            userId: '99163a2e-fdd7-4ee8-aa14-6df8710c01da',
-            menuItemId: '0b4c92af-68a2-4432-b60e-342029575ad4'));
+    await SupabaseCart.readData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child:
-              Column(
-                children: [
-                  TextButton(onPressed: fetchCartItems, child: Text('Click me')),
-                  TextButton(onPressed: upsertItem, child: Text('Click me')),
-                ],
-              )),
+          child: Column(
+        children: [
+          TextButton(onPressed: fetchCartItems, child: Text('Click me')),
+          TextButton(onPressed: upsertItem, child: Text('Click me')),
+        ],
+      )),
     );
   }
 }
