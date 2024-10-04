@@ -16,3 +16,9 @@ final class ErrorState extends OrderShowState {
 }
 
 final class OrderHistoryShowDataState extends OrderShowState {}
+
+class TimerRunInProgress extends OrderShowState {
+  final int tickCount;
+
+  TimerRunInProgress({required this.tickCount});
+}

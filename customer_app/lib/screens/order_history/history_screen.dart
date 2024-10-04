@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_app/helper/date_format.dart';
 import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
@@ -25,19 +27,22 @@ class HistoryScreen extends StatelessWidget {
             return SingleChildScrollView(
               child: BlocConsumer<OrderShowCubit, OrderShowState>(
                 listener: (context, state) {
-                  if (state is ErrorState) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(state.msg),
-                      backgroundColor: Colors.red,
-                    ));
-                  }
-                  if (state is LoadingState) {
-                    context.showLoadingDialog();
-                  }
-                  if (state is OrderHistoryShowDataState) {
-                    Navigator.pop(context);
-                  }
+                  (context, state) {
+                    if (state is ErrorState) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(state.msg),
+                        backgroundColor: Colors.red,
+                      ));
+                    }
+                    if (state is LoadingState) {
+                      log('=====00-----');
+                      context.showLoadingDialog();
+                    }
+                    if (state is SuccessState) {
+                      //Navigator.pop(context);
+                    }
+                  };
                 },
                 builder: (context, state) {
                   return Column(

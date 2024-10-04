@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -11,21 +12,54 @@ part 'order_history_state.dart';
 
 class OrderShowCubit extends Cubit<OrderShowState> {
   OrderShowCubit() : super(OrderHistoryInitial());
-
+  String orderStatus = 'Pending';
+  String? orderId = '062a8cfc-deb9-4cd6-9c00-e7af246cfce3';
   List<OrderModel> orderList = [];
+  Timer? _timer;
+  int _tickCount = 0;
+  void startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      _onTick();
+    });
+  }
+
+  Future<void> _onTick() async {
+    try {
+      var status = await SuperMain().supabase
+          .from('orders')
+          .select('status')
+          .eq('order_id', orderId ?? '062a8cfc-deb9-4cd6-9c00-e7af246cfce3');
+
+      _tickCount++;
+
+      log('${status[0]}');
+      orderStatus = '${status[0]['status']}';
+    } catch (e) {
+      log('$e');
+    }
+    emit(TimerRunInProgress(tickCount: _tickCount));
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
 
   getAllUserOrder({String? status}) async {
     try {
+      log('-----01');
       emit(LoadingState());
       orderList.clear();
       final res = await SuperMain().getUserOrder(status: status);
-
+      log('--------02');
       log("$res");
-
+      emit(SuccessState());
       for (var val in res) {
         orderList.add(OrderModel.fromJson(val));
       }
-
+      log('--------03');
       for (var val in orderList) {
         final orderRes =
             await SuperMain().getAllUserOrderDetail(orderId: val.orderId!);
