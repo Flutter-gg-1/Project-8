@@ -16,6 +16,7 @@ class OrderShowCubit extends Cubit<OrderShowState> {
 
   getAllUserOrder({String? status}) async {
     try {
+      emit(LoadingState());
       orderList.clear();
       final res = await SuperMain().getUserOrder(status: status);
 
@@ -43,6 +44,7 @@ class OrderShowCubit extends Cubit<OrderShowState> {
 
       emit(OrderHistoryShowDataState());
     } catch (er) {
+      emit(ErrorState(msg: 'Sorry there is some problem try it later'));
       log("err is in the cubit");
       log("$er");
     }
