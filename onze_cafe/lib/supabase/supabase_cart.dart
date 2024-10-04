@@ -5,7 +5,7 @@ import 'client/supabase_mgr.dart';
 
 class SupabaseCart {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
-  static final String tableKey = 'cart';
+  static final String tableKey = 'cart_item';
 
   static Future<List<CartItem>>? fetchCart() async {
     try {
@@ -23,6 +23,11 @@ class SupabaseCart {
     }
   }
 
+  static Future<void> readData() async {
+    var response = await supabase.from(tableKey).select();
+    print(response);
+  }
+
   static Future upsertCartItem({required CartItem cartItem}) async {
     try {
       var response = await supabase.from(tableKey).upsert(
@@ -30,7 +35,7 @@ class SupabaseCart {
             onConflict: 'menu_item_id',
           );
 
-      return response;
+      return print(response);
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -42,7 +47,7 @@ class SupabaseCart {
 
   static Future deleteCartItem(CartItem cartItem) async {
     if (cartItem.id == null) {
-      throw Exception('Could not find records of this category');
+      throw Exception('Could not find records of this cartItem');
     }
     try {
       await supabase.from(tableKey).delete().eq('id', cartItem.id!);
