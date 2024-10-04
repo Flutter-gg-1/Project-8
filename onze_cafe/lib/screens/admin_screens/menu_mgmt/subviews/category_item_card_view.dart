@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_category.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/network_functions.dart';
 
+import '../../../../extensions/color_ext.dart';
 import '../menu_mgmt_cubit.dart';
 
 class CategoryItemCardView extends StatelessWidget {
@@ -12,8 +15,10 @@ class CategoryItemCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Card(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
               child: Padding(
@@ -30,7 +35,11 @@ class CategoryItemCardView extends StatelessWidget {
                 children: [
                   Text(category.name).styled(weight: FontWeight.bold),
                 ],
-              ))
+              )),
+          IconButton(
+              onPressed: () => cubit.deleteCategory(context, category),
+              icon: Icon(CupertinoIcons.trash_circle_fill,
+                  color: C.secondary(brightness)))
         ],
       ),
     );

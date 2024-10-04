@@ -19,10 +19,10 @@ extension NetworkFunctions on AddCategoryCubit {
       emitUpdate();
       if (context.mounted) Navigator.pop(context, true);
     } catch (e) {
-      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
+      emitUpdate();
     }
   }
 }

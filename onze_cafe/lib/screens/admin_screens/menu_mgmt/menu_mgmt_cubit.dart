@@ -73,4 +73,7 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
       animatedSnakbar(msg: msg, type: type).show(context);
     }
   }
+
+  void emitLoading() => emit(LoadingState());
+  void emitUpdate() => emit(UpdateUIState());
 }

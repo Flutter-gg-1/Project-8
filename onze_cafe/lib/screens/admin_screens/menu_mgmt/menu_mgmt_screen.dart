@@ -19,107 +19,117 @@ class MenuMgmtScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = context.read<MenuMgmtCubit>();
         final brightness = Theme.of(context).brightness;
-        return Scaffold(
-          backgroundColor: C.bg1(brightness),
-          appBar: AppBar(
+        return BlocListener<MenuMgmtCubit, MenuMgmtState>(
+          listener: (context, state) {
+            if (state is LoadingState) {}
+            if (state is UpdateUIState) {}
+          },
+          child: Scaffold(
             backgroundColor: C.bg1(brightness),
-            leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(CupertinoIcons.chevron_left_square_fill),
-              iconSize: 40,
-              color: C.primary(brightness),
+            appBar: AppBar(
+              backgroundColor: C.bg1(brightness),
+              leading: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(CupertinoIcons.chevron_left_square_fill),
+                iconSize: 40,
+                color: C.primary(brightness),
+              ),
             ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(24),
-            child: ListView(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text('Offers')
-                            .styled(size: 18, weight: FontWeight.bold)),
-                    IconButton(
-                        onPressed: () =>
-                            cubit.navigateToAddOffer(context, null),
-                        icon: Icon(CupertinoIcons.add_circled))
-                  ],
-                ),
-                BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
-                  builder: (context, state) {
-                    return GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 3,
-                        ),
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: cubit.offers
-                            .map((offer) =>
-                                OfferCardView(offer: offer, cubit: cubit))
-                            .toList());
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text('Categories')
-                            .styled(size: 18, weight: FontWeight.bold)),
-                    IconButton(
-                        onPressed: () => cubit.navigateToAddCat(context, null),
-                        icon: Icon(CupertinoIcons.add_circled))
-                  ],
-                ),
-                BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
-                  builder: (context, state) {
-                    return GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 6,
-                        ),
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: cubit.categories
-                            .map((cat) => CategoryItemCardView(
-                                category: cat, cubit: cubit))
-                            .toList());
-                  },
-                ),
-                const Divider(),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text('Menu Items')
-                            .styled(size: 18, weight: FontWeight.bold)),
-                    IconButton(
-                        onPressed: () =>
-                            cubit.navigateToAddMenuItem(context, null),
-                        icon: Icon(CupertinoIcons.add_circled))
-                  ],
-                ),
-                BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
-                  builder: (context, state) {
-                    return GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 6,
-                        ),
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: cubit.items
-                            .map(
-                              (item) => InkWell(
-                                  onTap: () => cubit.navigateToAddMenuItem(
-                                      context, item),
-                                  child: MenuItemCardView(
-                                    item: item,
-                                    cubit: cubit,
-                                  )),
-                            )
-                            .toList());
-                  },
-                )
-              ],
+            body: Padding(
+              padding: const EdgeInsets.all(24),
+              child: ListView(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text('Offers')
+                              .styled(size: 18, weight: FontWeight.bold)),
+                      IconButton(
+                          onPressed: () =>
+                              cubit.navigateToAddOffer(context, null),
+                          icon: Icon(CupertinoIcons.add_circled))
+                    ],
+                  ),
+                  BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
+                    builder: (context, state) {
+                      return GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3,
+                          ),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: cubit.offers
+                              .map((offer) =>
+                                  OfferCardView(offer: offer, cubit: cubit))
+                              .toList());
+                    },
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text('Categories')
+                              .styled(size: 18, weight: FontWeight.bold)),
+                      IconButton(
+                          onPressed: () =>
+                              cubit.navigateToAddCat(context, null),
+                          icon: Icon(CupertinoIcons.add_circled))
+                    ],
+                  ),
+                  BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
+                    builder: (context, state) {
+                      return GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 6,
+                          ),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: cubit.categories
+                              .map((cat) => CategoryItemCardView(
+                                  category: cat, cubit: cubit))
+                              .toList());
+                    },
+                  ),
+                  const Divider(),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text('Menu Items')
+                              .styled(size: 18, weight: FontWeight.bold)),
+                      IconButton(
+                          onPressed: () =>
+                              cubit.navigateToAddMenuItem(context, null),
+                          icon: Icon(CupertinoIcons.add_circled))
+                    ],
+                  ),
+                  BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
+                    builder: (context, state) {
+                      return GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 6,
+                          ),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: cubit.items
+                              .map(
+                                (item) => InkWell(
+                                    onTap: () => cubit.navigateToAddMenuItem(
+                                        context, item),
+                                    child: MenuItemCardView(
+                                      item: item,
+                                      cubit: cubit,
+                                    )),
+                              )
+                              .toList());
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         );
