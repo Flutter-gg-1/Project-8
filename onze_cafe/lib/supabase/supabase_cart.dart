@@ -5,7 +5,7 @@ import 'client/supabase_mgr.dart';
 
 class SupabaseCart {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
-  static final String tableKey = 'cart';
+  static final String tableKey = 'cart_item';
 
   static Future<List<CartItem>>? fetchCart() async {
     try {

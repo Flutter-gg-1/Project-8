@@ -12,8 +12,8 @@ class TestView extends StatelessWidget {
   Future upsertItem() async {
     await SupabaseCart.upsertCartItem(
         cartItem: CartItem(
-            userId: '017c065f-3970-411f-a1e9-68cde68856e4',
-            menuItemId: '128c1da9-bc73-4a92-8b4d-631d22577201'));
+            userId: '99163a2e-fdd7-4ee8-aa14-6df8710c01da',
+            menuItemId: '9aef7e54-eef3-4f96-94dd-94a318cddf52'));
   }
 
   @override

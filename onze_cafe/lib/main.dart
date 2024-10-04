@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
 import 'package:onze_cafe/services/di_container.dart';
 import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
+import 'package:onze_cafe/test_view.dart';
 
 import 'app_theme/app_theme_cubit.dart';
 
@@ -41,7 +42,7 @@ class MainApp extends StatelessWidget {
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: themeMode,
-            home: LandingScreen(),
+            home: TestView(),
           );
         },
       ),
