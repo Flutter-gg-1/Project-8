@@ -24,7 +24,7 @@ class SupabaseCart {
   }
 
   static Future<void> readData() async {
-    var response = await supabase.from(tableKey).select().single();
+    var response = await supabase.from(tableKey).select();
     print(response);
   }
 
@@ -46,7 +46,7 @@ class SupabaseCart {
 
   static Future deleteCartItem(CartItem cartItem) async {
     if (cartItem.id == null) {
-      throw Exception('Could not find records of this category');
+      throw Exception('Could not find records of this cartItem');
     }
     try {
       await supabase.from(tableKey).delete().eq('id', cartItem.id!);
