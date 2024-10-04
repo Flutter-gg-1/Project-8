@@ -28,6 +28,9 @@ extension Img on ImageProvider {
       AssetImage('assets/illustrations/illustration_8.png');
   static const illustration9 =
       AssetImage('assets/illustrations/illustration_9.png');
+  static const illustration10 =
+      AssetImage('assets/illustrations/illustration_10.png');
+  static const star = AssetImage('assets/illustrations/star.png');
   static const box = AssetImage('assets/illustrations/box.png');
   static const an4 = AssetImage('assets/illustrations/an2.gif');
   static const an3 = AssetImage('assets/illustrations/an4 1.gif');
