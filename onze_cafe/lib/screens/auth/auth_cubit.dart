@@ -51,4 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
     isOtp = !isOtp;
     emit(UpdateUIState());
   }
+
+  void emitLoading() => emit(LoadingState());
+  void emitUpdate() => emit(UpdateUIState());
 }

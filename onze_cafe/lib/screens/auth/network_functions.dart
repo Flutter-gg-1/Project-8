@@ -11,6 +11,7 @@ extension NetworkFunctions on AuthCubit {
   // Sign Up
 
   Future signUp(BuildContext context) async {
+    emitLoading();
     try {
       final response = await SupabaseAuth.createAccount(
           emailController.text, passwordController.text);
@@ -19,6 +20,7 @@ extension NetworkFunctions on AuthCubit {
             context, response.toString(), AnimatedSnackBarType.success);
       }
       await Future.delayed(Duration(milliseconds: 50));
+      emitUpdate();
       toggleIsOtp();
     } catch (e) {
       if (context.mounted) {

@@ -16,6 +16,7 @@ extension CustomTextStyle on Text {
       maxLines: lineLimit,
       style: TextStyle(
         fontSize: size,
+        fontFamily: 'Poppins',
         color: color,
         fontWeight: weight,
         decoration: cross ? TextDecoration.lineThrough : TextDecoration.none,

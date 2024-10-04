@@ -22,14 +22,17 @@ extension NetworkFunctions on MenuCubit {
   }
 
   Future fetchMenuItems(BuildContext context) async {
+    //
     try {
       final response = await SupabaseMenu.fetchMenuItems();
       if (context.mounted) {
         showSnackBar(context, 'Menu Items finished loading',
             AnimatedSnackBarType.success);
       }
+      //
       return response;
     } catch (e) {
+      //
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }

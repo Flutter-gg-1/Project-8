@@ -10,3 +10,5 @@ final class UpdateUIState extends AuthState {}
 final class SuccessState extends AuthState {}
 
 final class ErrorState extends AuthState {}
+
+final class LoadingState extends AuthState {}
