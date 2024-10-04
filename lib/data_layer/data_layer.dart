@@ -12,6 +12,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class DataLayer {
   String? token;
   UserModel? user;
+  String? externalKey;
   OrderModel? order;
   List<ItemModel> items = [];
   List<ItemModel> allItems = [];
@@ -28,6 +29,7 @@ class DataLayer {
   saveAuth({required String token, required Map<String, dynamic> user}) async {
     await box.write('auth', token);
     await box.write('user', user);
+    await box.write('external_key', externalKey);
     await loadData();
   }
 
@@ -39,7 +41,7 @@ class DataLayer {
   }
 
   logout() async {
-    box.erase();
+    await box.erase();
     token = null;
     user = null;
   }
@@ -51,20 +53,26 @@ class DataLayer {
 
     if (box.hasData('user')) {
       user = UserModel.fromJson(Map<String, dynamic>.from(box.read('user')));
+      if (user!.role == 'employee') {
+        login(email: user!.email, password: '123123');
+      }
+    }
+    if (box.hasData('external_key')) {
+      externalKey = box.read('external_key').toString();
     }
   }
 
   fetchOrder() async {
     if (user != null) {
+      log('user ! null');
       final response = await supabase
           .from('orders')
           .select()
           .eq('user_id', user!.userId)
           .maybeSingle();
 
-      log('${response}');
-
       if (response == null) {
+        log('response = null');
         final insertResponse = await supabase
             .from('orders')
             .insert({
@@ -79,9 +87,9 @@ class DataLayer {
         }
         order = OrderModel.fromJson(insertResponse);
       } else {
-        if (!box.hasData('order')) {
-          await box.write('order', response);
-        }
+        log('response ! null');
+
+        await box.write('order', response);
         order = OrderModel.fromJson(response);
       }
     }
@@ -113,7 +121,7 @@ class DataLayer {
     }
 
     if (!itemExists) {
-      cart.addItem(item: item); // Add new item if it doesn't exist
+      cart.addItem(item: item);
     }
   }
 

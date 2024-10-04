@@ -7,4 +7,6 @@ final class ReceivedEvent extends TrackEvent {}
 
 final class PrepareEvent extends TrackEvent {}
 
+final class CheckOrderStatusEvent extends TrackEvent {}
+
 final class ReadyEvent extends TrackEvent {}

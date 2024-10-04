@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/Order_Tracking/track_bloc/track_bloc.dart';
+import 'package:onze_cafe/services/db_operations.dart';
 
 class OrderTracking extends StatefulWidget {
   const OrderTracking({super.key});
@@ -10,13 +11,21 @@ class OrderTracking extends StatefulWidget {
 }
 
 class _OrderTrackingState extends State<OrderTracking> {
+  @override
+  void initState() {
+    super.initState();
+
+    supabase.from('orders').stream(
+        primaryKey: ['status']).listen((List<Map<String, dynamic>> data) {});
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => TrackBloc()..add(ReceivedEvent()),
+      create: (context) => TrackBloc()..add(ReceivedEvent())..add(CheckOrderStatusEvent()),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -31,15 +40,15 @@ class _OrderTrackingState extends State<OrderTracking> {
           ),
           body: BlocBuilder<TrackBloc, TrackState>(
             builder: (context, state) {
-               int currentStep = 0;
+              int currentStep = 0;
 
-                    if (state is PrepareState) {
-                      currentStep = 1;
-                    }
-                    
-                    if (state is ReadyState) {
-                      currentStep = 2;
-                    }
+              if (state is PrepareState) {
+                currentStep = 1;
+              }
+
+              if (state is ReadyState) {
+                currentStep = 2;
+              }
               return Stack(
                 children: [
                   Container(

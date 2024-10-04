@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
+import 'package:onze_cafe/services/notification.dart';
 import 'package:onze_cafe/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,6 +29,11 @@ Future login({required String email, required String password}) async {
     await locator
         .get<DataLayer>()
         .saveAuth(token: authRes.session!.accessToken, user: user);
+    OneSignal.login(locator.get<DataLayer>().externalKey!);
+    await supabase
+        .from('app_user')
+        .update({'external_key': locator.get<DataLayer>().externalKey}).eq(
+            'user_id', user['user_id']);
     return authRes;
   } catch (error) {
     return Future.error(error);
@@ -74,6 +81,18 @@ Future createOrder(
 
 Future addItem({required OrderItemModel item}) async {
   try {
+    final orderStatus = await supabase
+        .from('orders')
+        .select('*')
+        .eq('order_id', locator.get<DataLayer>().order!.orderId)
+        .eq('status', 'complete')
+        .maybeSingle();
+
+    if (orderStatus != null) {
+      await supabase.from('orders').update({'status': 'incomplete'}).eq(
+          'order_id', locator.get<DataLayer>().order!.orderId);
+    }
+
     await supabase.from('order_item').insert({
       'item_id': item.itemId,
       'order_id': item.orderId,
@@ -97,6 +116,8 @@ Future<List<Map<String, dynamic>>> fetchAllOrders() async {
       .from('order_item')
       .select('*, orders(*), item(*)')
       .eq('item_status', 'incomplete');
+
+  await Future.delayed(const Duration(seconds: 1));
 
   return response;
 }
@@ -130,6 +151,25 @@ Future<void> markItemAsComplete(
           .from('orders')
           .update({'status': 'complete'}).eq('order_id', orderId);
 
+      // Get user_id
+      final order = await supabase
+          .from('orders')
+          .select('user_id')
+          .eq('order_id', orderId)
+          .single();
+
+      //  fetch external_key
+      final externalKeyResponse = await supabase
+          .from('app_user')
+          .select('external_key')
+          .eq('user_id', order['user_id'])
+          .single();
+
+      final String externalKey = externalKeyResponse['external_key'].toString();
+
+      // Notify user
+      sendNotification(externalKey: externalKey);
+
       await supabase.from('order_item').delete().eq('order_id', orderId);
     }
   } catch (error) {
@@ -146,7 +186,7 @@ Future<void> cancelOrderItem(
         .delete()
         .eq('item_id', itemId)
         .eq('order_id', orderId);
-    
+
     // make order status complete if all items are complete
     final items = await supabase
         .from('order_item')
