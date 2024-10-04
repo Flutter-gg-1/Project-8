@@ -64,4 +64,7 @@ class OrderCubit extends Cubit<OrderState> {
       ),
     );
   }
+
+  void emitLoading() => LoadingState();
+  void emitUpdate() => UpdateUIState();
 }

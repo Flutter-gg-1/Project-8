@@ -7,6 +7,7 @@ import 'package:onze_cafe/supabase/supabase_profile.dart';
 extension NetworkFunctions on EditProfileCubit {
   Future updateProfile(BuildContext context) async {
     try {
+      emitLoading();
       final response = await SupabaseProfile.updateProfile(
           profile: Profile(
             name: nameController.text,
@@ -18,7 +19,9 @@ extension NetworkFunctions on EditProfileCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
+       emitUpdate();
     } catch (e) {
+       emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }

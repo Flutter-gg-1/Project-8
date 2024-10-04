@@ -8,13 +8,16 @@ import 'menu_cubit.dart';
 extension NetworkFunctions on MenuCubit {
   Future fetchCategories(BuildContext context) async {
     try {
+      emitLoading();
       final response = await SupabaseCategory.fetchCategories();
       if (context.mounted) {
         showSnackBar(context, 'Categories finished loading',
             AnimatedSnackBarType.success);
       }
+      emitUpdate();
       return response;
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
@@ -24,15 +27,17 @@ extension NetworkFunctions on MenuCubit {
   Future fetchMenuItems(BuildContext context) async {
     //
     try {
+      emitLoading();
       final response = await SupabaseMenu.fetchMenuItems();
       if (context.mounted) {
         showSnackBar(context, 'Menu Items finished loading',
             AnimatedSnackBarType.success);
       }
-      //
+
+      emitUpdate();
       return response;
     } catch (e) {
-      //
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
