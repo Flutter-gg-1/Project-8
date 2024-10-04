@@ -150,7 +150,7 @@ class DataLayer {
         .select("*")
         .eq("item_type", dbItemType!);
 
-    if (response == null || response.isEmpty) {
+    if (response.isEmpty) {
       throw Exception('No products found');
     }
 

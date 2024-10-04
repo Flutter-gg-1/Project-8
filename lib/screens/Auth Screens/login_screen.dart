@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/auth_bloc/auth_bloc.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/register_screen.dart';
-import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

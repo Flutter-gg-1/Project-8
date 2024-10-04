@@ -1,4 +1,3 @@
-import 'package:onze_cafe/models/item_model.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
 
 class CartModel {

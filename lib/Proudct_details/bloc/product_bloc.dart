@@ -34,7 +34,7 @@ class ProductDetailsBloc extends Bloc<ProductEvent, ProductState> {
 
     on<ChangeSizeEvent>((event, emit) {
       print(event.selectedSize.toString());
-      final size = event.selectedSize ?? '8 oz';
+      final size = event.selectedSize;
       emit(ProductSizeUpdated(size));
     });
   }

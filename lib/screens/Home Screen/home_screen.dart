@@ -10,7 +10,6 @@ import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
 import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
-import 'package:onze_cafe/utils/launch_url.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -75,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen>
                     child: Hero(
                       tag: product.id.toString(),
                       child: Padding(
-                        padding: EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(top: 20),
                         child: CoffeeCard(
                           size: size,
                           name: product.name,
@@ -116,12 +115,12 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          const Color(0xff3D6B7D),
-                          const Color(0xff87B1C5),
+                          Color(0xff3D6B7D),
+                          Color(0xff87B1C5),
                         ],
                       ),
                       boxShadow: [
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen>
                           'assets/cup1 1.png',
                         ];
                         return Transform.translate(
-                          offset: Offset(0, 150),
+                          offset: const Offset(0, 150),
                           child: ClipRRect(
                             child: Image.asset(
                               imagePaths[index],
@@ -231,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen>
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CartScreen()),
+                        MaterialPageRoute(builder: (context) => const CartScreen()),
                       );
                     },
                     child: const Icon(
