@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/auth_bloc/auth_bloc.dart';
+import 'package:onze_cafe/screens/Auth%20Screens/first_screen.dart';
 import 'package:onze_cafe/screens/Auth%20Screens/register_screen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is SuccessfulLoginState) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  MaterialPageRoute(builder: (context) => const FirstScreen()));
             }
             if (state is ErrorState) {
               ScaffoldMessenger.of(context)

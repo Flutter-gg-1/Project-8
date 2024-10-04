@@ -5,11 +5,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/screens/cart_screen/cart_item_card.dart';
 import 'package:onze_cafe/services/db_operations.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({super.key});
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -34,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
       switch (result.status) {
         case PaymentStatus.paid:
           saveOrder(totalPrice: totalPrice);
+          locator.get<DataLayer>().cart.clearCart();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Payment successful!'),
           ));
@@ -70,7 +72,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
-            const Color(0xff74a0b2), // Use the same color as HomeScreen
+            const Color(0xff74a0b2),
         elevation: 0,
         title: Text(
           'Your Cart',
@@ -81,13 +83,36 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
         iconTheme: const IconThemeData(
-          color: Colors.white, // Icon color white to match the theme
+          color: Colors.white,
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: const Text(
+                        'Do you want to delete all items in cart?',
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              locator.get<DataLayer>().cart.clearCart();
+                              Navigator.pop(context);
+                            },
+                            child: const Text('YES')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('No'))
+                      ],
+                    );
+                  });
+            },
             icon: const Icon(
-              Icons.delete_outline, // Trash icon to remove all items from cart
+              Icons.delete_outline,
               color: Colors.white,
             ),
           ),
@@ -270,104 +295,6 @@ class _CartScreenState extends State<CartScreen> {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
-      ),
-    );
-  }
-}
-
-class CartItemCard extends StatelessWidget {
-  final Size size;
-  final ItemModel item;
-  int quantity;
-  CartItemCard(
-      {super.key,
-      required this.size,
-      required this.item,
-      required this.quantity});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xfff0e5d8),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              item.imageUrl,
-              width: size.width * 0.25,
-              height: size.width * 0.25,
-              fit: BoxFit.contain,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: size.width * 0.045,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                'SAR ${item.price}',
-                style: TextStyle(
-                  fontSize: size.width * 0.04,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xffbc793d),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      quantity++;
-                    },
-                    icon: const Icon(Icons.remove, color: Colors.black),
-                  ),
-                  Text(
-                    '$quantity',
-                    style: TextStyle(
-                      fontSize: size.width * 0.04,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      if (quantity > 1) quantity--;
-                    },
-                    icon: const Icon(Icons.add, color: Colors.black),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.delete_outline,
-              color: Colors.red,
-            ),
-          ),
-        ],
       ),
     );
   }

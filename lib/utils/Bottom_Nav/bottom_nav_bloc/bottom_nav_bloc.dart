@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:onze_cafe/screens/Coffee%20Screen/coffee_screen.dart';
+import 'package:onze_cafe/screens/Employee%20Screen/employee_screen.dart';
 import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 import 'package:onze_cafe/screens/profile/profile.dart';
@@ -15,7 +15,7 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
     HomeScreen(),
     ProfileScreen(),
     CartScreen(),
-    CoffeeScreen()
+    EmployeeScreen()
   ];
 
   int currentIndex = 0;

@@ -5,10 +5,15 @@ sealed class EmployeeState {}
 
 final class EmployeeInitial extends EmployeeState {}
 
+final class LoadingState extends EmployeeState {}
+
 final class SuccessfullLoadState extends EmployeeState {
   final List<dynamic> orders;
 
   SuccessfullLoadState({required this.orders});
+}
+final class FailedLoadState extends EmployeeState {
+
 }
 
 final class ReadySuccessState extends EmployeeState {}

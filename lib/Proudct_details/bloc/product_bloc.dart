@@ -12,11 +12,6 @@ class ProductDetailsBloc extends Bloc<ProductEvent, ProductState> {
     on<AddToCartEvent>((event, emit) async {
       emit(ProductDetailsLoading());
       try {
-        print(event.itemId);
-        print(event.orderId);
-        print(event.quantity);
-        print(event.price);
-
         await locator.get<DataLayer>().addItem(
               item: OrderItemModel.fromJson({
                 'item_id': event.itemId,
@@ -27,7 +22,7 @@ class ProductDetailsBloc extends Bloc<ProductEvent, ProductState> {
             );
         emit(ProductDetailsSuccess('Added to cart!'));
       } catch (e) {
-        print('Error: $e');
+
 
         emit(ProductDetailsFailure('Failed to add to cart. $e'));
       }
