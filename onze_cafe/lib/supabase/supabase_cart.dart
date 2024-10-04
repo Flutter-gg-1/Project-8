@@ -10,10 +10,10 @@ class SupabaseCart {
   static Future<List<CartItem>>? fetchCart() async {
     try {
       var res = await supabase.from(tableKey).select();
-      List<CartItem> categories = (res as List)
+      List<CartItem> cartItems = (res as List)
           .map((item) => CartItem.fromJson(item as Map<String, dynamic>))
           .toList();
-      return categories;
+      return cartItems;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {
@@ -27,7 +27,7 @@ class SupabaseCart {
     try {
       var response = await supabase.from(tableKey).upsert(
             cartItem.toJson(),
-            onConflict: 'name',
+            onConflict: 'menu_item_id',
           );
 
       return response;

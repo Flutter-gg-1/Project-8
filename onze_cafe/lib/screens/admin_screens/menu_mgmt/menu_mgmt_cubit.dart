@@ -6,8 +6,10 @@ import 'package:onze_cafe/screens/admin_screens/menu_mgmt/add_category/add_categ
 import 'package:onze_cafe/screens/admin_screens/menu_mgmt/network_functions.dart';
 
 import '../../../model/menu_item.dart';
+import '../../../model/offer.dart';
 import '../../../reusable_components/animated_snackbar.dart';
 import 'add_menu_item/add_menu_item_screen.dart';
+import 'add_offer/add_offer_screen.dart';
 
 part 'menu_mgmt_state.dart';
 
@@ -17,6 +19,16 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
   }
   List<MenuCategory> categories = [];
   List<MenuItem> items = [];
+  List<Offer> offers = [];
+
+  loadInitialValues(BuildContext context) async {
+    emit(LoadingState());
+    categories = await fetchCategories(context);
+    if (context.mounted) items = await fetchMenuItems(context);
+    if (context.mounted) offers = await fetchMenuOffers(context);
+    await Future.delayed(Duration(milliseconds: 50));
+    emit(UpdateUIState());
+  }
 
   navigateToAddCat(BuildContext context, MenuCategory? cat) =>
       Navigator.of(context)
@@ -42,11 +54,17 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
     });
   }
 
-  loadInitialValues(BuildContext context) async {
-    categories = await fetchCategories(context);
-    if (context.mounted) items = await fetchMenuItems(context);
-    await Future.delayed(Duration(milliseconds: 50));
-    emit(UpdateUIState());
+  navigateToAddOffer(BuildContext context, Offer? offer) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+            builder: (context) =>
+                AddOfferScreen(offer: offer, menuItems: items)))
+        .then((itemAdded) {
+      if (context.mounted && itemAdded == true) {
+        showSnackBar(context, 'Item Added', AnimatedSnackBarType.success);
+        loadInitialValues(context);
+      }
+    });
   }
 
   void showSnackBar(

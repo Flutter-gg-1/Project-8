@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/profile.dart';
 import 'package:onze_cafe/screens/order/orders_screen.dart';
+import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 
 import '../profile/profile_screen.dart';
 
@@ -15,7 +15,7 @@ class DrawerCubit extends Cubit<DrawerState> {
   bool isDarkMode = false;
 
   void fetchProfile() {
-    profile = MockData().profiles.firstOrNull;
+    profile = SupabaseMgr.shared.currentProfile;
     emit(UpdateUIState());
   }
 

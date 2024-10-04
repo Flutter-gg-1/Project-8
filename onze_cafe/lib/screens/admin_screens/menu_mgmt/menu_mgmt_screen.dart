@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/screens/admin_screens/menu_mgmt/menu_mgmt_cubit.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/subviews/category_item_card_view.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/subviews/menu_item_card_view.dart';
+import 'package:onze_cafe/screens/admin_screens/menu_mgmt/subviews/offer_card_view.dart';
 
 import '../../../extensions/color_ext.dart';
 
@@ -34,7 +36,35 @@ class MenuMgmtScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Expanded(child: Text('Categories').styled()),
+                    Expanded(
+                        child: Text('Offers')
+                            .styled(size: 18, weight: FontWeight.bold)),
+                    IconButton(
+                        onPressed: () =>
+                            cubit.navigateToAddOffer(context, null),
+                        icon: Icon(CupertinoIcons.add_circled))
+                  ],
+                ),
+                BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
+                  builder: (context, state) {
+                    return GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 3,
+                        ),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: cubit.offers
+                            .map((offer) =>
+                                OfferCardView(offer: offer, cubit: cubit))
+                            .toList());
+                  },
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text('Categories')
+                            .styled(size: 18, weight: FontWeight.bold)),
                     IconButton(
                         onPressed: () => cubit.navigateToAddCat(context, null),
                         icon: Icon(CupertinoIcons.add_circled))
@@ -42,19 +72,25 @@ class MenuMgmtScreen extends StatelessWidget {
                 ),
                 BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
                   builder: (context, state) {
-                    return Column(
+                    return GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 6,
+                        ),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         children: cubit.categories
-                            .map((cat) => TextButton(
-                                onPressed: () =>
-                                    cubit.navigateToAddCat(context, cat),
-                                child: Text(cat.name)))
+                            .map((cat) => CategoryItemCardView(
+                                category: cat, cubit: cubit))
                             .toList());
                   },
                 ),
                 const Divider(),
                 Row(
                   children: [
-                    Expanded(child: Text('Menu Items')),
+                    Expanded(
+                        child: Text('Menu Items')
+                            .styled(size: 18, weight: FontWeight.bold)),
                     IconButton(
                         onPressed: () =>
                             cubit.navigateToAddMenuItem(context, null),
@@ -75,7 +111,7 @@ class MenuMgmtScreen extends StatelessWidget {
                               (item) => InkWell(
                                   onTap: () => cubit.navigateToAddMenuItem(
                                       context, item),
-                                  child: _MenuItemCardView(
+                                  child: MenuItemCardView(
                                     item: item,
                                     cubit: cubit,
                                   )),
@@ -88,40 +124,6 @@ class MenuMgmtScreen extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class _MenuItemCardView extends StatelessWidget {
-  const _MenuItemCardView({super.key, required this.item, required this.cubit});
-  final MenuItem item;
-  final MenuMgmtCubit cubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        children: [
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.all(4),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(item.imgUrl ?? '')),
-          )),
-          Expanded(
-              flex: 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(item.name).styled(weight: FontWeight.bold),
-                  Text(
-                      'Category: ${cubit.categories.where((cat) => cat.id == item.categoryId).toList().firstOrNull?.name ?? ''}'),
-                ],
-              ))
-        ],
-      ),
     );
   }
 }

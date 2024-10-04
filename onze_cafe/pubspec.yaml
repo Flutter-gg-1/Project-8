@@ -26,6 +26,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   pull_to_refresh: ^2.0.0
   fl_chart: ^0.69.0
+  syncfusion_flutter_datepicker: ^27.1.51
 
 dev_dependencies:
   flutter_test:

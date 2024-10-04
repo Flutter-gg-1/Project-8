@@ -22,6 +22,8 @@ class AddMenuItemCubit extends Cubit<AddMenuItemState> {
   var ozController = TextEditingController();
   MenuCategory? selectedCategory;
   File? imgFile;
+  var menuItem =
+      MenuItem(categoryId: '', name: '', calories: 0, price: 0, oz: 0);
 
   loadInitialValues(MenuItem? item, List<MenuCategory> categories) async {
     emitLoading();
@@ -30,9 +32,26 @@ class AddMenuItemCubit extends Cubit<AddMenuItemState> {
     priceController.text = item?.price.toString() ?? '';
     ozController.text = item?.oz.toString() ?? '';
     selectedCategory = categories.first;
+    menuItem.imgUrl = item?.imgUrl;
 
     await Future.delayed(Duration(milliseconds: 50));
     emitUpdate();
+  }
+
+  updateMenuItem() {
+    try {
+      final int calories = int.parse(caloriesController.text);
+      final double price = double.parse(priceController.text);
+      final double oz = double.parse(ozController.text);
+
+      menuItem.categoryId = selectedCategory?.id ?? '';
+      menuItem.name = nameController.text;
+      menuItem.calories = calories;
+      menuItem.price = price;
+      menuItem.oz = oz;
+    } catch (_) {
+      rethrow;
+    }
   }
 
   void getImage() async {
