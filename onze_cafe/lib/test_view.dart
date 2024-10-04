@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/supabase/supabase_cart.dart';
 
-import 'supabase/supabase_offer.dart';
+import 'supabase/supabase_order.dart';
 
 class TestView extends StatelessWidget {
   const TestView({super.key});
 
   void fetchCartItems() {
-    SupabaseOffer.fetchOffer();
+    SupabasePOrder.fetchPlacedOrder();
   }
 
   Future upsertItem() async {
-    await SupabaseOffer.readData();
+    await SupabasePOrder.readData();
   }
 
   @override
