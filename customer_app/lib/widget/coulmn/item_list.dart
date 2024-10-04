@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/screens/order/order_info.dart';
 import 'package:customer_app/widget/inkwell/product_item.dart';
@@ -17,7 +15,10 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredItems = locator.menu.where((e) => e.type?.trim() == type.trim()).toList();
+    final filteredItems = locator.menu
+        .where((e) =>
+            e.type?.trim() == type.trim() && e.name != null && e.price != null)
+        .toList();
 
     return ListView.builder(
       padding: EdgeInsets.zero,

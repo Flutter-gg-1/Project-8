@@ -174,37 +174,42 @@ class HomeScreen extends StatelessWidget {
             )
           ],
         ),
-        body: Container(
-          padding: EdgeInsets.only(
-            bottom: context.getHeight(multiply: 0.05),
-            top: context.getHeight(multiply: 0.1),
-          ),
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/image/background2.png'),
-                  fit: BoxFit.cover)),
-          child: Center(
-            child: Column(
-              children: [
-                const CustomTextFormFelid(
-                  label: '',
-                  hint: 'Find your coffee',
-                  prefixIcon: Icon(Bootstrap.search_heart),
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                pinned: true,
+                floating: false,
+                expandedHeight: context.getHeight(multiply: 0.4),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Column(
+                    children: [
+                      SizedBox(height: context.getHeight(multiply: 0.1)),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CustomTextFormFelid(
+                          label: '',
+                          hint: 'Find your coffee',
+                          prefixIcon: Icon(Bootstrap.search_heart),
+                        ),
+                      ),
+                      Image.asset('assets/image/homegroup.png'),
+                    ],
+                  ),
                 ),
-                context.addSpacer(multiply: 0.02),
-                Image.asset('assets/image/homegroup.png'),
-                context.addSpacer(multiply: 0.02),
-                const MenuTypes(),
-                context.addSpacer(multiply: 0.01),
-                SizedBox(
-                  height: context.getHeight(multiply: 0.4),
-                  child: const MenuOption(),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(kToolbarHeight),
+                  child: MenuTypes(),
                 ),
-              ],
-            ),
-          ),
+              ),
+            ];
+          },
+          body: SizedBox.shrink(child: const MenuOption())
         ),
       ),
     );
   }
 }
+
+
