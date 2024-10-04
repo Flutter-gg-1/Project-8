@@ -56,6 +56,7 @@ class LoginScreen extends StatelessWidget {
               // backgroundColor: Colors.transparent,
               body: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/image/logo.png'),
                     context.addSpacer(multiply: 0.04),
