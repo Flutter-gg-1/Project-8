@@ -2,7 +2,7 @@ part of 'product_bloc.dart';
 
 @immutable
 sealed class ProductEvent {}
-class AddToCartEvent extends ProductEvent {
+final class AddToCartEvent extends ProductEvent {
   final int itemId;
   final int orderId;
   final int quantity;
@@ -16,13 +16,13 @@ class AddToCartEvent extends ProductEvent {
   });
 }
 
-class ChangeQuantityEvent extends ProductEvent {
+final class ChangeQuantityEvent extends ProductEvent {
   final int quantity;
 
   ChangeQuantityEvent(this.quantity);
 }
 
-class ChangeSizeEvent extends ProductEvent {
+final class ChangeSizeEvent extends ProductEvent {
   final String selectedSize;
   ChangeSizeEvent(this.selectedSize);
 }

@@ -104,11 +104,14 @@ Future addItem({required OrderItemModel item}) async {
   }
 }
 
-saveOrder({required double totalPrice}) async {
+saveOrder({required double totalPrice, required int orderId}) async {
   for (var item in locator.get<DataLayer>().cart.items) {
     addItem(item: item);
   }
-  await supabase.from('orders').update({'total_price': totalPrice});
+  await supabase
+      .from('orders')
+      .update({'total_price': totalPrice})
+      .eq('order_id', orderId);
 }
 
 Future<List<Map<String, dynamic>>> fetchAllOrders() async {

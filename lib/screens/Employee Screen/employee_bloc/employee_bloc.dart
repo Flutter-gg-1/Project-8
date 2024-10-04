@@ -64,7 +64,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
       LoadEvent event, Emitter<EmployeeState> emit) async {
     try {
       emit(LoadingState());
-      final orders = locator.get<DataLayer>().orders;
+      final orders = await fetchAllOrders();
       if (orders.isNotEmpty) {
         emit(SuccessfullLoadState(orders: orders));
       } else {

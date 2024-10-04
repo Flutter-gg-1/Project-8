@@ -22,17 +22,16 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
   FutureOr<void> receiveOrder(ReceivedEvent event, Emitter<TrackState> emit) {
     emit(ReceivedState());
-    Timer(const Duration(seconds: 3), () {
-      if(state is! ReadyState){
-
-      add(PrepareEvent());
+    Timer(const Duration(seconds: 2), () {
+      if (state is! ReadyState) {
+        add(PrepareEvent());
       }
     });
   }
 
   void initializeListener() async {
     log('Initializing channel for order updates...');
-
+    add(CheckOrderStatusEvent());
     channel = supabase
         .channel('public:orders')
         .onPostgresChanges(
@@ -69,6 +68,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
   FutureOr<void> checkOrderStatus(
       CheckOrderStatusEvent event, Emitter<TrackState> emit) async {
+        await Future.delayed(const Duration(seconds: 3));
     final status = await supabase
         .from('orders')
         .select('status')

@@ -1,11 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/screens/Order_Tracking/order_trcking.dart';
+import 'package:onze_cafe/screens/cart_screen/cart_bloc/cart_bloc.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_item_card.dart';
-import 'package:onze_cafe/services/db_operations.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CartScreen extends StatefulWidget {
@@ -16,51 +16,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  double totalPrice = 0;
-
-  PaymentConfig pay() {
-    final paymentConfig = PaymentConfig(
-      publishableApiKey: '${dotenv.env['moyasar_test_key']}',
-      amount: (totalPrice * 100).toInt(),
-      description: 'Onze Order',
-      metadata: {'orderId': '1', 'customer': 'customer'},
-      creditCard: CreditCardConfig(saveCard: true, manual: false),
-    );
-    return paymentConfig;
-  }
-
-  void onPaymentResult(result, BuildContext context) {
-    if (result is PaymentResponse) {
-      switch (result.status) {
-        case PaymentStatus.paid:
-          saveOrder(totalPrice: totalPrice);
-          locator.get<DataLayer>().cart.clearCart();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Payment successful!'),
-          ));
-          Navigator.pop(context, 'Payment successful');
-          break;
-        case PaymentStatus.failed:
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Payment failed. Try again.'),
-          ));
-          break;
-        case PaymentStatus.initiated:
-        case PaymentStatus.authorized:
-        case PaymentStatus.captured:
-      }
-    }
-  }
-
-  getTotalPrice() async {
-    for (var item in locator.get<DataLayer>().cart.items) {
-      totalPrice += item.price * item.quantity;
-    }
-  }
-
   @override
   void initState() {
-    getTotalPrice();
     super.initState();
   }
 
@@ -68,142 +25,162 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor:
-            const Color(0xff74a0b2),
-        elevation: 0,
-        title: Text(
-          'Your Cart',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: size.width * 0.07,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: const Text(
-                        'Do you want to delete all items in cart?',
-                      ),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              locator.get<DataLayer>().cart.clearCart();
-                              Navigator.pop(context);
-                            },
-                            child: const Text('YES')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('No'))
-                      ],
-                    );
-                  });
-            },
-            icon: const Icon(
-              Icons.delete_outline,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
-              child: ListView.builder(
-                itemCount: locator.get<DataLayer>().cart.items.length,
-                itemBuilder: (context, index) {
-                  ItemModel? item;
-                  for (var element in locator.get<DataLayer>().allItems) {
-                    if (element.id ==
-                        locator.get<DataLayer>().cart.items[index].itemId) {
-                      item = element;
-                    }
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: CartItemCard(
-                        size: size,
-                        item: item!,
-                        quantity: locator
-                            .get<DataLayer>()
-                            .cart
-                            .items[index]
-                            .quantity),
-                  );
-                },
-              ),
-            ),
-          ),
-          // Total and Proceed to Checkout
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                color: const Color(0xff74a0b2),
-                padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: size.width * 0.05,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '$totalPrice SAR',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: size.width * 0.05,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                color: const Color(0xffbc793d),
-                child: TextButton(
-                  onPressed: () {
-                    _showPaymentBottomSheet(context, size);
-                  },
-                  child: Text(
-                    'Proceed to Checkout',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: size.width * 0.05,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return BlocProvider(
+      create: (context) => CartBloc()..add(CartLoadEvent()),
+      child: Builder(builder: (context) {
+        return BlocConsumer<CartBloc, CartState>(
+          listener: (context, state) {
+            if (state is CartSuccessState) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+          builder: (context, state) {
+            final bloc = context.read<CartBloc>();
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: const Color(0xff74a0b2),
+                elevation: 0,
+                title: Text(
+                  'Your Cart',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: size.width * 0.07,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: const Text(
+                                'Do you want to delete all items in cart?',
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      bloc.add(DeleteAllCartEvent());
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('YES')),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('No'))
+                              ],
+                            );
+                          });
+                    },
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
-      ),
+              body: Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * 0.025),
+                      child: ListView.builder(
+                        itemCount: bloc.items.length,
+                        itemBuilder: (context, index) {
+                          ItemModel? item;
+                          for (var element
+                              in locator.get<DataLayer>().allItems) {
+                            if (element.id ==
+                                locator
+                                    .get<DataLayer>()
+                                    .cart
+                                    .items[index]
+                                    .itemId) {
+                              item = element;
+                            }
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: CartItemCard(
+                              size: size,
+                              item: item!,
+                              quantity: bloc.items[index].quantity,
+                              bloc: bloc,
+                              orderItem: bloc.items[index],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  // Total and Proceed to Checkout
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        color: const Color(0xff74a0b2),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.05, vertical: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total:',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: size.width * 0.05,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${bloc.totalPrice} SAR',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: size.width * 0.05,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        color: const Color(0xffbc793d),
+                        child: TextButton(
+                          onPressed: () async {
+                            _showPaymentBottomSheet(context, size, bloc);
+                          },
+                          child: Text(
+                            'Proceed to Checkout',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: size.width * 0.05,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 
-  void _showPaymentBottomSheet(BuildContext context, Size size) {
+  void _showPaymentBottomSheet(BuildContext context, Size size, CartBloc bloc) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
@@ -216,69 +193,23 @@ class _CartScreenState extends State<CartScreen> {
         return Padding(
           padding: const EdgeInsets.all(12),
           child: CreditCard(
-            config: pay(),
-            onPaymentResult: (result) => onPaymentResult(result, context),
+            config: bloc.pay(),
+            onPaymentResult: (result) async {
+              bloc.onPaymentResult(result, context);
+              Navigator.pop(context, 'Payment successful');
+            },
           ),
         );
-        // return Padding(
-        //   padding: const EdgeInsets.all(20.0),
-        //   child: Column(
-        //     mainAxisSize: MainAxisSize.min,
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Text(
-        //         'Payment Details',
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: size.width * 0.06,
-        //           fontWeight: FontWeight.bold,
-        //         ),
-        //       ),
-        //       const SizedBox(height: 20),
-        //       _buildTextField('Cardholder Name', Icons.person, size),
-        //       const SizedBox(height: 10),
-        //       _buildTextField('Card Number', Icons.credit_card, size),
-        //       const SizedBox(height: 10),
-        //       Row(
-        //         children: [
-        //           Expanded(
-        //               child: _buildTextField(
-        //                   'Expiry Date', Icons.date_range, size)),
-        //           const SizedBox(width: 10),
-        //           Expanded(child: _buildTextField('CVC', Icons.lock, size)),
-        //         ],
-        //       ),
-        //       const SizedBox(height: 20),
-        //       Center(
-        //         child: ElevatedButton(
-        //           style: ElevatedButton.styleFrom(
-        //             backgroundColor: const Color(0xffbc793d),
-        //             padding: EdgeInsets.symmetric(
-        //               horizontal: size.width * 0.3,
-        //               vertical: 14,
-        //             ),
-        //             shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.circular(15),
-        //             ),
-        //           ),
-        //           onPressed: () {
-        //             Navigator.pop(context);
-        //           },
-        //           child: Text(
-        //             'Pay',
-        //             style: TextStyle(
-        //               color: Colors.white,
-        //               fontSize: size.width * 0.05,
-        //               fontWeight: FontWeight.bold,
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // );
       },
-    );
+    ).then((value) async {
+      if (value == 'Payment successful') {
+        await Future.delayed(const Duration(seconds: 5));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const OrderTracking()),
+        );
+      }
+    });
   }
 
   Widget _buildTextField(String hint, IconData icon, Size size) {

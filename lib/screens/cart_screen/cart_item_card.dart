@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/models/item_model.dart';
+import 'package:onze_cafe/models/order_item_model.dart';
+import 'package:onze_cafe/screens/cart_screen/cart_bloc/cart_bloc.dart';
 
 class CartItemCard extends StatelessWidget {
   final Size size;
   final ItemModel item;
-  // final CartBloc bloc;
+  final CartBloc bloc;
+  final OrderItemModel orderItem;
   int quantity;
   CartItemCard(
       {super.key,
       required this.size,
       required this.item,
       required this.quantity,
-      // required this.bloc
-      });
+      required this.bloc,
+      required this.orderItem});
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +70,15 @@ class CartItemCard extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      quantity++;
+                      if (quantity > 1) {
+                        bloc.add(
+                            CartUpdateQuantityEvent(orderItem, quantity - 1));
+                      }
                     },
                     icon: const Icon(Icons.remove, color: Colors.black),
                   ),
                   Text(
-                    '$quantity',
+                    '${orderItem.quantity}',
                     style: TextStyle(
                       fontSize: size.width * 0.04,
                       fontWeight: FontWeight.bold,
@@ -80,7 +86,8 @@ class CartItemCard extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      if (quantity > 1) quantity--;
+                      bloc.add(
+                          CartUpdateQuantityEvent(orderItem, quantity + 1));
                     },
                     icon: const Icon(Icons.add, color: Colors.black),
                   ),
@@ -90,7 +97,9 @@ class CartItemCard extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              bloc.add(CartDeleteItemEvent(orderItem));
+            },
             icon: const Icon(
               Icons.delete_outline,
               color: Colors.red,

@@ -109,11 +109,16 @@ class DataLayer {
     return response;
   }
 
-  addItem({required OrderItemModel item}) async {
+  addItem({required OrderItemModel item, int? quantity}) async {
     bool itemExists = false;
 
     for (var e in cart.items) {
       if (e.itemId == item.itemId) {
+        if (quantity != null) {
+          e.quantity += quantity;
+          itemExists = true;
+          break;
+        }
         e.quantity++;
         itemExists = true;
         break;

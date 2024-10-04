@@ -19,7 +19,7 @@ class OrderItemModel {
       orderId: json['order_id'],
       quantity: json['quantity'],
       price: json['price'],
-      status: json['item_status']
+      status: json['item_status'] ?? 'incomplete'
     );
   }
 

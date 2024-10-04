@@ -256,9 +256,6 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                               onPressed: () {
                                                 bloc.add(
                                                     ReadyEvent(order: order));
-                                                // markItemAsComplete(
-                                                //     orderId: order['order_id'],
-                                                //     itemId: order['item']['id']);
                                               },
                                               child: const Text(
                                                 'Ready',
