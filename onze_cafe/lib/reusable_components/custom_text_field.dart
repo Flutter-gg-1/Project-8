@@ -28,6 +28,7 @@ class CustomTextField extends StatelessWidget {
         style: TextStyle(color: C.text(brightness)),
         readOnly: readOnly,
         maxLines: max,
+        // obscureText: ,
         minLines: 1,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
