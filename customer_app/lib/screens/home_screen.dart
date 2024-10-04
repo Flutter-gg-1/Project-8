@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
+import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/screens/cart/cart_screen.dart';
@@ -20,7 +21,9 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, });
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +199,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: context.getHeight(multiply: 0.4),
                   child: const MenuOption(),
-                )
+                ),
               ],
             ),
           ),

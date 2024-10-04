@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/screens/order/order_info.dart';
 import 'package:customer_app/widget/inkwell/product_item.dart';
@@ -17,7 +19,7 @@ class ItemList extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
           children: locator.menu
-              .map((e) => e.type == type
+              .map((e) => e.type?.trim() == type.trim()
                   ? ProductItem(
                       name: e.name!,
                       price: e.price!,

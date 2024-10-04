@@ -1,3 +1,4 @@
+import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/auth/cubit/auth_cubit/auth_cubit.dart';
 import 'package:customer_app/screens/auth/otp_screen.dart';
@@ -35,13 +36,7 @@ class LoginScreen extends StatelessWidget {
             }
 
             if (state is LoadingState) {
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) => const Center(
-                          child: CircularProgressIndicator(
-                        color: Colors.white,
-                      )));
+              context.showLoadingDialog();
             }
 
             if (state is SuccessState) {
