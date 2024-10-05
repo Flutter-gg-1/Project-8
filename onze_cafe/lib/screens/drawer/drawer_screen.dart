@@ -127,7 +127,7 @@ class DrawerScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Image(image: Img.illustration14)),
+                    child: Image(image: Img.an11)),
               )
             ],
           ),

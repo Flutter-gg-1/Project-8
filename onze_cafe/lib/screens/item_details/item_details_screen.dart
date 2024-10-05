@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
@@ -6,7 +5,8 @@ import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 import 'package:onze_cafe/reusable_components/count_view.dart';
 import 'package:onze_cafe/screens/item_details/network_functions.dart';
 import 'package:onze_cafe/screens/item_details/subviews/coffee_strength_view.dart';
@@ -50,15 +50,13 @@ class ItemDetailsScreen extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 40.0, horizontal: 8),
-                              child: IconButton(
-                                  onPressed: () => cubit.navigateBack(context),
-                                  icon: Icon(
-                                      CupertinoIcons.chevron_left_square_fill),
-                                  iconSize: 40,
-                                  color: C.bg1(brightness)),
-                            ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 45.0, horizontal: 8),
+                                child: SizedBox(
+                                    width: 55,
+                                    height: 55,
+                                    child: CustomeBackBtn(
+                                        brightness: brightness))),
                             Column(
                               children: [
                                 AspectRatio(
@@ -90,47 +88,42 @@ class ItemDetailsScreen extends StatelessWidget {
                                                 .withOpacity(0.5),
                                           ),
                                         ),
+                                        CoffeeStrengthView(cubit: cubit),
+                                        SizedBox(height: 12),
                                         MilkSliderView(
                                           cubit: cubit,
                                           milkOption: cubit
                                               .milkOptions[cubit.milkSlider],
                                         ),
-                                        SizedBox(height: 8),
-                                        CoffeeStrengthView(cubit: cubit),
-                                        CountView(
-                                          count: cubit.quantity,
-                                          onDecrement: cubit.decrementCount,
-                                          onIncrement: cubit.incrementCount,
-                                          iconColor: C.accent(brightness),
-                                          iconSize: 40,
-                                          fSize: 24,
-                                          fColor: C.bg1(brightness),
+                                        SizedBox(height: 16),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Quantity").styled(
+                                                color: C.bg1(brightness),
+                                                weight: FontWeight.w600,
+                                                size: 18),
+                                            CountView(
+                                              count: cubit.quantity,
+                                              onDecrement: cubit.decrementCount,
+                                              onIncrement: cubit.incrementCount,
+                                              iconColor: C.accent(brightness),
+                                              iconSize: 40,
+                                              fSize: 24,
+                                              fColor: C.bg1(brightness),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                InkWell(
+                                CustomCircleBtn(
+                                  brightness: brightness,
                                   onTap: () => cubit.addToCart(context, item),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: CustomPaint(
-                                                size: Size(0,
-                                                    90), // Specify the size for your custom painting
-                                                painter: CircleBtn()),
-                                          ),
-                                        ],
-                                      ),
-                                      Text('Add To Cart').styled(
-                                          size: 16,
-                                          color: C.bg1(brightness),
-                                          weight: FontWeight.bold)
-                                    ],
-                                  ),
+                                  title: item.price.toStringAsPrecision(3),
+                                  subTitle: 'Add To Cart',
                                 )
                               ],
                             )
@@ -150,7 +143,7 @@ class ItemDetailsScreen extends StatelessWidget {
 }
 
 class _TitleView extends StatelessWidget {
-  const _TitleView({super.key, required this.item});
+  const _TitleView({required this.item});
   final MenuItem item;
 
   @override

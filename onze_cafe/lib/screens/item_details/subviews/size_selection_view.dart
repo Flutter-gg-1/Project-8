@@ -48,10 +48,10 @@ class _SizeCardView extends StatelessWidget {
           child: ConstrainedBox(
             constraints: BoxConstraints(
                 maxWidth: (cupSize == CupSize.small)
-                    ? context.screenWidth * 0.15
+                    ? context.screenWidth * 0.13
                     : (cupSize == CupSize.medium)
-                        ? context.screenWidth * 0.17
-                        : context.screenWidth * 0.22),
+                        ? context.screenWidth * 0.15
+                        : context.screenWidth * 0.17),
             child: AspectRatio(
               aspectRatio: 1,
               child: InkWell(

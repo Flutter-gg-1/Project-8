@@ -17,6 +17,8 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   int totalPrice = 999;
   PaymentConfig? paymentConfig;
 
+  final textController = TextEditingController();
+
   void initialLoad(double amount) {
     emitLoading();
     totalPrice = (amount * 100).toInt();
@@ -53,6 +55,37 @@ class CheckoutCubit extends Cubit<CheckoutState> {
               AnimatedSnackBarType.info);
       }
     }
+  }
+
+  void togglePickup(bool isSelected) {
+    if (state is SelectState) {
+      final currentState = state as SelectState;
+      emit(currentState.copyWith(
+        isPickupSelected: isSelected,
+        isDeliverSelected: !isSelected ? currentState.isDeliverSelected : false,
+      ));
+    }
+  }
+
+  void toggleDeliver(bool isSelected) {
+    if (state is SelectState) {
+      final currentState = state as SelectState;
+      emit(currentState.copyWith(
+        isDeliverSelected: isSelected,
+        isPickupSelected: !isSelected ? currentState.isPickupSelected : false,
+      ));
+    }
+  }
+
+  void updateClassNumber(String classNumber) {
+    if (state is SelectState) {
+      final currentState = state as SelectState;
+      emit(currentState.copyWith(classNumber: classNumber));
+    }
+  }
+
+  void loadCheckout() {
+    emit(SelectState());
   }
 
   void showSnackBar(

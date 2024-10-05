@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-
-import '../checkout/checkout_screen.dart';
+import 'package:onze_cafe/screens/checkout/checkout_screen.dart';
 
 part 'cart_state.dart';
 

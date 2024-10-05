@@ -5,8 +5,10 @@ import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/placed_order.dart';
 import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
 import 'package:onze_cafe/screens/order_details/order_details_cubit.dart';
 import 'package:onze_cafe/screens/order_details/subviews/details_view.dart';
+import 'package:onze_cafe/screens/order_details/subviews/timer_view.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({
@@ -31,9 +33,12 @@ class OrderDetailsScreen extends StatelessWidget {
         final cubit = context.read<OrderDetailsCubit>();
         return Scaffold(
           backgroundColor: C.bg1(brightness),
-          appBar: AppBar(backgroundColor: C.bg1(brightness)),
+          appBar: AppBar(
+            backgroundColor: C.bg1(brightness),
+            leading: CustomeBackBtn(brightness: brightness),
+          ),
           body: Center(
-            child: Stack(
+            child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.all(16),
@@ -47,12 +52,26 @@ class OrderDetailsScreen extends StatelessWidget {
                               weight: FontWeight.w400,
                               size: 20,
                             ),
-                            ClipOval(
-                              child: Image(
-                                image: cubit.orderStatusImage,
-                              ),
+                            Stack(
+                              children: [
+                                TimerView(cubit: cubit),
+                                Positioned.fill(
+                                  child: ClipOval(
+                                    child: SizedBox(
+                                      height: 80,
+                                      width: 80,
+                                      child: AspectRatio(
+                                        aspectRatio: 3,
+                                        child: Image(
+                                          image: cubit.orderStatusImage,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                            // TimerView(cubit: cubit),
                             Text(
                               formatTime(cubit.remainingTime),
                             ).styled(

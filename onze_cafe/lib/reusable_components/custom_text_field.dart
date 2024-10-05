@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import '../extensions/color_ext.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {super.key,
-      required this.hintText,
-      this.prefixIcon,
-      this.suffixIcon,
-      this.max = 1,
-      required this.controller,
-      required this.validation,
-      this.readOnly = false});
+  const CustomTextField({
+    super.key,
+    required this.hintText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.max = 1,
+    required this.controller,
+    required this.validation,
+    this.onChanged,
+    this.readOnly = false,
+  });
   final String hintText;
   final Widget? prefixIcon;
   final int? max;
@@ -19,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String value) validation;
   final bool readOnly;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -29,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         readOnly: readOnly,
         maxLines: max,
         // obscureText: ,
+        onChanged: onChanged,
         minLines: 1,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
