@@ -32,10 +32,9 @@ class ItemView extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 2,
-            child: Image(
-              image: Img.americano,
-              fit: BoxFit.cover,
-            ),
+            child: item.imgUrl == null
+                ? Image(image: Img.logo4, fit: BoxFit.cover)
+                : Image.network(item.imgUrl!, fit: BoxFit.cover),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10),

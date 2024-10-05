@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../model/menu_item.dart';
@@ -61,24 +60,15 @@ class _CarouselItem extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: menuItem.imgUrl != null
-                      ? Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: menuItem.imgUrl == null ||
-                                      menuItem.imgUrl == ''
-                                  ? Image(image: Img.logo4, fit: BoxFit.contain)
-                                  : Image.network(menuItem.imgUrl ?? '',
-                                      fit: BoxFit.fill)),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image(image: Img.late, fit: BoxFit.fill)),
-                        ),
-                ),
+                    child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: menuItem.imgUrl == null || menuItem.imgUrl == ''
+                          ? Image(image: Img.logo4, fit: BoxFit.contain)
+                          : Image.network(menuItem.imgUrl ?? '',
+                              fit: BoxFit.fill)),
+                )),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),

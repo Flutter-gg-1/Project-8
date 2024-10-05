@@ -10,6 +10,10 @@ extension G on Gradient {
       colors: [Color(0xFF98B7C6), Color(0xFFB5C3CB)],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter);
+  static const accent2 = LinearGradient(
+      colors: [Color(0xFFB5C3CB), Color(0xFFE4EBF0)],
+      begin: Alignment.bottomRight,
+      end: Alignment.topLeft);
   static const secondary = LinearGradient(
       colors: [Color(0xFFA8483D), Color(0xFFCB928B)],
       begin: Alignment.topCenter,

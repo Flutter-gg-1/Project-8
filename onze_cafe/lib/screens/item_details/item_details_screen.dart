@@ -42,7 +42,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                 aspectRatio: 1.3,
                                 child: item.imgUrl == null
                                     ? Image(
-                                        image: Img.americano,
+                                        image: Img.logo4,
                                         fit: BoxFit.cover,
                                       )
                                     : Image.network(
