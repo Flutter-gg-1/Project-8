@@ -147,6 +147,7 @@ class MenuScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CategoryTab(cubit: cubit),
+                              Divider(color: C.primary(brightness)),
                               if (cubit.offers.isNotEmpty)
                                 OffersView(cubit: cubit),
                               ListView.builder(

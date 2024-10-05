@@ -55,12 +55,16 @@ class _CategoryCardView extends StatelessWidget {
             Expanded(
               child: category.imgUrl == null
                   ? Image(image: Img.logo4, fit: BoxFit.fitWidth)
-                  : Image.network(category.imgUrl!, fit: BoxFit.contain),
+                  : Padding(
+                      padding: const EdgeInsets.all(4),
+                      child:
+                          Image.network(category.imgUrl!, fit: BoxFit.contain),
+                    ),
             ),
             SizedBox(height: 8),
             Expanded(
               child: Text(category.name).styled(
-                  weight: FontWeight.w300,
+                  weight: FontWeight.w500,
                   align: TextAlign.center,
                   lineLimit: 2),
             )
