@@ -9,8 +9,8 @@ import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,10 @@ class SignupScreen extends StatelessWidget {
                 Navigator.pop(context);
 
                 log("very good login");
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const HomeScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
               }
             },
             child: Scaffold(
@@ -124,7 +124,7 @@ class SignupScreen extends StatelessWidget {
                       CustomButton(
                         title: 'Login',
                         onPressed: () {
-                          cubit.singup();
+                          cubit.login();
                         },
                         icon: Icons.arrow_forward_ios_rounded,
                       )

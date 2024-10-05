@@ -17,11 +17,11 @@ class AuthCubit extends Cubit<AuthState> {
   String otp = "";
   AuthCubit() : super(AuthInitial());
 
-  singup() async {
+  login() async {
     try {
       emit(LoadingState());
       if (formKey.currentState!.validate()) {
-        await SuperMain().empLogin(email: emailCon.text,pass: passCon.text);
+        await SuperMain().empLogin(email: emailCon.text, pass: passCon.text);
 
         emit(SuccessState());
       } else {
@@ -32,23 +32,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  otpCheck(
-      {required String email,
-      required String? fName,
-      required String? lName}) async {
-    try {
-      emit(LoadingState());
-      if (otp.isEmpty) {
-        emit(ErrorState(msg: "enter otp first"));
-        return;
-      }
-
-      await SuperMain()
-          .verifyOtp(email: email, otp: otp, fName: fName, lName: lName);
-
-      emit(SuccessState());
-    } catch (er) {
-      emit(ErrorState(msg: er.toString()));
-    }
-  }
+  
+  
 }
