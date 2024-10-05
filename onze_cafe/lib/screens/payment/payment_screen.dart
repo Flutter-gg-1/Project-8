@@ -28,65 +28,74 @@ class PaymentScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             leading: CustomeBackBtn(brightness: brightness),
           ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Center(
-                child: ListView(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            children: [
-                              Image(image: Img.star4),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("Payment").styled(
-                                  size: 20,
-                                  color: C.primary(brightness),
-                                  weight: FontWeight.bold),
-                            ],
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: ListView(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Image(image: Img.star4),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Payment").styled(
+                              size: 20,
+                              color: C.primary(brightness),
+                              weight: FontWeight.bold),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        margin: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: C.bg3(brightness),
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                spreadRadius: 3,
+                              )
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: BlocBuilder<PaymentCubit, PaymentState>(
+                            builder: (context, state) {
+                              return cubit.paymentConfig == null
+                                  ? Text('')
+                                  : CreditCard(
+                                      config: cubit.paymentConfig!,
+                                      onPaymentResult: (result) {
+                                        cubit.onPaymentResult(context, result);
+                                      },
+                                    );
+                            },
                           ),
                         ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: BlocBuilder<PaymentCubit, PaymentState>(
-                              builder: (context, state) {
-                                return cubit.paymentConfig == null
-                                    ? Text('')
-                                    : CreditCard(
-                                        config: cubit.paymentConfig!,
-                                        onPaymentResult: (result) {
-                                          cubit.onPaymentResult(
-                                              context, result);
-                                        },
-                                      );
-                              },
-                            ),
-                          ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      AnimatedImgView(
+                        img: Image(
+                          width: context.screenWidth * 0.5,
+                          image: Img.illustration13,
+                          fit: BoxFit.contain,
                         ),
-                        SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            AnimatedImgView(
-                              img: Image(
-                                width: context.screenWidth * 0.5,
-                                image: Img.illustration13,
-                                fit: BoxFit.contain,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

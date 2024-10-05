@@ -7,6 +7,7 @@ import 'package:onze_cafe/reusable_components/animation/animated_img_view.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 import 'package:onze_cafe/screens/checkout/checkout_cubit.dart';
+import 'package:onze_cafe/utils/validations.dart';
 
 import '../../extensions/color_ext.dart';
 
@@ -110,13 +111,12 @@ class CheckoutScreen extends StatelessWidget {
                                           color: C.primary(brightness),
                                           weight: FontWeight.bold),
                                       CustomTextField(
-                                        hintText: "A15",
-                                        onChanged: (value) {
-                                          cubit.updateClassNumber(value);
-                                        },
-                                        controller: cubit.textController,
-                                        validation: (String value) {},
-                                      ),
+                                          hintText: "A15",
+                                          onChanged: (value) {
+                                            cubit.updateClassNumber(value);
+                                          },
+                                          controller: cubit.textController,
+                                          validation: Validations.none),
                                     ],
                                   ),
                                 ),
@@ -149,7 +149,7 @@ class CheckoutScreen extends StatelessWidget {
             CustomCircleBtn(
                 brightness: brightness,
                 onTap: () => cubit.navigateToPayment(context),
-                title: 'Payment')
+                title: 'Payment'),
           ]),
         );
       }),
