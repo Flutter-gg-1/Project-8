@@ -219,7 +219,9 @@ class CustomerOrdersScreen extends StatelessWidget {
                                                 ),
                                                 TextWithTowDirection(
                                                   isRightClickable: false,
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    cubit.orderList =[];
+                                                  },
                                                   leftText: 'Total',
                                                   leftTextColor: Colors.black,
                                                   leftTextSize: 20,

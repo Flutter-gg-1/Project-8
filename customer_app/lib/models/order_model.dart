@@ -12,17 +12,15 @@ class OrderModel {
 
   List<OrderDetailsModel> orderDetailsLis = [];
 
-  OrderModel(
-      {this.orderId,
-      this.customerId,
-      this.employeeId,
-      this.totalPrice,
-      this.time,
-      this.totalPreparationTime,
-      this.status,
-      
-      
-      });
+  OrderModel({
+    this.orderId,
+    this.customerId,
+    this.employeeId,
+    this.totalPrice,
+    this.time,
+    this.totalPreparationTime,
+    this.status,
+  });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     orderId = json["order_id"];

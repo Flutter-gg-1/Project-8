@@ -46,6 +46,13 @@ class CartCubit extends Cubit<CartState> {
 
     emit(DelOrderState());
   }
+  delAllOrder() {
+    cartLis.clear();
+
+    getAllTotal();
+
+    emit(DelOrderState());
+  }
 
   getAllTotal() {
     priceTotal = 0;

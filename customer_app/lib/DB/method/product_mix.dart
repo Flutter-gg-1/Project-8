@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_app/DB/super.dart';
 
 mixin ProductMix on Super {
@@ -13,7 +11,7 @@ mixin ProductMix on Super {
 
       return res;
     } catch (er) {
-      log("$er");
+      rethrow;
     }
   }
 }

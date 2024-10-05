@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_app/DB/super.dart';
 import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
@@ -16,12 +14,9 @@ mixin CartMix on Super {
           "product_id": val.productId,
           "size": val.size,
         }).select();
-
-        log("the result of insert : ---->");
-        log("$res");
       }
     } catch (er) {
-      log("$er");
+      rethrow;
     }
   }
 
@@ -38,12 +33,9 @@ mixin CartMix on Super {
         "status": "Pending"
       }).select();
 
-      log("the result of placeOrder : ---->");
-      log("$res");
-
       return res[0]["order_id"];
     } catch (er) {
-      log("$er");
+      rethrow;
     }
   }
 }

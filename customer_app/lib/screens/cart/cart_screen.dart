@@ -65,7 +65,7 @@ class CartScreen extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: const Color(0xffD7D1CA),
               centerTitle: true,
-              title: const Text('My Order'),
+              title: const Text('Cart'),
             ),
             body: SafeArea(
                 child: Column(
@@ -84,7 +84,9 @@ class CartScreen extends StatelessWidget {
                             children: [
                               TextWithTowDirection(
                                 isRightClickable: true,
-                                onPressed: () {},
+                                onPressed: () {
+                                  cubit.delAllOrder();
+                                },
                                 leftText: 'Total Order',
                                 leftTextColor: Colors.black,
                                 leftTextSize: 20,
