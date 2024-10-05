@@ -11,6 +11,7 @@ import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
+import 'package:onze_cafe/screens/cart/network_functions.dart';
 import 'package:onze_cafe/screens/cart/subviews/card_item_view.dart';
 import '../../model/menu_item.dart';
 
@@ -49,6 +50,13 @@ class CartScreen extends StatelessWidget {
                           size: 20,
                           color: C.primary(brightness),
                           weight: FontWeight.bold),
+                      Spacer(),
+                      TextButton(
+                          onPressed: () => cubit.updatedCart(context),
+                          child: Text("Update").styled(
+                              size: 14,
+                              color: C.secondary(brightness),
+                              weight: FontWeight.w400))
                     ],
                   ),
                 ),

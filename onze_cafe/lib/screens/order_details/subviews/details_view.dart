@@ -10,18 +10,14 @@ class DetailsView extends StatelessWidget {
     super.key,
     required this.cubit,
     required this.placedOrder,
-    required this.brightness,
-    required this.price,
   });
 
-  final Brightness brightness;
   final OrderDetailsCubit cubit;
   final Order placedOrder;
-  final double price;
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = cubit.fetchCartItems(placedOrder);
+    final brightness = Theme.of(context).brightness;
 
     return AspectRatio(
       aspectRatio: 1,
@@ -47,38 +43,8 @@ class DetailsView extends StatelessWidget {
                 Text('Order# ${placedOrder.id}').styled(
                     weight: FontWeight.bold,
                     size: 24,
-                    color: C.bg1(brightness)),
-                SingleChildScrollView(
-                  child: Column(
-                      children: cartItems
-                          .map((cartItem) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("${cubit.fetchMenuItem(cartItem)?.name ?? ''} x${cartItem.quantity}")
-                                        .styled(
-                                      size: 16,
-                                      color: C.bg1(
-                                        brightness,
-                                      ),
-                                      weight: FontWeight.w700,
-                                    ),
-                                    Text("${cubit.fetchMenuItem(cartItem)?.price} SAR")
-                                        .styled(
-                                      size: 16,
-                                      color: C.bg1(
-                                        brightness,
-                                      ),
-                                      weight: FontWeight.w800,
-                                    ),
-                                  ],
-                                ),
-                              ))
-                          .toList()),
-                ),
+                    color: C.bg1(brightness),
+                    lineLimit: 1),
               ],
             ),
             Align(
@@ -95,7 +61,7 @@ class DetailsView extends StatelessWidget {
                           brightness,
                         ),
                       ),
-                      Text("$price SAR").styled(
+                      Text("${placedOrder.price} SAR").styled(
                         weight: FontWeight.bold,
                         size: 24,
                         color: C.bg1(

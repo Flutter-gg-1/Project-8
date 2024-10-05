@@ -90,7 +90,8 @@ class MenuCubit extends Cubit<MenuState> {
   void navigateToItemDetails(BuildContext context, MenuItem item) =>
       Navigator.of(context)
           .push(MaterialPageRoute(
-              builder: (context) => ItemDetailsScreen(item: item)))
+              builder: (context) =>
+                  ItemDetailsScreen(item: item, offers: offers)))
           .then((_) async {
         if (context.mounted) cart = await fetchCart(context);
         Future.delayed(Duration(milliseconds: 50));

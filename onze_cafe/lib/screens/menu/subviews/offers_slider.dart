@@ -20,7 +20,9 @@ class OffersSlider extends StatelessWidget {
         MenuItem? menuItem = cubit.getMenuItemById(offer.menuItemId);
         return menuItem == null
             ? Text('')
-            : _CarouselItem(offer: offer, menuItem: menuItem);
+            : InkWell(
+                onTap: () => cubit.navigateToItemDetails(context, menuItem),
+                child: _CarouselItem(offer: offer, menuItem: menuItem));
       }).toList(),
       options: CarouselOptions(
         autoPlay: true,

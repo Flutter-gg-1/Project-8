@@ -16,75 +16,49 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   int remainingTime = 1000;
   OrderStatus status = OrderStatus.placed;
   StatusImage img = StatusImage.an1;
-  List<Order> orders = [];
+  Order? order;
+  StatusImage orderStatusImage = StatusImage.an3;
 
-  OrderDetailsCubit() : super(OrderDetailsInitial());
-  void fetchOrders() {
-    orders =
-        MockData().placedOrders.where((order) => order.userId == '1').toList();
+  OrderDetailsCubit(Order order) : super(OrderDetailsInitial()) {
+    fetchOrder(order);
   }
-
-  List<CartItem> fetchCartItems(Order order) {
-    return MockData()
-        .cart
-        .where((cartItem) => cartItem.placedOrderId == order.id)
-        .toList();
-  }
-
-  MenuItem? fetchMenuItem(CartItem cart) {
-    return MockData()
-        .menuItems
-        .where((item) => item.id == cart.menuItemId)
-        .toList()
-        .firstOrNull;
-  }
-
-  double totalPrice(Order order) {
-    var total = 0.0;
-    var cartItems = fetchCartItems(order);
-    for (var cartItem in cartItems) {
-      var quantity = cartItem.quantity;
-      var item = fetchMenuItem(cartItem);
-      if (item != null) {
-        total += item.price * quantity;
-      }
-    }
-    return total;
+  void fetchOrder(Order order) {
+    this.order = order;
+    updateImage();
+    emitUpdate();
   }
 
   void startCountdown() {
-    emit(UpdateOrderDetailsState());
+    emitUpdate();
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
         remainingTime--;
-        updateOrderStatus();
-        emit(UpdateOrderDetailsState());
+        emitUpdate();
       } else {
         timer.cancel();
-        emit(SuccessOrderDetailsState());
+        emitUpdate();
       }
     });
   }
 
-  void updateOrderStatus() {
-    if (remainingTime <= 30) {
-      status = OrderStatus.onTheWay;
-      img = StatusImage.an3;
-    } else if (remainingTime <= 60) {
-      status = OrderStatus.ready;
-      img = StatusImage.an3;
-    } else if (remainingTime <= 90) {
-      status = OrderStatus.preparing;
-      img = StatusImage.an2;
-    } else {
-      status = OrderStatus.placed;
-      img = StatusImage.an1;
+  void updateImage() {
+    if (order?.status != null) {
+      switch (order!.status) {
+        case 'on the way':
+          orderStatusImage = StatusImage.an4;
+        case 'Working on your coffee':
+          orderStatusImage = StatusImage.an3;
+        case 'Your coffee is ready':
+          orderStatusImage = StatusImage.an2;
+        default:
+          orderStatusImage = StatusImage.an1;
+      }
     }
   }
 
-  String get orderStatusText => status.name();
-  AssetImage get orderStatusImage => img.image();
+  void emitUpdate() => emit(UpdateUIState());
+
   @override
   Future<void> close() {
     timer?.cancel();

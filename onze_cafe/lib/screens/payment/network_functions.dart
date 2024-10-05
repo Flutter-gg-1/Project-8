@@ -31,16 +31,14 @@ extension NetworkFunctions on PaymentCubit {
     var order = Order(
       userId: SupabaseMgr.shared.currentUser?.id ?? '',
       status: OrderStatus.placed.name(),
-      price: totalPrice.toDouble(),
+      price: (totalPrice / 100).toDouble(),
       isPayed: true,
     );
 
     try {
       final response = await SupabaseOrder.insertOrder(placedOrderItem: order);
 
-      print('id is: ${response.id}');
-
-      await updateCartItems(context, response.id ?? '');
+      if (context.mounted) await updateCartItems(context, response.id ?? '');
 
       emitUpdate();
       return response;

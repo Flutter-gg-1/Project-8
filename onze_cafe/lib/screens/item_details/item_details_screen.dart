@@ -14,16 +14,20 @@ import 'package:onze_cafe/screens/item_details/subviews/size_selection_view.dart
 import 'package:onze_cafe/screens/item_details/subviews/milk_slider_view.dart';
 import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
+import '../../model/offer.dart';
+
 class ItemDetailsScreen extends StatelessWidget {
-  const ItemDetailsScreen({super.key, required this.item});
+  const ItemDetailsScreen(
+      {super.key, required this.item, required this.offers});
   final MenuItem item;
+  final List<Offer> offers;
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
 
     return BlocProvider(
-      create: (context) => ItemDetailsCubit(),
+      create: (context) => ItemDetailsCubit(item, offers),
       child: Builder(builder: (context) {
         final cubit = context.read<ItemDetailsCubit>();
         return Scaffold(
@@ -77,7 +81,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        _TitleView(item: item),
+                                        _TitleView(cubit: cubit),
                                         SizeSelectionView(cubit: cubit),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -144,8 +148,8 @@ class ItemDetailsScreen extends StatelessWidget {
 }
 
 class _TitleView extends StatelessWidget {
-  const _TitleView({required this.item});
-  final MenuItem item;
+  const _TitleView({required this.cubit});
+  final ItemDetailsCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -155,9 +159,9 @@ class _TitleView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(item.name).styled(
+            Text(cubit.item?.name ?? '').styled(
                 color: C.bg1(brightness), weight: FontWeight.bold, size: 24),
-            Text('${item.price} SAR').styled(
+            Text('${cubit.offerPrice ?? cubit.item?.price} SAR').styled(
                 color: C.bg1(brightness), weight: FontWeight.bold, size: 20),
           ],
         ),
@@ -165,9 +169,9 @@ class _TitleView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${item.calories} Calories').styled(
+            Text('${cubit.item?.calories} Calories').styled(
                 color: C.bg1(brightness), weight: FontWeight.w300, size: 16),
-            Text('${item.oz} oz').styled(
+            Text('${cubit.item?.oz} oz').styled(
                 color: C.bg1(brightness), weight: FontWeight.w300, size: 16),
           ],
         )

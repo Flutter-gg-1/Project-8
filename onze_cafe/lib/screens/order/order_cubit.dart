@@ -20,7 +20,6 @@ class OrderCubit extends Cubit<OrderState> {
   Future<void> initialLoad(BuildContext context) async {
     orders = await fetchUserOrders(context);
     await Future.delayed(Duration(seconds: 1));
-    print(orders.length);
     emitUpdate();
   }
 
@@ -35,10 +34,7 @@ class OrderCubit extends Cubit<OrderState> {
     final price = order.price;
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => OrderDetailsScreen(
-          orderId: order.id ?? '',
-          price: price,
-        ),
+        builder: (context) => OrderDetailsScreen(order: order),
       ),
     );
   }
