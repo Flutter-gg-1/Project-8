@@ -3,7 +3,6 @@ import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/cart/cubit/cart_cubit.dart';
 import 'package:customer_app/screens/payment/pay_screen.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
-import 'package:customer_app/widget/cart_widget/custome_order_list_container.dart';
 import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
 import 'package:customer_app/widget/cart_widget/seprate_divider.dart';
 import 'package:customer_app/widget/coulmn/cart_column.dart';

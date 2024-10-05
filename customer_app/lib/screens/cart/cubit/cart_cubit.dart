@@ -3,8 +3,6 @@ import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/models/order_details_model.dart';
-import 'package:customer_app/models/order_model.dart';
-import 'package:customer_app/screens/auth/cubit/auth_cubit/auth_cubit.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';

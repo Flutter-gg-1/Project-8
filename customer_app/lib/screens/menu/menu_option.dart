@@ -1,8 +1,6 @@
 import 'package:customer_app/data_layer/product_layer.dart';
-import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/coulmn/item_list.dart';
-import 'package:customer_app/widget/inkwell/product_item.dart';
 import 'package:flutter/material.dart';
 
 class MenuOption extends StatelessWidget {

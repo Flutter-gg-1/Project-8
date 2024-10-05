@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 
 extension LoadingDialog on BuildContext {
   showLoadingDialog() => showDialog(
-    barrierDismissible: false,
+        barrierDismissible: false,
         context: this,
         builder: (context) => Center(
           child: Lottie.network(

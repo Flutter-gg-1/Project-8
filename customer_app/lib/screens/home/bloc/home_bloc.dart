@@ -1,11 +1,9 @@
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/models/product_model.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

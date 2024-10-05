@@ -1,7 +1,5 @@
-import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/profile/cubit/profile_cubit.dart';
-import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/profile/profile_img.dart';
 import 'package:customer_app/widget/profile/profile_info.dart';
 import 'package:customer_app/widget/profile/profile_most_order_widget.dart';

@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:customer_app/helper/extinsion/size_config.dart';
-import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/screens/order/bloc/order_bloc.dart';
 import 'package:customer_app/shape/container_shape.dart';

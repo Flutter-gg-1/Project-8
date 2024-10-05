@@ -1,6 +1,5 @@
 import 'package:customer_app/DB/super.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
-import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

@@ -32,8 +32,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   void _onStartTimer(StartTimerEvent event, Emitter<OrderState> emit) {
+    add(TrackStatusChangeEvent());
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 40), (timer) {
       add(TrackStatusChangeEvent());
     });
   }

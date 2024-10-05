@@ -1,23 +1,15 @@
 import 'package:customer_app/data_layer/auth_layer.dart';
-import 'package:customer_app/data_layer/product_layer.dart';
-import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
-import 'package:customer_app/models/user_model.dart';
-import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/cart/cart_screen.dart';
 import 'package:customer_app/screens/home/bloc/home_bloc.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
 import 'package:customer_app/screens/order/order_info.dart';
-import 'package:customer_app/screens/order_history/customer_orders_screen.dart';
 
-import 'package:customer_app/screens/profile/profile_screen.dart';
 
-import 'package:customer_app/screens/order_history/history_screen.dart';
 
 import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/TextFormFeild/custom_text_form_feild.dart';
-import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:customer_app/widget/drawer/home_drawer.dart';
 import 'package:customer_app/widget/inkwell/product_item.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(),
       child: Builder(builder: (context) {
-        final GlobalKey<ScaffoldState> _scaffoldKey =
+        final GlobalKey<ScaffoldState> scaffoldKey =
             GlobalKey<ScaffoldState>();
         final user = authLocator.get<AuthLayer>().user;
         TextEditingController searchController = TextEditingController();
@@ -97,7 +89,7 @@ class HomeScreen extends StatelessWidget {
           child: DefaultTabController(
             length: 10,
             child: Scaffold(
-              key: _scaffoldKey,
+              key: scaffoldKey,
               extendBodyBehindAppBar: true,
               drawer: HomeDrawer(user: user),
               appBar: AppBar(
@@ -105,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {
-                      _scaffoldKey.currentState?.openDrawer();
+                      scaffoldKey.currentState?.openDrawer();
                     },
                     icon: const Icon(
                       FontAwesome.bars_staggered_solid,
@@ -144,12 +136,12 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                   height: context.getHeight(multiply: 0.1)),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: CustomTextFormFelid(
                                   key: bloc.formKey,
                                   label: '',
                                   hint: 'Find your coffee',
-                                  prefixIcon: Icon(Bootstrap.search_heart),
+                                  prefixIcon: const Icon(Bootstrap.search_heart),
                                   controller: searchController,
                                   onFieldSubmitted: (p0) {
                                     bloc.add(SearchEvent(searchValue: p0));
@@ -168,7 +160,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ];
                   },
-                  body: SizedBox.shrink(child: const MenuOption())),
+                  body: const SizedBox.shrink(child: MenuOption())),
             ),
           ),
         );

@@ -1,6 +1,5 @@
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class ProductItem extends StatelessWidget {
   final String name;

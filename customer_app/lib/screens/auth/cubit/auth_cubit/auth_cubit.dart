@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
-import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
 

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';

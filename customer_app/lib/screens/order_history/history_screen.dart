@@ -2,8 +2,6 @@ import 'package:customer_app/helper/date_format.dart';
 import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/order_history/cubit/order_history_cubit.dart';
-import 'package:customer_app/widget/cart_widget/custome_text_tow_direction.dart';
-import 'package:customer_app/widget/cart_widget/seprate_divider.dart';
 import 'package:customer_app/widget/coulmn/history_order_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -34,7 +34,7 @@ class ProfileMostOrderWidget extends StatelessWidget {
             menu[mostOrder].name != null
                 ? "${menu[mostOrder].type}\n${menu[mostOrder].name!.length <= 12 ? menu[mostOrder].name : '${menu[mostOrder].name!.substring(0, 12)}..'}"
                 : '',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           )
         ],
       ),

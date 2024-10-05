@@ -1,6 +1,5 @@
 import 'package:customer_app/DB/super.dart';
 import 'package:customer_app/models/order_details_model.dart';
-import 'package:customer_app/models/order_model.dart';
 
 mixin CartMix on Super {
   insetCartData(

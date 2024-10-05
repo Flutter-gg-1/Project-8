@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
@@ -36,7 +35,6 @@ Future main() async {
   OneSignal.initialize(dotenv.env["onesignal_app_key"]!);
 
   OneSignal.Notifications.requestPermission(true);
-  log('${authLocator.get<AuthLayer>().user?.toJson()}');
   runApp(const MyApp());
 }
 

@@ -11,7 +11,6 @@ import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:customer_app/widget/coulmn/order_details.dart';
 import 'package:customer_app/widget/row/quantity_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -152,7 +151,7 @@ class OrderInfo extends StatelessWidget {
                                     width: context.getHeight(multiply: 0.4),
                                     height: context.getHeight(multiply: 0.3),
                                     decoration: BoxDecoration(
-                                        color: Color(0xffEFE3C8),
+                                        color: const Color(0xffEFE3C8),
                                         borderRadius:
                                             BorderRadius.circular(12)),
                                     child: const Center(

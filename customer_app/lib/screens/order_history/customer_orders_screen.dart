@@ -251,8 +251,7 @@ class CustomerOrdersScreen extends StatelessWidget {
                                                       },
                                                     ));
                                                   },
-                                                  leftText: cubit
-                                                      .orderList[index].status!,
+                                                  leftText: '',
                                                   leftTextColor: Colors.black,
                                                   leftTextSize: 20,
                                                   rightText: 'show Status',

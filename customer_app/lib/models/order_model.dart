@@ -1,5 +1,4 @@
 import 'package:customer_app/models/order_details_model.dart';
-import 'package:customer_app/models/product_model.dart';
 
 class OrderModel {
   String? orderId;

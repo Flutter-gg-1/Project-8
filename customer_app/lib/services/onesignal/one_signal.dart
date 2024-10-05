@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class Onesignal {
   final dio = Dio();
@@ -21,6 +20,6 @@ class Onesignal {
             },
             "contents": {"en": msg},
           });
-    } on DioException catch (er) {}
+    } on DioException {}
   }
 }
