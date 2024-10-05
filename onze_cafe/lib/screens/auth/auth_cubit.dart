@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/menu/menu_screen.dart';
 
 import '../../reusable_components/animated_snackbar.dart';
-import '../admin_screens/employee_dashboard_screen.dart';
+import '../admin_screens/employee_dashboard/employee_dashboard_screen.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {

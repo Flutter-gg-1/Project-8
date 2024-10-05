@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/screens/admin_screens/employee_dashboard_screen.dart';
+import 'package:onze_cafe/screens/admin_screens/employee_dashboard/employee_dashboard_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../supabase/client/supabase_mgr.dart';
