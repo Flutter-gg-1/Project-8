@@ -22,10 +22,20 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     loadCheckout();
   }
 
-  void navigateToPayment(BuildContext context) =>
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              PaymentScreen(totalPrice: totalPrice.toDouble())));
+  void navigateToPayment(BuildContext context) {
+    if (state is SelectState) {
+      final currentState = state as SelectState;
+
+      if (!currentState.isPickupSelected && !currentState.isDeliverSelected) {
+        showSnackBar(context, "Please select Pickup or Delivery ",
+            AnimatedSnackBarType.error);
+      } else {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                PaymentScreen(totalPrice: totalPrice.toDouble())));
+      }
+    }
+  }
 
   void togglePickup(bool isSelected) {
     if (state is SelectState) {
