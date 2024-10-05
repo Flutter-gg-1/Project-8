@@ -16,31 +16,32 @@ class OrderListCubit extends Cubit<OrderListState> {
 
   showOrderList() async {
     try {
-      log("here");
-      await Future.delayed(const Duration(milliseconds: 300));
-      emit(LoadingState());
-      log("after");
+    log("here");
+    await Future.delayed(const Duration(milliseconds: 300));
+    emit(LoadingState());
+    log("after");
 
-      orderList.clear();
-      final orders = await SuperMain().getCustumersOrders();
+    orderList.clear();
+    final orders = await SuperMain().getCustumersOrders();
 
-      for (var val in orders) {
-        orderList.add(OrderModel.fromJson(val));
+    for (var val in orders) {
+      orderList.add(OrderModel.fromJson(val));
+    }
+
+    for (var val in orderList) {
+      final OrderDetailRes =
+          await SuperMain().getAllUserOrder(orderId: val.orderId!);
+
+      for (var lisVal in OrderDetailRes) {
+        val.orderDetailsLis.add(OrderDetailsModel.fromJson(lisVal));
       }
+    }
 
-      for (var val in orderList) {
-        final OrderDetailRes =
-            await SuperMain().getAllUserOrder(orderId: val.orderId!);
-
-        for (var lisVal in OrderDetailRes) {
-          val.orderDetailsLis.add(OrderDetailsModel.fromJson(lisVal));
-        }
-      }
-
-      print(orderList[0].orderDetailsLis);
-      emit(NoLodingState());
-      emit(OrderShowState());
-    } catch (er) {
+    
+    emit(NoLodingState());
+    emit(OrderShowState());
+    }
+    catch (er) {
       log("$er");
       emit(ErorrState(msg: "there was eorr"));
     }

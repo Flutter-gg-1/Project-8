@@ -150,9 +150,16 @@ class OrderItem extends StatelessWidget {
                             builder: (context) {
                               // here chnage
                               return OrderStatus(
+                                  cubit: cubit,
                                   order: order.orderDetailsLis.first);
                             },
-                          ));
+                          )).then(
+                            (value) {
+                              if (true) {
+                                cubit.showOrderList();
+                              }
+                            },
+                          );
                         },
                       )
               ],
