@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -9,7 +10,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Page'),
+        title: Text('Payment Page').styled(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

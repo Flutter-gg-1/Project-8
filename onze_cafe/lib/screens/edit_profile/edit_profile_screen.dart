@@ -128,8 +128,10 @@ class EditProfileScreen extends StatelessWidget {
                           child: AspectRatio(
                             aspectRatio: 2,
                             child: AnimatedImgView(
-                              img: Img.illustration13,
-                            ),
+                                img: Image(
+                              image: Img.illustration13,
+                              fit: BoxFit.contain,
+                            )),
                           ),
                         ),
                       ],

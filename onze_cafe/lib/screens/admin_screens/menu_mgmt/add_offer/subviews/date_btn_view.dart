@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/date_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../add_offer_cubit.dart';
 
@@ -14,7 +15,7 @@ class DateBtnView extends StatelessWidget {
     var date = isStartDate ? cubit.startDate : cubit.endDate;
     return ElevatedButton.icon(
       icon: Icon(Icons.calendar_today),
-      label: Text(date.toFormattedString()),
+      label: Text(date.toFormattedString()).styled(),
       onPressed: () async {
         DateTime? pickedDate = await showDatePicker(
           context: context,

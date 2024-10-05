@@ -60,8 +60,10 @@ class CartScreen extends StatelessWidget {
                           ? [
                               Padding(
                                 padding: const EdgeInsets.all(24),
-                                child:
-                                    Image(image: Img.box, fit: BoxFit.contain),
+                                child: AspectRatio(
+                                    aspectRatio: 1.3,
+                                    child: Image(
+                                        image: Img.box, fit: BoxFit.contain)),
                               )
                             ]
                           : cubit.cartItems

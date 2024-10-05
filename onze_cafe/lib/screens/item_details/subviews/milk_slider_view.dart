@@ -60,11 +60,10 @@ class MilkSliderView extends StatelessWidget {
           child: Text(
             milkOption.strValue(),
             key: ValueKey<int>(cubit.milkSlider),
-            style: TextStyle(
-              color: C.bg1(brightness),
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-            ),
+          ).styled(
+            color: C.bg1(brightness),
+            size: 16,
+            weight: FontWeight.w800,
           ),
         ),
         SliderTheme(

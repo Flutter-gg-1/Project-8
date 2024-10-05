@@ -28,7 +28,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
-        style: TextStyle(color: C.text(brightness)),
+        style: TextStyle(color: C.text(brightness),fontFamily: 'Poppins',),
         readOnly: readOnly,
         maxLines: max,
         // obscureText: ,
@@ -58,6 +58,7 @@ class CustomTextField extends StatelessWidget {
             fillColor: C.secondary(brightness).withOpacity(0.0),
             hintText: hintText,
             hintStyle: TextStyle(
+              fontFamily: 'Poppins',
               color: C.primary(brightness),
             )),
         validator: (value) => validation(value ?? ''),

@@ -44,38 +44,34 @@ class OtpFormView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'OTP',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              ).styled(size: 24, weight: FontWeight.bold),
             ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Column(
               children: [
-                const Text(
+                Text(
                   'An OTP verification code was sent to',
-                  style: TextStyle(color: Colors.black45),
-                ),
+                ).styled(color: Colors.black45),
                 Text(
                   cubit.emailController.text,
-                  style: TextStyle(color: C.primary(brightness)),
-                ),
+                ).styled(color: C.primary(brightness)),
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               children: [
                 Text(
                   'OTP Verification code: *',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                ).styled(weight: FontWeight.bold),
               ],
             ),
           ),
@@ -110,8 +106,9 @@ class OtpFormView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: TextButton(
               onPressed: () => cubit.signIn(context),
-              child: Text('Resend OTP',
-                  style: TextStyle(color: C.primary(brightness))),
+              child: Text(
+                'Resend OTP',
+              ).styled(color: C.primary(brightness)),
             ),
           ),
           PrimaryBtnView(

@@ -81,10 +81,12 @@ class OrderDetailsScreen extends StatelessWidget {
                           ],
                         );
                       } else if (state is SuccessOrderDetailsState) {
-                        return const Center(
-                            child: Text("Your order has been delivered!"));
+                        return Center(
+                            child: Text("Your order has been delivered!")
+                                .styled());
                       } else if (state is ErrorOrderDetailsState) {
-                        return const Center(child: Text("An error occurred!"));
+                        return Center(
+                            child: Text("An error occurred!").styled());
                       }
                       return const SizedBox();
                     },

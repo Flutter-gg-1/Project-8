@@ -34,7 +34,7 @@ class CountView extends StatelessWidget {
             color: iconColor,
           ),
         ),
-        Text("$count", style: TextStyle(fontSize: fSize, color: fColor)),
+        Text("$count", style: TextStyle(fontSize: fSize, color: fColor, fontFamily: 'Poppins',)),
         IconButton(
             onPressed: onIncrement,
             icon: Icon(

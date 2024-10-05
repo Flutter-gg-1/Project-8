@@ -42,7 +42,10 @@ class ProfileScreen extends StatelessWidget {
                   Align(
                       alignment: Alignment.bottomLeft,
                       child: AnimatedImgView(
-                        img: Img.illustration4,
+                        img: Image(
+                          image: Img.illustration4,
+                          fit: BoxFit.contain,
+                        ),
                       )),
                   AnimatedProfileList(cubit: cubit)
                 ],

@@ -111,7 +111,7 @@ class AddCategoryScreen extends StatelessWidget {
                                       horizontal: 8.0),
                                   child: Row(
                                     children: [
-                                      Expanded(child: Text('Sort Priority')),
+                                      Expanded(child: Text('Sort Priority').styled()),
                                       BlocBuilder<AddCategoryCubit,
                                           AddCategoryState>(
                                         builder: (context, state) {
@@ -121,7 +121,7 @@ class AddCategoryScreen extends StatelessWidget {
                                               int value = index + 1;
                                               return DropdownMenuItem<int>(
                                                 value: value,
-                                                child: Text(value.toString()),
+                                                child: Text(value.toString()).styled(),
                                               );
                                             }),
                                             onChanged: (int? newValue) {
