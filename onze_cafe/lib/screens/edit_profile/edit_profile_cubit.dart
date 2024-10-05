@@ -46,4 +46,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       animatedSnakbar(msg: msg, type: type).show(context);
     }
   }
+  void emitLoading() => emit(LoadingState());
+  void emitUpdate() => emit(UpdateUIState());
 }

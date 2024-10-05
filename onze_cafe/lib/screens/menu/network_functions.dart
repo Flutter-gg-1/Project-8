@@ -12,10 +12,17 @@ extension NetworkFunctions on MenuCubit {
   Future fetchCategories(BuildContext context) async {
     emitLoading();
     try {
+      emitLoading();
       final response = await SupabaseCategory.fetchCategories();
+
+      if (context.mounted) {
+        showSnackBar(context, 'Categories finished loading',
+            AnimatedSnackBarType.success);
+      }
       emitUpdate();
       return response;
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
@@ -28,12 +35,14 @@ extension NetworkFunctions on MenuCubit {
   Future fetchMenuItems(BuildContext context) async {
     emitLoading();
     try {
+      emitLoading();
       final response = await SupabaseMenu.fetchMenuItems();
       emitUpdate();
       return response;
     } catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
+        showSnackBar(context, 'Menu Items finished loading',
+            AnimatedSnackBarType.success);
       }
       emitUpdate();
     }

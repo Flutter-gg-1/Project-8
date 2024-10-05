@@ -19,10 +19,11 @@ extension NetworkFunctions on AuthCubit {
         showSnackBar(
             context, response.toString(), AnimatedSnackBarType.success);
       }
-      await Future.delayed(Duration(milliseconds: 50));
       emitUpdate();
+
       toggleIsOtp();
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
@@ -33,6 +34,7 @@ extension NetworkFunctions on AuthCubit {
 
   Future signIn(BuildContext context) async {
     try {
+      emitLoading();
       final response = await SupabaseAuth.signIn(
           emailController.text, passwordController.text);
 
@@ -43,7 +45,6 @@ extension NetworkFunctions on AuthCubit {
       await Future.delayed(Duration(milliseconds: 50));
 
       await SupabaseMgr.shared.setCurrentUser();
-
       if (context.mounted) {
         if (SupabaseMgr.shared.currentProfile?.role == 'employee') {
           navigateToDashboard(context);
@@ -51,7 +52,10 @@ extension NetworkFunctions on AuthCubit {
           navigateToMenu(context);
         }
       }
+      emitUpdate();
     } catch (e) {
+      emitUpdate();
+
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
@@ -62,6 +66,7 @@ extension NetworkFunctions on AuthCubit {
 
   Future anonymousSignIn(context) async {
     try {
+      emitLoading();
       final response = await SupabaseAuth.anonymousSignIn();
       if (context.mounted) {
         showSnackBar(
@@ -73,6 +78,7 @@ extension NetworkFunctions on AuthCubit {
 
       if (context.mounted) navigateToMenu(context);
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }
@@ -84,6 +90,7 @@ extension NetworkFunctions on AuthCubit {
   Future verifyOtp(context) async {
     var stringOtp = '$otp'.padLeft(6, '0');
     try {
+      emitLoading();
       await SupabaseAuth.verifyOtp(email: emailController.text, otp: stringOtp);
       if (context.mounted) {
         showSnackBar(context, 'Otp verified. Creating user profile',
@@ -110,6 +117,7 @@ extension NetworkFunctions on AuthCubit {
         }
       }
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, e.toString(), AnimatedSnackBarType.error);
       }

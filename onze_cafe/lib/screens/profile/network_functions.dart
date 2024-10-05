@@ -11,14 +11,17 @@ import '../landing/landing_screen.dart';
 extension NetworkFunctions on ProfileCubit {
   Future<Profile?> fetchProfile(BuildContext context) async {
     try {
+      emitLoading();
       var profile = await SupabaseProfile.fetchProfile(
           SupabaseMgr.shared.currentUser?.id ?? '');
       if (context.mounted) {
         showSnackBar(
             context, 'Finished loading profile', AnimatedSnackBarType.success);
       }
+      emitUpdate();
       return profile;
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(
             context, 'Failed to Load Profile', AnimatedSnackBarType.error);
@@ -29,6 +32,7 @@ extension NetworkFunctions on ProfileCubit {
 
   Future signOut(BuildContext context) async {
     try {
+      emitLoading();
       await SupabaseAuth.signOut();
 
       if (context.mounted) {
@@ -42,7 +46,9 @@ extension NetworkFunctions on ProfileCubit {
           MaterialPageRoute(builder: (context) => LandingScreen()),
         );
       }
+      emitUpdate();
     } catch (e) {
+      emitUpdate();
       if (context.mounted) {
         showSnackBar(context, 'Failed to Sign-out', AnimatedSnackBarType.error);
       }

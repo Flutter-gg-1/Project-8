@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
+import 'package:onze_cafe/managers/alert_mgr.dart';
 import 'package:onze_cafe/reusable_components/custom_refresh/refresh.dart';
 import 'package:onze_cafe/screens/drawer/drawer_screen.dart';
 import 'package:onze_cafe/screens/menu/subviews/Item_view.dart';
@@ -24,8 +25,11 @@ class MenuScreen extends StatelessWidget {
         final cubit = context.read<MenuCubit>();
         return BlocListener<MenuCubit, MenuState>(
           listener: (context, state) {
-            if (state is LoadingState) {}
-            if (state is UpdateUIState) {}
+            if (state is LoadingState) {
+              AlertManager().showAlert(context: context);
+            } else if (state is UpdateUIState) {
+              AlertManager().dismissPreviousAlert(context);
+            }
           },
           child: Scaffold(
             backgroundColor: C.primary(brightness),
@@ -90,7 +94,12 @@ class MenuScreen extends StatelessWidget {
             drawer: DrawerScreen(),
             body: Refresh(
               refreshController: cubit.refreshController,
-              onRefresh: cubit.handleRefresh,
+              onRefresh: () async {
+                cubit.emitLoading();
+                await cubit.handleRefresh();
+                cubit.refreshController.refreshCompleted();
+                cubit.emitUpdate();
+              },
               bgColor: C.primary(brightness),
               gif: Img.loading2,
               child: ListView(controller: cubit.scrollController, children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../../../extensions/color_ext.dart';
@@ -27,17 +28,26 @@ class ProfileCardView extends StatelessWidget {
                   aspectRatio: 1,
                   child: Container(
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: C.primary(brightness), width: 2)),
+                        gradient: G.primary,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black38,
+                              blurRadius: 5,
+                              spreadRadius: 2)
+                        ],
+                        shape: BoxShape.circle,
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: ClipOval(
                             child: cubit.profile?.avatarUrl != null
                                 ? Image.network(cubit.profile!.avatarUrl!,
                                     fit: BoxFit.cover)
-                                : const Icon(CupertinoIcons.person_fill,
-                                    size: 40)),
+                                : Icon(
+                                    CupertinoIcons.person_fill,
+                                    size: 40,
+                                    color: C.bg1(brightness),
+                                  )),
                       )),
                 ),
               ),

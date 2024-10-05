@@ -36,7 +36,12 @@ class OrdersScreen extends StatelessWidget {
                   return Expanded(
                     child: Refresh(
                       refreshController: cubit.refreshController,
-                      onRefresh: cubit.handleRefresh,
+                     onRefresh: () async {
+                cubit.emitLoading();
+                await cubit.handleRefresh();
+                cubit.refreshController.refreshCompleted();
+                cubit.emitUpdate();
+              },
                       bgColor: C.bg1(brightness),
                       gif: Img.loading,
                       child: ListView(

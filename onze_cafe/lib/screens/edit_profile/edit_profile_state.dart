@@ -6,3 +6,4 @@ sealed class EditProfileState {}
 final class EditProfileInitial extends EditProfileState {}
 
 final class UpdateUIState extends EditProfileState {}
+final class LoadingState extends EditProfileState {}
