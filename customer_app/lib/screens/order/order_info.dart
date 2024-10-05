@@ -34,7 +34,7 @@ class OrderInfo extends StatelessWidget {
           body: Center(
             child: Column(
               children: [
-                                Container(
+                Container(
                   height: context.getHeight(multiply: 0.2),
                   width: context.getWidth(multiply: 0.3),
                   decoration: const BoxDecoration(
@@ -44,8 +44,7 @@ class OrderInfo extends StatelessWidget {
                       child: Image.network(
                         product.imgPath ?? " ",
                         errorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                              'assets/image/logo.png');
+                          return Image.asset('assets/image/logo.png');
                         },
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {

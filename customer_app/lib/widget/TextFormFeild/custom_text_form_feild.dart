@@ -8,6 +8,8 @@ class CustomTextFormFelid extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
+  final Function(String)? onFieldSubmitted;
+  final Key? feaildKey;
   const CustomTextFormFelid({
     super.key,
     required this.label,
@@ -16,6 +18,8 @@ class CustomTextFormFelid extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.prefixIcon,
+    this.onFieldSubmitted,
+    this.feaildKey,
   });
 
   @override
@@ -37,6 +41,8 @@ class CustomTextFormFelid extends StatelessWidget {
           ),
           context.addSpacer(multiply: 0.01),
           TextFormField(
+            key: feaildKey,
+            onFieldSubmitted: onFieldSubmitted,
             autovalidateMode: AutovalidateMode.onUnfocus,
             validator: validator,
             controller: controller,

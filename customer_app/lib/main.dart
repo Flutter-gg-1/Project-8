@@ -6,7 +6,7 @@ import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
 import 'package:customer_app/screens/first_screen.dart';
 import 'package:customer_app/screens/order_history/history_screen.dart';
-import 'package:customer_app/screens/home_screen.dart';
+import 'package:customer_app/screens/home/home_screen.dart';
 import 'package:customer_app/screens/order/order_status.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:flutter/material.dart';
