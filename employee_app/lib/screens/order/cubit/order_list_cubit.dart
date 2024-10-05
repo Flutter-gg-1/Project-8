@@ -12,11 +12,15 @@ part 'order_list_state.dart';
 
 class OrderListCubit extends Cubit<OrderListState> {
   OrderListCubit() : super(OrderListInitial());
-
+  String username = 'user';
   List<OrderModel> orderList = [];
   Timer? _timer;
   int _tickCount = 0;
   int statusIndex = 0;
+
+  getUserName({required String id}) async {
+     username = await SuperMain().getUserName(id: id);
+  }
   showOrderList() async {
     try {
       log("here");
@@ -42,7 +46,6 @@ class OrderListCubit extends Cubit<OrderListState> {
         }
       }
 
-
       emit(OrderShowState());
     } catch (er) {
       log("$er");
@@ -50,10 +53,14 @@ class OrderListCubit extends Cubit<OrderListState> {
     }
   }
 
-  changeStatus({required String status, required String orderId}) async {
+  changeStatus(
+      {required String status,
+      required String orderId,
+      required String customerId}) async {
     try {
       emit(LoadingState());
       await SuperMain().orderChangeStatus(status: status, orderId: orderId);
+     
       emit(NoLodingState());
       showOrderList();
     } catch (er) {

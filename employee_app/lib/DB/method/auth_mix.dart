@@ -79,5 +79,18 @@ mixin AuthMix on Super {
     }
   }
 
-  getUser() {}
+  Future<String> getUserName({required String id}) async {
+    try {
+      final userName = await supabase
+          .from('customer')
+          .select('first_name,last_name')
+          .eq('customer_id', id);
+      log(userName.toString());
+
+      return '${userName[0]['first_name']} ${userName[0]['last_name']}';
+    } catch (e) {
+      log('$e');
+      return '';
+    }
+  }
 }

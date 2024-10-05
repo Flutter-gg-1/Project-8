@@ -1,3 +1,4 @@
+import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/helper/extinsion/order_date_format.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_details_model.dart';
@@ -51,14 +52,14 @@ class OrderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Icon(
                       Iconsax.profile_2user_outline,
                       color: Color(0xff3D6B7D),
                     ),
                     Text(
-                      'User name',
+                      cubit.username,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -125,7 +126,8 @@ class OrderItem extends StatelessWidget {
                               onPressed: () async {
                                 await cubit.changeStatus(
                                     status: "Preparing",
-                                    orderId: order.orderId!);
+                                    orderId: order.orderId!,
+                                    customerId: order.customerId!);
                               },
                               icon: const Icon(
                                 Icons.task_alt_rounded,
@@ -135,7 +137,8 @@ class OrderItem extends StatelessWidget {
                               onPressed: () async {
                                 await cubit.changeStatus(
                                     status: "Cancelled",
-                                    orderId: order.orderId!);
+                                    orderId: order.orderId!,
+                                    customerId: order.customerId!);
                               },
                               icon: const Icon(
                                 Icons.do_disturb_rounded,
@@ -157,7 +160,11 @@ class OrderItem extends StatelessWidget {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               // here chnage
-                              return OrderStatus(cubit: cubit, order: tempInfo!);
+                              return OrderStatus(
+                                cubit: cubit,
+                                orderInfo: tempInfo!,
+                                order: order,
+                              );
                             },
                           )).then(
                             (value) {

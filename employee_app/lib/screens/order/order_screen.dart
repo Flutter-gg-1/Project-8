@@ -245,7 +245,12 @@ class OrderScreen extends StatelessWidget {
                                                       fontFamily: 'Rosarivo'),
                                                 ),
                                                 Text(
-                                                  'Order Items :\n ${e.orderDetailsLis.map((element) => menu.firstWhere((e) => e.productId == element.productId).name).join('\n')}',
+                                                  '\nOrder Items :\n${
+                                                    e.orderDetailsLis.map((element) => 
+                                                    menu.firstWhere((e) => 
+                                                    e.productId == element.productId).name).join('\nquantity : ${
+                                                      e.orderDetailsLis.first.quantity
+                                                    }\n\n')}',
                                                   style: const TextStyle(
                                                       color: Color(0xffA8483D),
                                                       fontSize: 18,
