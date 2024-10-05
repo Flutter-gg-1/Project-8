@@ -145,7 +145,11 @@ class MenuScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CategoryTab(cubit: cubit),
-                              Divider(color: C.primary(brightness)),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Divider(color: C.primary(brightness)),
+                              ),
                               if (cubit.offers.isNotEmpty)
                                 OffersView(cubit: cubit),
                               ListView.builder(
@@ -182,10 +186,9 @@ class MenuScreen extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                               category.name,
-                                             
                                             ).styled(
-                                              weight: FontWeight.bold, size: 20
-                                            ),
+                                                weight: FontWeight.bold,
+                                                size: 20),
                                           ),
                                           GridView.count(
                                             crossAxisCount: 2,

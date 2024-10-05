@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:onze_cafe/reusable_components/logout_alert.dart';
 import 'package:onze_cafe/screens/profile/network_functions.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_card_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_list_item_view.dart';
@@ -42,7 +44,9 @@ class AnimatedProfileList extends StatelessWidget {
         ProfileListItemView(
           icon: CupertinoIcons.power,
           title: 'Logout',
-          callback: () => cubit.signOut(context),
+          callback: () => LogOutAlert.showLogoutConfirmation(
+            context, () => cubit.signOut(context),
+          ),
           isLogout: true,
         )
       else

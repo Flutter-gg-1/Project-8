@@ -97,13 +97,14 @@ class AddMenuItemScreen extends StatelessWidget {
                                 elevation: 2,
                                 shadowColor:
                                     C.secondary(brightness).withOpacity(0.7),
-                                color: C.bg1(brightness),
+                                color: C.bg2(brightness),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Row(
                                     children: [
-                                      Expanded(child: Text('Category').styled()),
+                                      Expanded(
+                                          child: Text('Category').styled()),
                                       BlocBuilder<AddMenuItemCubit,
                                           AddMenuItemState>(
                                         builder: (context, state) {
@@ -127,7 +128,8 @@ class AddMenuItemScreen extends StatelessWidget {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                        child: Text(value).styled(),
+                                                        child: Text(value)
+                                                            .styled(),
                                                       );
                                                     },
                                                   ),

@@ -44,4 +44,5 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void emitLoading() => LoadingState();
   void emitUpdate() => emit(UpdateUIState());
+  void requestLogout() {}
 }

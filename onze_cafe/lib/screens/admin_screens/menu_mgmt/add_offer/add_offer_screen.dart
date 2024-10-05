@@ -62,10 +62,13 @@ class AddOfferScreen extends StatelessWidget {
                                 },
                               )),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Card(
                           elevation: 2,
                           shadowColor: C.secondary(brightness).withOpacity(0.7),
-                          color: C.bg1(brightness),
+                          color: C.bg2(brightness),
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),

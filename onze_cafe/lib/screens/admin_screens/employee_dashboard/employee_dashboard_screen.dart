@@ -6,6 +6,7 @@ import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/managers/alert_mgr.dart';
+import 'package:onze_cafe/reusable_components/logout_alert.dart';
 import 'package:onze_cafe/screens/admin_screens/employee_dashboard/employee_dashboard_cubit.dart';
 import 'package:onze_cafe/screens/admin_screens/menu_mgmt/menu_mgmt_screen.dart';
 import 'package:onze_cafe/screens/admin_screens/orders_dashboard/orders_dashboard_screen.dart';
@@ -37,10 +38,8 @@ class EmployeeDashboardScreen extends StatelessWidget {
             backgroundColor: C.primary(brightness),
             appBar: AppBar(
               backgroundColor: C.primary(brightness),
-              title: Image(
-                image: Img.logo1,
-                fit: BoxFit.fitHeight,
-              ),
+              title:
+                  AspectRatio(aspectRatio: 7, child: Image(image: Img.logo1)),
               centerTitle: true,
             ),
             body: Column(
@@ -121,8 +120,11 @@ class EmployeeDashboardScreen extends StatelessWidget {
                               },
                               title: "Employees"),
                           EmployeeDashboardView(
-                              onTab: () => cubit.signOut(context),
-                              title: "Sign-Out"),
+                              onTab: () => LogOutAlert.showLogoutConfirmation(
+                                    context,
+                                    () => cubit.signOut(context),
+                                  ),
+                              title: "Log-Out"),
                         ],
                       ),
                     ),

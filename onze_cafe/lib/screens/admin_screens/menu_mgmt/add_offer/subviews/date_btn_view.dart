@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/date_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 
@@ -12,9 +13,14 @@ class DateBtnView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+
     var date = isStartDate ? cubit.startDate : cubit.endDate;
     return ElevatedButton.icon(
-      icon: Icon(Icons.calendar_today),
+      icon: Icon(
+        Icons.calendar_today,
+        color: C.primary(brightness),
+      ),
       label: Text(date.toFormattedString()).styled(),
       onPressed: () async {
         DateTime? pickedDate = await showDatePicker(
