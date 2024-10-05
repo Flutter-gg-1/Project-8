@@ -114,12 +114,6 @@ class EmployeeDashboardScreen extends StatelessWidget {
                               },
                               title: "Menu"),
                           EmployeeDashboardView(
-                              onTab: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => MenuMgmtScreen()));
-                              },
-                              title: "Employees"),
-                          EmployeeDashboardView(
                               onTab: () => LogOutAlert.showLogoutConfirmation(
                                     context,
                                     () => cubit.signOut(context),

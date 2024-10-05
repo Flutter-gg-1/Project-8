@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/screens/admin_screens/orders_dashboard/subviews/orders_db_view.dart';
+import 'package:onze_cafe/screens/admin_screens/orders_dashboard/subviews/order_status.dart';
 
 import 'orders_dashboard_cubit.dart';
 
@@ -15,7 +15,7 @@ class OrdersDashboardScreen extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
 
     return BlocProvider(
-      create: (context) => OrdersDashboardCubit(),
+      create: (context) => OrdersDashboardCubit(context),
       child: Builder(builder: (context) {
         final cubit = context.read<OrdersDashboardCubit>();
         return Scaffold(
@@ -42,33 +42,35 @@ class OrdersDashboardScreen extends StatelessWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.all(16),
-                child: BlocBuilder<OrdersDashboardCubit, OrdersDashboardState>(
-                  builder: (context, state) {
-                    int selectedIndex = -1;
-                    if (state is OrderDashboardCardSelectedState) {
-                      selectedIndex = state.selectedIndex;
-                    }
-
-                    return ListView(
-                      children: [
-                        Text("Orders Dashboard").styled(
-                            weight: FontWeight.bold,
-                            size: 22,
-                            color: C.primary(brightness)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        OrderDisplay(
-                          quantity: "111",
-                          orders: "orders",
-                          date: "date",
-                          cubit: cubit,
-                          selectedIndex: selectedIndex,
-                        )
-                      ],
-                    );
-                  },
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text("Orders Dashboard").styled(
+                        weight: FontWeight.bold,
+                        size: 22,
+                        color: C.primary(brightness)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    BlocBuilder<OrdersDashboardCubit, OrdersDashboardState>(
+                      builder: (context, state) {
+                        return Expanded(
+                          child: ListView(
+                            children: cubit.orders
+                                .map(
+                                  (order) => TextButton(
+                                    onPressed: () =>
+                                        cubit.showBillView(context, order),
+                                    child: OrderStatusView(
+                                        cubit: cubit, order: order),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

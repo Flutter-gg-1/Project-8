@@ -5,11 +5,9 @@ sealed class OrdersDashboardState {}
 
 final class OrdersDashboardInitial extends OrdersDashboardState {}
 
-final class SuccessOrderDashboardState extends OrdersDashboardState {}
+final class LoadingState extends OrdersDashboardState {}
 
-final class LoadingOrderDashboardState extends OrdersDashboardState {}
-
-final class ErrorOrderDashboardState extends OrdersDashboardState {}
+final class UpdateUIState extends OrdersDashboardState {}
 
 class OrderDashboardCardSelectedState extends OrdersDashboardState {
   final int selectedIndex;

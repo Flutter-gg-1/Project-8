@@ -4,6 +4,7 @@ class Order {
   String status;
   double price;
   bool isPayed;
+  DateTime? createdAt;
 
   Order({
     this.id,
@@ -11,6 +12,7 @@ class Order {
     required this.status,
     required this.price,
     required this.isPayed,
+    this.createdAt,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,9 @@ class Order {
       status: json['status'],
       price: (json['price'] as num).toDouble(), // Casting to double from num
       isPayed: json['is_payed'],
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
     );
   }
 
@@ -29,7 +34,8 @@ class Order {
       'user_id': userId,
       'status': status,
       'price': price,
-      'is_payed': isPayed
+      'is_payed': isPayed,
+      if (createdAt != null) 'created_at': createdAt?.toIso8601String(),
     };
   }
 }

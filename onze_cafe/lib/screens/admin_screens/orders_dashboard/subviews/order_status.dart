@@ -1,31 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/date_ext.dart';
 import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
+import 'package:onze_cafe/model/enums/order_status.dart';
+import 'package:onze_cafe/screens/admin_screens/orders_dashboard/network_functions.dart';
 
+import '../../../../model/order.dart';
 import '../orders_dashboard_cubit.dart';
 
 class OrderStatusView extends StatelessWidget {
   const OrderStatusView({
     super.key,
-    required this.brightness,
-    required this.quantity,
-    required this.orders,
-    required this.date,
+    required this.order,
     required this.cubit,
-    required this.selectedIndex,
   });
 
-  final Brightness brightness;
-  final String quantity;
-  final String orders;
-  final String date;
+  final Order order;
   final OrdersDashboardCubit cubit;
-  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Card(
         color: C.bg3(brightness),
         elevation: 4,
@@ -37,12 +34,12 @@ class OrderStatusView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Order #$quantity").styled(
+                  Text("Order #${order.id?.substring(0, 4)}").styled(
                       color: C.primary(brightness),
-                      size: 20,
+                      size: 16,
                       weight: FontWeight.w600),
-                  Text(orders).styled(),
-                  Text(date).styled()
+                  Text(order.createdAt!.toFormattedStringWithTime())
+                      .styled(size: 12, weight: FontWeight.w300)
                 ],
               ),
               Container(
@@ -59,38 +56,38 @@ class OrderStatusView extends StatelessWidget {
                     ]),
                 child: Row(
                   children: [
-                    StatusView(
-                        brightness: brightness,
-                        cubit: cubit,
-                        icon: CupertinoIcons.cart_fill,
-                        isToggled: selectedIndex == 0,
-                        onTap: () {
-                          cubit.setActiveIcon(0);
-                        }),
-                    StatusView(
-                        brightness: brightness,
-                        cubit: cubit,
-                        icon: CupertinoIcons.timer,
-                        isToggled: selectedIndex == 1,
-                        onTap: () {
-                          cubit.setActiveIcon(1);
-                        }),
-                    StatusView(
-                        brightness: brightness,
-                        cubit: cubit,
-                        icon: CupertinoIcons.bell_fill,
-                        isToggled: selectedIndex == 2,
-                        onTap: () {
-                          cubit.setActiveIcon(2);
-                        }),
-                    StatusView(
-                        brightness: brightness,
-                        cubit: cubit,
-                        icon: CupertinoIcons.checkmark_alt,
-                        isToggled: selectedIndex == 3,
-                        onTap: () {
-                          cubit.setActiveIcon(3);
-                        }),
+                    StatusIconView(
+                      cubit: cubit,
+                      icon: CupertinoIcons.cart_fill,
+                      onTap: () =>
+                          cubit.updateOrder(context, order, OrderStatus.placed),
+                      status: OrderStatus.placed,
+                      currentStatus: order.status,
+                    ),
+                    StatusIconView(
+                      cubit: cubit,
+                      icon: CupertinoIcons.timer,
+                      onTap: () => cubit.updateOrder(
+                          context, order, OrderStatus.preparing),
+                      status: OrderStatus.preparing,
+                      currentStatus: order.status,
+                    ),
+                    StatusIconView(
+                      cubit: cubit,
+                      icon: CupertinoIcons.bell_fill,
+                      onTap: () =>
+                          cubit.updateOrder(context, order, OrderStatus.ready),
+                      status: OrderStatus.ready,
+                      currentStatus: order.status,
+                    ),
+                    StatusIconView(
+                      cubit: cubit,
+                      icon: CupertinoIcons.checkmark_alt,
+                      onTap: () => cubit.updateOrder(
+                          context, order, OrderStatus.onTheWay),
+                      status: OrderStatus.onTheWay,
+                      currentStatus: order.status,
+                    ),
                     SizedBox(
                       width: 8,
                     )
@@ -103,32 +100,35 @@ class OrderStatusView extends StatelessWidget {
   }
 }
 
-class StatusView extends StatelessWidget {
-  const StatusView({
+class StatusIconView extends StatelessWidget {
+  const StatusIconView({
     super.key,
-    required this.brightness,
     required this.cubit,
-    required this.icon,
-    required this.isToggled,
+    required this.status,
     required this.onTap,
+    required this.icon,
+    required this.currentStatus,
   });
 
-  final Brightness brightness;
   final OrdersDashboardCubit cubit;
   final IconData icon;
-  final bool isToggled;
-  final Function()? onTap;
+  final OrderStatus status;
+  final String currentStatus;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return InkWell(
       onTap: onTap,
       child: Container(
           margin: EdgeInsets.only(left: 8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isToggled ? null : C.bg3(brightness),
-            gradient: isToggled ? G.secondary2 : null,
+            color: status.name() == currentStatus
+                ? C.primary(brightness)
+                : C.bg1(brightness),
+            gradient: status.name() == currentStatus ? G.secondary2 : null,
           ),
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Padding(
