@@ -8,6 +8,7 @@ extension CustomTextStyle on Text {
     TextAlign align = TextAlign.start,
     int lineLimit = 30,
     bool cross = false,
+    
   }) {
     return Text(
       data!,

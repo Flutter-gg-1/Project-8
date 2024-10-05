@@ -24,8 +24,8 @@ class CategoryTab extends StatelessWidget {
           onTap: (idx) =>
               cubit.goToSelectedCategory(cubit.categories[idx].id ?? ""),
           labelColor: C.primary(brightness),
-          labelStyle: TextStyle(fontWeight: FontWeight.w800),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+          labelStyle: TextStyle(fontWeight: FontWeight.w800, fontFamily: 'Poppins'),
+          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins'),
           // tabAlignment: TabAlignment.start,
           indicatorColor: Colors.transparent,
           dividerColor: Colors.transparent,

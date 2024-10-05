@@ -76,13 +76,11 @@ class MenuScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(8),
                                     child: Text(
                                       '${cubit.cart.length}',
-                                      style: TextStyle(
-                                        color: C.bg1(brightness),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
                                       textAlign: TextAlign.center,
-                                    ),
+                                    ).styled(
+                                        size: 12,
+                                        color: C.bg1(brightness),
+                                        weight: FontWeight.bold),
                                   ),
                                 );
                         },
@@ -184,9 +182,9 @@ class MenuScreen extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                               category.name,
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
+                                             
+                                            ).styled(
+                                              weight: FontWeight.bold, size: 20
                                             ),
                                           ),
                                           GridView.count(
@@ -203,7 +201,7 @@ class MenuScreen extends StatelessWidget {
                                                         child: ItemView(
                                                             item: item)))
                                                     .toList()
-                                                : [Text('No Items')],
+                                                : [Text('No Items').styled()],
                                           ),
                                         ],
                                       );

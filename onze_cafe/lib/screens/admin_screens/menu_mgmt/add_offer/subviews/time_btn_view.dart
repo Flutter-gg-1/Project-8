@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../add_offer_cubit.dart';
 
@@ -13,7 +14,7 @@ class TimeBtnView extends StatelessWidget {
     var date = isStartDate ? cubit.startDate : cubit.endDate;
     return ElevatedButton.icon(
       icon: Icon(Icons.access_time),
-      label: Text(TimeOfDay.fromDateTime(date).format(context)),
+      label: Text(TimeOfDay.fromDateTime(date).format(context)).styled(),
       onPressed: () async {
         // Show time picker
         TimeOfDay? pickedTime = await showTimePicker(

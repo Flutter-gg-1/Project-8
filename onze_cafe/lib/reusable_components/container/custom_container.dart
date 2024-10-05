@@ -50,7 +50,7 @@ class CustomeContainer extends StatelessWidget {
             ],
           ),
         ),
-        Text(title),
+        Text(title).styled(),
         SizedBox(
           height: 10,
         )

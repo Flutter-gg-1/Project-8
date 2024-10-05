@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AnimatedImgView extends StatelessWidget {
   const AnimatedImgView({super.key, required this.img});
-  final ImageProvider img;
+  final Widget img;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,7 @@ class AnimatedImgView extends StatelessWidget {
           offset: offset * MediaQuery.of(context).size.width,
           child: Align(
             alignment: Alignment.bottomRight,
-            child: Image(
-              image: img,
-              fit: BoxFit.contain,
-            ),
+            child:img
           ),
         );
       },

@@ -41,8 +41,8 @@ class OrderStatus extends StatelessWidget {
                       color: C.primary(brightness),
                       size: 20,
                       weight: FontWeight.w600),
-                  Text(orders),
-                  Text(date)
+                  Text(orders).styled(),
+                  Text(date).styled()
                 ],
               ),
               Container(

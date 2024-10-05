@@ -71,7 +71,7 @@ class AddOfferScreen extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Row(
                               children: [
-                                Expanded(child: Text('Menu Item')),
+                                Expanded(child: Text('Menu Item').styled()),
                                 BlocBuilder<AddOfferCubit, AddOfferState>(
                                   builder: (context, state) {
                                     return cubit.selectedMenuItem == null

@@ -103,7 +103,7 @@ class AddMenuItemScreen extends StatelessWidget {
                                       horizontal: 8.0),
                                   child: Row(
                                     children: [
-                                      Expanded(child: Text('Category')),
+                                      Expanded(child: Text('Category').styled()),
                                       BlocBuilder<AddMenuItemCubit,
                                           AddMenuItemState>(
                                         builder: (context, state) {
@@ -127,7 +127,7 @@ class AddMenuItemScreen extends StatelessWidget {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                        child: Text(value),
+                                                        child: Text(value).styled(),
                                                       );
                                                     },
                                                   ),

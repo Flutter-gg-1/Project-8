@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
+import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../../../../model/enums/selling_times.dart';
 
@@ -42,7 +43,7 @@ class LineChartView extends StatelessWidget {
                     showTitles: true,
                     reservedSize: 30,
                     getTitlesWidget: (value, meta) {
-                      return Text(sellingTimes.name);
+                      return Text(sellingTimes.name).styled();
                     }),
               ),
               leftTitles: AxisTitles(
