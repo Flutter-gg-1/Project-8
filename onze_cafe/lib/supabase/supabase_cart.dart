@@ -30,6 +30,9 @@ class SupabaseCart {
 
   static Future insertCartItem({required CartItem cartItem}) async {
     try {
+      if (SupabaseMgr.shared.currentProfile == null) {
+        throw Exception('You must sign in to add items');
+      }
       await supabase.from(tableKey).insert(cartItem.toJson());
       return cartItem;
     } on AuthException catch (_) {

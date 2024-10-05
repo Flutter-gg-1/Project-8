@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:onze_cafe/screens/profile/network_functions.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_card_view.dart';
 import 'package:onze_cafe/screens/profile/subviews/profile_list_item_view.dart';
+import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 
 import '../profile_cubit.dart';
 
@@ -14,32 +15,43 @@ class AnimatedProfileList extends StatelessWidget {
   Widget build(BuildContext context) {
     final items = [
       ProfileCardView(cubit: cubit),
-      ProfileListItemView(
-        icon: CupertinoIcons.gear_solid,
-        title: 'Edit Profile',
-        callback: () => cubit.navigateToEditProfile(context),
-      ),
-      ProfileListItemView(
-        icon: CupertinoIcons.bell_fill,
-        title: 'Notifications',
-        callback: () => (),
-      ),
-      ProfileListItemView(
-        icon: CupertinoIcons.creditcard_fill,
-        title: 'Payment',
-        callback: () => (),
-      ),
+      if (SupabaseMgr.shared.currentProfile != null)
+        Column(children: [
+          ProfileListItemView(
+            icon: CupertinoIcons.gear_solid,
+            title: 'Edit Profile',
+            callback: () => cubit.navigateToEditProfile(context),
+          ),
+          ProfileListItemView(
+            icon: CupertinoIcons.bell_fill,
+            title: 'Notifications',
+            callback: () => (),
+          ),
+          ProfileListItemView(
+            icon: CupertinoIcons.creditcard_fill,
+            title: 'Payment',
+            callback: () => (),
+          ),
+        ]),
       ProfileListItemView(
         icon: CupertinoIcons.phone_fill,
         title: 'Contact Us',
         callback: () => (),
       ),
-      ProfileListItemView(
-        icon: CupertinoIcons.power,
-        title: 'Logout',
-        callback: () => cubit.signOut(context),
-        isLogout: true,
-      ),
+      if (SupabaseMgr.shared.currentProfile != null)
+        ProfileListItemView(
+          icon: CupertinoIcons.power,
+          title: 'Logout',
+          callback: () => cubit.signOut(context),
+          isLogout: true,
+        )
+      else
+        ProfileListItemView(
+          icon: CupertinoIcons.profile_circled,
+          title: 'Sign In',
+          callback: () => cubit.signOut(context),
+          isLogout: false,
+        )
     ];
 
     return ListView.builder(

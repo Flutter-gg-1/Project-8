@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:onze_cafe/screens/edit_profile/edit_profile_screen.dart';
+import 'package:onze_cafe/screens/landing/landing_screen.dart';
 
 import '../../model/profile.dart';
 import '../../reusable_components/animated_snackbar.dart';
@@ -20,6 +21,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   void initialLoad() async {
     profile = SupabaseMgr.shared.currentProfile;
   }
+
+  navigateToSignIn(BuildContext context) =>
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => LandingScreen()));
 
   navigateToEditProfile(BuildContext context) => Navigator.of(context)
           .push(MaterialPageRoute(
