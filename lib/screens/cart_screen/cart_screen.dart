@@ -184,6 +184,9 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
+                            if (locator.get<DataLayer>().cart.items.isEmpty) {
+                              return;
+                            }
                             _showPaymentBottomSheet(context, size, bloc);
                           },
                           style: ElevatedButton.styleFrom(

@@ -26,6 +26,7 @@ dependencies:
   onesignal_flutter: ^5.2.5
   curved_carousel: ^0.0.8
   http: ^1.2.2
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:

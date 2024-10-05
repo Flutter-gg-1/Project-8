@@ -53,12 +53,13 @@ class CartItemCard extends StatelessWidget {
                 Text(
                   item.name,
                   style: TextStyle(
-                    fontSize: size.width * 0.03,
+                    fontSize: size.width * 0.035,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow
+                      .ellipsis,
                 ),
                 const SizedBox(height: 5),
                 Text(
