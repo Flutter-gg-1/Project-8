@@ -19,10 +19,11 @@ extension NetworkFunctions on EditProfileCubit {
 
       await SupabaseMgr.shared.setCurrentUser();
 
+      emitUpdate(); // Emit update state before attempting to pop
+
       if (context.mounted) {
-        showSnackBar(context, 'Profile Update!', AnimatedSnackBarType.success);
+        Navigator.of(context).pop(); // Now, try to pop the context
       }
-      emitUpdate();
     } catch (e) {
       emitUpdate();
       if (context.mounted) {
