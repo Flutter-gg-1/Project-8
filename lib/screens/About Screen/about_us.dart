@@ -38,7 +38,7 @@ class AboutUs extends StatelessWidget {
             const Text(
               'Who are we?',
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 16,
                 color: Color(0xff2F4B4E),
                 fontWeight: FontWeight.bold,
               ),
@@ -111,7 +111,6 @@ class AboutUs extends StatelessWidget {
               ),
               textAlign: TextAlign.left,
             ),
-            const SizedBox(height: 10),
             const Text(
               'Located at!',
               style: TextStyle(
@@ -228,7 +227,10 @@ class AboutUs extends StatelessWidget {
               height: 5,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text('For more Information visit our webcite: '),
+              const Text(
+                'For more Information visit our webcite: ',
+                style: TextStyle(color: Colors.white),
+              ),
               InkWell(
                   onTap: () {
                     launchURL('https://onze.cafe/');
