@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    'assets/login_background.png',
+                    'assets/Home.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -43,6 +43,9 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 150,
+                      ),
                       const Text(
                         'Email',
                         style: TextStyle(color: Colors.white, fontSize: 14.33),
@@ -150,10 +153,6 @@ class LoginScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: const Color(0xffE6E2E0), width: 1),
-                              gradient: const LinearGradient(colors: [
-                                Color(0xff2F4B4E),
-                                Color(0xffE6E2E0)
-                              ]),
                               borderRadius: BorderRadius.circular(15)),
                           child: Material(
                             type: MaterialType.transparency,
@@ -166,7 +165,6 @@ class LoginScreen extends StatelessWidget {
                                         password: passwordController.text));
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
                                     shadowColor: Colors.transparent,
                                     padding: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
@@ -177,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                                     'Sign in',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: Color(0xff3d6b7d),
                                         fontSize: 17.92,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -202,7 +200,8 @@ class LoginScreen extends StatelessWidget {
                               TextSpan(text: 'Don\'t have an account? '),
                               TextSpan(
                                   text: 'Register',
-                                  style: TextStyle(color: Color(0xff87B1C5))),
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 133, 60, 52))),
                             ]))),
                       )
                     ],

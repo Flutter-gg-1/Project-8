@@ -10,7 +10,12 @@ class OtpScreen extends StatelessWidget {
   final String password;
   final String name;
   final String phone;
-  const OtpScreen({super.key, required this.email, required this.password, required this.name, required this.phone});
+  const OtpScreen(
+      {super.key,
+      required this.email,
+      required this.password,
+      required this.name,
+      required this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class OtpScreen extends StatelessWidget {
         border: Border.all(color: const Color(0xff57E3D8)),
       ),
     );
+
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Builder(builder: (context) {
@@ -51,82 +57,101 @@ class OtpScreen extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const HomeScreen()));
               }
-               if (state is ErrorState) {
+              if (state is ErrorState) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
             child: Scaffold(
               extendBodyBehindAppBar: true,
-              body: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Image.asset(
-                      'assets/login_background.png',
-                      fit: BoxFit.cover,
+              body: SingleChildScrollView(
+                // استخدام SingleChildScrollView للسماح بالتمرير
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height,
+                  ),
+                  child: IntrinsicHeight(
+                    // يضمن عدم قص المحتوى
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Image.asset(
+                            'assets/Home.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 150,
+                            ),
+                            Text(
+                              'Enter the OTP sent to your Email',
+                              style: TextStyle(
+                                fontSize: 2.5.h,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xffD7D1CA),
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              'We have sent the OTP code to',
+                              style: TextStyle(
+                                fontSize: 1.6.h,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xffD7D1CA),
+                              ),
+                            ),
+                            Text(
+                              email,
+                              style: TextStyle(
+                                fontSize: 1.6.h,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xff87B1C5),
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: Center(
+                                child: Pinput(
+                                  length: 6,
+                                  defaultPinTheme: defaultPinTheme,
+                                  submittedPinTheme: submittedPinTheme,
+                                  showCursor: true,
+                                  onCompleted: (pin) {
+                                    bloc.add(VerifyEvent(
+                                        email: email,
+                                        password: password,
+                                        otp: pin,
+                                        name: name,
+                                        phone: phone));
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            GestureDetector(
+                              onTap: () {
+                                // Resend OTP ??
+                              },
+                              child: Text(
+                                'Resend OTP',
+                                style: TextStyle(
+                                  fontSize: 2.h,
+                                  fontStyle: FontStyle.italic,
+                                  color: const Color(0xff87B1C5),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Enter the OTP sent to your Email',
-                        style: TextStyle(
-                          fontSize: 2.5.h,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xffD7D1CA),
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        'We have sent the OTP code to',
-                        style: TextStyle(
-                          fontSize: 1.6.h,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xffD7D1CA),
-                        ),
-                      ),
-                      Text(
-                        email,
-                        style: TextStyle(
-                          fontSize: 1.6.h,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xff87B1C5),
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: Center(
-                          child: Pinput(
-                            length: 6,
-                            defaultPinTheme: defaultPinTheme,
-                            submittedPinTheme: submittedPinTheme,
-                            showCursor: true,
-                            onCompleted: (pin) {
-                              bloc.add(VerifyEvent(email: email, password: password,otp: pin, name: name, phone: phone));
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      GestureDetector(
-                        onTap: () {
-                          // Resend OTP ??
-                        },
-                        child: Text(
-                          'Resend OTP',
-                          style: TextStyle(
-                            fontSize: 2.h,
-                            fontStyle: FontStyle.italic,
-                            color: const Color(0xff87B1C5),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                ),
               ),
             ),
           ),
