@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:meta/meta.dart';
@@ -58,11 +57,10 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         statusIndex = 3;
       }
       _tickCount++;
-      log('$statusIndex');
-      log('${status[0]}');
+
       orderStatus = '${status[0]['status']}';
     } catch (e) {
-      log('$e');
+      emit(ErrorState(msg: 'Order status is not available'));
     }
     emit(TimerRunInProgress(tickCount: _tickCount));
   }

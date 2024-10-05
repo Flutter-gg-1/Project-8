@@ -56,7 +56,6 @@ class SignupScreen extends StatelessWidget {
               }
             },
             child: Scaffold(
-              // backgroundColor: Colors.transparent,
               body: Center(
                 child: SingleChildScrollView(
                   child: Column(

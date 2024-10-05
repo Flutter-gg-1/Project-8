@@ -4,11 +4,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class AuthLayer {
   final box = GetStorage();
-  UserModel? user = UserModel(
-      customerId: "929fc748-4578-414d-bc33-06bdbaad123a",
-      email: "email",
-      firstName: "firstName",
-      lastName: "lastName");
+  UserModel? user;
   AuthLayer() {
     loadDataAuth();
   }

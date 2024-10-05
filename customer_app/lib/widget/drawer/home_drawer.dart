@@ -3,7 +3,7 @@ import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/models/user_model.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
 import 'package:customer_app/screens/order_history/history_screen.dart';
-import 'package:customer_app/screens/order_history/order_in_wait_screen.dart';
+import 'package:customer_app/screens/order_history/customer_orders_screen.dart';
 import 'package:customer_app/screens/profile/profile_screen.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
@@ -79,7 +79,7 @@ class HomeDrawer extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const OrderInWaitScreen(),
+                      builder: (context) => const CustomerOrdersScreen(),
                     ));
               },
               fixedSize: Size(context.getWidth(multiply: 0.4),

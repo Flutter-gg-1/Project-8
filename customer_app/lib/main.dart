@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:customer_app/DB/super_main.dart';
+import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/models/order_details_model.dart';
 import 'package:customer_app/models/order_model.dart';
 import 'package:customer_app/models/user_model.dart';
@@ -35,7 +38,7 @@ Future main() async {
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
   OneSignal.Notifications.requestPermission(true);
-
+ log('${authLocator.get<AuthLayer>().user?.toJson()}');
   runApp(const MyApp());
 }
 

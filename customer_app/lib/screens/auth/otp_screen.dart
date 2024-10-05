@@ -4,6 +4,8 @@ import 'package:customer_app/helper/extinsion/loading_dialog.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/auth/cubit/auth_cubit/auth_cubit.dart';
 import 'package:customer_app/screens/auth/signup_screen.dart';
+import 'package:customer_app/screens/home/home_screen.dart';
+
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,21 +47,14 @@ class OtpScreen extends StatelessWidget {
 
             if (state is SuccessState) {
               Navigator.pop(context);
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) =>  OtpScreen(
-              //         email: cubit.email.text,
-              //         fName: cubit.firstName.text,
-              //         lName: cubit.lastName.text,
-              //       ),
-              //     ));
-
-              log("success otp");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ));
             }
           },
           child: Scaffold(
-            // backgroundColor: Colors.transparent,
             body: Center(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(

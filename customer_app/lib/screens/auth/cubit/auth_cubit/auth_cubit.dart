@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
@@ -27,16 +25,11 @@ class AuthCubit extends Cubit<AuthState> {
       if (formKey.currentState!.validate()) {
         await SuperMain().createLogin(email: emailCon.text);
 
-        log('Form is valid, proceed with signup');
         emit(SuccessState());
       } else {
         emit(NoLoadingState());
-        log('Form is invalid');
       }
     } catch (er) {
-      log("in signup error");
-      log("$er");
-
       emit(ErrorState(msg: er.toString()));
     }
   }
@@ -54,22 +47,9 @@ class AuthCubit extends Cubit<AuthState> {
 
       await SuperMain()
           .verifyOtp(email: email, otp: otp, fName: fName, lName: lName);
-      // final userFromDB = await db
-      //     .from('customer')
-      //     .select()
-      //     .eq('customer_id', db.auth.currentUser!.id)
-      //     .single();
 
-      // locator.saveAuth(
-      //     userData: UserModel(
-      //         customerId: userFromDB['customer_id'],
-      //         email: db.auth.currentUser!.email!,
-      //         firstName: userFromDB['first_name'],
-      //         lastName: userFromDB['last_name']));
       emit(SuccessState());
     } catch (er) {
-      log("$er");
-
       emit(ErrorState(msg: er.toString()));
     }
   }

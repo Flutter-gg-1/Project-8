@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/models/order_details_model.dart';
@@ -16,10 +14,10 @@ class OrderShowCubit extends Cubit<OrderShowState> {
 
   getAllUserOrder({String? status}) async {
     try {
+      await Future.delayed(Duration.zero);
+      emit(LoadingState());
       orderList.clear();
       final res = await SuperMain().getUserOrder(status: status);
-
-      log("$res");
 
       for (var val in res) {
         orderList.add(OrderModel.fromJson(val));
@@ -28,8 +26,6 @@ class OrderShowCubit extends Cubit<OrderShowState> {
       for (var val in orderList) {
         final orderRes =
             await SuperMain().getAllUserOrderDetail(orderId: val.orderId!);
-
-        log("$orderRes");
 
         for (var orderVal in orderRes) {
           OrderDetailsModel temp = OrderDetailsModel.fromJson(orderVal);
@@ -40,11 +36,10 @@ class OrderShowCubit extends Cubit<OrderShowState> {
           val.orderDetailsLis.add(temp);
         }
       }
-
+      emit(SussesState());
       emit(OrderHistoryShowDataState());
     } catch (er) {
-      log("err is in the cubit");
-      log("$er");
+      emit(ErrorState(msg: 'Sorry some problem happen try again later'));
     }
   }
 

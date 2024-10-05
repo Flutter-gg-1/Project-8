@@ -51,62 +51,72 @@ class OrderStatus extends StatelessWidget {
               width: 200,
               height: 200),
         ];
-        return Scaffold(
-          appBar: AppBar(),
-          body: Center(
-            child: Column(
-              children: [
-                Image.asset('assets/image/status_cup.png'),
-                const Text('20 min',
+        return BlocListener<OrderBloc, OrderState>(
+          listener: (context, state) {
+            if (state is ErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.msg),
+                backgroundColor: Colors.red,
+              ));
+            }
+          },
+          child: Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: Column(
+                children: [
+                  Image.asset('assets/image/status_cup.png'),
+                  const Text('20 min',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Poppins')),
+                  const Text(
+                    'For Your Order',
                     style: TextStyle(
-                        fontSize: 24,
+                        color: Color(0xff3D6B7D),
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins')),
-                const Text(
-                  'For Your Order',
-                  style: TextStyle(
-                      color: Color(0xff3D6B7D),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Rosarivo'),
-                ),
-                context.addSpacer(multiply: 0.02),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    CustomPaint(
-                      size: Size(
-                          context.getSize(
-                              smallDivider: 0.8,
-                              largeDivider: 0.8,
-                              context: context),
-                          40),
-                      painter: RPSCustomPainter(),
-                    ),
-                    Positioned(
-                      left: context.getWidth(multiply: 0.05),
-                      top: -6,
-                      child: SizedBox(
-                        width: context.getSize(
-                            smallDivider: 0.75,
-                            largeDivider: 0.75,
-                            context: context),
-                        child: OrderReview(order: order),
+                        fontFamily: 'Rosarivo'),
+                  ),
+                  context.addSpacer(multiply: 0.02),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      CustomPaint(
+                        size: Size(
+                            context.getSize(
+                                smallDivider: 0.8,
+                                largeDivider: 0.8,
+                                context: context),
+                            40),
+                        painter: RPSCustomPainter(),
                       ),
-                    ),
-                  ],
-                ),
-                context.addSpacer(multiply: 0.02),
-                BlocBuilder<OrderBloc, OrderState>(
-                  builder: (context, state) {
-                    return StatusContainer(
-                        orderStatus: bloc.orderStatus,
-                        statusIndex: bloc.statusIndex,
-                        color: color,
-                        test: test);
-                  },
-                )
-              ],
+                      Positioned(
+                        left: context.getWidth(multiply: 0.05),
+                        top: -6,
+                        child: SizedBox(
+                          width: context.getSize(
+                              smallDivider: 0.75,
+                              largeDivider: 0.75,
+                              context: context),
+                          child: OrderReview(order: order),
+                        ),
+                      ),
+                    ],
+                  ),
+                  context.addSpacer(multiply: 0.02),
+                  BlocBuilder<OrderBloc, OrderState>(
+                    builder: (context, state) {
+                      return StatusContainer(
+                          orderStatus: bloc.orderStatus,
+                          statusIndex: bloc.statusIndex,
+                          color: color,
+                          test: test);
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         );

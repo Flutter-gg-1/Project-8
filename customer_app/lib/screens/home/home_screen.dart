@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
 import 'package:customer_app/helper/extinsion/loading_dialog.dart';
@@ -11,7 +9,7 @@ import 'package:customer_app/screens/home/bloc/home_bloc.dart';
 import 'package:customer_app/screens/menu/menu_option.dart';
 import 'package:customer_app/screens/menu/menu_types.dart';
 import 'package:customer_app/screens/order/order_info.dart';
-import 'package:customer_app/screens/order_history/order_in_wait_screen.dart';
+import 'package:customer_app/screens/order_history/customer_orders_screen.dart';
 
 import 'package:customer_app/screens/profile/profile_screen.dart';
 
@@ -54,9 +52,8 @@ class HomeScreen extends StatelessWidget {
                 context: context,
                 builder: (context) => Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: context.getWidth(multiply: 0.05),
-                    vertical: context.getHeight(multiply: 0.05)
-                  ),
+                      horizontal: context.getWidth(multiply: 0.05),
+                      vertical: context.getHeight(multiply: 0.05)),
                   height: context.getHeight(multiply: 0.4),
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -82,7 +79,8 @@ class HomeScreen extends StatelessWidget {
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => OrderInfo(product: e),
+                                      builder: (context) =>
+                                          OrderInfo(product: e),
                                     ),
                                   ),
                                 ),
@@ -116,7 +114,6 @@ class HomeScreen extends StatelessWidget {
                 actions: [
                   IconButton(
                       onPressed: () {
-                        log("${productLocator.get<ProductLayer>().cartItem}");
                         Navigator.push(
                             context,
                             MaterialPageRoute(

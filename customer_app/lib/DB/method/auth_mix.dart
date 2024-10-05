@@ -46,7 +46,7 @@ mixin AuthMix on Super {
 
         log("userModel from login user");
 
-        productLocator.get<AuthLayer>().saveAuth(userData: user);
+        authLocator.get<AuthLayer>().saveAuth(userData: user);
 
         log("${user.toJson()}");
       } else {
