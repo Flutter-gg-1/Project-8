@@ -9,15 +9,11 @@ final class LoadingState extends AuthState {}
 
 final class SuccessfulRegisterState extends AuthState {}
 
-// final class FailedRegisterState extends AuthState {}
+final class SuccessfulResentOTPState extends AuthState {}
 
 final class SuccessfulVerifyState extends AuthState {}
 
-// final class FailedVerifyState extends AuthState {}
-
 final class SuccessfulLoginState extends AuthState {}
-
-// final class FailedLoginState extends AuthState {}
 
 final class ErrorState extends AuthState {
   final String message;

@@ -20,6 +20,19 @@ Future createAccount({required String email, required String password}) async {
   }
 }
 
+Future resendOtp({required String email}) async {
+  try {
+    final authRes = await supabase.auth.resend(
+      type: OtpType.signup,
+      email: email,
+    );
+
+    return authRes;
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
 Future login({required String email, required String password}) async {
   try {
     final authRes = await supabase.auth

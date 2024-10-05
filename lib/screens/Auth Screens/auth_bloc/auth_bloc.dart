@@ -10,6 +10,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<RegisterEvent>(addNewAccount);
+    on<ResendOtpEvent>(resenOtp);
     on<VerifyEvent>(verifyAccount);
     on<LoginEvent>(loginUser);
   }
@@ -20,6 +21,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingState());
       await createAccount(email: event.email, password: event.password);
       emit(SuccessfulRegisterState());
+    } catch (error) {
+      emit(ErrorState(message: "Failed to Register, try again"));
+    }
+  }
+
+   FutureOr<void> resenOtp(ResendOtpEvent event, Emitter<AuthState> emit) async {
+    try {
+      emit(LoadingState());
+      await resendOtp(email: event.email);
+
+      emit(SuccessfulResentOTPState());
     } catch (error) {
       emit(ErrorState(message: "Failed to Register, try again"));
     }

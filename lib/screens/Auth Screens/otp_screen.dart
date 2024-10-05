@@ -83,7 +83,7 @@ class OtpScreen extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 150,
                             ),
                             Text(
@@ -134,7 +134,7 @@ class OtpScreen extends StatelessWidget {
                             SizedBox(height: 5.h),
                             GestureDetector(
                               onTap: () {
-                                // Resend OTP ??
+                                bloc.add(ResendOtpEvent(email: email));
                               },
                               child: Text(
                                 'Resend OTP',

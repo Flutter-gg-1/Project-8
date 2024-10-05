@@ -51,7 +51,7 @@ class RegisterScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 200,
                       ),
                       const Text('Name',
@@ -187,7 +187,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         child: TextField(
                           controller: phoneController,
-                          keyboardType: TextInputType.numberWithOptions(),
+                          keyboardType: const TextInputType.numberWithOptions(),
                           cursorColor: const Color(0xffE6E2E0),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
