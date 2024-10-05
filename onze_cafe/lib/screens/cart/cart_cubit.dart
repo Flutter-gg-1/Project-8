@@ -1,53 +1,63 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_item.dart';
+
+import '../checkout/checkout_screen.dart';
 
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartInitial());
+  CartCubit(List<CartItem> cart, List<MenuItem> menuItems)
+      : super(CartInitial()) {
+    initialLoad(cart, menuItems);
+  }
   List<CartItem> cartItems = [];
-  int count = 1;
+  List<MenuItem> menuItems = [];
 
-  void fetchCartItems() {
-    var allCartItems = MockData().cart;
-    cartItems =
-        allCartItems.where((item) => item.placedOrderId == null).toList();
-
-    emit(CartUpdatedState(cartItems));
+  void initialLoad(List<CartItem> cart, List<MenuItem> menuItems) {
+    cartItems = cart; // Explicitly refer to the class-level cartItems
+    this.menuItems = menuItems; // Explicitly refer to the class-level menuItems
+    emitUpdate();
   }
 
   MenuItem? fetchMenuItem(String menuItemId) {
-    var menuItems = MockData().menuItems;
     return menuItems
         .where((menuItem) => menuItem.id == menuItemId)
         .toList()
         .firstOrNull;
   }
 
-  void addItem(CartItem item) {
-    cartItems.add(item);
-    emit(CartUpdatedState(cartItems));
-  }
-
-  void removeItem(CartItem item) {
-    cartItems.remove(item);
-    emit(CartUpdatedState(cartItems));
-  }
-
   void incrementCount(CartItem item) {
     if (item.quantity < 10) {
       item.quantity++;
-      emit(CartUpdatedState(cartItems));
+      emitUpdate();
     }
+  }
+
+  double totalPrice() {
+    var total = 0.0;
+    for (var cartItem in cartItems) {
+      var quantity = cartItem.quantity;
+      var item = fetchMenuItem(cartItem.menuItemId);
+      if (item != null) {
+        total += item.price * quantity;
+      }
+    }
+    return total;
   }
 
   void decrementCount(CartItem item) {
     if (item.quantity > 1) {
       item.quantity--;
-      emit(CartUpdatedState(cartItems));
+      emitUpdate();
     }
   }
+
+  void navigateToPayment(BuildContext context) =>
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CheckoutScreen(totalPrice: totalPrice())));
+
+  void emitLoading() => emit(LoadingState());
+  void emitUpdate() => emit(UpdateUIState());
 }

@@ -53,7 +53,6 @@ class _CategoryCardView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
               child: category.imgUrl == null
                   ? Image(image: Img.logo4, fit: BoxFit.fitWidth)
                   : Image.network(category.imgUrl!, fit: BoxFit.contain),
@@ -61,7 +60,6 @@ class _CategoryCardView extends StatelessWidget {
             SizedBox(height: 8),
             Expanded(
               child: Text(category.name).styled(
-                  size: 10,
                   weight: FontWeight.w300,
                   align: TextAlign.center,
                   lineLimit: 2),

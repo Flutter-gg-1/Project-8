@@ -7,12 +7,17 @@ class SupabaseCart {
   static final SupabaseClient supabase = SupabaseMgr.shared.supabase;
   static final String tableKey = 'cart_item';
 
-  static Future<List<CartItem>>? fetchCart() async {
+  static Future<List<CartItem>> fetchCart() async {
+    var currentUserId = SupabaseMgr.shared.currentUser?.id ?? '';
+
     try {
-      var res = await supabase.from(tableKey).select();
+      var res =
+          await supabase.from(tableKey).select().eq('user_id', currentUserId);
+
       List<CartItem> cartItems = (res as List)
           .map((item) => CartItem.fromJson(item as Map<String, dynamic>))
           .toList();
+
       return cartItems;
     } on AuthException catch (_) {
       rethrow;
@@ -23,19 +28,26 @@ class SupabaseCart {
     }
   }
 
-  static Future<void> readData() async {
-    var response = await supabase.from(tableKey).select();
-    print(response);
+  static Future insertCartItem({required CartItem cartItem}) async {
+    try {
+      await supabase.from(tableKey).insert(cartItem.toJson());
+      return cartItem;
+    } on AuthException catch (_) {
+      rethrow;
+    } on PostgrestException catch (_) {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
   }
 
-  static Future upsertCartItem({required CartItem cartItem}) async {
+  static Future updateCartItem({required CartItem cartItem}) async {
     try {
-      var response = await supabase.from(tableKey).upsert(
-            cartItem.toJson(),
-            onConflict: 'menu_item_id',
-          );
-
-      return print(response);
+      await supabase
+          .from(tableKey)
+          .update(cartItem.toJson())
+          .eq('id', cartItem.id ?? '');
+      return cartItem;
     } on AuthException catch (_) {
       rethrow;
     } on PostgrestException catch (_) {

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
-import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/enums/cup_size.dart';
@@ -59,37 +57,38 @@ class _SizeCardView extends StatelessWidget {
               child: InkWell(
                 onTap: () => cubit.selectSize(cupSize),
                 child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black45,
-                          offset: Offset(3, 3),
-                          blurRadius: 6,
-                        )
-                      ],
-                      color: cubit.selectedSize == cupSize
-                          ? C.accent(brightness)
-                          : C.bg3(brightness),
-                      borderRadius: BorderRadius.circular(16),
+                  decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black45,
+                        offset: Offset(3, 3),
+                        blurRadius: 6,
+                      )
+                    ],
+                    color: cubit.selectedSize == cupSize
+                        ? C.accent(brightness)
+                        : C.bg3(brightness),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: SvgPicture.asset(
+                      'assets/SVG/outlined_cup.svg',
+                      colorFilter: ColorFilter.mode(
+                          cubit.selectedSize == cupSize
+                              ? C.secondary(brightness)
+                              : C.accent(brightness),
+                          BlendMode.srcIn),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: SvgPicture.asset(
-                        'assets/SVG/outlined_cup.svg',
-                        colorFilter: ColorFilter.mode(
-                            cubit.selectedSize == cupSize
-                                ? C.secondary(brightness)
-                                : C.accent(brightness),
-                            BlendMode.srcIn),
-                      ),
-                    )),
+                  ),
+                ),
               ),
             ),
           ),
         ),
         Center(
           child: Text(
-            cupSize.name(),
+            cupSize.strValue(),
           ).styled(
             size: 18,
             weight: FontWeight.w400,

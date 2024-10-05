@@ -1,7 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/mockData/mock_data.dart';
+import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/model/offer.dart';
@@ -18,9 +18,10 @@ class MenuCubit extends Cubit<MenuState> {
   MenuCubit(BuildContext context) : super(MenuInitial()) {
     initialLoad(context);
   }
-  List<MenuItem> allItems = [];
+  List<MenuItem> menuItems = [];
   List<MenuCategory> categories = [];
   List<Offer> offers = [];
+  List<CartItem> cart = [];
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -34,11 +35,16 @@ class MenuCubit extends Cubit<MenuState> {
 
   void initialLoad(BuildContext context) async {
     emitLoading();
-    allItems = await fetchMenuItems(context) ?? [];
-    categories = await fetchCategories(context) ?? [];
-    offers = MockData().offers;
+    menuItems = await fetchMenuItems(context) ?? [];
+    if (context.mounted) categories = await fetchCategories(context) ?? [];
+    if (context.mounted) offers = await fetchOffers(context) ?? [];
+    if (context.mounted) cart = await fetchCart(context) ?? [];
     _groupMenuItemsByCategory();
     emitUpdate();
+  }
+
+  MenuItem? getMenuItemById(String menuItemId) {
+    return menuItems.firstWhere((menuItem) => menuItem.id == menuItemId);
   }
 
   // Group items by their categoryId
@@ -46,7 +52,7 @@ class MenuCubit extends Cubit<MenuState> {
     categorizedMenuItems.clear();
     for (var category in categories) {
       categorizedMenuItems[category.id ?? ''] =
-          allItems.where((item) => item.categoryId == category.id).toList();
+          menuItems.where((item) => item.categoryId == category.id).toList();
     }
   }
 
@@ -71,12 +77,25 @@ class MenuCubit extends Cubit<MenuState> {
     }
   }
 
-  void navigateToCart(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => const CartScreen()));
+  void navigateToCart(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+            builder: (context) => CartScreen(cart: cart, menuItems: menuItems)))
+        .then((_) async {
+      if (context.mounted) cart = await fetchCart(context);
+      emitUpdate();
+    });
+  }
 
   void navigateToItemDetails(BuildContext context, MenuItem item) =>
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ItemDetailsScreen(item: item)));
+      Navigator.of(context)
+          .push(MaterialPageRoute(
+              builder: (context) => ItemDetailsScreen(item: item)))
+          .then((_) async {
+        if (context.mounted) cart = await fetchCart(context);
+        Future.delayed(Duration(milliseconds: 50));
+        emitUpdate();
+      });
 
   void emitLoading() => emit(LoadingState());
   void emitUpdate() => emit(UpdateUIState());

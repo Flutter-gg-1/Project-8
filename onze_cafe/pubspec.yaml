@@ -40,6 +40,7 @@ flutter:
     - assets/
     - assets/SVG/outlined_cup.svg
     - assets/illustrations/
+    - assets/coffee_bean/
     - assets/loading/
     - assets/logo/
     - assets/menu_categories/

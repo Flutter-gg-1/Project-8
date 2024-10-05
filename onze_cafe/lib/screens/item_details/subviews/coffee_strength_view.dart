@@ -78,7 +78,7 @@ class _StrengthCardView extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
-                      Text("${strength.name()} Roast").styled(
+                      Text("${strength.strValue()} Roast").styled(
                         weight: FontWeight.bold,
                         color: cubit.selectedStrength == strength
                             ? C.accent(brightness)

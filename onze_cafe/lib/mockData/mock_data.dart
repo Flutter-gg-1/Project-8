@@ -41,8 +41,4 @@ class MockData {
     cart = fetchCartItems();
     placedOrders = fetchPlacedOrders();
   }
-
-  MenuItem? getMenuItemById(String menuItemId) {
-    return menuItems.firstWhere((menuItem) => menuItem.id == menuItemId);
-  }
 }

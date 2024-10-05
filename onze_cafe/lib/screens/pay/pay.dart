@@ -27,7 +27,7 @@ class PaymentMethods extends StatelessWidget {
     amount: 25758, // SAR 257.58
     description: 'Order #1324',
     metadata: {'size': '250g'},
-    creditCard: CreditCardConfig(saveCard: true, manual: false),
+    creditCard: CreditCardConfig(saveCard: false, manual: false),
     // applePay: ApplePayConfig(
     // merchantId: dotenv.env['MERCHANT_ID']!,
     //   label: 'ABU_Mukhlef',
@@ -65,7 +65,6 @@ class PaymentMethods extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text("or"),
         CreditCard(
           config: paymentConfig,
           onPaymentResult: onPaymentResult,

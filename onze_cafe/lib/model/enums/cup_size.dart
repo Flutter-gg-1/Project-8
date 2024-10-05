@@ -1,7 +1,7 @@
 enum CupSize { small, medium, large }
 
 extension TextValue on CupSize {
-  String name() {
+  String strValue() {
     switch (this) {
       case CupSize.small:
         return 'Small';

@@ -10,6 +10,7 @@ import 'package:onze_cafe/screens/menu/menu_cubit.dart';
 import 'package:onze_cafe/screens/menu/subviews/offers_view.dart';
 
 import '../../extensions/img_ext.dart';
+import '../../supabase/client/supabase_mgr.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -23,8 +24,8 @@ class MenuScreen extends StatelessWidget {
         final cubit = context.read<MenuCubit>();
         return BlocListener<MenuCubit, MenuState>(
           listener: (context, state) {
-            if (state is LoadingState) {
-            } else {}
+            if (state is LoadingState) {}
+            if (state is UpdateUIState) {}
           },
           child: Scaffold(
             backgroundColor: C.primary(brightness),
@@ -46,13 +47,42 @@ class MenuScreen extends StatelessWidget {
               actions: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: IconButton(
-                    onPressed: () => cubit.navigateToCart(context),
-                    icon: Icon(
-                      Icons.shopping_basket,
-                      color: C.bg1(brightness),
-                      size: 30,
-                    ),
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      IconButton(
+                        onPressed: () => cubit.navigateToCart(context),
+                        icon: Icon(
+                          Icons.shopping_basket,
+                          color: C.bg1(brightness),
+                          size: 30,
+                        ),
+                      ),
+                      BlocBuilder<MenuCubit, MenuState>(
+                        builder: (context, state) {
+                          return cubit.cart.isEmpty
+                              ? Text('')
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: C.secondary(brightness),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Text(
+                                      '${cubit.cart.length}',
+                                      style: TextStyle(
+                                        color: C.bg1(brightness),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                );
+                        },
+                      )
+                    ],
                   ),
                 )
               ],
@@ -74,15 +104,17 @@ class MenuScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("Hi User").styled(
-                                  color: C.bg1(brightness),
-                                  size: 24,
-                                  weight: FontWeight.bold),
+                              Text("Hi ${SupabaseMgr.shared.currentProfile?.name ?? ''}")
+                                  .styled(
+                                      color: C.bg1(brightness),
+                                      size: 24,
+                                      weight: FontWeight.bold),
                               const Text(
                                       "It is a great day to grab a cup of coffee")
                                   .styled(
                                 color: C.bg1(brightness),
                                 size: 14,
+                                lineLimit: 1,
                               ),
                             ],
                           ),
@@ -105,7 +137,8 @@ class MenuScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CategoryTab(cubit: cubit),
-                              OffersView(),
+                              if (cubit.offers.isNotEmpty)
+                                OffersView(cubit: cubit),
                               ListView.builder(
                                 controller: cubit.scrollController,
                                 shrinkWrap: true,

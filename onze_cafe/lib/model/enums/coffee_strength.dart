@@ -1,7 +1,7 @@
 enum CoffeeStrength { light, medium, dark }
 
 extension TextValue on CoffeeStrength {
-  String name() {
+  String strValue() {
     switch (this) {
       case CoffeeStrength.light:
         return 'Light';

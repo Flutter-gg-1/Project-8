@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
-import 'package:onze_cafe/mockData/offers_ext.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../model/menu_item.dart';
 import '../../../model/offer.dart';
+import '../menu_cubit.dart';
 
 class OffersSlider extends StatelessWidget {
-  const OffersSlider({super.key});
+  const OffersSlider({super.key, required this.cubit});
+  final MenuCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    final offers = MockData().fetchOffers();
     return CarouselSlider(
-      items: offers.map((offer) {
+      items: cubit.offers.map((offer) {
         // Get the corresponding MenuItem for the offer
-        MenuItem? menuItem = MockData().getMenuItemById(offer.menuItemId);
+        MenuItem? menuItem = cubit.getMenuItemById(offer.menuItemId);
         return menuItem == null
             ? Text('')
             : _CarouselItem(offer: offer, menuItem: menuItem);

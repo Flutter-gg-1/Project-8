@@ -8,6 +8,7 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
 import 'package:onze_cafe/reusable_components/count_view.dart';
+import 'package:onze_cafe/screens/item_details/network_functions.dart';
 import 'package:onze_cafe/screens/item_details/subviews/coffee_strength_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/size_selection_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/milk_slider_view.dart';
@@ -39,10 +40,15 @@ class ItemDetailsScreen extends StatelessWidget {
                           children: [
                             AspectRatio(
                                 aspectRatio: 1.3,
-                                child: Image(
-                                  image: Img.americano,
-                                  fit: BoxFit.cover,
-                                )),
+                                child: item.imgUrl == null
+                                    ? Image(
+                                        image: Img.americano,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.network(
+                                        item.imgUrl!,
+                                        fit: BoxFit.cover,
+                                      )),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 40.0, horizontal: 8),
@@ -86,7 +92,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                         ),
                                         MilkSliderView(
                                           cubit: cubit,
-                                          title: cubit
+                                          milkOption: cubit
                                               .milkOptions[cubit.milkSlider],
                                         ),
                                         SizedBox(height: 8),
@@ -105,7 +111,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () => (),
+                                  onTap: () => cubit.addToCart(context, item),
                                   child: Stack(
                                     alignment: Alignment.center,
                                     children: [
@@ -158,9 +164,7 @@ class _TitleView extends StatelessWidget {
             Text(item.name).styled(
                 color: C.bg1(brightness), weight: FontWeight.bold, size: 24),
             Text('${item.price} SAR').styled(
-                color: C.secondary(brightness),
-                weight: FontWeight.bold,
-                size: 20),
+                color: C.bg1(brightness), weight: FontWeight.bold, size: 20),
           ],
         ),
         SizedBox(height: 8),

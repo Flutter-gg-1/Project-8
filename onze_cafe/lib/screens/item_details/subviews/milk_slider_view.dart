@@ -3,15 +3,17 @@ import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/screens/item_details/item_details_cubit.dart';
 
+import '../../../model/enums/milk_options.dart';
+
 class MilkSliderView extends StatelessWidget {
   const MilkSliderView({
     super.key,
     required this.cubit,
-    required this.title,
+    required this.milkOption,
   });
 
   final ItemDetailsCubit cubit;
-  final String title;
+  final MilkOption milkOption;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class MilkSliderView extends StatelessWidget {
             );
           },
           child: Text(
-            title,
+            milkOption.strValue(),
             key: ValueKey<int>(cubit.milkSlider),
             style: TextStyle(
               color: C.bg1(brightness),
