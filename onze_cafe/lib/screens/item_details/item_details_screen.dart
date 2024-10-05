@@ -6,7 +6,8 @@ import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 import 'package:onze_cafe/reusable_components/count_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/coffee_strength_view.dart';
 import 'package:onze_cafe/screens/item_details/subviews/size_selection_view.dart';
@@ -44,15 +45,13 @@ class ItemDetailsScreen extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 )),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 40.0, horizontal: 8),
-                              child: IconButton(
-                                  onPressed: () => cubit.navigateBack(context),
-                                  icon: Icon(
-                                      CupertinoIcons.chevron_left_square_fill),
-                                  iconSize: 40,
-                                  color: C.bg1(brightness)),
-                            ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 45.0, horizontal: 8),
+                                child: SizedBox(
+                                    width: 55,
+                                    height: 55,
+                                    child: CustomeBackBtn(
+                                        brightness: brightness))),
                             Column(
                               children: [
                                 AspectRatio(
@@ -84,47 +83,42 @@ class ItemDetailsScreen extends StatelessWidget {
                                                 .withOpacity(0.5),
                                           ),
                                         ),
+                                        CoffeeStrengthView(cubit: cubit),
+                                        SizedBox(height: 12),
                                         MilkSliderView(
                                           cubit: cubit,
                                           title: cubit
                                               .milkOptions[cubit.milkSlider],
                                         ),
-                                        SizedBox(height: 8),
-                                        CoffeeStrengthView(cubit: cubit),
-                                        CountView(
-                                          count: cubit.quantity,
-                                          onDecrement: cubit.decrementCount,
-                                          onIncrement: cubit.incrementCount,
-                                          iconColor: C.accent(brightness),
-                                          iconSize: 40,
-                                          fSize: 24,
-                                          fColor: C.bg1(brightness),
+                                        SizedBox(height: 16),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Quantity").styled(
+                                                color: C.bg1(brightness),
+                                                weight: FontWeight.w600,
+                                                size: 18),
+                                            CountView(
+                                              count: cubit.quantity,
+                                              onDecrement: cubit.decrementCount,
+                                              onIncrement: cubit.incrementCount,
+                                              iconColor: C.accent(brightness),
+                                              iconSize: 40,
+                                              fSize: 24,
+                                              fColor: C.bg1(brightness),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                InkWell(
+                                CustomCircleBtn(
+                                  brightness: brightness,
                                   onTap: () => (),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: CustomPaint(
-                                                size: Size(0,
-                                                    90), // Specify the size for your custom painting
-                                                painter: CircleBtn()),
-                                          ),
-                                        ],
-                                      ),
-                                      Text('Add To Cart').styled(
-                                          size: 16,
-                                          color: C.bg1(brightness),
-                                          weight: FontWeight.bold)
-                                    ],
-                                  ),
+                                  title: "10.0 SAR",
+                                  subTitle: 'Add To Cart',
                                 )
                               ],
                             )

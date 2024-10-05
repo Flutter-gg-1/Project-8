@@ -14,6 +14,7 @@ extension NetworkFunctions on MenuCubit {
         showSnackBar(context, 'Categories finished loading',
             AnimatedSnackBarType.success);
       }
+      await Future.delayed(Duration(seconds: 1));
       emitUpdate();
       return response;
     } catch (e) {

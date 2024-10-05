@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
-import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/enums/cup_size.dart';
@@ -50,10 +49,10 @@ class _SizeCardView extends StatelessWidget {
           child: ConstrainedBox(
             constraints: BoxConstraints(
                 maxWidth: (cupSize == CupSize.small)
-                    ? context.screenWidth * 0.15
+                    ? context.screenWidth * 0.13
                     : (cupSize == CupSize.medium)
-                        ? context.screenWidth * 0.17
-                        : context.screenWidth * 0.22),
+                        ? context.screenWidth * 0.15
+                        : context.screenWidth * 0.17),
             child: AspectRatio(
               aspectRatio: 1,
               child: InkWell(

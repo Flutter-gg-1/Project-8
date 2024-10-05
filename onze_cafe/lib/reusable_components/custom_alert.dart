@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
-import 'package:lottie/lottie.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
@@ -11,6 +10,9 @@ class CustomAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
         backgroundColor: Colors.transparent,
-        content: Lottie.asset('assets/loading/loading3.json'));
+        content: Image(
+          image: Img.loading4,
+          fit: BoxFit.fitHeight,
+        ));
   }
 }

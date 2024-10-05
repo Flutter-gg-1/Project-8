@@ -60,16 +60,16 @@ class MilkSliderView extends StatelessWidget {
             key: ValueKey<int>(cubit.milkSlider),
             style: TextStyle(
               color: C.bg1(brightness),
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.w800,
             ),
           ),
         ),
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
-            trackHeight: 10.0, // Adjust the height of the slider track
+            trackHeight: 8.0, // Adjust the height of the slider track
             thumbShape: RoundSliderThumbShape(
-                enabledThumbRadius: 16.0), // Adjust the size of the thumb
+                enabledThumbRadius: 14.0), // Adjust the size of the thumb
           ),
           child: Slider(
             value: cubit.milkSlider.toDouble(),

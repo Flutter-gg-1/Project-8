@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/screen_size.dart';
@@ -30,16 +29,8 @@ class AuthScreen extends StatelessWidget {
               AlertManager().dismissPreviousAlert(context);
             }
           },
-          child: LoaderOverlay(
-            overlayWidgetBuilder: (_) {
-              return Center(
-                child: Image(
-                  image: Img.loading2,
-                  width: 100,
-                  height: 100,
-                ),
-              );
-            },
+          
+            
             child: Scaffold(
               backgroundColor: C.bg1(brightness),
               body: SafeArea(
@@ -125,7 +116,7 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          
         );
       }),
     );

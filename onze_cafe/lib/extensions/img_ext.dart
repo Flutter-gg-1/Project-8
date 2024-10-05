@@ -39,6 +39,8 @@ extension Img on ImageProvider {
   static const an3 = AssetImage('assets/illustrations/an4 1.gif');
   static const an2 = AssetImage('assets/illustrations/an7.gif');
   static const an1 = AssetImage('assets/illustrations/an9.gif');
+  static const star4 = AssetImage('assets/illustrations/star-4.png');
+  static const an11 = AssetImage('assets/illustrations/an11.gif');
 
   // Categories
   static const cold = AssetImage('assets/menu_categories/cold.png');
@@ -61,4 +63,5 @@ extension Img on ImageProvider {
   // Loadingimg
   static const loading = AssetImage('assets/loading/loading.gif');
   static const loading2 = AssetImage('assets/loading/Loading2.gif');
+  static const loading4 = AssetImage('assets/loading/loading4.gif');
 }

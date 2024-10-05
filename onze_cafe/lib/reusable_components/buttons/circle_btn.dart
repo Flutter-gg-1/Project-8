@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/extensions/gradient_ext.dart';
 
 class CircleBtn extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     Path path = Path();
+    Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
+
+    // Apply the G.primary gradient to the paint object
+    paint.shader = G.secondary3.createShader(rect);
 
     // Path number 1
 
     paint.color = Color(0xFFA8483D).withOpacity(1);
-    path = Path();
     path.lineTo(size.width, size.height / 2);
     path.cubicTo(size.width, size.height / 2, size.width, size.height,
         size.width, size.height);

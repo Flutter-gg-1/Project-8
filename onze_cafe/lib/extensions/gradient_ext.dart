@@ -18,4 +18,8 @@ extension G on Gradient {
       colors: [Color(0xFFA8483D), Color(0xFFCB928B)],
       begin: Alignment.topRight,
       end: Alignment.bottomRight);
+  static const secondary3 = LinearGradient(colors: [
+    Color(0xFFA8483D),
+    Color(0xFFBC6459),
+  ], begin: Alignment.bottomCenter, end: Alignment.topCenter);
 }
