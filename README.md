@@ -118,6 +118,92 @@ to streamline the ordering process for coffee and desserts, especially during pe
 ### Screenshot
 
 
+- **First Screen**:
+
+![alt text](customer_app\assets\readme\first_screen.png)
+
+- **Login Screen**:
+
+![alt text](customer_app\assets\readme\login_screen.png)
+
+- **SignUp Screen**:
+
+![alt text](customer_app\assets\readme\sign_up_screen.png)
+
+- **Loading Screen**:
+![alt text](customer_app\assets\readme\loading.png)
+
+- **OTP Screen**:
+
+![alt text](assets/readme/all.png)
+
+- **Customer Home Screen**:
+
+![alt text](customer_app\assets\readme\customer_home_screen.png)
+
+- **Drawer**:
+
+![alt text](customer_app\assets\readme\drawer.png)
+
+- **Search For Product**:
+
+![alt text](customer_app\assets\readme\search_product.png)
+
+- **Product Info Screen**:
+
+![alt text](customer_app\assets\readme\product_info_screen.png)
+
+- **Successfully added to Cart**:
+
+![alt text](customer_app\assets\readme\add_to_cart.png)
+
+- **Cart Screen**:
+
+![alt text](customer_app\assets\readme\cart_null.png)
+
+- **Cart show msg Screen**:
+
+![alt text](customer_app\assets\readme\dailog_cart.png)
+
+- **History Screen**:
+
+![alt text](customer_app\assets\readme\history_order.png)
+
+- **My Order Screen**:
+
+![alt text](customer_app\assets\readme\my_order.png)
+
+- **My Order Screen**:
+
+![alt text](customer_app\assets\readme\has_order.png)
+
+- **Order Status Screen**:
+
+![alt text](customer_app\assets\readme\order_status.png)
+
+- **Preparing the order**:
+
+![alt text](customer_app\assets\readme\preparing.png)
+
+- **Order Status Info**:
+
+![alt text](customer_app\assets\readme\order_status_Info.png)
+
+- **Moyasar Payments Screen**:
+
+![alt text](customer_app\assets\readme\payment.png)
+
+- **Receipt Payment**:
+
+![alt text](customer_app\assets\readme\payment_check.png)
+
+- **success Pay**:
+
+![alt text](customer_app\assets\readme\sucess_pay.png)
+- **Profile Screen**:
+
+![alt text](assets/readme/rate.png)
+
 
 ### Demo Video
 
