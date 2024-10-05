@@ -9,18 +9,19 @@ class CartItemCard extends StatelessWidget {
   final CartBloc bloc;
   final OrderItemModel orderItem;
   int quantity;
-  CartItemCard(
-      {super.key,
-      required this.size,
-      required this.item,
-      required this.quantity,
-      required this.bloc,
-      required this.orderItem});
+
+  CartItemCard({
+    super.key,
+    required this.size,
+    required this.item,
+    required this.quantity,
+    required this.bloc,
+    required this.orderItem,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: const Color(0xfff0e5d8),
         borderRadius: BorderRadius.circular(15),
@@ -45,55 +46,60 @@ class CartItemCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: size.width * 0.045,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                'SAR ${item.price}',
-                style: TextStyle(
-                  fontSize: size.width * 0.04,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xffbc793d),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      if (quantity > 1) {
-                        bloc.add(
-                            CartUpdateQuantityEvent(orderItem, quantity - 1));
-                      }
-                    },
-                    icon: const Icon(Icons.remove, color: Colors.black),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.name,
+                  style: TextStyle(
+                    fontSize: size.width * 0.035,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
-                  Text(
-                    '${orderItem.quantity}',
-                    style: TextStyle(
-                      fontSize: size.width * 0.04,
-                      fontWeight: FontWeight.bold,
+                  maxLines: 2,
+                  overflow: TextOverflow
+                      .ellipsis,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'SAR ${item.price}',
+                  style: TextStyle(
+                    fontSize: size.width * 0.04,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xffbc793d),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (quantity > 1) {
+                          bloc.add(
+                              CartUpdateQuantityEvent(orderItem, quantity - 1));
+                        }
+                      },
+                      icon: const Icon(Icons.remove, color: Colors.black),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      bloc.add(
-                          CartUpdateQuantityEvent(orderItem, quantity + 1));
-                    },
-                    icon: const Icon(Icons.add, color: Colors.black),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      '${orderItem.quantity}',
+                      style: TextStyle(
+                        fontSize: size.width * 0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        bloc.add(
+                            CartUpdateQuantityEvent(orderItem, quantity + 1));
+                      },
+                      icon: const Icon(Icons.add, color: Colors.black),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const Spacer(),
           IconButton(

@@ -157,6 +157,9 @@ class _CartScreenState extends State<CartScreen> {
                         color: const Color(0xffbc793d),
                         child: TextButton(
                           onPressed: () async {
+                            if (locator.get<DataLayer>().cart.items.isEmpty) {
+                              return;
+                            }
                             _showPaymentBottomSheet(context, size, bloc);
                           },
                           child: Text(

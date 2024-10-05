@@ -31,6 +31,7 @@ class DataLayer {
     await box.write('user', user);
     await box.write('external_key', externalKey);
     await loadData();
+    await fetchOrder();
   }
 
   loggedIn() {
