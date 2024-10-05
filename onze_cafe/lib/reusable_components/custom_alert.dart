@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 
 class CustomAlertDialog extends StatelessWidget {

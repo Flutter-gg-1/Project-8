@@ -1,9 +1,12 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_item.dart';
 import 'package:onze_cafe/screens/checkout/checkout_screen.dart';
+
+import '../../reusable_components/animated_snackbar.dart';
 
 part 'cart_state.dart';
 
@@ -51,6 +54,13 @@ class CartCubit extends Cubit<CartState> {
     if (item.quantity > 1) {
       item.quantity--;
       emitUpdate();
+    }
+  }
+
+  void showSnackBar(
+      BuildContext context, String msg, AnimatedSnackBarType type) {
+    if (context.mounted) {
+      animatedSnakbar(msg: msg, type: type).show(context);
     }
   }
 

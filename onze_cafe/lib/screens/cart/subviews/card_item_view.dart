@@ -6,6 +6,7 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/reusable_components/count_view.dart';
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
+import 'package:onze_cafe/screens/cart/network_functions.dart';
 
 class CartItemView extends StatelessWidget {
   final CartCubit cubit;
@@ -52,8 +53,8 @@ class CartItemView extends StatelessWidget {
                       Text(cartItem.milkOption ?? '')
                           .styled(weight: FontWeight.w300, size: 12),
                       const SizedBox(width: 4),
-                      Text('${cartItem.coffeeStrength ?? ''} roast')
-                          .styled(weight: FontWeight.w300, size: 12),
+                      Text(cartItem.coffeeStrength ?? '').styled(
+                          weight: FontWeight.w300, size: 10, lineLimit: 1),
                     ]),
                     Text("${menuItem?.price ?? 0} SAR")
                         .styled(weight: FontWeight.bold, size: 14),
@@ -65,7 +66,7 @@ class CartItemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: () => (),
+                    onPressed: () => cubit.removeCartItem(context, cartItem),
                     icon: Icon(
                       CupertinoIcons.trash_circle_fill,
                       color: C.secondary(brightness),

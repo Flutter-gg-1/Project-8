@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:moyasar/moyasar.dart';
+import 'package:onze_cafe/extensions/screen_size.dart';
+import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 import 'package:onze_cafe/screens/checkout/checkout_cubit.dart';
 
 import '../../extensions/color_ext.dart';
@@ -25,14 +26,16 @@ class CheckoutScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: C.bg1(brightness),
           appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: IconButton(
-                  onPressed: Navigator.of(context).pop,
-                  icon: Icon(
-                    CupertinoIcons.chevron_left_square_fill,
-                    size: 30,
-                    color: C.primary(brightness),
-                  ))),
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              onPressed: Navigator.of(context).pop,
+              icon: Icon(
+                CupertinoIcons.chevron_left_square_fill,
+                size: 30,
+                color: C.primary(brightness),
+              ),
+            ),
+          ),
           body: SafeArea(
             child: Column(children: [
               Expanded(
@@ -127,30 +130,28 @@ class CheckoutScreen extends StatelessWidget {
                               ],
                             );
                           }
-                          return SizedBox();
+                          return Text('Hello');
                         },
                       ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: BlocBuilder<CheckoutCubit, CheckoutState>(
-                            builder: (context, state) {
-                              return cubit.paymentConfig == null
-                                  ? Text('')
-                                  : CreditCard(
-                                      config: cubit.paymentConfig!,
-                                      onPaymentResult: (result) {
-                                        cubit.onPaymentResult(context, result);
-                                      },
-                                    );
-                            },
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image(
+                    width: context.screenWidth * 0.5,
+                    image: Img.illustration13,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+              CustomCircleBtn(
+                  brightness: brightness,
+                  onTap: () => cubit.navigateToPayment(context),
+                  title: 'Payment')
             ]),
           ),
         );

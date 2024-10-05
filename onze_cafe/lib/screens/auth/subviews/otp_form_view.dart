@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/buttons/primary_btn_view.dart';
@@ -70,7 +69,7 @@ class OtpFormView extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               children: [
                 Text(

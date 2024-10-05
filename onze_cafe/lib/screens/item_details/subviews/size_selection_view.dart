@@ -34,7 +34,7 @@ class SizeSelectionView extends StatelessWidget {
 }
 
 class _SizeCardView extends StatelessWidget {
-  const _SizeCardView({super.key, required this.cubit, required this.cupSize});
+  const _SizeCardView({required this.cubit, required this.cupSize});
   final ItemDetailsCubit cubit;
   final CupSize cupSize;
 

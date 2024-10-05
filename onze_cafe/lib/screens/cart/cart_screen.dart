@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
@@ -6,10 +5,7 @@ import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 
-import 'package:onze_cafe/extensions/img_ext.dart';
-import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
-import 'package:onze_cafe/reusable_components/buttons/custom_circle_btn.dart';
 
 import 'package:onze_cafe/screens/cart/cart_cubit.dart';
 import 'package:onze_cafe/screens/cart/subviews/card_item_view.dart';
