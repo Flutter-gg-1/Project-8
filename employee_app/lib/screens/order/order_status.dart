@@ -8,6 +8,7 @@ import '../../shape/draw_dotted_line.dart';
 
 class OrderStatus extends StatelessWidget {
   const OrderStatus({super.key, required this.order});
+  // fix here need to be list  chnage it form OrderItem widget
   final OrderDetailsModel order;
   @override
   Widget build(BuildContext context) {

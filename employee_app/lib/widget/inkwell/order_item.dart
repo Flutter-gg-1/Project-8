@@ -1,17 +1,23 @@
 import 'package:employee_app/helper/extinsion/order_date_format.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_model.dart';
+import 'package:employee_app/screens/order/cubit/order_list_cubit.dart';
+import 'package:employee_app/screens/order/order_status.dart';
+import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel order;
+
+  final OrderListCubit cubit;
   final Function()? onTap;
   const OrderItem({
     super.key,
     required this.order,
     this.onTap,
+    required this.cubit,
   });
 
   @override
@@ -73,7 +79,6 @@ class OrderItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                
                 Row(
                   children: [
                     const Icon(Icons.integration_instructions_outlined),
@@ -109,24 +114,47 @@ class OrderItem extends StatelessWidget {
                         fontFamily: 'Rosarivo'),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.task_alt_rounded,
-                          color: Colors.green,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.do_disturb_rounded,
-                          color: Colors.red,
-                        )),
-                  ],
-                )
+                order.status == "Pending"
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () async {
+                                await cubit.changeStatus(
+                                    status: "Preparing",
+                                    orderId: order.orderId!);
+                              },
+                              icon: const Icon(
+                                Icons.task_alt_rounded,
+                                color: Colors.green,
+                              )),
+                          IconButton(
+                              onPressed: () async {
+                                await cubit.changeStatus(
+                                    status: "Cancelled",
+                                    orderId: order.orderId!);
+                              },
+                              icon: const Icon(
+                                Icons.do_disturb_rounded,
+                                color: Colors.red,
+                              )),
+                        ],
+                      )
+                    : CustomButton(
+                        fixedSize: Size(context.getWidth(multiply: 0.2),
+                            context.getHeight(multiply: 0.03)),
+                        title: "show state",
+                        onPressed: () async {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              // here chnage
+                              return OrderStatus(
+                                  order: order.orderDetailsLis.first);
+                            },
+                          ));
+                        },
+                      )
               ],
             )
           ],
