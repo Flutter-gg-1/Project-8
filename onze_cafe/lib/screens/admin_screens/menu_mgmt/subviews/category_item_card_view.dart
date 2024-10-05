@@ -17,18 +17,20 @@ class CategoryItemCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return Card(
+      elevation: 4,
+      color: C.bg2(brightness),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(category.imgUrl ?? '')),
           )),
           Expanded(
-              flex: 6,
+              flex: 1,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

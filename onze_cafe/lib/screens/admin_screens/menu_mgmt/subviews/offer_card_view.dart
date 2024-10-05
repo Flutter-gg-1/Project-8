@@ -21,6 +21,8 @@ class OfferCardView extends StatelessWidget {
         .toList()
         .firstOrNull;
     return Card(
+      elevation: 4,
+      color: C.bg2(brightness),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -39,6 +41,9 @@ class OfferCardView extends StatelessWidget {
                           : Image.network(menuItem.imgUrl ?? ''),
                     ),
                   ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 Expanded(
                   flex: 4,
@@ -59,14 +64,17 @@ class OfferCardView extends StatelessWidget {
                         color: C.secondary(brightness)))
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    'From: ${DateTime.parse(offer.startDate).toFormattedStringWithTime()}'),
-                Text(
-                    'To: ${DateTime.parse(offer.endDate).toFormattedStringWithTime()}'),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      'From: ${DateTime.parse(offer.startDate).toFormattedStringWithTime()}'),
+                  Text(
+                      'To: ${DateTime.parse(offer.endDate).toFormattedStringWithTime()}'),
+                ],
+              ),
             )
           ],
         ),

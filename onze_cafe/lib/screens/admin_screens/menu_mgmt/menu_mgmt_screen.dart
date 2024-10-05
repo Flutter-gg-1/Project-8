@@ -42,12 +42,17 @@ class MenuMgmtScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: Text('Offers')
-                              .styled(size: 18, weight: FontWeight.bold)),
+                          child: Text('Offers').styled(
+                              size: 18,
+                              weight: FontWeight.bold,
+                              color: C.primary(brightness))),
                       IconButton(
                           onPressed: () =>
                               cubit.navigateToAddOffer(context, null),
-                          icon: Icon(CupertinoIcons.add_circled))
+                          icon: Icon(
+                            CupertinoIcons.add_circled,
+                            color: C.primary(brightness),
+                          ))
                     ],
                   ),
                   BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
@@ -55,7 +60,7 @@ class MenuMgmtScreen extends StatelessWidget {
                       return GridView(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: 1,
                             childAspectRatio: 3,
                           ),
                           shrinkWrap: true,
@@ -66,15 +71,21 @@ class MenuMgmtScreen extends StatelessWidget {
                               .toList());
                     },
                   ),
+                  const Divider(),
                   Row(
                     children: [
                       Expanded(
-                          child: Text('Categories')
-                              .styled(size: 18, weight: FontWeight.bold)),
+                          child: Text('Categories').styled(
+                              size: 18,
+                              weight: FontWeight.bold,
+                              color: C.primary(brightness))),
                       IconButton(
                           onPressed: () =>
                               cubit.navigateToAddCat(context, null),
-                          icon: Icon(CupertinoIcons.add_circled))
+                          icon: Icon(
+                            CupertinoIcons.add_circled,
+                            color: C.primary(brightness),
+                          ))
                     ],
                   ),
                   BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
@@ -82,8 +93,8 @@ class MenuMgmtScreen extends StatelessWidget {
                       return GridView(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 6,
+                            crossAxisCount: 2,
+                            childAspectRatio: 2.3,
                           ),
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -97,12 +108,17 @@ class MenuMgmtScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: Text('Menu Items')
-                              .styled(size: 18, weight: FontWeight.bold)),
+                          child: Text('Menu Items').styled(
+                              size: 18,
+                              weight: FontWeight.bold,
+                              color: C.primary(brightness))),
                       IconButton(
                           onPressed: () =>
                               cubit.navigateToAddMenuItem(context, null),
-                          icon: Icon(CupertinoIcons.add_circled))
+                          icon: Icon(
+                            CupertinoIcons.add_circled,
+                            color: C.primary(brightness),
+                          ))
                     ],
                   ),
                   BlocBuilder<MenuMgmtCubit, MenuMgmtState>(
@@ -110,8 +126,8 @@ class MenuMgmtScreen extends StatelessWidget {
                       return GridView(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 6,
+                            crossAxisCount: 1,
+                            childAspectRatio: 4,
                           ),
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
