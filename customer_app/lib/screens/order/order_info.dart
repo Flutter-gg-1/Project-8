@@ -34,7 +34,31 @@ class OrderInfo extends StatelessWidget {
           body: Center(
             child: Column(
               children: [
-                Image.asset('assets/image/logo.png'),
+                                Container(
+                  height: context.getHeight(multiply: 0.2),
+                  width: context.getWidth(multiply: 0.3),
+                  decoration: const BoxDecoration(
+                      color: Color(0xffCACACA), shape: BoxShape.circle),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        product.imgPath ?? " ",
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                              'assets/image/logo.png');
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+
+                          return const Center(
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      )),
+                ),
                 Expanded(
                   child: Container(
                     width: double.infinity,

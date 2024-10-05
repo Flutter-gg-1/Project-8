@@ -6,13 +6,14 @@ class ProductModel {
   String? type;
   int? preparationTime;
   String? des;
-
+  String? imgPath;
   ProductModel(
       {this.productId,
       this.name,
       this.cal,
       this.price,
       this.type,
+      this.imgPath,
       this.preparationTime,
       this.des});
 
@@ -24,6 +25,7 @@ class ProductModel {
     type = json["type"];
     preparationTime = json["preparation_time"];
     des = json["des"];
+    imgPath = json["img_path"];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +37,7 @@ class ProductModel {
     data["type"] = type;
     data["preparation_time"] = preparationTime;
     data["des"] = des;
+    data["img_path"] = imgPath;
     return data;
   }
 }
