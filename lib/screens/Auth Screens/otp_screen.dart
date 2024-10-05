@@ -61,17 +61,20 @@ class OtpScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.message)));
               }
+
+              if(state is SuccessfulResentOTPState){
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('OTP Resent')));
+              }
             },
             child: Scaffold(
               extendBodyBehindAppBar: true,
               body: SingleChildScrollView(
-                // استخدام SingleChildScrollView للسماح بالتمرير
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height,
                   ),
                   child: IntrinsicHeight(
-                    // يضمن عدم قص المحتوى
                     child: Stack(
                       children: [
                         Positioned.fill(
