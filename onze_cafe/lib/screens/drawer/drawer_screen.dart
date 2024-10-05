@@ -49,10 +49,13 @@ class DrawerScreen extends StatelessWidget {
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: ClipOval(
-                                    child: Image(
-                                        image: Img.cappuccino,
-                                        fit: BoxFit.contain),
-                                  ),
+                                      child: cubit.profile?.avatarUrl == null
+                                          ? Image(
+                                              image: Img.logo4,
+                                              fit: BoxFit.cover)
+                                          : Image.network(
+                                              cubit.profile!.avatarUrl!,
+                                              fit: BoxFit.cover)),
                                 ),
                               ),
                             ),

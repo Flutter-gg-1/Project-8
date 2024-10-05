@@ -27,7 +27,8 @@ class MenuScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is LoadingState) {
               AlertManager().showAlert(context: context);
-            } else if (state is UpdateUIState) {
+            }
+            if (state is UpdateUIState) {
               AlertManager().dismissPreviousAlert(context);
             }
           },
