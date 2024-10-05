@@ -7,7 +7,7 @@ import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/enums/order_status.dart';
 import 'package:onze_cafe/model/enums/order_status_img.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/model/placed_order.dart';
+import 'package:onze_cafe/model/order.dart';
 
 part 'order_details_state.dart';
 
@@ -16,15 +16,15 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   int remainingTime = 120; // 2 minutes
   OrderStatus status = OrderStatus.placed;
   StatusImage img = StatusImage.an1;
-    List<PlacedOrder> orders = [];
-
+  List<Order> orders = [];
 
   OrderDetailsCubit() : super(OrderDetailsInitial());
-   void fetchOrders() {
+  void fetchOrders() {
     orders =
         MockData().placedOrders.where((order) => order.userId == '1').toList();
   }
-   List<CartItem> fetchCartItems(PlacedOrder order) {
+
+  List<CartItem> fetchCartItems(Order order) {
     return MockData()
         .cart
         .where((cartItem) => cartItem.placedOrderId == order.id)
@@ -38,7 +38,8 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
         .toList()
         .firstOrNull;
   }
-  double totalPrice(PlacedOrder order) {
+
+  double totalPrice(Order order) {
     var total = 0.0;
     var cartItems = fetchCartItems(order);
     for (var cartItem in cartItems) {

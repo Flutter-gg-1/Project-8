@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/model/placed_order.dart';
+import 'package:onze_cafe/model/order.dart';
 import 'package:onze_cafe/reusable_components/buttons/circle_btn.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
 import 'package:onze_cafe/screens/order_details/order_details_cubit.dart';
@@ -101,12 +101,16 @@ class OrderDetailsScreen extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
                         builder: (BuildContext context) {
-                          return DetailsViwe(
+                          return DetailsView(
                             brightness: brightness,
                             cubit: cubit,
                             price: price,
-                            placedOrder: PlacedOrder(
-                                id: orderId, userId: '1', status: 'placed'),
+                            placedOrder: Order(
+                                id: orderId,
+                                userId: '1',
+                                status: 'placed',
+                                price: 400,
+                                isPayed: true),
                           );
                         },
                       );

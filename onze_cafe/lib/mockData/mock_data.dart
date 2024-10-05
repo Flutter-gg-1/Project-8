@@ -7,7 +7,7 @@ import 'package:onze_cafe/mockData/profile_ext.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
 import 'package:onze_cafe/model/menu_category.dart';
 import 'package:onze_cafe/model/menu_item.dart';
-import 'package:onze_cafe/model/placed_order.dart';
+import 'package:onze_cafe/model/order.dart';
 
 import '../model/offer.dart';
 import '../model/profile.dart';
@@ -22,7 +22,7 @@ class MockData {
   List<Offer> offers = [];
   List<Profile> profiles = [];
   List<CartItem> cart = [];
-  List<PlacedOrder> placedOrders = [];
+  List<Order> placedOrders = [];
 
   MockData._internal() {
     _fetchData();

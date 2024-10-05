@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/img_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/model/placed_order.dart';
+import 'package:onze_cafe/model/order.dart';
 import 'package:onze_cafe/screens/order/order_cubit.dart';
 
 class OrderCardView extends StatelessWidget {
@@ -14,12 +14,11 @@ class OrderCardView extends StatelessWidget {
   });
 
   final OrderCubit cubit;
-  final PlacedOrder placedOrder;
+  final Order placedOrder;
   final Brightness brightness;
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = cubit.fetchCartItems(placedOrder);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: AspectRatio(
@@ -44,35 +43,25 @@ class OrderCardView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 5),
-                      child: Column(
+                      child: Row(
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Order# ${placedOrder.id}')
-                                    .styled(weight: FontWeight.bold, size: 18),
-                                Row(
-                                    children: cartItems
-                                        .map((cartItem) => Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 2),
-                                              child: Text(cubit
-                                                          .fetchMenuItem(
-                                                              cartItem)
-                                                          ?.name ??
-                                                      '')
-                                                  .styled(size: 12),
-                                            ))
-                                        .toList())
-                              ],
-                            ),
-                          ),
-                          Row(
+                          Column(
                             children: [
-                              Text("${cubit.totalPrice(placedOrder)} SAR")
-                                  .styled(weight: FontWeight.bold, size: 16)
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Order# ${placedOrder.id!.substring(0, 8)}')
+                                        .styled(
+                                            weight: FontWeight.bold, size: 18),
+                                    Text("${placedOrder.price} SAR").styled(
+                                        weight: FontWeight.bold, size: 16),
+                                    const Spacer(),
+                                    Text(placedOrder.status)
+                                        .styled(color: C.primary(brightness)),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ],

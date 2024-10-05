@@ -6,8 +6,8 @@ import 'package:onze_cafe/extensions/string_ex.dart';
 
 import '../orders_dashboard_cubit.dart';
 
-class OrderStatus extends StatelessWidget {
-  const OrderStatus({
+class OrderStatusView extends StatelessWidget {
+  const OrderStatusView({
     super.key,
     required this.brightness,
     required this.quantity,
@@ -59,7 +59,7 @@ class OrderStatus extends StatelessWidget {
                     ]),
                 child: Row(
                   children: [
-                    Status(
+                    StatusView(
                         brightness: brightness,
                         cubit: cubit,
                         icon: CupertinoIcons.cart_fill,
@@ -67,7 +67,7 @@ class OrderStatus extends StatelessWidget {
                         onTap: () {
                           cubit.setActiveIcon(0);
                         }),
-                    Status(
+                    StatusView(
                         brightness: brightness,
                         cubit: cubit,
                         icon: CupertinoIcons.timer,
@@ -75,7 +75,7 @@ class OrderStatus extends StatelessWidget {
                         onTap: () {
                           cubit.setActiveIcon(1);
                         }),
-                    Status(
+                    StatusView(
                         brightness: brightness,
                         cubit: cubit,
                         icon: CupertinoIcons.bell_fill,
@@ -83,7 +83,7 @@ class OrderStatus extends StatelessWidget {
                         onTap: () {
                           cubit.setActiveIcon(2);
                         }),
-                    Status(
+                    StatusView(
                         brightness: brightness,
                         cubit: cubit,
                         icon: CupertinoIcons.checkmark_alt,
@@ -103,8 +103,8 @@ class OrderStatus extends StatelessWidget {
   }
 }
 
-class Status extends StatelessWidget {
-  const Status({
+class StatusView extends StatelessWidget {
+  const StatusView({
     super.key,
     required this.brightness,
     required this.cubit,

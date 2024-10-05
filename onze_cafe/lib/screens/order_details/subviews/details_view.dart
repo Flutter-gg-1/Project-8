@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/gradient_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
-import 'package:onze_cafe/model/placed_order.dart';
+import 'package:onze_cafe/model/order.dart';
 import 'package:onze_cafe/screens/order_details/order_details_cubit.dart';
 
-class DetailsViwe extends StatelessWidget {
-  const DetailsViwe({
+class DetailsView extends StatelessWidget {
+  const DetailsView({
     super.key,
     required this.cubit,
     required this.placedOrder,
@@ -16,7 +16,7 @@ class DetailsViwe extends StatelessWidget {
 
   final Brightness brightness;
   final OrderDetailsCubit cubit;
-  final PlacedOrder placedOrder;
+  final Order placedOrder;
   final double price;
 
   @override

@@ -6,6 +6,7 @@ import 'package:onze_cafe/extensions/screen_size.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/reusable_components/animation/animated_img_view.dart';
 import 'package:onze_cafe/reusable_components/buttons/custom_back_btn.dart';
+import 'package:onze_cafe/screens/payment/network_functions.dart';
 import 'package:onze_cafe/screens/payment/payment_cubit.dart';
 
 import '../../extensions/color_ext.dart';
@@ -17,7 +18,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PaymentCubit(totalPrice),
+      create: (context) => PaymentCubit(context, totalPrice),
       child: Builder(builder: (context) {
         final cubit = context.read<PaymentCubit>();
         final brightness = Theme.of(context).brightness;
@@ -31,7 +32,7 @@ class PaymentScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: Center(
-                child: Stack(
+                child: ListView(
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -69,22 +70,20 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            AnimatedImgView(
+                              img: Image(
+                                width: context.screenWidth * 0.5,
+                                image: Img.illustration13,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          AnimatedImgView(
-                            img: Image(
-                              width: context.screenWidth * 0.5,
-                              image: Img.illustration13,
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ],
                 ),

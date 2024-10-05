@@ -35,16 +35,12 @@ extension NetworkFunctions on AuthCubit {
   Future signIn(BuildContext context) async {
     try {
       emitLoading();
-      final response = await SupabaseAuth.signIn(
-          emailController.text, passwordController.text);
+      await SupabaseAuth.signIn(emailController.text, passwordController.text);
 
-      if (context.mounted) {
-        showSnackBar(
-            context, response.toString(), AnimatedSnackBarType.success);
-      }
       await Future.delayed(Duration(milliseconds: 50));
 
       await SupabaseMgr.shared.setCurrentUser();
+
       if (context.mounted) {
         if (SupabaseMgr.shared.currentProfile?.role == 'employee') {
           navigateToDashboard(context);
@@ -67,11 +63,8 @@ extension NetworkFunctions on AuthCubit {
   Future anonymousSignIn(context) async {
     try {
       emitLoading();
-      final response = await SupabaseAuth.anonymousSignIn();
-      if (context.mounted) {
-        showSnackBar(
-            context, response.toString(), AnimatedSnackBarType.success);
-      }
+      await SupabaseAuth.anonymousSignIn();
+
       await Future.delayed(Duration(milliseconds: 50));
 
       await SupabaseMgr.shared.setCurrentUser();
@@ -101,11 +94,6 @@ extension NetworkFunctions on AuthCubit {
           name: nameController.text,
           email: emailController.text,
           phone: phoneController.text));
-
-      if (context.mounted) {
-        showSnackBar(context, 'Profile Created. Getting things ready...',
-            AnimatedSnackBarType.success);
-      }
 
       await SupabaseMgr.shared.setCurrentUser();
 

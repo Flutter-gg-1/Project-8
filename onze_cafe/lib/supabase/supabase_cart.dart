@@ -11,8 +11,30 @@ class SupabaseCart {
     var currentUserId = SupabaseMgr.shared.currentUser?.id ?? '';
 
     try {
+      var res = await supabase
+          .from(tableKey)
+          .select()
+          .eq('user_id', currentUserId)
+          .isFilter('placed_order_id', null);
+
+      List<CartItem> cartItems = (res as List)
+          .map((item) => CartItem.fromJson(item as Map<String, dynamic>))
+          .toList();
+
+      return cartItems;
+    } on AuthException catch (_) {
+      rethrow;
+    } on PostgrestException catch (_) {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<List<CartItem>> fetchOrderItems(String orderId) async {
+    try {
       var res =
-          await supabase.from(tableKey).select().eq('user_id', currentUserId);
+          await supabase.from(tableKey).select().eq('placed_order_id', orderId);
 
       List<CartItem> cartItems = (res as List)
           .map((item) => CartItem.fromJson(item as Map<String, dynamic>))

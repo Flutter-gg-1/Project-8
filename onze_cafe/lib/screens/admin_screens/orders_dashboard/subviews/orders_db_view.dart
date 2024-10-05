@@ -33,7 +33,7 @@ class OrderDisplay extends StatelessWidget {
           },
         );
       },
-      child: OrderStatus(
+      child: OrderStatusView(
           brightness: brightness,
           quantity: quantity,
           orders: orders,

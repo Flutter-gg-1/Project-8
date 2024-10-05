@@ -3,23 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:onze_cafe/screens/payment/network_functions.dart';
 
+import '../../model/cart_Item.dart';
 import '../../reusable_components/animated_snackbar.dart';
 import '../payment_confirm_screen.dart';
 
 part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
-  PaymentCubit(double amount) : super(PaymentInitial()) {
-    initialLoad(amount);
+  PaymentCubit(BuildContext context, double amount) : super(PaymentInitial()) {
+    initialLoad(context, amount);
   }
 
   int totalPrice = 999;
   PaymentConfig? paymentConfig;
+  List<CartItem> cartItems = [];
 
-  void initialLoad(double amount) {
+  void initialLoad(BuildContext context, double amount) async {
     emitLoading();
     totalPrice = (amount * 100).toInt();
+
+    cartItems = await fetchCart(context);
 
     paymentConfig = PaymentConfig(
       publishableApiKey: dotenv.env['Moyasar_API']!,
@@ -40,11 +45,21 @@ class PaymentCubit extends Cubit<PaymentState> {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const PaymentConfirmScreen()));
 
-  void onPaymentResult(BuildContext context, result) {
+  void onPaymentResult(BuildContext context, result) async {
     if (result is PaymentResponse) {
       switch (result.status) {
         case PaymentStatus.paid:
-          navigateToPaymentConfirmation(context);
+          try {
+            await createOrder(context);
+            if (context.mounted) navigateToPaymentConfirmation(context);
+          } catch (_) {
+            if (context.mounted) {
+              showSnackBar(
+                  context,
+                  'Something wrong happened. Please contact support',
+                  AnimatedSnackBarType.error);
+            }
+          }
         case PaymentStatus.failed:
           showSnackBar(context, 'Payment failed!', AnimatedSnackBarType.error);
         case PaymentStatus.initiated:
