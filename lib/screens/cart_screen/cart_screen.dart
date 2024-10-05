@@ -203,7 +203,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: TextStyle(
                               color: const Color(0xff74a0b2),
                               fontWeight: FontWeight.bold,
-                              fontSize: size.width * 0.035, // حجم أصغر للنص
+                              fontSize: size.width * 0.035,
                             ),
                           ),
                         ),
