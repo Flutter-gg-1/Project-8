@@ -14,4 +14,11 @@ final class ErorrState extends OrderListState {
 }
 
 final class LoadingState extends OrderListState {}
+
 final class NoLodingState extends OrderListState {}
+
+class TimerRunInProgress extends OrderListState {
+  final int tickCount;
+
+  TimerRunInProgress({required this.tickCount});
+}

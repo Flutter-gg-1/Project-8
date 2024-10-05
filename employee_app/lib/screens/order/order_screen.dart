@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:employee_app/data_layer/auth_layer.dart';
+import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/models/user_model.dart';
@@ -20,12 +21,12 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final UserModel? user = authLocator.get<AuthLayer>().user;
+    final menu = productLocator.get<ProductLayer>().menu;
     return BlocProvider(
-      create: (context) => OrderListCubit()..showOrderList(),
+      create: (context) => OrderListCubit()..startTimer(),
       child: Builder(builder: (context) {
         final cubit = context.read<OrderListCubit>();
 
-        
         return BlocListener<OrderListCubit, OrderListState>(
           listener: (context, state) {
             log("${state.runtimeType}");
@@ -174,13 +175,107 @@ class OrderScreen extends StatelessWidget {
                   BlocBuilder<OrderListCubit, OrderListState>(
                     builder: (context, state) {
                       return Column(
-                          children: List.generate(
-                        cubit.orderList.length,
-                        (index) {
-                          return OrderItem(
-                              cubit: cubit, order: cubit.orderList[index]);
-                        },
-                      ));
+                          children: cubit.orderList
+                              .map(
+                                (e) => OrderItem(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) => Container(
+                                          height:
+                                              context.getHeight(multiply: 0.35),
+                                          width: context.getWidth(multiply: 1),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: context.getWidth(
+                                                  multiply: 0.05),
+                                              vertical: context.getHeight(
+                                                  multiply: 0.05)),
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xffeeedea),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(30),
+                                                topRight: Radius.circular(30),
+                                              )),
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'Order Summary',
+                                                  style: TextStyle(
+                                                      color: Color(0xffA8483D),
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: 'Rosarivo'),
+                                                ),
+                                                const Divider(),
+                                                context.addSpacer(
+                                                    multiply: 0.02),
+                                                Text(
+                                                  'Order Time : ${e.time}',
+                                                  style: const TextStyle(
+                                                      color: Color(0xffA8483D),
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: 'Rosarivo'),
+                                                ),
+                                                context.addSpacer(
+                                                    multiply: 0.01),
+                                                Text(
+                                                  'Preparation Time : ${e.totalPreparationTime}',
+                                                  style: const TextStyle(
+                                                      color: Color(0xffA8483D),
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: 'Rosarivo'),
+                                                ),
+                                                context.addSpacer(
+                                                    multiply: 0.01),
+                                                Text(
+                                                  'Total Price : ${e.totalPrice} RS',
+                                                  style: const TextStyle(
+                                                      color: Color(0xffA8483D),
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: 'Rosarivo'),
+                                                ),
+                                                Text(
+                                                  'Order Items :\n ${e.orderDetailsLis.map((element) => menu.firstWhere((e) => e.productId == element.productId).name).join('\n')}',
+                                                  style: const TextStyle(
+                                                      color: Color(0xffA8483D),
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: 'Rosarivo'),
+                                                ),
+                                                const Center(
+                                                  child: Text(
+                                                    'Enjoy',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xffA8483D),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'Rosarivo'),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    order: e,
+                                    cubit: cubit,
+                                    orderInfo: e.orderDetailsLis.first),
+                              )
+                              .toList());
                     },
                   )
                 ],

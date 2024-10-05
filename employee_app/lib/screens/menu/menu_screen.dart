@@ -62,6 +62,7 @@ class MenuScreen extends StatelessWidget {
           },
           child: Scaffold(
             floatingActionButton: FloatingActionButton(
+              backgroundColor: const Color(0xffA8483D),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
@@ -77,6 +78,7 @@ class MenuScreen extends StatelessWidget {
                   },
                 );
               },
+              child: const  Icon(Icons.add,color: Colors.white,),
             ),
             key: _scaffoldKey,
             extendBodyBehindAppBar: true,
@@ -125,7 +127,11 @@ class MenuScreen extends StatelessWidget {
                     CustomButton(
                       title: '     Profile',
                       onPressed: () {
-                        // navigate to profile
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ));
                       },
                       fixedSize: Size(context.getWidth(multiply: 0.4),
                           context.getHeight(multiply: 0.06)),
@@ -216,7 +222,9 @@ class MenuScreen extends StatelessWidget {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) {
-                                        return  AddProduct(productModel: locator.menu[index] ,);
+                                        return AddProduct(
+                                          productModel: locator.menu[index],
+                                        );
                                       },
                                     )).then(
                                       (value) async {

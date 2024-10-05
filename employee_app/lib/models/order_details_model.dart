@@ -17,6 +17,7 @@ class OrderDetailsModel {
     orderId = json["order_id"];
     productId = json["product_id"];
     size = json["size"];
+    productModel = json["product_model"];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,6 +27,7 @@ class OrderDetailsModel {
     data["order_id"] = orderId;
     data["product_id"] = productId;
     data["size"] = size;
+    data["product_model"] = productModel;
     return data;
   }
 }

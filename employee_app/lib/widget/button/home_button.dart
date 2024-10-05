@@ -64,10 +64,10 @@ class HomeButtonEmp extends StatelessWidget {
                   width: context.getWidth(multiply: 0.05),
                   height: context.getHeight(multiply: 0.06),
                   decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xffA8483D)),
+                      shape: BoxShape.circle, color: Colors.transparent),
                   child: const Center(
                     child: Text(
-                      '6',
+                      '',
                       style: TextStyle(
                           fontSize: 19,
                           color: Colors.white,

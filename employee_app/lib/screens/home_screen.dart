@@ -11,25 +11,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        
         children: [
           // Top Image
           Image.asset(
-            'assets/image/orderlogo.png',
+            'assets/image/background_coffee_top.png',
             width: double.infinity,
             fit: BoxFit.cover,
           ),
+          context.addSpacer(multiply: 0.1),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset('assets/image/onze_logo_bg.png'),
               SizedBox(
-                height: context.getHeight(multiply: 0.05),
+                height: context.getHeight(multiply: 0.07),
               ),
               HomeButtonEmp(
                 onTap: () {
-
-                    Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) {
                       return const MenuScreen();
                     },
@@ -43,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 textSize: 23,
               ),
               SizedBox(
-                height: context.getHeight(multiply: 0.02),
+                height: context.getHeight(multiply: 0.05),
               ),
               HomeButtonEmp(
                 onTap: () {
@@ -62,13 +61,11 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: context.getHeight(multiply: 0.0241),
-          ),
-          Image.asset(
-            'assets/image/bottom_bg.png',
-            width: double.infinity,
-            fit: BoxFit.cover,
+
+          context.addSpacer(multiply: 0.12),
+          Divider(),
+          Expanded(
+            child: Text('Version 1.0.0'),
           ),
         ],
       ),

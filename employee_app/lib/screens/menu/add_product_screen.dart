@@ -228,6 +228,7 @@ class AddProduct extends StatelessWidget {
                           ),
                           context.addSpacer(multiply: 0.02),
                           CustomButton(
+                            icon: Icons.add_shopping_cart_outlined,
                             title: "add",
                             onPressed: () {
                               cubit.addItem();

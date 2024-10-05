@@ -46,10 +46,36 @@ class MenuItem extends StatelessWidget {
               ),
             ],
           ),
-          Image.asset('assets/image/menuImage.png'),
+          Container(
+            height: context.getHeight(multiply: 0.1),
+            width: context.getWidth(multiply: 0.2),
+            decoration: const BoxDecoration(
+                color: Color(0xffCACACA), shape: BoxShape.circle),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  itemInfo.imgPath ?? " ",
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/image/menuImage.png');
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+
+                    return const Center(
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  },
+                  fit: BoxFit.cover,
+                )),
+          ),
+          // Image.asset('assets/image/menuImage.png'),
           context.addSpacer(multiply: 0.02),
           Text(
-            '${itemInfo.name}',
+            itemInfo.name!.length <= 12
+                ? '${itemInfo.name}'
+                : '${itemInfo.name?.substring(0, 12)}..',
             style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

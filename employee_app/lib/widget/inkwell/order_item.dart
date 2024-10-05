@@ -1,5 +1,6 @@
 import 'package:employee_app/helper/extinsion/order_date_format.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
+import 'package:employee_app/models/order_details_model.dart';
 import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/screens/order/cubit/order_list_cubit.dart';
 import 'package:employee_app/screens/order/order_status.dart';
@@ -10,7 +11,7 @@ import 'package:intl/intl.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel order;
-
+  final OrderDetailsModel orderInfo;
   final OrderListCubit cubit;
   final Function()? onTap;
   const OrderItem({
@@ -18,6 +19,7 @@ class OrderItem extends StatelessWidget {
     required this.order,
     this.onTap,
     required this.cubit,
+    required this.orderInfo,
   });
 
   @override
@@ -142,16 +144,20 @@ class OrderItem extends StatelessWidget {
                         ],
                       )
                     : CustomButton(
-                        fixedSize: Size(context.getWidth(multiply: 0.2),
+                        fixedSize: Size(context.getWidth(multiply: 0.3),
                             context.getHeight(multiply: 0.03)),
-                        title: "show state",
+                        title: "  state",
                         onPressed: () async {
+                          OrderDetailsModel? tempInfo;
+                          for (var element in order.orderDetailsLis) {
+                            if (element.orderId == orderInfo.orderId) {
+                              tempInfo = element;
+                            }
+                          }
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               // here chnage
-                              return OrderStatus(
-                                  cubit: cubit,
-                                  order: order.orderDetailsLis.first);
+                              return OrderStatus(cubit: cubit, order: tempInfo!);
                             },
                           )).then(
                             (value) {
