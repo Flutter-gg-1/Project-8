@@ -68,6 +68,7 @@ class HomeScreen extends StatelessWidget {
                                   time: e.preparationTime!,
                                   description: e.des!,
                                   type: e.type!,
+                                  imgPath: e.imgPath,
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(

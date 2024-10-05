@@ -6,6 +6,7 @@ class ProductItem extends StatelessWidget {
   final int price, cal, time;
   final String id, description, type;
   final Function()? onTap;
+  final String? imgPath;
   const ProductItem({
     super.key,
     required this.name,
@@ -16,6 +17,7 @@ class ProductItem extends StatelessWidget {
     required this.time,
     required this.description,
     required this.type,
+    required this.imgPath,
   });
 
   @override
@@ -36,10 +38,34 @@ class ProductItem extends StatelessWidget {
             color: const Color(0xffeeedea)),
         child: Row(
           children: [
-            Image.asset(
-              'assets/image/appBarProfile (2).png',
-              filterQuality: FilterQuality.high,
+            Container(
+              height: context.getHeight(multiply: 0.2),
+              width: context.getWidth(multiply: 0.2),
+              decoration: const BoxDecoration(
+                  color: Color(0xffCACACA), shape: BoxShape.circle),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    imgPath ?? " ",
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset('assets/image/appBarProfile (2).png');
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return const Center(
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    },
+                    fit: BoxFit.cover,
+                  )),
             ),
+            // Image.asset(
+            //   'assets/image/appBarProfile (2).png',
+            //   filterQuality: FilterQuality.high,
+            // ),
             const VerticalDivider(
               color: Color(0xff3D6B7D),
             ),
@@ -47,7 +73,7 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name.length <= 15 ? name : '${name.substring(0,15)}...',
+                  name.length <= 15 ? name : '${name.substring(0, 15)}...',
                   style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
