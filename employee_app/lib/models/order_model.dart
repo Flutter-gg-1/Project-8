@@ -1,4 +1,5 @@
 import 'package:employee_app/models/order_details_model.dart';
+import 'package:employee_app/models/user_model.dart';
 
 class OrderModel {
   String? orderId;
@@ -8,6 +9,8 @@ class OrderModel {
   String? time;
   int? totalPreparationTime;
   String? status;
+
+  UserModel? customer;
 
   List<OrderDetailsModel> orderDetailsLis = [];
 

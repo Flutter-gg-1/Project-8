@@ -46,4 +46,41 @@ mixin OrderMix on Super {
       log("$er");
     }
   }
+
+  getCustumersOrders() async {
+    try {
+      final res = await supabase
+          .from("orders")
+          .select()
+          .not("status", "in", ["Cancelled", "delivered"]);
+
+      return res;
+    } catch (er) {
+      log("$er");
+      throw Exception;
+    }
+  }
+
+  getAllUserOrderDetail({required String orderId}) async {
+    try {
+      final res =
+          await supabase.from("order_detail").select().eq("order_id", orderId);
+
+      return res;
+    } catch (er) {
+      log("err in  getAllUserOrder");
+      log("$er");
+    }
+  }
+
+  orderChangeStatus({required String status, required String orderId}) async {
+    try {
+      await supabase
+          .from("orders")
+          .update({"status": status}).eq("order_id", orderId);
+    } catch (er) {
+      log("$er");
+      throw Exception;
+    }
+  }
 }
