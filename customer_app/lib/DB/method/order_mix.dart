@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_app/DB/super.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/data_layer/product_layer.dart';
@@ -15,7 +13,7 @@ mixin OrderMix on Super {
         locator.menu.add(ProductModel.fromJson(product));
       }
     } catch (e) {
-      log('$e');
+      rethrow;
     }
   }
 
@@ -35,12 +33,11 @@ mixin OrderMix on Super {
             .from("orders")
             .select()
             .eq("customer_id", user!.customerId)
-            .not("status", "in", ["Cancelled","delivered"]);
+            .not("status", "in", ["Cancelled", "delivered"]);
         return res;
       }
     } catch (er) {
-      log("err in getUserOrder ");
-      log("$er");
+      rethrow;
     }
   }
 
@@ -51,8 +48,7 @@ mixin OrderMix on Super {
 
       return res;
     } catch (er) {
-      log("err in  getAllUserOrder");
-      log("$er");
+      rethrow;
     }
   }
 }

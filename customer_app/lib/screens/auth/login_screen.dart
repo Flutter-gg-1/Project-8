@@ -53,7 +53,6 @@ class LoginScreen extends StatelessWidget {
           child: Form(
             key: cubit.formKey,
             child: Scaffold(
-              // backgroundColor: Colors.transparent,
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

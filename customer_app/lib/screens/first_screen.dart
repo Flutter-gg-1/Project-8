@@ -1,5 +1,8 @@
+import 'package:customer_app/data_layer/auth_layer.dart';
 import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/auth/login_screen.dart';
+import 'package:customer_app/screens/home/home_screen.dart';
+import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +11,7 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLogin = authLocator.get<AuthLayer>().box.hasData('user');
     return Container(
       padding: EdgeInsets.only(
           bottom: context.getHeight(multiply: 0.05),
@@ -21,11 +25,17 @@ class FirstScreen extends StatelessWidget {
           title: 'Get Coffee',
           icon: Icons.arrow_forward_ios_rounded,
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ));
+            isLogin
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ))
+                : Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ));
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

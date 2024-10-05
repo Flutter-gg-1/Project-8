@@ -1,4 +1,5 @@
 import 'package:customer_app/data_layer/auth_layer.dart';
+import 'package:customer_app/helper/extinsion/size_config.dart';
 import 'package:customer_app/screens/profile/cubit/profile_cubit.dart';
 import 'package:customer_app/services/setup.dart';
 import 'package:customer_app/widget/profile/profile_img.dart';
@@ -25,9 +26,10 @@ class ProfileScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
+              context.addSpacer(multiply: 0.01),
               const ProfileImg(),
               Text(
-                "${productLocator.get<AuthLayer>().user!.firstName} ${productLocator.get<AuthLayer>().user!.lastName}",
+                "${cubit.user?.firstName} ${cubit.user?.lastName}",
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
@@ -39,15 +41,11 @@ class ProfileScreen extends StatelessWidget {
                 labelTex: "Mobile Phone",
                 labelVal: "0549898989",
               ),
+              context.addSpacer(multiply: 0.02),
               ProfileInfo(
                 icons: Icons.mail_outline,
                 labelTex: "Email Address",
-                labelVal: productLocator.get<AuthLayer>().user!.email,
-              ),
-              const ProfileInfo(
-                icons: Icons.location_on_outlined,
-                labelTex: "Location",
-                labelVal: "Room 8,building 2",
+                labelVal: '${cubit.user?.email}',
               ),
               const SizedBox(
                 height: 30,
@@ -67,6 +65,14 @@ class ProfileScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: const Row(
                   children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    ProfileMostOrderWidget(),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    ProfileMostOrderWidget(),
                     SizedBox(
                       width: 20,
                     ),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/DB/super_main.dart';
 import 'package:customer_app/data_layer/auth_layer.dart';
@@ -48,6 +46,13 @@ class CartCubit extends Cubit<CartState> {
 
     emit(DelOrderState());
   }
+  delAllOrder() {
+    cartLis.clear();
+
+    getAllTotal();
+
+    emit(DelOrderState());
+  }
 
   getAllTotal() {
     priceTotal = 0;
@@ -79,7 +84,7 @@ class CartCubit extends Cubit<CartState> {
 
       emit(OrderConformState(paymentConfig: paymentConfig));
     } catch (er) {
-      log("$er");
+      emit(ErrorState(msg: "Payment is invalid"));
     }
   }
 
