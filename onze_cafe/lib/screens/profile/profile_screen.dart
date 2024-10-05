@@ -26,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
             } else if (state is UpdateUIState) {
               AlertManager().dismissPreviousAlert(context);
             }
+          
           },
           child: Scaffold(
             backgroundColor: C.bg1(brightness),

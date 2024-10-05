@@ -17,7 +17,7 @@ AnimatedSnackBar animatedSnakbar({
         return MaterialAnimatedSnackBar(
           messageText: msg,
           messageTextStyle: TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 16),
+              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 16, color: C.bg1(brightness)),
           type: type,
           foregroundColor: (type == AnimatedSnackBarType.info)
               ? C.primary(brightness)

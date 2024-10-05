@@ -66,7 +66,11 @@ class CartItemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: () => cubit.removeCartItem(context, cartItem),
+                    onPressed: () {
+                      DeleteAlert.showLogoutConfirmation(context, () {
+                        cubit.removeCartItem(context, cartItem);
+                      });
+                    },
                     icon: Icon(
                       CupertinoIcons.trash_circle_fill,
                       color: C.secondary(brightness),
@@ -84,5 +88,49 @@ class CartItemView extends StatelessWidget {
             ),
           ],
         ));
+  }
+}
+
+class DeleteAlert {
+  static void showLogoutConfirmation(BuildContext context, Function onDelete) {
+    final brightness = Theme.of(context).brightness;
+    Future<void> showMyDialog() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: C.bg2(brightness),
+            title: const Text('Delete Item')
+                .styled(weight: FontWeight.bold, size: 20),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Are you sure you want to delete this item?').styled(),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel').styled(weight: FontWeight.bold),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child:
+                    const Text('Delete').styled(color: C.secondary(brightness)),
+                onPressed: () {
+                  onDelete(); // Call the delete function
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    showMyDialog();
   }
 }
