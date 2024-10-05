@@ -10,6 +10,7 @@
 Onze Cafe is a mobile application that provides a seamless experience for customers and employees at a cafe. Customers can browse items, place orders, and track them, while employees can manage the orders, mark them as complete, and interact with the backend. The app uses a combination of `Flutter`, `Bloc` for state management, `Supabase` as a backend, and `OneSignal` for push notifications.
 
 ## Libraries and Technologies Used
+
 1. **Flutter**: The framework used to build the mobile application.
 2. **Bloc**: Used for state management to separate the business logic from the UI.
 3. **Supabase**: Used as the backend for database operations, user authentication, and real-time data sync.
@@ -18,6 +19,17 @@ Onze Cafe is a mobile application that provides a seamless experience for custom
 6. **ImagePicker**: For uploading user profile pictures.
 7. **CarouselSlider**: For displaying sliding banners and product images.
 8. **Moyasar**: Integrated for handling payments in the app.
+9. **font_awesome_flutter: ^10.7.0**: A package providing popular FontAwesome icons for Flutter apps.
+10. **flutter_bloc: ^8.1.6**: Flutter’s official implementation of the BLoC (Business Logic Component) pattern for state management.
+11. **flutter_dotenv: ^5.1.0**: Used to load environment variables from a `.env` file into the Flutter project.
+12. **supabase_flutter: ^2.6.0**: The official Supabase package for Flutter applications, providing seamless integration with Supabase services.
+13. **get_it: ^8.0.0**: A service locator used to manage dependency injection and improve code structure.
+14. **sizer: ^2.0.15**: A Flutter package that makes it easy to create responsive designs across different screen sizes.
+15. **pinput: ^5.0.0**: A customizable PIN code input field for Flutter applications.
+16. **url_launcher: ^6.3.0**: Used for launching URLs in the app (e.g., open websites or send emails).
+18. **http: ^1.2.2**: Used for making HTTP requests and managing API calls in the app.
+19. **icons_plus: ^5.0.0**: Provides a wide variety of icons, including material design, for use in the application.
+
 
 ## Application Features
 
@@ -93,12 +105,24 @@ The app uses **Supabase** for database management. Key database tables:
 ![ScreenRecording1446-04-02at10 49 07PM-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/48e1691c-6546-4844-b0bc-1c14d8f5df29)
 
 
-** Payment & employee accepting order**
+**Payment & employee accepting order**
 
 
 
 ![2024-10-0600-35-49-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/4383b3e8-91d4-4799-84fa-0de646f9acc6)
 
+
+
+**About us**
+
+
+![Screenshot 1446-04-03 at 12 59 51 AM](https://github.com/user-attachments/assets/5d8427fe-f065-449c-98ad-00494dbd2a16)
+
+
+**Profile**
+
+
+![Screenshot 1446-04-03 at 1 01 12 AM](https://github.com/user-attachments/assets/df81662a-bef4-4101-945e-c22a9def6446)
 
 
 ## Team members:
