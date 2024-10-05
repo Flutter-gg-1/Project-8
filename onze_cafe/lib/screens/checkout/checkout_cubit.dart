@@ -64,7 +64,4 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       animatedSnakbar(msg: msg, type: type).show(context);
     }
   }
-
-  void emitLoading() => emit(LoadingState());
-  void emitUpdate() => emit(UpdateUIState());
 }

@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: themeMode,
-            home: PaymentScreen(totalPrice: 200),
+            home: LandingScreen(),
           );
         },
       ),
