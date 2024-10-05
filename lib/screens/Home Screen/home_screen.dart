@@ -42,7 +42,11 @@ class _HomeScreenState extends State<HomeScreen>
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                pinned: true,
+                pinned: false, 
+                floating: true, 
+
+                iconTheme: IconThemeData(color: Colors.white),
+
                 backgroundColor: Colors.white,
                 expandedHeight: size.height * 0.5,
                 flexibleSpace: FlexibleSpaceBar(

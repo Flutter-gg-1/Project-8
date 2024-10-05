@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ProfileItem extends StatelessWidget {
+  final String label;
+  final String initialValue;
+  final Size size;
+  final ValueChanged<String> onChanged; // Added this
+
   const ProfileItem({
     Key? key,
     required this.label,
     required this.initialValue,
     required this.size,
+    required this.onChanged, // Added this
   }) : super(key: key);
-
-  final String label;
-  final String initialValue;
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class ProfileItem extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               border: InputBorder.none,
             ),
+            onChanged: onChanged, // Pass the updated value back
           ),
         ),
       ],

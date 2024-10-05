@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:onze_cafe/data_layer/data_layer.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart'; // Make sure DataLayer is imported
+import 'package:onze_cafe/screens/profile/bloc/profile_bloc.dart';
 import 'package:onze_cafe/screens/profile/profile_item.dart';
 import 'package:onze_cafe/services/setup.dart';
 
@@ -13,18 +15,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  File? _image;
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImage(ProfileBloc bloc) async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
+      bloc.add(UpdateImageEvent(File(pickedFile.path)));
     }
   }
 
@@ -32,160 +31,134 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: Stack(
-        children: [
-          // Background image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/Group 3155.png',
-              fit: BoxFit.cover,
+    return BlocProvider(
+      create: (context) => ProfileBloc(
+          locator.get<DataLayer>()), // Passing DataLayer to ProfileBloc
+      child: BlocConsumer<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileUpdatedState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Profile updated successfully')),
+            );
+          } else if (state is ProfileErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          }
+        },
+        builder: (context, state) {
+          final bloc = BlocProvider.of<ProfileBloc>(context);
+
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: const IconThemeData(color: Colors.white),
+              title:
+                  const Text('Profile', style: TextStyle(color: Colors.white)),
             ),
-          ),
-          ListView(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: GestureDetector(
-                      onTap: _pickImage,
-                      child: CircleAvatar(
-                        radius: size.width * 0.2,
-                        backgroundImage:
-                            _image != null ? FileImage(_image!) : null,
-                        backgroundColor: Colors.grey[300],
-                        child: _image == null
-                            ? Icon(
-                                Icons.camera_alt,
-                                color: Colors.white,
-                                size: size.width * 0.1,
-                              )
-                            : null,
-                      ),
+            body: Stack(
+              children: [
+                // Background gradient
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xff3D6B7D), Color(0xff87B1C5)],
                     ),
                   ),
-                  SizedBox(height: size.height * 0.05),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.05,
-                    ),
-                    child: Column(
+                ),
+                ListView(
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Name
-                        ProfileItem(
-                          label: 'Name',
-                          initialValue: locator.get<DataLayer>().user!.name,
-                          size: size,
-                        ),
-                        const SizedBox(height: 20),
-                        // Email
-                        // ProfileItem(
-                        //   label: 'Email',
-                        //   initialValue: locator.get<DataLayer>().user!.email,
-                        //   size: size,
-                        // ),
-                        const SizedBox(height: 20),
-                        // Phone Number
-                        ProfileItem(
-                          label: 'Phone Number',
-                          initialValue: locator.get<DataLayer>().user!.phone,
-                          size: size,
+                        const SizedBox(height: 50),
+                        // Profile Image
+                        Center(
+                          child: GestureDetector(
+                            onTap: () => _pickImage(bloc),
+                            child: CircleAvatar(
+                              radius: size.width * 0.2,
+                              backgroundImage: bloc.image != null
+                                  ? FileImage(bloc.image!)
+                                  : null,
+                              backgroundColor: Colors.grey[300],
+                              child: bloc.image == null
+                                  ? Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                      size: size.width * 0.1,
+                                    )
+                                  : null,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 30),
-                        // Password Field and Save Button
-                        // const Text(
-                        //   'Reset Password',
-                        //   style: TextStyle(color: Colors.white70, fontSize: 16),
-                        // ),
-                        // const SizedBox(height: 10),
-                        // // Password Input Field
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: const Color(0xff141415).withOpacity(0.7),
-                        //     borderRadius: BorderRadius.circular(10),
-                        //   ),
-                        //   child: TextFormField(
-                        //     controller: _passwordController,
-                        //     obscureText: true,
-                        //     style: TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: size.width * 0.045,
-                        //     ),
-                        //     decoration: const InputDecoration(
-                        //       hintText: 'Enter new password',
-                        //       hintStyle: TextStyle(color: Colors.white70),
-                        //       contentPadding: EdgeInsets.symmetric(
-                        //           horizontal: 15, vertical: 15),
-                        //       border: InputBorder.none,
-                        //     ),
-                        //   ),
-                        // ),
-                        const SizedBox(height: 20),
-                        // Save Button
-                        Center(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xffbc793d),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.3, vertical: 14),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.05,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Name
+                              ProfileItem(
+                                label: 'Name',
+                                initialValue: bloc.name,
+                                size: size,
+                                onChanged: (value) =>
+                                    bloc.add(UpdateNameEvent(value)),
                               ),
-                            ),
-                            onPressed: () {
-
-
-                              
-                              // Save password functionality
-                              // final password = _passwordController.text;
-                              // if (password.isNotEmpty) {
-                              //   // Implement your password save logic here
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     const SnackBar(
-                              //         content: Text('Password saved!')),
-                              //   );
-                              // } else {
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     const SnackBar(
-                              //         content: Text('Enter a valid password!')),
-                              //   );
-                              // }
-                            },
-                            child: Text(
-                              'Save',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: size.width * 0.05,
-                                fontWeight: FontWeight.bold,
+                              const SizedBox(height: 20),
+                              // Phone Number
+                              ProfileItem(
+                                label: 'Phone Number',
+                                initialValue: bloc.phone,
+                                size: size,
+                                onChanged: (value) =>
+                                    bloc.add(UpdatePhoneEvent(value)),
                               ),
-                            ),
+                              const SizedBox(height: 30),
+                              // Save Button
+                              Center(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.3,
+                                        vertical: 14),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    bloc.add(SaveProfileEvent());
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                      color: Color(0xff74a0b2),
+                                      fontSize: size.width * 0.05,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
-
-

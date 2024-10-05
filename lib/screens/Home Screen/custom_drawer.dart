@@ -15,19 +15,19 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const UserAccountsDrawerHeader(
+          UserAccountsDrawerHeader(
             accountName: Text(
-              'John Doe',
-              style: TextStyle(color: Colors.white),
+              locator.get<DataLayer>().user!.name,
+              style: const TextStyle(color: Colors.white),
             ),
             accountEmail: Text(
-              'john.doe@example.com',
+              locator.get<DataLayer>().user!.email,
               style: TextStyle(color: Colors.white70),
             ),
-            currentAccountPicture: CircleAvatar(
+            currentAccountPicture: const CircleAvatar(
               backgroundImage: AssetImage('assets/11.jpg'),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xff3d6b7d),
             ),
           ),
@@ -42,13 +42,24 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.track_changes, color: Colors.black),
+            title: const Text('Tracking order',
+                style: TextStyle(color: Colors.black)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const OrderTracking()),
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.info, color: Colors.black),
             title:
                 const Text('About Us', style: TextStyle(color: Colors.black)),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const AboutUs()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AboutUs()));
             },
           ),
           ListTile(
@@ -60,17 +71,6 @@ class CustomDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => const FirstScreen()),
                 (route) => false,
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.track_changes, color: Colors.black),
-            title: const Text('Tracking order',
-                style: TextStyle(color: Colors.black)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const OrderTracking()),
               );
             },
           ),

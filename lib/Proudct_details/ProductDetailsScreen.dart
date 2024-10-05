@@ -25,11 +25,6 @@ class ProductDetailsScreen extends StatelessWidget {
         builder: (context) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              backgroundColor: const Color(0xff3D6B7D),
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.white),
-            ),
             extendBodyBehindAppBar: true,
             body: Column(
               children: [
@@ -279,12 +274,12 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
-                            // bloc.add(AddToCartEvent(
-                            //   itemId: item.id,
-                            //   orderId: locator.get<DataLayer>().order!.orderId,
-                            //   quantity: bloc.quantity,
-                            //   price: item.price,
-                            // ));
+                            bloc.add(AddToCartEvent(
+                              itemId: item.id,
+                              orderId: locator.get<DataLayer>().order!.orderId,
+                              quantity: bloc.quantity,
+                              price: item.price,
+                            ));
                           },
                           child: Text(
                             'Buy Now',
