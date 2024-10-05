@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/mockData/mock_data.dart';
 import 'package:onze_cafe/model/cart_Item.dart';
@@ -13,7 +13,7 @@ part 'order_details_state.dart';
 
 class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   Timer? timer;
-  int remainingTime = 120; // 2 minutes
+  int remainingTime = 1000;
   OrderStatus status = OrderStatus.placed;
   StatusImage img = StatusImage.an1;
   List<Order> orders = [];
