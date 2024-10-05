@@ -11,13 +11,24 @@ import '../../supabase/client/supabase_mgr.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(BuildContext context) : super(ProfileInitial());
+  ProfileCubit(BuildContext context) : super(ProfileInitial()) {
+    initialLoad();
+  }
 
-  Profile? profile = SupabaseMgr.shared.currentProfile;
+  Profile? profile;
 
-  navigateToEditProfile(BuildContext context) =>
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => EditProfileScreen(profile: profile)));
+  void initialLoad() async {
+    profile = SupabaseMgr.shared.currentProfile;
+  }
+
+  navigateToEditProfile(BuildContext context) => Navigator.of(context)
+          .push(MaterialPageRoute(
+              builder: (context) => EditProfileScreen(profile: profile)))
+          .then((_) async {
+        if (context.mounted) profile = SupabaseMgr.shared.currentProfile;
+        Future.delayed(Duration(milliseconds: 50));
+        emitUpdate();
+      });
 
   void showSnackBar(
       BuildContext context, String msg, AnimatedSnackBarType type) {

@@ -44,7 +44,11 @@ class ProfileScreen extends StatelessWidget {
                       child: AnimatedImgView(
                         img: Img.illustration4,
                       )),
-                  AnimatedProfileList(cubit: cubit)
+                  BlocBuilder<ProfileCubit, ProfileState>(
+                    builder: (context, state) {
+                      return AnimatedProfileList(cubit: cubit);
+                    },
+                  )
                 ],
               ),
             )),

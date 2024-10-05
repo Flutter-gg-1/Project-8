@@ -9,7 +9,9 @@ import '../profile/profile_screen.dart';
 part 'drawer_state.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {
-  DrawerCubit() : super(DrawerInitial());
+  DrawerCubit() : super(DrawerInitial()) {
+    fetchProfile();
+  }
   Profile? profile;
   bool isEnglish = false;
   bool isDarkMode = false;
@@ -30,7 +32,12 @@ class DrawerCubit extends Cubit<DrawerState> {
   }
 
   void navigateToProfile(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          .push(MaterialPageRoute(builder: (context) => const ProfileScreen()))
+          .then((_) async {
+        if (context.mounted) profile = SupabaseMgr.shared.currentProfile;
+        Future.delayed(Duration(milliseconds: 50));
+        emit(UpdateUIState());
+      });
 
   void navigateToOrders(BuildContext context) => Navigator.of(context)
       .push(MaterialPageRoute(builder: (context) => const OrdersScreen()));
