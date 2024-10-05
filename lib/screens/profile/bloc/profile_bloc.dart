@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 
 part 'profile_event.dart';
@@ -14,8 +12,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   File? image;
 
   ProfileBloc(DataLayer dataLayer)
-      : name = dataLayer.user!.name, // Initialize name from DataLayer
-        phone = dataLayer.user!.phone, // Initialize phone from DataLayer
+      : name = dataLayer.user!.name,
+        phone = dataLayer.user!.phone,
         super(ProfileInitialState());
 
   @override
@@ -29,8 +27,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } else if (event is SaveProfileEvent) {
       yield ProfileLoadingState();
       try {
-        // Simulate saving the profile (you can implement actual save logic)
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         yield ProfileUpdatedState();
       } catch (e) {
         yield ProfileErrorState("Failed to save profile");

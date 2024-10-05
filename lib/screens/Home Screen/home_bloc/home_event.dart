@@ -10,5 +10,6 @@ final class LoadProductsEvent extends HomeEvent {
 
 final class UpdateCartCountEvent extends HomeEvent {
   final int count;
-  UpdateCartCountEvent({required this.count});
+  final String itemType;
+  UpdateCartCountEvent({required this.count, required this.itemType});
 }

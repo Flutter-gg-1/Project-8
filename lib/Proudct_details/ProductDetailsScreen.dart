@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/Proudct_details/product_details_bloc/product_bloc.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/item_model.dart';
-import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -32,7 +31,6 @@ class ProductDetailsScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 50),
                   width: double.infinity,
                   color: Colors.white,
-                  // color: const Color(0xff74a0b2),
                   child: Column(
                     children: [
                       Center(
@@ -264,11 +262,6 @@ class ProductDetailsScreen extends StatelessWidget {
                             color: Colors.transparent),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            // backgroundColor: const Color(0xff74a0b2),
-                            // padding: EdgeInsets.symmetric(
-                            //   horizontal: size.width * 0.3,
-                            //   vertical: 14,
-                            // ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),

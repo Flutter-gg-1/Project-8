@@ -14,6 +14,7 @@ class CoffeeCard extends StatelessWidget {
   final int rating;
   final int itemId;
   final HomeBloc bloc;
+  final String itemType;
 
   const CoffeeCard(
       {super.key,
@@ -23,7 +24,7 @@ class CoffeeCard extends StatelessWidget {
       this.imageUrl,
       required this.rating,
       required this.itemId,
-      required this.bloc});
+      required this.bloc, required this.itemType});
 
   Widget buildRatingStars(int rating) {
     List<Widget> stars = [];
@@ -131,7 +132,8 @@ class CoffeeCard extends StatelessWidget {
                       );
                   log('Added item to cart: $name');
                   bloc.add(UpdateCartCountEvent(
-                      count: locator.get<DataLayer>().cart.items.length));
+                      count: locator.get<DataLayer>().cart.items.length,
+                      itemType: itemType));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$name added to cart'),

@@ -30,7 +30,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> updateCartCount(
       UpdateCartCountEvent event, Emitter<HomeState> emit) {
     emit(UpdateCartCountState(count: event.count));
+    add(LoadProductsEvent(event.itemType));
   }
-
-  
 }

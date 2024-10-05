@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:onze_cafe/data_layer/data_layer.dart'; // Make sure DataLayer is imported
+import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/screens/profile/bloc/profile_bloc.dart';
 import 'package:onze_cafe/screens/profile/profile_item.dart';
 import 'package:onze_cafe/services/setup.dart';

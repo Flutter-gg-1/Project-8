@@ -1,15 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_cafe/data_layer/data_layer.dart';
-
 import 'package:onze_cafe/models/item_model.dart';
 import 'package:onze_cafe/Proudct_details/ProductDetailsScreen.dart';
+import 'package:onze_cafe/screens/Home%20Screen/build_product_grid.dart';
 import 'package:onze_cafe/screens/Home%20Screen/home_bloc/home_bloc.dart';
 import 'package:onze_cafe/screens/Home%20Screen/coffe_card.dart';
 import 'package:onze_cafe/screens/Home%20Screen/custom_drawer.dart';
 import 'package:onze_cafe/screens/cart_screen/cart_screen.dart';
-import 'package:onze_cafe/services/setup.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,11 +40,9 @@ class _HomeScreenState extends State<HomeScreen>
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                pinned: false, 
-                floating: true, 
-
-                iconTheme: IconThemeData(color: Colors.white),
-
+                pinned: false,
+                floating: true,
+                iconTheme: const IconThemeData(color: Colors.white),
                 backgroundColor: Colors.white,
                 expandedHeight: size.height * 0.5,
                 flexibleSpace: FlexibleSpaceBar(
@@ -233,12 +229,18 @@ class _HomeScreenState extends State<HomeScreen>
                           return TabBarView(
                             controller: _tabController,
                             children: [
-                              _buildProductsGrid('classicCoffee', size, bloc),
-                              _buildProductsGrid('coldDrinks', size, bloc),
-                              _buildProductsGrid('dripCoffee', size, bloc),
-                              _buildProductsGrid('teaDrinks', size, bloc),
-                              _buildProductsGrid('water', size, bloc),
-                              _buildProductsGrid('dessert', size, bloc),
+                              BuildProductGrid(bloc: bloc, itemType: 'classicCoffee', size: size),
+                              BuildProductGrid(bloc: bloc, itemType: 'coldDrinks', size: size),
+                              BuildProductGrid(bloc: bloc, itemType: 'dripCoffee', size: size),
+                              BuildProductGrid(bloc: bloc, itemType: 'teaDrinks', size: size),
+                              BuildProductGrid(bloc: bloc, itemType: 'water', size: size),
+                              BuildProductGrid(bloc: bloc, itemType: 'dessert', size: size),
+                              // _buildProductsGrid('classicCoffee', size, bloc),
+                              // _buildProductsGrid('coldDrinks', size, bloc),
+                              // _buildProductsGrid('dripCoffee', size, bloc),
+                              // _buildProductsGrid('teaDrinks', size, bloc),
+                              // _buildProductsGrid('water', size, bloc),
+                              // _buildProductsGrid('dessert', size, bloc),
                             ],
                           );
                         },
@@ -254,69 +256,5 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildProductsGrid(String itemType, Size size, HomeBloc bloc) {
-    return BlocProvider(
-      create: (context) => HomeBloc()..add(LoadProductsEvent(itemType)),
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is HomeLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ErrorState) {
-            return Center(child: Text('Error: ${state.error}'));
-          } else if (state is HomeLoadedState) {
-            final products = state.products;
-            if (products.isEmpty) {
-              return const Center(child: Text('No products available'));
-            }
-
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 25,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailsScreen(
-                            heroTag: product.id.toString(),
-                            item: ItemModel.fromJson(products[index].toJson()),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Hero(
-                      tag: product.id.toString(),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: CoffeeCard(
-                          size: size,
-                          name: product.name,
-                          price: product.price,
-                          imageUrl: product.imageUrl,
-                          rating: product.rating,
-                          itemId: product.id,
-                          bloc: bloc,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            );
-          }
-          return Container();
-        },
-      ),
-    );
-  }
+  
 }

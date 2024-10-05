@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/services/db_operations.dart';
+import 'package:onze_cafe/services/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'track_event.dart';
@@ -22,11 +24,13 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
   FutureOr<void> receiveOrder(ReceivedEvent event, Emitter<TrackState> emit) {
     emit(ReceivedState());
+    if(locator.get<DataLayer>().order!.status == 'incomplete'){
     Timer(const Duration(seconds: 2), () {
       if (state is! ReadyState) {
         add(PrepareEvent());
       }
     });
+    }
   }
 
   void initializeListener() async {
