@@ -31,21 +31,18 @@ Future main() async {
 
   await test.getMenu();
 
-  //Remove this method to stop OneSignal Debugging
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
   OneSignal.initialize(dotenv.env["onesignal_app_key"]!);
 
-// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
   OneSignal.Notifications.requestPermission(true);
- log('${authLocator.get<AuthLayer>().user?.toJson()}');
+  log('${authLocator.get<AuthLayer>().user?.toJson()}');
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,15 +50,6 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color(0xffD7D1CA),
             appBarTheme: const AppBarTheme(backgroundColor: Color(0xffD7D1CA))),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen()
-        // OrderStatus(order: OrderModel(
-        //   orderId: '062a8cfc-deb9-4cd6-9c00-e7af246cfce3',
-        //   time: DateTime.now(),
-        //   totalPreparationTime: 12,
-        //   totalPrice: 120
-
-        // ),),
-
-        );
+        home: FirstScreen());
   }
 }
