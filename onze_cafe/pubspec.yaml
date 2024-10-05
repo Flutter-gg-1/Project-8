@@ -43,20 +43,9 @@ flutter:
     - assets/SVG/outlined_cup.svg
     - assets/coffee_bean/
     - assets/illustrations/
-    - assets/illustrations/Asset 8 1-2.png
-    - assets/illustrations/Asset 8 1-3.png
-    - assets/illustrations/Asset 8 1.png
-    - assets/illustrations/illustration_10.png
-    - assets/illustrations/illustration_12.png
-    - assets/illustrations/illustration_13.png
-    - assets/illustrations/illustration_14.png
-    - assets/illustrations/star.png
     - assets/loading/
-    - assets/loading/loading3.json
-    - assets/loading/loading4.gif
     - assets/logo/
     - assets/menu_categories/
-    - assets/menu_categories/water.png
     - assets/menu_items/
 
 fonts:
