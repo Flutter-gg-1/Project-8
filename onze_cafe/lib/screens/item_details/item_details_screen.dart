@@ -122,7 +122,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                 CustomCircleBtn(
                                   brightness: brightness,
                                   onTap: () => cubit.addToCart(context, item),
-                                  title: item.price.toStringAsPrecision(3),
+                                  title: (item.price * cubit.quantity)
+                                      .toStringAsPrecision(3),
                                   subTitle: 'Add To Cart',
                                 )
                               ],
