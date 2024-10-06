@@ -15,12 +15,13 @@ class OrderItem extends StatelessWidget {
   final OrderDetailsModel orderInfo;
   final OrderListCubit cubit;
   final Function()? onTap;
+  final String userName;
   const OrderItem({
     super.key,
     required this.order,
     this.onTap,
     required this.cubit,
-    required this.orderInfo,
+    required this.orderInfo, required this.userName,
   });
 
   @override
@@ -59,7 +60,7 @@ class OrderItem extends StatelessWidget {
                       color: Color(0xff3D6B7D),
                     ),
                     Text(
-                      cubit.username,
+                     userName,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
