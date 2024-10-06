@@ -1,5 +1,5 @@
 flutter_native_splash:
-# flutter_native_splash:create --flutter_native_splash.yaml
+# dart run flutter_native_splash:create
 # _________ 
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
@@ -52,3 +52,5 @@ flutter_native_splash:
   # Please visit https://developer.android.com/guide/topics/ui/splash-screen
   # Following are specific parameters for Android 12+.
   android_12:
+    image: assets/splash_android_12.png
+    color: "#D7D2C9"
