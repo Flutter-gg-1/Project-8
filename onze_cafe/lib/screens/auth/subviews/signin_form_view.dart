@@ -36,11 +36,15 @@ class SignInForm extends StatelessWidget {
               CustomTextField(
                   hintText: 'Password',
                   controller: cubit.passwordController,
+                  isObscure: cubit.isObscure,
                   validation: Validations.none),
               IconButton(
-                  onPressed: () => (),
-                  icon:
-                      Icon(CupertinoIcons.eye, color: C.secondary(brightness)))
+                  onPressed: cubit.toggleIsObscure,
+                  icon: Icon(
+                      cubit.isObscure
+                          ? CupertinoIcons.eye_slash
+                          : CupertinoIcons.eye,
+                      color: C.secondary(brightness)))
             ],
           ),
           Padding(

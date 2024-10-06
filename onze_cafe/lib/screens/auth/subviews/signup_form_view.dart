@@ -44,11 +44,15 @@ class SignupFormView extends StatelessWidget {
               CustomTextField(
                   hintText: 'Password',
                   controller: cubit.passwordController,
+                  isObscure: cubit.isObscure,
                   validation: Validations.password),
               IconButton(
-                  onPressed: () => cubit.navigateToMenu(context),
-                  icon:
-                      Icon(CupertinoIcons.eye, color: C.secondary(brightness)))
+                  onPressed: cubit.toggleIsObscure,
+                  icon: Icon(
+                      cubit.isObscure
+                          ? CupertinoIcons.eye_slash
+                          : CupertinoIcons.eye,
+                      color: C.secondary(brightness)))
             ],
           ),
           Padding(

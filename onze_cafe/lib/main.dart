@@ -10,7 +10,6 @@ import 'app_theme/app_theme_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseMgr.shared.initialize();
-  await DIContainer.storageSetup();
   DIContainer.configureOneSignal();
 
   SystemChrome.setPreferredOrientations([

@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     required this.validation,
     this.onChanged,
     this.readOnly = false,
+    this.isObscure = false,
   });
   final String hintText;
   final Widget? prefixIcon;
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String value) validation;
   final bool readOnly;
+  final bool isObscure;
   final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,12 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
-        style: TextStyle(color: C.text(brightness),fontFamily: 'Poppins',),
+        style: TextStyle(
+          color: C.text(brightness),
+          fontFamily: 'Poppins',
+        ),
         readOnly: readOnly,
+        obscureText: isObscure,
         maxLines: max,
         // obscureText: ,
         onChanged: onChanged,

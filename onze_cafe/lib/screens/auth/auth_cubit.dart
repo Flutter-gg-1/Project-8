@@ -17,6 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   int otp = -1;
+  bool isObscure = true;
 
   void navigateToMenu(BuildContext context) =>
       Navigator.of(context).pushReplacement(
@@ -34,6 +35,11 @@ class AuthCubit extends Cubit<AuthState> {
     if (context.mounted) {
       animatedSnakbar(msg: msg, type: type).show(context);
     }
+  }
+
+  void toggleIsObscure() {
+    isObscure = !isObscure;
+    emit(UpdateUIState());
   }
 
   void initialLoad(bool isSignUp) async {

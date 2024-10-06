@@ -14,8 +14,6 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.6
   flutter_dotenv: ^5.1.0
-  get_it: ^8.0.0
-  get_storage: ^2.1.1
   image_picker: ^1.1.2
   intl: ^0.19.0
   supabase_flutter: ^2.6.0
@@ -45,8 +43,6 @@ flutter:
     - assets/illustrations/
     - assets/loading/
     - assets/logo/
-    - assets/menu_categories/
-    - assets/menu_items/
 
 fonts:
   - family: Poppins
