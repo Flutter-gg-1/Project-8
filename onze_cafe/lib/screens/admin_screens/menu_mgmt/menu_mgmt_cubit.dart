@@ -34,10 +34,10 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
       Navigator.of(context)
           .push(MaterialPageRoute(
               builder: (context) => AddCategoryScreen(category: cat)))
-          .then((categoryAdded) {
+          .then((categoryAdded) async {
         if (context.mounted && categoryAdded == true) {
           showSnackBar(context, 'Category Added', AnimatedSnackBarType.success);
-          loadInitialValues(context);
+          if (context.mounted) categories = await fetchCategories(context);
         }
       });
 
@@ -46,10 +46,10 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
         .push(MaterialPageRoute(
             builder: (context) =>
                 AddMenuItemScreen(item: item, categories: categories)))
-        .then((itemAdded) {
+        .then((itemAdded) async {
       if (context.mounted && itemAdded == true) {
         showSnackBar(context, 'Item Added', AnimatedSnackBarType.success);
-        loadInitialValues(context);
+        if (context.mounted) items = await fetchMenuItems(context);
       }
     });
   }
@@ -59,10 +59,10 @@ class MenuMgmtCubit extends Cubit<MenuMgmtState> {
         .push(MaterialPageRoute(
             builder: (context) =>
                 AddOfferScreen(offer: offer, menuItems: items)))
-        .then((itemAdded) {
+        .then((itemAdded) async {
       if (context.mounted && itemAdded == true) {
         showSnackBar(context, 'Item Added', AnimatedSnackBarType.success);
-        loadInitialValues(context);
+        if (context.mounted) offers = await fetchMenuOffers(context);
       }
     });
   }
