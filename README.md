@@ -115,7 +115,7 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 ## Output
 
-### Screenshot
+### Customer Screenshot 
 
 
 - **First Screen**:
@@ -200,14 +200,42 @@ to streamline the ordering process for coffee and desserts, especially during pe
 - **success Pay**:
 
 ![alt text](customer_app\assets\readme\sucess_pay.png)
+
 - **Profile Screen**:
 
 ![alt text](assets/readme/rate.png)
 
+### Employee Screenshot 
+
+- **Login Screen**:
+
+![alt text](employee_app\assets\readme\login_emp.png)
+
+- **Home Screen**:
+
+![alt text](employee_app\assets\readme\home_emp.png)
+
+- **Menu Screen**:
+
+![alt text](employee_app\assets\readme\menu_emp.png)
+
+- **Add Menu**:
+
+![alt text](employee_app\assets\readme\add_menu_emp.png)
+
+- **Edit Menu**:
+
+![alt text](employee_app\assets\readme\edit_menu.png)
+
+- **Order Screen**:
+
+![alt text](employee_app\assets\readme\order_emp.png)
+
+- **Order Customer Status**:
+
+![alt text](employee_app\assets\readme\emp_status.png)
 
 ### Demo Video
-
-
 
 ## Team
 
