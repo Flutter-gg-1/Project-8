@@ -129,3 +129,21 @@ The app uses **Supabase** for database management. Key database tables:
 1. Abdulaziz Alamri (Leader)
 2. Rwan Riyad
 3. Muhannad Althaher
+
+
+### .env
+
+supabase_url = 'https://czafjraltorrzjdqplrk.supabase.co'
+
+anon_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6YWZqcmFsdG9ycnpqZHFwbHJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc0NTM4ODcsImV4cCI6MjA0MzAyOTg4N30.TaoLzbyFgrBO5X1H2438pEbOEVysakNndsjZvb41iUQ'
+
+moyasar_test_key =  'pk_test_xWUPFwQABVUruCau7j64Cvm7tyrqFBHkeB4he8RY'
+
+onesignal_key = 'a51b419a-2f5a-4376-b373-c43dfce0d1c1'
+
+onesignal_rest_key = 'N2YxZjJmZDYtMjIyNC00MTY4LWJlM2EtMDk3ZmZlZTA3Y2E3'
+
+
+### Employee login
+- email: aazizalamri2@gmail.com
+- password: 123123
