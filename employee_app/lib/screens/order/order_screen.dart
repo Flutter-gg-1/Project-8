@@ -182,87 +182,36 @@ class OrderScreen extends StatelessWidget {
                   BlocBuilder<OrderListCubit, OrderListState>(
                     builder: (context, state) {
                       return Column(
-                          children: cubit.orderList
-                              .map(
-                                (e) => OrderItem(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        builder: (context) => Container(
-                                          height:
-                                              context.getHeight(multiply: 0.35),
-                                          width: context.getWidth(multiply: 1),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: context.getWidth(
-                                                  multiply: 0.05),
-                                              vertical: context.getHeight(
-                                                  multiply: 0.05)),
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xffeeedea),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(30),
-                                                topRight: Radius.circular(30),
-                                              )),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text(
-                                                  'Order Summary',
-                                                  style: TextStyle(
-                                                      color: Color(0xffA8483D),
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: 'Rosarivo'),
-                                                ),
-                                                const Divider(),
-                                                context.addSpacer(
-                                                    multiply: 0.02),
-                                                Text(
-                                                  'Order Time : ${e.time}',
-                                                  style: const TextStyle(
-                                                      color: Color(0xffA8483D),
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: 'Rosarivo'),
-                                                ),
-                                                context.addSpacer(
-                                                    multiply: 0.01),
-                                                Text(
-                                                  'Preparation Time : ${e.totalPreparationTime}',
-                                                  style: const TextStyle(
-                                                      color: Color(0xffA8483D),
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: 'Rosarivo'),
-                                                ),
-                                                context.addSpacer(
-                                                    multiply: 0.01),
-                                                Text(
-                                                  'Total Price : ${e.totalPrice} RS',
-                                                  style: const TextStyle(
-                                                      color: Color(0xffA8483D),
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: 'Rosarivo'),
-                                                ),
-                                                Text(
-                                                  'Order Items :\n ${e.orderDetailsLis.map((element) => menu.firstWhere((e) => e.productId == element.productId).name).join('\n')}',
-                                                  style: const TextStyle(
-                                                      color: Color(0xffA8483D),
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily: 'Rosarivo'),
-                                                ),
-                                                const Center(
-                                                  child: Text(
-                                                    'Enjoy',
+                          children: cubit.orderList.isNotEmpty
+                              ? cubit.orderList
+                                  .map(
+                                    (e) => OrderItem(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) => Container(
+                                            height: context.getHeight(
+                                                multiply: 0.35),
+                                            width:
+                                                context.getWidth(multiply: 1),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: context.getWidth(
+                                                    multiply: 0.05),
+                                                vertical: context.getHeight(
+                                                    multiply: 0.05)),
+                                            decoration: const BoxDecoration(
+                                                color: Color(0xffeeedea),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(30),
+                                                  topRight: Radius.circular(30),
+                                                )),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Order Summary',
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xffA8483D),
@@ -271,18 +220,89 @@ class OrderScreen extends StatelessWidget {
                                                             FontWeight.bold,
                                                         fontFamily: 'Rosarivo'),
                                                   ),
-                                                ),
-                                              ],
+                                                  const Divider(),
+                                                  context.addSpacer(
+                                                      multiply: 0.02),
+                                                  Text(
+                                                    'Order Time : ${e.time}',
+                                                    style: const TextStyle(
+                                                        color:
+                                                            Color(0xffA8483D),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'Rosarivo'),
+                                                  ),
+                                                  context.addSpacer(
+                                                      multiply: 0.01),
+                                                  Text(
+                                                    'Preparation Time : ${e.totalPreparationTime}',
+                                                    style: const TextStyle(
+                                                        color:
+                                                            Color(0xffA8483D),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'Rosarivo'),
+                                                  ),
+                                                  context.addSpacer(
+                                                      multiply: 0.01),
+                                                  Text(
+                                                    'Total Price : ${e.totalPrice} RS',
+                                                    style: const TextStyle(
+                                                        color:
+                                                            Color(0xffA8483D),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'Rosarivo'),
+                                                  ),
+                                                  Text(
+                                                    '\nOrder Items :\n${e.orderDetailsLis.map((element) => menu.firstWhere((e) => e.productId == element.productId).name).join('\nquantity : ${e.orderDetailsLis.first.quantity}\n\n')}',
+                                                    style: const TextStyle(
+                                                        color:
+                                                            Color(0xffA8483D),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'Rosarivo'),
+                                                  ),
+                                                  const Center(
+                                                    child: Text(
+                                                      'Enjoy',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xffA8483D),
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily:
+                                                              'Rosarivo'),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    order: e,
-                                    cubit: cubit,
-                                    orderInfo: e.orderDetailsLis.first),
-                              )
-                              .toList());
+                                        );
+                                      },
+                                      order: e,
+                                      cubit: cubit,
+                                      orderInfo: e.orderDetailsLis.first,
+                                      userName:
+                                          'Order ${e.customerId?.substring(e.customerId!.length - 4, e.customerId!.length)}',
+                                    ),
+                                  )
+                                  .toList()
+                              : [
+                                  const Center(
+                                    child: Text(
+                                      'No Order yet',
+                                      style: TextStyle(
+                                          fontSize: 32, color: Colors.grey),
+                                    ),
+                                  )
+                                ]);
                     },
                   )
                 ],

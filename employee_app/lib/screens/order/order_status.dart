@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_details_model.dart';
+import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/screens/order/cubit/order_list_cubit.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:employee_app/widget/button/home_button.dart';
@@ -11,9 +12,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shape/draw_dotted_line.dart';
 
 class OrderStatus extends StatelessWidget {
-  const OrderStatus({super.key, required this.order, required this.cubit});
+  const OrderStatus(
+      {super.key,
+      required this.orderInfo,
+      required this.cubit,
+      required this.order});
   // fix here need to be list  chnage it form OrderItem widget
-  final OrderDetailsModel order;
+  final OrderDetailsModel orderInfo;
+  final OrderModel order;
   final OrderListCubit cubit;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,7 @@ class OrderStatus extends StatelessWidget {
               Navigator.pop(context);
             }
             if (state is OrderShowState) {
-              Navigator.pop(context,true);
+              Navigator.pop(context, true);
               log("very good");
             }
 
@@ -131,7 +137,7 @@ class OrderStatus extends StatelessWidget {
                             ),
                             const Text(
                                 '------------------------------------------------------'),
-                            Text('${order.productModel?.name}',
+                            Text('${orderInfo.productModel?.name}',
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -147,7 +153,7 @@ class OrderStatus extends StatelessWidget {
                             ),
                             const Text(
                                 '------------------------------------------------------'),
-                            Text('${order.size}',
+                            Text('${orderInfo.size}',
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -163,7 +169,7 @@ class OrderStatus extends StatelessWidget {
                             ),
                             const Text(
                                 '------------------------------------------------------'),
-                            Text('${order.quantity}',
+                            Text('${orderInfo.quantity}',
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -181,7 +187,8 @@ class OrderStatus extends StatelessWidget {
                               onPressed: () {
                                 cubit.changeStatus(
                                     status: "delivered",
-                                    orderId: order.orderId);
+                                    orderId: orderInfo.orderId,
+                                    customerId: order.customerId!);
                               },
                               fixedSize: Size(context.getWidth(multiply: 0.37),
                                   context.getHeight(multiply: 0.05)),
@@ -191,7 +198,9 @@ class OrderStatus extends StatelessWidget {
                               title: '  Ready',
                               onPressed: () {
                                 cubit.changeStatus(
-                                    status: "Ready", orderId: order.orderId);
+                                    status: "Ready",
+                                    orderId: orderInfo.orderId,
+                                    customerId: order.customerId!);
                               },
                               fixedSize: Size(context.getWidth(multiply: 0.37),
                                   context.getHeight(multiply: 0.05)),

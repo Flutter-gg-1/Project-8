@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/models/order_details_model.dart';
 import 'package:employee_app/models/order_model.dart';
+import 'package:employee_app/services/onesignal/one_signal.dart';
 
 import 'package:meta/meta.dart';
 
@@ -17,6 +18,8 @@ class OrderListCubit extends Cubit<OrderListState> {
   Timer? _timer;
   int _tickCount = 0;
   int statusIndex = 0;
+
+
   showOrderList() async {
     try {
       log("here");
@@ -42,7 +45,6 @@ class OrderListCubit extends Cubit<OrderListState> {
         }
       }
 
-
       emit(OrderShowState());
     } catch (er) {
       log("$er");
@@ -50,10 +52,14 @@ class OrderListCubit extends Cubit<OrderListState> {
     }
   }
 
-  changeStatus({required String status, required String orderId}) async {
+  changeStatus(
+      {required String status,
+      required String orderId,
+      required String customerId}) async {
     try {
       emit(LoadingState());
       await SuperMain().orderChangeStatus(status: status, orderId: orderId);
+      await Onesignal().pushNote(msg: 'Hi your order is $status',userId: customerId);
       emit(NoLodingState());
       showOrderList();
     } catch (er) {
