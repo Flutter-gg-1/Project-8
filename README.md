@@ -120,18 +120,18 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 - **First Screen**:
 
-![alt text](customer_app\assets\readme\first_screen.png)
+![alt text](customer_app/assets/readme/first_screen.png)
 
 - **Login Screen**:
 
-![alt text](customer_app\assets\readme\login_screen.png)
+![alt text](customer_app/assets/readme/login_screen.png)
 
 - **SignUp Screen**:
 
-![alt text](customer_app\assets\readme\sign_up_screen.png)
+![alt text](customer_app/assets/readme/sign_up_screen.png)
 
 - **Loading Screen**:
-![alt text](customer_app\assets\readme\loading.png)
+![alt text](customer_app/assets/readme/loading.png)
 
 - **OTP Screen**:
 
@@ -139,67 +139,67 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 - **Customer Home Screen**:
 
-![alt text](customer_app\assets\readme\customer_home_screen.png)
+![alt text](customer_app/assets/readme/customer_home_screen.png)
 
 - **Drawer**:
 
-![alt text](customer_app\assets\readme\drawer.png)
+![alt text](customer_app/assets/readme/drawer.png)
 
 - **Search For Product**:
 
-![alt text](customer_app\assets\readme\search_product.png)
+![alt text](customer_app/assets/readme/search_product.png)
 
 - **Product Info Screen**:
 
-![alt text](customer_app\assets\readme\product_info_screen.png)
+![alt text](customer_app/assets/readme/product_info_screen.png)
 
 - **Successfully added to Cart**:
 
-![alt text](customer_app\assets\readme\add_to_cart.png)
+![alt text](customer_app/assets/readme/add_to_cart.png)
 
 - **Cart Screen**:
 
-![alt text](customer_app\assets\readme\cart_null.png)
+![alt text](customer_app/assets/readme/cart_null.png)
 
 - **Cart show msg Screen**:
 
-![alt text](customer_app\assets\readme\dailog_cart.png)
+![alt text](customer_app/assets/readme/dailog_cart.png)
 
 - **History Screen**:
 
-![alt text](customer_app\assets\readme\history_order.png)
+![alt text](customer_app/assets/readme/history_order.png)
 
 - **My Order Screen**:
 
-![alt text](customer_app\assets\readme\my_order.png)
+![alt text](customer_app/assets/readme/my_order.png)
 
 - **My Order Screen**:
 
-![alt text](customer_app\assets\readme\has_order.png)
+![alt text](customer_app/assets/readme/has_order.png)
 
 - **Order Status Screen**:
 
-![alt text](customer_app\assets\readme\order_status.png)
+![alt text](customer_app/assets/readme/order_status.png)
 
 - **Preparing the order**:
 
-![alt text](customer_app\assets\readme\preparing.png)
+![alt text](customer_app/assets/readme/preparing.png)
 
 - **Order Status Info**:
 
-![alt text](customer_app\assets\readme\order_status_Info.png)
+![alt text](customer_app/assets/readme/order_status_Info.png)
 
 - **Moyasar Payments Screen**:
 
-![alt text](customer_app\assets\readme\payment.png)
+![alt text](customer_app/assets/readme/payment.png)
 
 - **Receipt Payment**:
 
-![alt text](customer_app\assets\readme\payment_check.png)
+![alt text](customer_app/assets/readme/payment_check.png)
 
 - **success Pay**:
 
-![alt text](customer_app\assets\readme\sucess_pay.png)
+![alt text](customer_app/assets/readme/sucess_pay.png)
 
 - **Profile Screen**:
 
@@ -209,31 +209,31 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 - **Login Screen**:
 
-![alt text](employee_app\assets\readme\login_emp.png)
+![alt text](employee_app/assets/readme/login_emp.png)
 
 - **Home Screen**:
 
-![alt text](employee_app\assets\readme\home_emp.png)
+![alt text](employee_app/assets/readme/home_emp.png)
 
 - **Menu Screen**:
 
-![alt text](employee_app\assets\readme\menu_emp.png)
+![alt text](employee_app/assets/readme/menu_emp.png)
 
 - **Add Menu**:
 
-![alt text](employee_app\assets\readme\add_menu_emp.png)
+![alt text](employee_app/assets/readme/add_menu_emp.png)
 
 - **Edit Menu**:
 
-![alt text](employee_app\assets\readme\edit_menu.png)
+![alt text](employee_app/assets/readme/edit_menu.png)
 
 - **Order Screen**:
 
-![alt text](employee_app\assets\readme\order_emp.png)
+![alt text](employee_app/assets/readme/order_emp.png)
 
 - **Order Customer Status**:
 
-![alt text](employee_app\assets\readme\emp_status.png)
+![alt text](employee_app/assets/readme/emp_status.png)
 
 ### Demo Video
 
