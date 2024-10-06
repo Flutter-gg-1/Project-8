@@ -120,122 +120,94 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 - **First Screen**:
 
-![alt text](customer_app/assets/readme/first_screen.png)
+![alt text](employee_app//assets/readme/first.png)
 
-- **Login Screen**:
+- **Auth Screen**:
 
-![alt text](customer_app/assets/readme/login_screen.png)
-
-- **SignUp Screen**:
-
-![alt text](customer_app/assets/readme/sign_up_screen.png)
+![alt text](customer_app/assets/readme/auth1.png)
+![alt text](customer_app/assets/readme/auth2.png)
+![alt text](customer_app/assets/readme/auth3.png)
 
 - **Loading Screen**:
-![alt text](customer_app/assets/readme/loading.png)
+![alt text](customer_app/assets/readme/auth4.png)
 
 - **OTP Screen**:
 
-![alt text](assets/readme/all.png)
-
 - **Customer Home Screen**:
 
-![alt text](customer_app/assets/readme/customer_home_screen.png)
+![alt text](customer_app/assets/readme/home.png)
 
 - **Drawer**:
 
-![alt text](customer_app/assets/readme/drawer.png)
+![alt text](customer_app/assets/readme/drawerr.png)
 
 - **Search For Product**:
 
-![alt text](customer_app/assets/readme/search_product.png)
+![alt text](customer_app/assets/readme/search.png)
 
 - **Product Info Screen**:
 
-![alt text](customer_app/assets/readme/product_info_screen.png)
+![alt text](customer_app/assets/readme/orderinfo.png)
 
-- **Successfully added to Cart**:
-
-![alt text](customer_app/assets/readme/add_to_cart.png)
 
 - **Cart Screen**:
 
-![alt text](customer_app/assets/readme/cart_null.png)
-
-- **Cart show msg Screen**:
-
-![alt text](customer_app/assets/readme/dailog_cart.png)
+![alt text](customer_app/assets/readme/cart.png)
 
 - **History Screen**:
 
-![alt text](customer_app/assets/readme/history_order.png)
+![alt text](customer_app/assets/readme/history.png)
 
 - **My Order Screen**:
 
-![alt text](customer_app/assets/readme/my_order.png)
-
-- **My Order Screen**:
-
-![alt text](customer_app/assets/readme/has_order.png)
+![alt text](customer_app/assets/readme/myorder.png)
 
 - **Order Status Screen**:
 
-![alt text](customer_app/assets/readme/order_status.png)
-
-- **Preparing the order**:
-
-![alt text](customer_app/assets/readme/preparing.png)
+![alt text](customer_app/assets/readme/status.png)
 
 - **Order Status Info**:
 
-![alt text](customer_app/assets/readme/order_status_Info.png)
+![alt text](customer_app/assets/readme/summary.png)
 
 - **Moyasar Payments Screen**:
 
-![alt text](customer_app/assets/readme/payment.png)
+![alt text](customer_app/assets/readme/paymentt.png)
 
 - **Receipt Payment**:
 
-![alt text](customer_app/assets/readme/payment_check.png)
-
-- **success Pay**:
-
-![alt text](customer_app/assets/readme/sucess_pay.png)
+![alt text](customer_app/assets/readme/paybill.png)
 
 - **Profile Screen**:
 
-![alt text](assets/readme/rate.png)
+![alt text](customer_app/assets/readme/profile.png)
 
 ### Employee Screenshot 
 
-- **Login Screen**:
-
-![alt text](employee_app/assets/readme/login_emp.png)
-
 - **Home Screen**:
 
-![alt text](employee_app/assets/readme/home_emp.png)
+![alt text](employee_app/assets/readme/home.png)
 
 - **Menu Screen**:
 
-![alt text](employee_app/assets/readme/menu_emp.png)
+![alt text](employee_app/assets/readme/menu.png)
 
 - **Add Menu**:
 
-![alt text](employee_app/assets/readme/add_menu_emp.png)
+![alt text](employee_app/assets/readme/add.png)
 
-- **Edit Menu**:
-
-![alt text](employee_app/assets/readme/edit_menu.png)
 
 - **Order Screen**:
 
-![alt text](employee_app/assets/readme/order_emp.png)
+![alt text](employee_app/assets/readme/order.png)
 
 - **Order Customer Status**:
 
-![alt text](employee_app/assets/readme/emp_status.png)
+![alt text](employee_app/assets/readme/empstatus.png)
 
-### Demo Video
+- **Order Info**:
+
+![alt text](employee_app/assets/readme/orderinfo.png)
 
 ## Team
 

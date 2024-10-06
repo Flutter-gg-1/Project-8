@@ -1,4 +1,3 @@
-import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/helper/extinsion/order_date_format.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_details_model.dart';
@@ -8,7 +7,6 @@ import 'package:employee_app/screens/order/order_status.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:intl/intl.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel order;
@@ -55,13 +53,13 @@ class OrderItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Iconsax.profile_2user_outline,
                       color: Color(0xff3D6B7D),
                     ),
                     Text(
                      userName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins'),

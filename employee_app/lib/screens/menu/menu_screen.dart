@@ -1,10 +1,8 @@
 import 'dart:developer';
 
-import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/data_layer/auth_layer.dart';
 import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
-import 'package:employee_app/models/product_model.dart';
 import 'package:employee_app/models/user_model.dart';
 import 'package:employee_app/screens/menu/add_product_screen.dart';
 import 'package:employee_app/screens/menu/show_menu_cubit/show_menu_cubit.dart';
@@ -23,7 +21,7 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final UserModel? user = authLocator.get<AuthLayer>().user;
     final locator = productLocator.get<ProductLayer>();
     return BlocProvider(
@@ -80,7 +78,7 @@ class MenuScreen extends StatelessWidget {
               },
               child: const  Icon(Icons.add,color: Colors.white,),
             ),
-            key: _scaffoldKey,
+            key: scaffoldKey,
             extendBodyBehindAppBar: true,
             //separate it later
             drawer: Drawer(
@@ -163,7 +161,7 @@ class MenuScreen extends StatelessWidget {
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
-                    _scaffoldKey.currentState?.openDrawer();
+                    scaffoldKey.currentState?.openDrawer();
                   },
                   icon: const Icon(
                     FontAwesome.bars_staggered_solid,

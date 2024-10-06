@@ -6,7 +6,6 @@ import 'package:employee_app/DB/super_main.dart';
 import 'package:employee_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
 
 part 'add_item_state.dart';
 

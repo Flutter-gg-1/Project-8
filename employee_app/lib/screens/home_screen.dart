@@ -63,8 +63,8 @@ class HomeScreen extends StatelessWidget {
           ),
 
           context.addSpacer(multiply: 0.12),
-          Divider(),
-          Expanded(
+          const Divider(),
+          const Expanded(
             child: Text('Version 1.0.0'),
           ),
         ],

@@ -16,7 +16,7 @@ class OrderListCubit extends Cubit<OrderListState> {
 
   List<OrderModel> orderList = [];
   Timer? _timer;
-  int _tickCount = 0;
+  final int _tickCount = 0;
   int statusIndex = 0;
 
 
@@ -33,9 +33,9 @@ class OrderListCubit extends Cubit<OrderListState> {
       for (var val in orders) {
         orderList.add(OrderModel.fromJson(val));
       }
-      orderList.forEach(
-        (element) => log('${element.toJson()}'),
-      );
+      for (var element in orderList) {
+        log('${element.toJson()}');
+      }
       for (var val in orderList) {
         final OrderDetailRes =
             await SuperMain().getAllUserOrder(orderId: val.orderId!);

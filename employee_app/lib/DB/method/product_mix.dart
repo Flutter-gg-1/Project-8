@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:uuid/uuid.dart';
 
 import 'package:employee_app/DB/super.dart';

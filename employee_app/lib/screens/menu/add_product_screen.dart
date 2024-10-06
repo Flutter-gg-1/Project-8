@@ -8,7 +8,6 @@ import 'package:employee_app/widget/add_product/custome_text_form_field.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AddProduct extends StatelessWidget {
   const AddProduct({super.key, this.productModel});
@@ -188,7 +187,7 @@ class AddProduct extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                items: ["Classic_Coffee"],
+                                items: const ["Classic_Coffee"],
                                 onChanged: (p0) {
                                   cubit.typecontroller.text = p0 ?? "";
                                 },

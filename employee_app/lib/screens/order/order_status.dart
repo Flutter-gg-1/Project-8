@@ -5,11 +5,9 @@ import 'package:employee_app/models/order_details_model.dart';
 import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/screens/order/cubit/order_list_cubit.dart';
 import 'package:employee_app/widget/button/custom_button.dart';
-import 'package:employee_app/widget/button/home_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shape/draw_dotted_line.dart';
 
 class OrderStatus extends StatelessWidget {
   const OrderStatus(
@@ -96,7 +94,7 @@ class OrderStatus extends StatelessWidget {
                               color: Color(0xff3D6B7D),
                             ),
                             Text('Basel alalawi',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),
@@ -183,7 +181,7 @@ class OrderStatus extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
-                              title: '     Delver',
+                              title: 'Delivered',
                               onPressed: () {
                                 cubit.changeStatus(
                                     status: "delivered",

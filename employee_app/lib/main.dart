@@ -1,6 +1,5 @@
 import 'package:employee_app/DB/super_main.dart';
 
-import 'package:employee_app/screens/auth/login_scrren.dart';
 import 'package:employee_app/screens/first_screen.dart';
 
 import 'package:employee_app/services/setup.dart';
