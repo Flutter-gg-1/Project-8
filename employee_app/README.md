@@ -1,16 +1,15 @@
-# employee_app
+# .env
+## Env
 
-A new Flutter project.
+SUPABASE_URL = "https://bkqfdaxcjztgqzyzrtsw.supabase.co"
 
-## Getting Started
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrcWZkYXhjanp0Z3F6eXpydHN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc0NzExNTYsImV4cCI6MjA0MzA0NzE1Nn0.JT_59fC7rbKWpyIypNkeSBaame1gIdT31pts1E0RLf8"
 
-This project is a starting point for a Flutter application.
+onesignal_app_key = "98c8beff-b891-42d4-b937-ceb213913cec"
 
-A few resources to get you started if this is your first Flutter project:
+onesignal_api_key = "MmQyZDM3ZmItODMwYi00MDkyLTg2ZGMtMWE2MWVlNjIyNTA3"
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Employee apps account
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**email** : "a1@gmail.com"
+**password** : 123456
