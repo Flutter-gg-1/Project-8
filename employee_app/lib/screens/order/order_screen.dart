@@ -5,6 +5,7 @@ import 'package:employee_app/data_layer/product_layer.dart';
 import 'package:employee_app/helper/extinsion/size_config.dart';
 import 'package:employee_app/models/order_model.dart';
 import 'package:employee_app/models/user_model.dart';
+import 'package:employee_app/screens/auth/login_scrren.dart';
 import 'package:employee_app/screens/order/cubit/order_list_cubit.dart';
 import 'package:employee_app/screens/profile/profile_screen.dart';
 import 'package:employee_app/services/setup.dart';
@@ -117,7 +118,13 @@ class OrderScreen extends StatelessWidget {
                     CustomButton(
                       title: '     Logout',
                       titleColor: Colors.grey,
-                      onPressed: () {},
+                      onPressed: () {
+                         authLocator.get<AuthLayer>().logOut();
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
+                      },
                       fixedSize: Size(context.getWidth(multiply: 0.4),
                           context.getHeight(multiply: 0.06)),
                     ),

@@ -18,6 +18,50 @@ mixin AuthMix on Super {
     }
   }
 
+  empLogin({required String email, required String pass}) async{
+
+
+      try {
+     final auth = await supabase.auth.signInWithPassword(email: email ,password: pass);
+
+
+
+       log("in the user login");
+        final emp = await supabase
+            .from('employee')
+            .select()
+            .eq('auth_id', auth.user!.id);
+
+        log("$emp");
+
+        final user = UserModel(
+            customerId: emp[0]['employee_id'],
+            email: auth.user!.email!,
+            firstName: emp[0]['first_name'],
+            lastName: emp[0]['last_name']);
+
+        log("userModel from new user");
+
+        productLocator.get<AuthLayer>().saveAuth(userData: user);
+
+        log("${user.toJson()}");
+
+
+
+
+
+    } catch (er) {
+      log("error in createLogin");
+      log("$er");
+
+      throw "$er";
+    }
+
+    
+
+
+  }
+
   verifyOtp(
       {required String email,
       required String otp,
