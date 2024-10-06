@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/screens/admin_screens/employee_dashboard/employee_dashboard_screen.dart';
 import 'package:onze_cafe/screens/admin_screens/orders_dashboard/orders_dashboard_screen.dart';
+import 'package:onze_cafe/screens/admin_screens/reports_dashboard/reports_screen.dart';
 import 'package:onze_cafe/screens/landing/landing_screen.dart';
 import 'package:onze_cafe/screens/payment_confirm_screen.dart';
 import 'package:onze_cafe/services/di_container.dart';
@@ -44,7 +45,7 @@ class MainApp extends StatelessWidget {
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: themeMode,
-            home: EmployeeDashboardScreen(),
+            home: ReportsScreen(),
           );
         },
       ),

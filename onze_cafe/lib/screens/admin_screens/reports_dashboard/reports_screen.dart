@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_cafe/extensions/color_ext.dart';
 import 'package:onze_cafe/extensions/string_ex.dart';
 import 'package:onze_cafe/model/enums/days_filter.dart';
-import 'package:onze_cafe/model/enums/selling_times.dart';
 import 'package:onze_cafe/screens/admin_screens/reports_dashboard/reports_cubit.dart';
 import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/donut_chart_view.dart';
 import 'package:onze_cafe/screens/admin_screens/reports_dashboard/subviews/filter_menu_item.dart';
@@ -70,9 +69,7 @@ class ReportsScreen extends StatelessWidget {
                               size: 16),
                         ),
                         //need to display all hours
-                        LineChartView(
-                          sellingTimes: SellingTimes.values[0],
-                        )
+                        LineChartView()
                       ]))));
         }));
   }

@@ -47,7 +47,6 @@ class MenuCubit extends Cubit<MenuState> {
     return menuItems.firstWhere((menuItem) => menuItem.id == menuItemId);
   }
 
-  // Group items by their categoryId
   void _groupMenuItemsByCategory() {
     categorizedMenuItems.clear();
     for (var category in categories) {
