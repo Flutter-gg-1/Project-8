@@ -2,41 +2,41 @@
 
 
 ![alt text](customer_app/assets/readme/Project_result_img.png)
+
 ## Overview
 
 ### Purpose
-to streamline the ordering process for coffee and desserts, especially during peak times. It enables customers to place their orders through the app, eliminating long wait times. Once the order is prepared, the customer receives a notification that their order is ready for pickup. Additionally, the app includes an admin interface that allows authorized personnel to manage products, accept orders, and remove items as needed, ensuring efficient operations and a seamless customer experience
+The app aims to streamline the ordering process for coffee and desserts, especially during peak times. It allows customers to place their orders through the app, eliminating long wait times. Once the order is prepared, the customer receives a notification that their order is ready for pickup. Additionally, the app includes an admin interface that allows authorized personnel to manage products, accept orders, and remove items as needed, ensuring efficient operations and a seamless customer experience.
 
 ### Features
-- **Tow App: App Employee / App Customer**: 
-### Customer Features
+- **Two Apps: Employee App / Customer App**
 
-- **Orders**: Customers can browse the available menu, select their preferred coffee or desserts, and place their order directly in the Cart.
+#### Customer Features
+- **Orders**: Customers can browse the available menu, select their preferred coffee or desserts, and place their order directly in the cart.
 
-- **Multiple Orders**: Customers have the option to place multiple orders at once. This feature allows users to order different items.
+- **Multiple Orders**: Customers can place multiple orders at once, allowing them to order different items.
 
-- **Order Tracking**: Once an order is placed, customers can track its progress and receive notifications when it's ready for pickup.
+- **Order Tracking**: Customers can track the progress of their order and receive notifications when it's ready for pickup.
 
-- **Payment Options**: Multiple payment methods are available, including credit cards, mobile payments, and cash on the coffee.
+- **Payment Options**: Multiple payment methods are available, including credit cards, mobile payments, and cash on delivery.
 
 - **Order History**: Users can view their past orders.
 
-- **Search For Product**: Users can quickly find specific items using the search function.
+- **Search for Products**: Users can quickly find specific items using the search function.
 
 - **Elegant Design**: The design is clean and modern, balancing beauty and simplicity.
 
-- **Auth Function**: The app provides login & sign-up OTP From Database functions.
+- **Authentication**: The app provides login and sign-up functions with OTP from the database.
 
-- **Local Storage**: The app stores and updates the items locally.
+- **Local Storage**: The app stores and updates items locally.
 
+#### Employee (Admin) Features
+- **Product Management**: Admins can add new products or remove products from the menu as needed.
 
-### Employee (Admin) Features
+- **Order Management**: Admins can view, accept, manage, or cancel incoming orders, and notify customers when their order is ready.
 
-- **Product Management**: Admins can add new products, or remove products from the menu as needed.
+- **Notifications**: Admins can send custom notifications to customers once an order is finished.
 
-- **Order Management**: Admins can view, accept, and manage incoming orders or cancel it, as well as notify customers when their order is ready.
-
-- **Notifications**: Admins can send custom notifications to customers Once an order is Finished.
 
 
 ## Widgets & External Packages
@@ -115,7 +115,7 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 ## Output
 
-### Customer Screenshot 
+### Customer App Screenshots 
 
 
 - **First Screen**:
@@ -128,10 +128,11 @@ to streamline the ordering process for coffee and desserts, especially during pe
 ![alt text](customer_app/assets/readme/auth2.png)
 ![alt text](customer_app/assets/readme/auth3.png)
 
-- **Loading Screen**:
+- **Loading State**:
+
 ![alt text](customer_app/assets/readme/auth4.png)
 
-- **OTP Screen**:
+
 
 - **Customer Home Screen**:
 
@@ -182,7 +183,7 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 ![alt text](customer_app/assets/readme/profile.png)
 
-### Employee Screenshot 
+### Employee App Screenshots 
 
 - **Home Screen**:
 
@@ -211,6 +212,13 @@ to streamline the ordering process for coffee and desserts, especially during pe
 
 ## Team
 
+- [Basel](https://github.com/Basel-75)
+- [Anas Aljuhani](https://github.com/Anas-Aljuhani)
+- [Ammar](https://github.com/Ammarx9)
+
+## Contact
+
+For more information, feel free to contact me via basel_1422@outlook.com or visit our GitHub profiles:
 - [Basel](https://github.com/Basel-75)
 - [Anas Aljuhani](https://github.com/Anas-Aljuhani)
 - [Ammar](https://github.com/Ammarx9)
