@@ -1,7 +1,7 @@
 # . ݁₊ ⊹ 🥐🍰 ONZE Café App 🧺☕️  ⊹ . ݁˖ . ݁
 
 
-![alt text](customer_app\assets\readme\Project_result_img.png)
+![alt text](customer_app/assets/readme/Project_result_img.png)
 ## Overview
 
 ### Purpose
