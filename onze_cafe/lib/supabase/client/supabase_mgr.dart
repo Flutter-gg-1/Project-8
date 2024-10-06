@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:onze_cafe/supabase/supabase_profile.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,6 +23,15 @@ class SupabaseMgr {
       if (currentUser != null) {
         currentProfile =
             await SupabaseProfile.fetchProfile(currentUser?.id ?? '');
+      }
+      if (currentProfile != null) {
+        if (currentProfile!.role == 'employee') {
+          await OneSignal.User.addTagWithKey("role", "employee");
+        } else {
+          await OneSignal.User.addTagWithKey("role", "customer");
+          currentProfile!.externalId = await OneSignal.User.getExternalId();
+          await SupabaseProfile.updateProfile(profile: currentProfile!);
+        }
       }
     } catch (e) {
       if (kDebugMode) {

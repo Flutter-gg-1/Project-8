@@ -1,8 +1,10 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_cafe/managers/notifications_mgr.dart';
 import 'package:onze_cafe/model/order.dart';
 import 'package:onze_cafe/screens/admin_screens/orders_dashboard/orders_dashboard_cubit.dart';
 import 'package:onze_cafe/supabase/supabase_cart.dart';
+import 'package:onze_cafe/supabase/supabase_profile.dart';
 
 import '../../../model/enums/order_status.dart';
 import '../../../supabase/supabase_menu.dart';
@@ -42,8 +44,12 @@ extension NetworkFunctions on OrdersDashboardCubit {
     emitLoading();
     orderItem.status = status.name();
     try {
+      var profile = await SupabaseProfile.fetchProfile(orderItem.userId);
+
       final response =
           await SupabaseOrder.updateOrder(placedOrderItem: orderItem);
+      await NotificationsMgr.sendNotificationToUser(
+          profile?.externalId ?? '', status.name());
       emitUpdate();
       return response;
     } catch (e) {

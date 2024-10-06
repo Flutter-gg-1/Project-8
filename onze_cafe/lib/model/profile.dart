@@ -7,6 +7,7 @@ class Profile {
   String? avatarUrl;
   String? password;
   String? createdAt;
+  String? externalId;
 
   Profile({
     this.id,
@@ -17,6 +18,7 @@ class Profile {
     this.avatarUrl,
     this.password,
     this.createdAt,
+    this.externalId,
   });
 
   // Factory constructor to create a Profile from JSON
@@ -29,6 +31,7 @@ class Profile {
       role: json['role'] as String,
       avatarUrl: json['avatar_url'] as String?,
       createdAt: json['created_at'] as String?,
+      externalId: json['external_id'] as String?,
     );
   }
 
@@ -42,6 +45,7 @@ class Profile {
       'role': role,
       'avatar_url': avatarUrl,
       'created_at': createdAt,
+      'external_id': externalId,
     };
   }
 }

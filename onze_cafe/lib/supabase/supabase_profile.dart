@@ -59,6 +59,7 @@ class SupabaseProfile {
         'email': profile.email,
         'phone': profile.phone,
         'role': profile.role,
+        'external_id': profile.externalId,
         if (avatarUrl != null) 'avatar_url': avatarUrl,
       }).eq('id', SupabaseMgr.shared.currentUser!.id);
     } on AuthException catch (_) {

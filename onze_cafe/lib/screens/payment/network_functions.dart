@@ -7,6 +7,8 @@ import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 import 'package:onze_cafe/supabase/supabase_cart.dart';
 import 'package:onze_cafe/supabase/supabase_order.dart';
 
+import '../../managers/notifications_mgr.dart';
+
 extension NetworkFunctions on PaymentCubit {
   // Fetch Cart
 
@@ -39,6 +41,9 @@ extension NetworkFunctions on PaymentCubit {
       final response = await SupabaseOrder.insertOrder(placedOrderItem: order);
 
       if (context.mounted) await updateCartItems(context, response.id ?? '');
+
+      NotificationsMgr.sendNotification(
+          msg: 'New Order Placed', segment: NotificationSegment.employee);
 
       emitUpdate();
       return response;

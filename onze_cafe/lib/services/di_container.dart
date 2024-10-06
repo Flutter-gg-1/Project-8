@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:onze_cafe/screens/landing/landing_screen.dart';
+import 'package:onze_cafe/screens/admin_screens/orders_dashboard/orders_dashboard_screen.dart';
+import 'package:onze_cafe/screens/order/orders_screen.dart';
+import 'package:onze_cafe/supabase/client/supabase_mgr.dart';
 
 class DIContainer {
   static configureOneSignal() async {
@@ -16,14 +18,18 @@ class DIContainer {
     OneSignal.Notifications.addClickListener((event) async {
       event.preventDefault();
 
-      var data = event.notification.additionalData;
-      if (data != null) {
-        String? page = data['page'];
-        String? landing = data['landing'];
-        if (page != null || landing != null) {
+      await SupabaseMgr.shared.setCurrentUser();
+
+      if (SupabaseMgr.shared.currentProfile != null) {
+        if (SupabaseMgr.shared.currentProfile!.role == 'customer') {
           if (navKey.currentState != null) {
             navKey.currentState!
-                .push(MaterialPageRoute(builder: (context) => LandingScreen()));
+                .push(MaterialPageRoute(builder: (context) => OrdersScreen()));
+          }
+        } else if (SupabaseMgr.shared.currentProfile!.role == 'employee') {
+          if (navKey.currentState != null) {
+            navKey.currentState!.push(MaterialPageRoute(
+                builder: (context) => OrdersDashboardScreen()));
           }
         }
       }
