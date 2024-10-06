@@ -9,7 +9,7 @@ class CustomTextFormFelid extends StatelessWidget {
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
   final double? width;
-  final double horizontal;
+  final double? horizontal;
   final Widget? suffixIcon;
   final bool readOnly;
   const CustomTextFormFelid({
@@ -21,7 +21,7 @@ class CustomTextFormFelid extends StatelessWidget {
     this.keyboardType,
     this.prefixIcon,
     this.width,
-    required this.horizontal,
+     this.horizontal,
     this.suffixIcon,
     required this.readOnly,
   });
